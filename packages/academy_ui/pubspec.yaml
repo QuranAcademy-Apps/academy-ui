@@ -1,0 +1,24 @@
+name: academy_ui
+description: Reusable Cupertino components and keyboard-aware modal flows.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: ^3.13.2
+  flutter: '>=3.47.2'
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_ui: ^1.0.2
+  cupertino_icons: ^1.0.8
+  flutter_sficon: ^1.3.0
+  stupid_simple_sheet:
+    path: third_party/stupid_simple_sheet
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+flutter:
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf

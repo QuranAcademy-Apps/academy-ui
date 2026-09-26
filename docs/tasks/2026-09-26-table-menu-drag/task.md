@@ -1,0 +1,17 @@
+# Table, menu and drag composition
+
+Request: screenshot-style double-chevron row menus, whole-cell or accessory-only activation, separately configurable menu/content, separately reusable table sections/headers/footers and Quran-style drag handles.
+
+Sources inspected read-only: Quran grouped_table models, section_view, row_view, menu_indicator, accessory_button; settings/quran_content_draggable_section. No donor edits.
+
+Ownership: Academy UI owns presentation, trigger geometry, overlay lifecycle and transient drag feedback. Features own item identity, items, ordering, enabled/edit state, acceptance rules, deletion and persistence. onMove receives an index after removal from the source; the section converts insertion slots exactly once.
+
+Added AcademyMenu/MenuDisplay/MenuRow/MenuSeparator; extended MenuItem custom slots and selection placement. OptionMenu now delegates to MenuRow, uses the screenshot double-chevron design. Added independent table Header/Footer/Separator/Body/SectionView; enhanced section metadata and GroupedTable inline/scrolling layout, spacing, filtering and optional size animation; extended AcademyRow composition and interactions.
+
+Added typed handle-only DraggableTableSection: reorder/cross-section/empty/tail drop, full-row feedback anchored to the original row, source dimming, gating and edit/delete accessories. No domain or persistence dependencies. A new catalogue screen demonstrates all these variants.
+
+Validation: all 48 library tests passed; existing 20 catalogue tests passed; 2 new catalogue checks pass at 320px with 2x text in LTR/RTL. The 4 new library tests verify menu trigger isolation, selection/close, actual drag reorder and cross-section movement, custom headers/footers and empty-section filtering. Both analyzers passed. Web release built. Browser inspection confirmed the menu surface, check alignment and separate handles.
+
+Follow-up spacing review: accessory-only triggers now align to the directional trailing edge with the same 16px inset as the label. Menu entries without leading content explicitly use 16px instead of inheriting the package's reserved icon column; leading icons/checkmarks keep a 16px outer edge. Custom leading/trailing widgets receive the same default slot geometry. Removed the catalogue's extra 24px spacer before the final footer, leaving its own 8px top padding. Reviewed rows, disclosure, controls, fields and section spacing; all 50 library and 22 catalogue tests pass, including mixed menu edge geometry in both themes/directions and the new accessory edge checks. Browser inspection confirmed all three fixes.
+
+Quran visual parity correction: read AppTypography, QuranContentDownloadedGroupHeader, ContentTranslationInfo/ContentTafsirBadge, QuranContentDraggableSection and drag primitives. Replaced Inter and fixed 1.4 line height with the source system font roles and optical tracking. Table subtitle now uses 15pt and 2px top gap; section labels use 12pt. Downloaded examples use 20x12 row padding/min58, 20/10/12/10 bold section headers, 13pt semibold edit action, 12px between subsections, 8px tail drop area, 20px leading/0 trailing separators. Drag handle uses source 18px glyph/44px box/9px directional shift and 32px divider. AcademyTableBadge uses 12pt medium, 5x3 padding and radius8. All 50 library/22 catalogue tests pass. Web may resolve the system font family through a fallback; native Apple SF typography is the donor contract.

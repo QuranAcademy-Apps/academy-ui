@@ -1,0 +1,15 @@
+.DS_Store
+.serena/
+.dart_tool/
+build/
+**/.dart_tool/
+**/build/
+**/example/pubspec.lock
+**/third_party/**/pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+
+flutter_*.log
+**/flutter_*.log
