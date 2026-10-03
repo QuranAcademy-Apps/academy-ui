@@ -1,4 +1,6 @@
-import '../button/academy_pill_button.dart';
+import '../../foundation/interaction/academy_interaction.dart';
+import '../../foundation/motion/academy_press_effect.dart';
+import '../icon/academy_sf_image.dart';
 
 import 'package:flutter/cupertino.dart';
 
@@ -45,7 +47,8 @@ class AcademyTableHeader extends StatelessWidget {
     this.actionLabel,
     this.onAction,
     this.actionIcon,
-    this.uppercase = true,
+    this.uppercase = false,
+    this.prominent = false,
     this.style,
     this.padding,
   });
@@ -56,6 +59,7 @@ class AcademyTableHeader extends StatelessWidget {
     required VoidCallback? onPressed,
     IconData? icon,
     this.uppercase = false,
+    this.prominent = false,
     this.style,
     this.padding,
   }) : actionLabel = action,
@@ -68,6 +72,10 @@ class AcademyTableHeader extends StatelessWidget {
   final String title;
   final Widget? trailing;
   final bool uppercase;
+
+  /// Stronger inset-grouped heading, corresponding to UIKit's prominent header.
+  /// The default is the standard grouped heading (17pt semibold).
+  final bool prominent;
   final TextStyle? style;
   final EdgeInsetsGeometry? padding;
   @override
@@ -80,19 +88,52 @@ class AcademyTableHeader extends StatelessWidget {
         uppercase ? title.toUpperCase() : title,
         style:
             style ??
-            (actionLabel != null
-                    ? theme.textTheme.caption
-                    : theme.textTheme.sectionLabel)
-                .copyWith(color: theme.colorScheme.onSurfaceVariant),
+            (prominent
+                    ? theme.textTheme.sectionHeading
+                    : theme.textTheme.bodyStrong)
+                .copyWith(
+                  color: prominent
+                      ? theme.colorScheme.onSurface
+                      : theme.colorScheme.onSurfaceVariant,
+                ),
       ),
     );
-    Widget action() => AcademyPillButton(
-      label: actionLabel!,
-      icon: actionIcon,
-      onPressed: onAction,
-      tinted: false,
-      padding: EdgeInsets.zero,
-    );
+    Widget action() {
+      final color = onAction == null
+          ? theme.colorScheme.onSurfaceVariant
+          : theme.colorScheme.accentForeground;
+      return AcademyActionSemantics(
+        label: actionLabel!,
+        enabled: onAction != null,
+        child: AcademyPressEffect(
+          enabled: onAction != null,
+          child: CupertinoButton(
+            onPressed: onAction,
+            padding: EdgeInsets.zero,
+            minimumSize: const Size(AcademyTokens.target, AcademyTokens.target),
+            child: ExcludeSemantics(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (actionIcon != null) ...[
+                    AcademySfIcon(actionIcon!, size: 17, color: color),
+                    const SizedBox(width: AcademyTokens.labelGap),
+                  ],
+                  Flexible(
+                    child: Text(
+                      actionLabel!,
+                      textAlign: TextAlign.end,
+                      style: theme.textTheme.bodyRow.copyWith(color: color),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Padding(
       padding: padding ?? theme.paddings.tableHeader,
       child: LayoutBuilder(

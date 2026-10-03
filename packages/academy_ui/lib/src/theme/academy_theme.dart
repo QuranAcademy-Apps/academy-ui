@@ -19,6 +19,7 @@ abstract final class AcademyTokens {
   static const inlineGap = 12.0;
   static const labelGap = 6.0;
   static const tableInset = 16.0;
+  static const tableRowHeight = 52.0;
   static const gutter = 20.0;
   static const radius = AcademyRadii.defaultSurface;
   static const controlRadius = AcademyRadii.defaultButton;

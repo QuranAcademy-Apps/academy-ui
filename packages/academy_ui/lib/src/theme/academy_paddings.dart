@@ -58,7 +58,7 @@ class AcademyPaddings {
     this.tableBadge = const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
     this.tableHeader = const EdgeInsets.fromLTRB(16, 0, 16, 8),
     this.tableFooter = const EdgeInsets.fromLTRB(12, 8, 12, 0),
-    this.tableBody = const EdgeInsets.symmetric(vertical: 4),
+    this.tableBody = EdgeInsets.zero,
     this.tableRow = const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     this.rowSubtitle = const EdgeInsets.only(top: 2),
     this.divider = const EdgeInsets.symmetric(vertical: 8),

@@ -388,8 +388,8 @@ void main() {
       ),
     );
     for (final (text, size, weight, height) in [
-      ('Секция', 12.0, FontWeight.w400, 16 / 12),
-      ('Изменить', 15.0, FontWeight.w600, 20 / 15),
+      ('Секция', 17.0, FontWeight.w600, 22 / 17),
+      ('Изменить', 17.0, FontWeight.w400, 22 / 17),
       ('Крупное действие', 16.0, FontWeight.w600, 21 / 16),
       ('Подпись кнопки', 13.0, FontWeight.w400, 18 / 13),
       ('Таблетка', 15.0, FontWeight.w600, 20 / 15),
@@ -409,10 +409,44 @@ void main() {
     expect(tester.widget<Text>(find.text('Добавить')).style!.fontSize, 17);
     expect(
       tester.widget<Text>(find.text('Добавить')).style!.fontWeight,
-      FontWeight.w600,
+      FontWeight.w400,
     );
-    // Existing compact headers keep their original role.
+    // The legacy caption role remains available for client overrides.
     expect(academyTheme(Brightness.light).textTheme.sectionLabel.fontSize, 12);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('grouped table has native heading hierarchy and row density', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      host(
+        Column(
+          children: [
+            const AcademyTableHeader(title: 'Обычная секция'),
+            const AcademyTableHeader(title: 'Заметная секция', prominent: true),
+            AcademyTableBody(
+              rows: const [
+                AcademyValueRow(label: 'Имя', value: 'Амина'),
+                AcademyValueRow(label: 'Город', value: 'Москва'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+    final regular = tester.widget<Text>(find.text('Обычная секция')).style!;
+    final prominent = tester.widget<Text>(find.text('Заметная секция')).style!;
+    expect(regular.fontSize, 17);
+    expect(regular.fontWeight, FontWeight.w600);
+    expect(prominent.fontSize, 20);
+    expect(prominent.fontWeight, FontWeight.w700);
+    final rows = find.byType(AcademyValueRow);
+    expect(tester.getSize(rows.at(0)).height, 52);
+    expect(tester.getSize(rows.at(1)).height, 52);
+    final body = tester.getRect(find.byType(AcademyTableBody));
+    expect(tester.getRect(rows.first).top, body.top);
+    expect(tester.getRect(rows.last).bottom, body.bottom);
     expect(tester.takeException(), isNull);
   });
 

@@ -378,7 +378,7 @@ AcademyMenuRow(
 );
 ```
 
-Table parts are individually usable: `AcademyTableHeader` (uppercase/style/custom trailing action), `AcademyTableFooter`, `AcademyTableSeparator`, `AcademyTableBody` and `AcademyTableSectionView`. `AcademyTableSection` accepts custom header/footer widgets, header action, text styles, radius and separator builder. `AcademyGroupedTable` can be inline or scrolling, accepts padding/section spacing/controller/physics, hides empty sections by default and optionally animates section resizing. Existing default inline embedding remains supported.
+Table parts are individually usable: `AcademyTableHeader` (case-preserving grouped heading, optional `prominent`, style/custom trailing action), `AcademyTableFooter`, `AcademyTableSeparator`, `AcademyTableBody` and `AcademyTableSectionView`. `AcademyTableSection` accepts custom header/footer widgets, header action, text styles, radius and separator builder. `AcademyGroupedTable` can be inline or scrolling, accepts padding/section spacing/controller/physics, hides empty sections by default and optionally animates section resizing. Existing default inline embedding remains supported.
 
 `AcademyRow` supports leading icon or custom leading widget, custom title/subtitle, title badge, arbitrary accessory, disabled state, tap/long press and adjustable minimum height/padding.
 
@@ -664,19 +664,33 @@ grey, indigo, purple, brown. `colorOf(context)` выбирает светлое/
 [2× и RTL](../../docs/previews/profile-components-large-rtl.png).
 
 
-Типографика компонентов профиля сверена с размерами, насыщенностью и высотой
-строки в исходном макете. Все значения — именованные роли AcademyTypography:
+Типографика и композиция таблиц сверены с Apple HIG и стандартным UIKit
+`UITableView(style: .insetGrouped)` на iOS 26.5. Все метрики доступны через тему:
 
 | Роль | Размер / насыщенность / строка |
 | --- | --- |
-| `caption` | 13 / regular / 18: заголовок секции с действием, подписи кнопок, статистики и даты этапов |
-| `labelMedium` | 15 / semibold / 20: действие заголовка, таблетки и значения статистики |
-| `actionTitle` | 16 / semibold / 22: заголовок крупной кнопки |
-| `bodyRow` | 17 / regular / 22: подпись и значение строки |
-| `bodyStrong` | 17 / semibold / 22: название этапа |
+| `bodyStrong` | 17 / semibold / 22: обычный заголовок таблицы и название этапа |
+| `sectionHeading` | 20 / bold / 25: заголовок таблицы при `prominent: true` |
+| `bodyRow` | 17 / regular / 22: подпись, значение строки, «Изменить» и «Добавить» |
 | `bodyDetail` | 15 / regular / 20: описание этапа |
+| `labelMedium` | 15 / semibold / 20: таблетки и значения статистики |
+| `actionTitle` | 16 / semibold / 21: заголовок крупной кнопки |
+| `footnote` | 13 / regular / 18: пояснения кнопок и даты этапов |
+| `caption` | 12 / regular / 16: подписи статистики |
 
-Прежние роли и их метрики сохранены. Клиент может переопределять новые через
-`AcademyTypographySettings.withStyle`. Семейство в приложении остаётся системным
-CupertinoSystemText/Display; в headless-снимках используется Inter, поэтому
-снимки проверяют роли и композицию, а не точное нативное начертание SF Pro.
+Обычный заголовок сохраняет регистр и использует вторичный цвет текста;
+`prominent: true` — основной цвет. Действие заголовка — текстовая кнопка
+с зоной нажатия 44, без оформления таблетки. Строки имеют минимальную высоту
+52 (`AcademyTokens.tableRowHeight`), у тела таблицы нет дополнительного
+вертикального padding; радиус таблицы по умолчанию 24. Это визуальные настройки
+современного inset-grouped оформления, а не обязательные числа из HIG.
+Настройки поверхностей и disclosure-карточек сохраняют прежний радиус 14.
+Переопределения `uppercase`, `style`, `padding`, `cornerRadius`, `minHeight`
+и тема остаются доступными. При крупном тексте значения и действия переносятся
+под подпись и сохраняют направленное выравнивание.
+
+Клиент может переопределять роли через `AcademyTypographySettings.withStyle`.
+Семейство в приложении системное CupertinoSystemText/Display; в capture на macOS
+загружается локальный SF Pro, на других ОС используется Inter. Headless-снимки
+не проверяют нативную растеризацию на iPhone.
+[Эталон UIKit на iOS 26.5](../../docs/previews/apple-grouped-table-ios26.png).

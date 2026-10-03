@@ -28,7 +28,7 @@ class AcademyRow extends StatelessWidget {
     this.titleTrailing,
     this.onLongPress,
     this.enabled = true,
-    this.minHeight = 48,
+    this.minHeight = AcademyTokens.tableRowHeight,
     this.horizontalPadding,
     this.verticalPadding,
   });
@@ -53,7 +53,7 @@ class AcademyRow extends StatelessWidget {
        subtitleWidget = null,
        titleTrailing = null,
        onLongPress = null,
-       minHeight = 48,
+       minHeight = AcademyTokens.tableRowHeight,
        horizontalPadding = null,
        verticalPadding = null;
 
@@ -157,7 +157,7 @@ class AcademyRow extends StatelessWidget {
                               final actionText = Text(
                                 actionLabel!,
                                 textAlign: TextAlign.end,
-                                style: theme.textTheme.labelLarge.copyWith(
+                                style: theme.textTheme.bodyRow.copyWith(
                                   color: theme.colorScheme.accentForeground,
                                 ),
                               );

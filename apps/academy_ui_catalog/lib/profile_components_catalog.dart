@@ -86,6 +86,7 @@ class ProfileComponentExamples extends StatelessWidget {
               title: 'Удалить данные',
               icon: AcademySymbols.trash,
               tone: AcademyTone.error,
+              showChevron: false,
               onPressed: action,
             ),
           ],

@@ -13,6 +13,7 @@ enum AcademyTextRole {
   bodyMedium,
   bodySmall,
   sectionLabel,
+  sectionHeading,
   labelLarge,
   titleSmall,
   titleMedium,
@@ -108,6 +109,7 @@ class AcademyTypography {
       AcademyTextRole.bodyMedium => (15.0, FontWeight.w400),
       AcademyTextRole.bodySmall => (13.0, FontWeight.w400),
       AcademyTextRole.sectionLabel => (12.0, FontWeight.w400),
+      AcademyTextRole.sectionHeading => (20.0, FontWeight.w700),
       AcademyTextRole.labelLarge => (17.0, FontWeight.w600),
       AcademyTextRole.titleSmall => (17.0, FontWeight.w600),
       AcademyTextRole.titleMedium => (17.0, FontWeight.w600),
@@ -147,6 +149,7 @@ class AcademyTypography {
         AcademyTextRole.caption => 16 / 12,
         AcademyTextRole.footnote => 18 / 13,
         AcademyTextRole.actionTitle => 21 / 16,
+        AcademyTextRole.sectionHeading => 25 / 20,
         _ => null,
       },
       color: color,
@@ -164,6 +167,7 @@ class AcademyTypography {
   TextStyle get bodyMedium => style(AcademyTextRole.bodyMedium);
   TextStyle get bodySmall => style(AcademyTextRole.bodySmall);
   TextStyle get sectionLabel => style(AcademyTextRole.sectionLabel);
+  TextStyle get sectionHeading => style(AcademyTextRole.sectionHeading);
   TextStyle get labelLarge => style(AcademyTextRole.labelLarge);
   TextStyle get titleSmall => style(AcademyTextRole.titleSmall);
   TextStyle get titleMedium => style(AcademyTextRole.titleMedium);

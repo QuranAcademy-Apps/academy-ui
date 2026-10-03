@@ -34,13 +34,13 @@ class AcademyRadii {
   static const defaultButton = 14.0;
   static const defaultField = 12.0;
   static const defaultSearch = defaultField;
-  static const defaultSurface = defaultTable;
-  static const defaultTable = 14.0;
+  static const defaultSurface = 14.0;
+  static const defaultTable = 24.0;
   static const defaultTableBadge = 8.0;
   static const defaultRowIcon = 7.0;
   static const defaultStatus = 6.0;
   static const defaultImage = 20.0;
-  static const defaultDisclosure = defaultTable;
+  static const defaultDisclosure = defaultSurface;
   static const defaultStepper = 8.0;
   static const defaultMenuButton = 30.0;
   static const defaultSettingsButton = 34.0;
