@@ -14,6 +14,7 @@ class AcademyPillButton extends StatelessWidget {
     this.icon,
     this.onPressed,
     this.tinted = true,
+    this.padding,
   });
   final String label;
   final IconData? icon;
@@ -21,6 +22,9 @@ class AcademyPillButton extends StatelessWidget {
 
   /// false is the quiet text action used by section headers.
   final bool tinted;
+
+  /// Insets of the visible content; the outer 44pt target is preserved.
+  final EdgeInsetsGeometry? padding;
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
@@ -46,10 +50,12 @@ class AcademyPillButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(theme.radii.menuButton),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: theme.paddings.menuButton.left,
-                    vertical: AcademyTokens.space / 2,
-                  ),
+                  padding:
+                      padding ??
+                      EdgeInsets.symmetric(
+                        horizontal: theme.paddings.menuButton.left,
+                        vertical: AcademyTokens.space / 2,
+                      ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

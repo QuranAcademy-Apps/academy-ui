@@ -284,6 +284,51 @@ void main() {
     }
   }
 
+  for (final scale in [1.0, 2.0]) {
+    for (final direction in TextDirection.values) {
+      testWidgets('header action aligns with row edge $scale $direction', (
+        tester,
+      ) async {
+        tester.view.physicalSize = const Size(320, 844);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(
+          host(
+            Column(
+              children: [
+                AcademyTableHeader.action(
+                  title: 'Мои данные',
+                  action: 'Изменить',
+                  onPressed: () {},
+                ),
+                const AcademyTableBody(
+                  rows: [AcademyValueRow(label: 'Имя', value: 'Амина')],
+                ),
+              ],
+            ),
+            scale: scale,
+            direction: direction,
+          ),
+        );
+        final action = tester.getRect(find.text('Изменить'));
+        final heading = tester.getRect(find.text('Мои данные'));
+        final rowValue = tester.getRect(find.text('Амина'));
+        if (direction == TextDirection.ltr) {
+          expect(action.right, closeTo(rowValue.right, .01));
+        } else {
+          expect(action.left, closeTo(rowValue.left, .01));
+        }
+        expect(action.center.dy, closeTo(heading.center.dy, 1));
+        final target = find.descendant(
+          of: find.byType(AcademyTableHeader),
+          matching: find.byType(CupertinoButton),
+        );
+        expect(tester.getSize(target).height, greaterThanOrEqualTo(44));
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
+
   testWidgets('pill fill 36 with 44 target and tappable outer margin', (
     tester,
   ) async {

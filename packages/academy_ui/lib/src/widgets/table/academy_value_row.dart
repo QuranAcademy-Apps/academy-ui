@@ -37,7 +37,7 @@ class AcademyValueRow extends StatelessWidget {
         subtitle: subtitle,
         onPressed: callback,
         enabled: enabled,
-        trailing: const SizedBox.shrink(),
+        showChevron: false,
         titleWidget: LayoutBuilder(
           builder: (context, constraints) {
             final labelText = Text(label, style: theme.textTheme.bodyLarge);

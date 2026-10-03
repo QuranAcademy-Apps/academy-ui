@@ -20,6 +20,7 @@ class AcademyRow extends StatelessWidget {
     this.tone,
     this.actionLabel,
     this.trailing,
+    this.showChevron = true,
     this.onPressed,
     this.leading,
     this.titleWidget,
@@ -46,6 +47,7 @@ class AcademyRow extends StatelessWidget {
   }) : actionLabel = action,
        iconBackgroundColor = null,
        trailing = null,
+       showChevron = false,
        leading = null,
        titleWidget = null,
        subtitleWidget = null,
@@ -69,6 +71,9 @@ class AcademyRow extends StatelessWidget {
   final double? verticalPadding;
   final double? horizontalPadding;
   final Widget? trailing;
+
+  /// Navigation accessory; does not reserve space when hidden.
+  final bool showChevron;
   final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -199,7 +204,7 @@ class AcademyRow extends StatelessWidget {
           if (trailing != null) ...[
             const SizedBox(width: AcademyTokens.inlineGap),
             trailing!,
-          ] else if (onPressed != null && actionLabel == null)
+          ] else if (onPressed != null && actionLabel == null && showChevron)
             AcademySfIcon(AcademySymbols.forward, size: 16, color: toneColor),
         ],
       ),

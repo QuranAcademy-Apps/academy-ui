@@ -90,33 +90,23 @@ class AcademyTableHeader extends StatelessWidget {
       icon: actionIcon,
       onPressed: onAction,
       tinted: false,
+      padding: EdgeInsets.zero,
     );
     return Padding(
       padding: padding ?? theme.paddings.tableHeader,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          if (actionLabel != null &&
-              (MediaQuery.textScalerOf(context).scale(1) >=
-                      AcademyTokens.adaptiveTextScale ||
-                  constraints.maxWidth <
-                      AcademyTokens.metadataHorizontalWidth)) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                heading,
-                Align(
-                  alignment: AlignmentDirectional.centerEnd,
-                  child: action(),
-                ),
-              ],
-            );
-          }
           return Row(
             children: [
               Expanded(child: heading),
               if (actionLabel != null) ...[
                 const SizedBox(width: AcademyTokens.inlineGap),
-                Flexible(child: action()),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: constraints.maxWidth * .6,
+                  ),
+                  child: action(),
+                ),
               ],
               if (trailing != null) ...[
                 const SizedBox(width: AcademyTokens.inlineGap),
