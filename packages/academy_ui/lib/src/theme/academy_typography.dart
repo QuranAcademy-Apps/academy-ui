@@ -1,0 +1,145 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
+enum AcademyTextRole {
+  bodyLarge,
+  bodyMedium,
+  bodySmall,
+  sectionLabel,
+  labelLarge,
+  titleSmall,
+  titleMedium,
+  titleLarge,
+  headlineMedium,
+  displaySmall,
+  tableBadge,
+  status,
+  feedbackTitle,
+  segmentLabel,
+  toast,
+  tabLabel,
+  compactTabLabel,
+}
+
+/// Font families and role-specific styles shared by every component.
+/// Client fonts must be declared in the host application's pubspec.
+@immutable
+class AcademyTypographySettings {
+  const AcademyTypographySettings({
+    this.fontFamily = 'CupertinoSystemText',
+    this.displayFontFamily = 'CupertinoSystemDisplay',
+    this.fontPackage,
+    this.styles = const {},
+  });
+  final String fontFamily, displayFontFamily;
+  final String? fontPackage;
+
+  /// Treat this map as immutable. Use [withStyle] to update a role.
+  final Map<AcademyTextRole, TextStyle> styles;
+  AcademyTypographySettings copyWith({
+    String? fontFamily,
+    String? displayFontFamily,
+    String? fontPackage,
+    bool clearFontPackage = false,
+    Map<AcademyTextRole, TextStyle>? styles,
+  }) => AcademyTypographySettings(
+    fontFamily: fontFamily ?? this.fontFamily,
+    displayFontFamily: displayFontFamily ?? this.displayFontFamily,
+    fontPackage: clearFontPackage ? null : fontPackage ?? this.fontPackage,
+    styles: Map.unmodifiable(styles ?? this.styles),
+  );
+  AcademyTypographySettings withStyle(AcademyTextRole role, TextStyle style) =>
+      copyWith(styles: {...styles, role: style});
+}
+
+class AcademyTypography {
+  const AcademyTypography(
+    this.color, {
+    this.settings = const AcademyTypographySettings(),
+  });
+  final Color color;
+  final AcademyTypographySettings settings;
+  static double trackingForSize(double size) {
+    if (defaultTargetPlatform != TargetPlatform.iOS &&
+            defaultTargetPlatform != TargetPlatform.macOS ||
+        size >= 20) {
+      return 0;
+    }
+    const anchors = <List<double>>[
+      [10, .12],
+      [13, -.08],
+      [15, -.24],
+      [17, -.43],
+    ];
+    if (size <= 10) return .12;
+    if (size >= 17) return -.43;
+    for (var i = 0; i < anchors.length - 1; i++) {
+      final lo = anchors[i], hi = anchors[i + 1];
+      if (size >= lo[0] && size <= hi[0]) {
+        return lo[1] + (hi[1] - lo[1]) * (size - lo[0]) / (hi[0] - lo[0]);
+      }
+    }
+    return 0;
+  }
+
+  TextStyle style(AcademyTextRole role) {
+    final (size, weight) = switch (role) {
+      AcademyTextRole.bodyLarge => (17.0, FontWeight.w400),
+      AcademyTextRole.bodyMedium => (15.0, FontWeight.w400),
+      AcademyTextRole.bodySmall => (13.0, FontWeight.w400),
+      AcademyTextRole.sectionLabel => (12.0, FontWeight.w400),
+      AcademyTextRole.labelLarge => (17.0, FontWeight.w600),
+      AcademyTextRole.titleSmall => (17.0, FontWeight.w600),
+      AcademyTextRole.titleMedium => (17.0, FontWeight.w600),
+      AcademyTextRole.titleLarge => (22.0, FontWeight.w600),
+      AcademyTextRole.headlineMedium => (28.0, FontWeight.w700),
+      AcademyTextRole.displaySmall => (32.0, FontWeight.w700),
+      AcademyTextRole.tableBadge => (12.0, FontWeight.w500),
+      AcademyTextRole.status => (13.0, FontWeight.w600),
+      AcademyTextRole.feedbackTitle => (20.0, FontWeight.w700),
+      AcademyTextRole.segmentLabel => (13.0, FontWeight.w600),
+      AcademyTextRole.toast => (15.0, FontWeight.w600),
+      AcademyTextRole.tabLabel => (11.0, FontWeight.w400),
+      AcademyTextRole.compactTabLabel => (10.0, FontWeight.w600),
+    };
+    final custom = settings.styles[role];
+    final resolvedSize = custom?.fontSize ?? size;
+    final system =
+        settings.fontFamily == 'CupertinoSystemText' &&
+        settings.displayFontFamily == 'CupertinoSystemDisplay';
+    return TextStyle(
+      inherit: false,
+      fontFamily: resolvedSize >= 20
+          ? settings.displayFontFamily
+          : settings.fontFamily,
+      package: settings.fontPackage,
+      fontSize: size,
+      fontWeight: weight,
+      letterSpacing: system
+          ? (role == AcademyTextRole.headlineMedium ||
+                    role == AcademyTextRole.displaySmall
+                ? -.6
+                : trackingForSize(resolvedSize))
+          : 0,
+      color: color,
+    ).merge(custom);
+  }
+
+  TextStyle get bodyLarge => style(AcademyTextRole.bodyLarge);
+  TextStyle get bodyMedium => style(AcademyTextRole.bodyMedium);
+  TextStyle get bodySmall => style(AcademyTextRole.bodySmall);
+  TextStyle get sectionLabel => style(AcademyTextRole.sectionLabel);
+  TextStyle get labelLarge => style(AcademyTextRole.labelLarge);
+  TextStyle get titleSmall => style(AcademyTextRole.titleSmall);
+  TextStyle get titleMedium => style(AcademyTextRole.titleMedium);
+  TextStyle get titleLarge => style(AcademyTextRole.titleLarge);
+  TextStyle get headlineMedium => style(AcademyTextRole.headlineMedium);
+  TextStyle get displaySmall => style(AcademyTextRole.displaySmall);
+  TextStyle get tableBadge => style(AcademyTextRole.tableBadge);
+  TextStyle get status => style(AcademyTextRole.status);
+  TextStyle get feedbackTitle => style(AcademyTextRole.feedbackTitle);
+  TextStyle get segmentLabel => style(AcademyTextRole.segmentLabel);
+  TextStyle get toast => style(AcademyTextRole.toast);
+  TextStyle get tabLabel => style(AcademyTextRole.tabLabel);
+  TextStyle get compactTabLabel => style(AcademyTextRole.compactTabLabel);
+}

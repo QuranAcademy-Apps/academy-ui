@@ -1,0 +1,711 @@
+import '../../../foundation/localizations/academy_localizations.dart';
+import '../../menu/academy_menu_anchor.dart';
+import '../../../foundation/interaction/academy_interaction.dart';
+import '../../menu/academy_menu_item.dart';
+
+import 'dart:ui' show ImageFilter;
+
+import 'package:flutter/cupertino.dart';
+
+import '../../icon/academy_sf_image.dart';
+import '../../../theme/academy_theme.dart';
+import '../../../foundation/layout/academy_page_insets.dart';
+import '../../../foundation/motion/press_scale.dart';
+import 'academy_chrome_metrics.dart';
+
+enum AcademyChromeStyle {
+  gradient,
+  flat,
+  blur,
+  tinted,
+  outlined,
+  none;
+
+  static const panelStyles = [flat, gradient, blur];
+
+  /// Legacy Russian label. Prefer [labelFor] for localized UI.
+  String get label =>
+      const AcademyLocalizations(Locale('ru')).chromeStyle(name);
+  String labelFor(BuildContext context) =>
+      AcademyLocalizations.of(context).chromeStyle(name);
+}
+
+enum AcademyInterfaceTransparency {
+  normal,
+  softBlur;
+
+  String get label =>
+      const AcademyLocalizations(Locale('ru')).transparency(name);
+  String labelFor(BuildContext context) =>
+      AcademyLocalizations.of(context).transparency(name);
+
+  AcademyChromeStyle get chromeStyle => switch (this) {
+    normal => AcademyChromeStyle.flat,
+    softBlur => AcademyChromeStyle.blur,
+  };
+
+  double get blurSigma => switch (this) {
+    normal => 20,
+    softBlur => 20,
+  };
+}
+
+/// Inherited appearance shared by every chrome surface, including route overlays.
+enum AcademyTabBarDensity {
+  standard,
+  compact,
+  telegram;
+
+  String get label => const AcademyLocalizations(Locale('ru')).tabDensity(name);
+  String labelFor(BuildContext context) =>
+      AcademyLocalizations.of(context).tabDensity(name);
+}
+
+class AcademyChromeTheme extends InheritedTheme {
+  const AcademyChromeTheme({
+    super.key,
+    required this.style,
+    required super.child,
+    this.blurSigma = 20,
+    double? blurToneStrength,
+    double? blurTintOpacity,
+    this.tabBarDensity = AcademyTabBarDensity.standard,
+  }) : blurToneStrength =
+           blurToneStrength ??
+           blurTintOpacity ??
+           AcademyTokens.chromeBlurToneStrength,
+       assert(
+         blurToneStrength == null ||
+             blurToneStrength >= 0 && blurToneStrength <= 1,
+       ),
+       assert(
+         blurTintOpacity == null ||
+             blurTintOpacity >= 0 && blurTintOpacity <= 1,
+       );
+  final AcademyChromeStyle style;
+  final double blurSigma;
+  final double blurToneStrength;
+
+  /// Compatibility alias for backdrop tone correction; no overlay is painted.
+  double get blurTintOpacity => blurToneStrength;
+  final AcademyTabBarDensity tabBarDensity;
+  static AcademyChromeTheme? maybeOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<AcademyChromeTheme>();
+  @override
+  bool updateShouldNotify(AcademyChromeTheme oldWidget) =>
+      style != oldWidget.style ||
+      blurSigma != oldWidget.blurSigma ||
+      blurToneStrength != oldWidget.blurToneStrength ||
+      tabBarDensity != oldWidget.tabBarDensity;
+  @override
+  Widget wrap(BuildContext context, Widget child) => AcademyChromeTheme(
+    style: style,
+    blurSigma: blurSigma,
+    blurToneStrength: blurToneStrength,
+    tabBarDensity: tabBarDensity,
+    child: child,
+  );
+}
+
+/// Shared opaque chrome and classic clipped iOS blur, without refraction.
+class AcademyChrome extends StatelessWidget {
+  const AcademyChrome({
+    super.key,
+    required this.child,
+    this.radius,
+    this.surfaceOpacity = 1,
+    this.style,
+    this.blurSigma,
+    double? blurToneStrength,
+    double? blurTintOpacity,
+  }) : blurToneStrength = blurToneStrength ?? blurTintOpacity,
+       assert(surfaceOpacity >= 0 && surfaceOpacity <= 1),
+       assert(
+         blurToneStrength == null ||
+             blurToneStrength >= 0 && blurToneStrength <= 1,
+       ),
+       assert(
+         blurTintOpacity == null ||
+             blurTintOpacity >= 0 && blurTintOpacity <= 1,
+       );
+  final Widget child;
+  final double? radius;
+  final double surfaceOpacity;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+  final double? blurToneStrength;
+
+  /// Compatibility alias for backdrop tone correction.
+  double? get blurTintOpacity => blurToneStrength;
+
+  static double _toneStrengthOf(
+    BuildContext context, {
+    double surfaceOpacity = 1,
+    double? blurToneStrength,
+  }) =>
+      (blurToneStrength ??
+          AcademyChromeTheme.maybeOf(context)?.blurToneStrength ??
+          AcademyTokens.chromeBlurToneStrength) *
+      surfaceOpacity;
+
+  static double _saturation(double strength) =>
+      1 +
+      (AcademyTokens.chromeBlurSaturation - 1) *
+          strength /
+          AcademyTokens.chromeBlurToneStrength;
+
+  /// Color of a uniform backdrop after the material's color correction.
+  /// This describes the filtered image; it is never a painted surface color.
+  static Color blurBackgroundOf(
+    BuildContext context,
+    Color backdrop, {
+    double surfaceOpacity = 1,
+    double? blurToneStrength,
+  }) {
+    final theme = AcademyTheme.of(context);
+    if (MediaQuery.highContrastOf(context)) {
+      return theme.colorScheme.chromeSurface.withValues(alpha: 1);
+    }
+    final strength = _toneStrengthOf(
+      context,
+      surfaceOpacity: surfaceOpacity,
+      blurToneStrength: blurToneStrength,
+    );
+    final saturation = _saturation(strength);
+    final luminance =
+        backdrop.r * .2126 + backdrop.g * .7152 + backdrop.b * .0722;
+    final gain = 1 - strength;
+    final offset = theme.brightness == Brightness.light ? strength : 0.0;
+    double channel(double value) =>
+        (luminance + (value - luminance) * saturation).clamp(0.0, 1.0) * gain +
+        offset;
+    return Color.from(
+      alpha: backdrop.a,
+      red: channel(backdrop.r),
+      green: channel(backdrop.g),
+      blue: channel(backdrop.b),
+    );
+  }
+
+  /// Compatibility helper. Normal blur has no overlay; high contrast uses fill.
+  static Color blurTintOf(
+    BuildContext context, {
+    double surfaceOpacity = 1,
+    double? blurTintOpacity,
+  }) =>
+      AcademyTheme.of(context).colorScheme.chromeSurface
+          .withValues(alpha: MediaQuery.highContrastOf(context) ? 1 : 0);
+
+  static ImageFilter _backdropFilter(
+    BuildContext context,
+    double sigma, {
+    double surfaceOpacity = 1,
+    double? blurToneStrength,
+  }) {
+    final strength = _toneStrengthOf(
+      context,
+      surfaceOpacity: surfaceOpacity,
+      blurToneStrength: blurToneStrength,
+    );
+    final gain = 1 - strength;
+    final offset = AcademyTheme.of(context).brightness == Brightness.light
+        ? strength * 255
+        : 0.0;
+    return ImageFilter.compose(
+      outer: ColorFilter.matrix([
+        gain,
+        0,
+        0,
+        0,
+        offset,
+        0,
+        gain,
+        0,
+        0,
+        offset,
+        0,
+        0,
+        gain,
+        0,
+        offset,
+        0,
+        0,
+        0,
+        1,
+        0,
+      ]),
+      inner: ImageFilter.compose(
+        outer: ColorFilter.saturation(_saturation(strength)),
+        inner: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+      ),
+    );
+  }
+
+  /// Protect labels/icons over the worst light/dark background allowed by the
+  /// material. This is a contrast adjustment, not native Apple vibrancy.
+  static Color foregroundColor(
+    BuildContext context,
+    Color preferred, {
+    AcademyChromeStyle? style,
+    double surfaceOpacity = 1,
+    double minimumContrast = 4.5,
+  }) {
+    final resolved =
+        style ??
+        AcademyChromeTheme.maybeOf(context)?.style ??
+        AcademyChromeStyle.gradient;
+    if (resolved != AcademyChromeStyle.blur) return preferred;
+    final theme = AcademyTheme.of(context);
+    final background = blurBackgroundOf(
+      context,
+      theme.brightness == Brightness.light
+          ? CupertinoColors.black
+          : CupertinoColors.white,
+      surfaceOpacity: surfaceOpacity,
+    );
+    return AcademyContrast.foreground(
+      preferred,
+      background,
+      minimum: minimumContrast,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final appearance = AcademyChromeTheme.maybeOf(context);
+    final style =
+        this.style ?? appearance?.style ?? AcademyChromeStyle.gradient;
+    final blurSigma = this.blurSigma ?? appearance?.blurSigma ?? 20;
+    if (style == AcademyChromeStyle.none) return child;
+    final p = AcademyTheme.of(context).colorScheme;
+    final highContrast = MediaQuery.highContrastOf(context);
+    final surface = DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          radius ?? AcademyTheme.of(context).radii.chrome,
+        ),
+        color: style == AcademyChromeStyle.gradient
+            ? null
+            : style == AcademyChromeStyle.blur
+            ? (highContrast ? p.chromeSurface.withValues(alpha: 1) : null)
+            : (style == AcademyChromeStyle.tinted
+                      ? p.chromeTintedSurface
+                      : p.chromeSurface)
+                  .withValues(alpha: surfaceOpacity),
+        gradient: style == AcademyChromeStyle.gradient
+            ? LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  p.chromeGradientStart.withValues(alpha: surfaceOpacity),
+                  p.chromeGradientEnd.withValues(alpha: surfaceOpacity),
+                ],
+              )
+            : null,
+        border: Border.all(
+          color: style == AcademyChromeStyle.outlined
+              ? p.primary
+              : p.chromeBorder,
+          width: style == AcademyChromeStyle.outlined ? 1.2 : .7,
+        ),
+      ),
+      child: child,
+    );
+    if (style != AcademyChromeStyle.blur || highContrast) return surface;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(
+        radius ?? AcademyTheme.of(context).radii.chrome,
+      ),
+      child: BackdropFilter(
+        filter: _backdropFilter(
+          context,
+          blurSigma,
+          surfaceOpacity: surfaceOpacity,
+          blurToneStrength: blurToneStrength,
+        ),
+        child: surface,
+      ),
+    );
+  }
+}
+
+class AcademyChromeButton extends StatelessWidget {
+  const AcademyChromeButton({
+    super.key,
+    required this.icon,
+    required this.label,
+    this.onPressed,
+    this.style,
+    this.blurSigma,
+  });
+  final IconData icon;
+  final String label;
+  final VoidCallback? onPressed;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+  @override
+  Widget build(BuildContext context) => AcademyActionSemantics(
+    label: label,
+    enabled: onPressed != null,
+    child: PressScale(
+      enabled: onPressed != null && !MediaQuery.disableAnimationsOf(context),
+      child: SizedBox.square(
+        dimension: academyChromeBarHeight,
+        child: AcademyChrome(
+          radius: AcademyTheme.of(context).radii.chromeButton,
+          style: style,
+          blurSigma: blurSigma,
+          child: CupertinoButton(
+            padding: EdgeInsets.zero,
+            minimumSize: Size.zero,
+            onPressed: onPressed,
+            child: AnimatedSwitcher(
+              duration: MediaQuery.disableAnimationsOf(context)
+                  ? Duration.zero
+                  : AcademyTokens.motion,
+              child: AcademySfImage(
+                icon,
+                key: ValueKey(icon),
+                foreground: AcademyChrome.foregroundColor(
+                  context,
+                  onPressed == null
+                      ? AcademyTheme.of(context).colorScheme.onSurfaceVariant
+                      : CupertinoTheme.of(context).primaryColor,
+                  style: style,
+                  minimumContrast: 3,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+class AcademyChromeMenu extends StatelessWidget {
+  const AcademyChromeMenu({
+    super.key,
+    required this.label,
+    required this.value,
+    required this.options,
+    required this.onSelected,
+    this.style,
+    this.blurSigma,
+  });
+  final String label;
+  final String value;
+  final List<String> options;
+  final ValueChanged<String> onSelected;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+
+  @override
+  Widget build(BuildContext context) => AcademyMenuAnchor(
+    consumeOutsideTaps: true,
+    menuChildren: [
+      for (final option in options)
+        AcademyMenuItem(
+          onPressed: () => onSelected(option),
+          checked: option == value,
+          title: option,
+        ),
+    ],
+    builder: (context, controller, child) => AcademyActionSemantics(
+      label: label,
+      value: value,
+      enabled: true,
+      expanded: controller.isOpen,
+      child: PressScale(
+        enabled: !MediaQuery.disableAnimationsOf(context),
+        child: AcademyChrome(
+          radius: AcademyTheme.of(context).radii.chromeButton,
+          style: style,
+          blurSigma: blurSigma,
+          child: SizedBox(
+            height: academyChromeBarHeight,
+            child: CupertinoButton(
+              padding: AcademyTheme.of(context).paddings.chromeMenu,
+              minimumSize: Size.zero,
+              onPressed: () =>
+                  controller.isOpen ? controller.close() : controller.open(),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 184),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: ExcludeSemantics(
+                        child: Text(
+                          value,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AcademyTheme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: AcademyTokens.labelGap),
+                    const AcademySfIcon(AcademySymbols.down, size: 15),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+class AcademyChromeCapsule extends StatelessWidget {
+  const AcademyChromeCapsule({
+    super.key,
+    required this.child,
+    this.style,
+    this.blurSigma,
+  });
+  final Widget child;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+  @override
+  Widget build(BuildContext context) => AcademyChrome(
+    style: style,
+    blurSigma: blurSigma,
+    child: Padding(
+      padding: AcademyTheme.of(context).paddings.chromeCapsule,
+      child: child,
+    ),
+  );
+}
+
+class AcademyChromeAction {
+  const AcademyChromeAction(this.icon, this.label, this.onPressed);
+  final IconData icon;
+  final String label;
+  final VoidCallback? onPressed;
+}
+
+class AcademyChromeGroup extends StatelessWidget {
+  const AcademyChromeGroup({
+    super.key,
+    required this.actions,
+    this.style,
+    this.blurSigma,
+  });
+  final List<AcademyChromeAction> actions;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+  @override
+  Widget build(BuildContext context) => AcademyChrome(
+    style: style,
+    blurSigma: blurSigma,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var i = 0; i < actions.length; i++) ...[
+          if (i > 0)
+            Container(
+              width: .5,
+              height: 20,
+              color: AcademyTheme.of(context).colorScheme.outlineVariant,
+            ),
+          AcademyChromeButton(
+            icon: actions[i].icon,
+            label: actions[i].label,
+            onPressed: actions[i].onPressed,
+            style: AcademyChromeStyle.none,
+          ),
+        ],
+      ],
+    ),
+  );
+}
+
+/// Title is optional; style.none removes all chrome decoration independently.
+class AcademyChromeBar extends StatelessWidget {
+  const AcademyChromeBar({
+    super.key,
+    this.title,
+    this.middle,
+    this.subtitle,
+    this.leading,
+    this.trailing,
+    this.actions = const [],
+    this.style,
+    this.blurSigma,
+  });
+  final String? title;
+  final Widget? middle;
+  final String? subtitle;
+  final Widget? leading;
+  final Widget? trailing;
+  final List<AcademyChromeAction> actions;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: AcademyTheme.of(context).paddings.chromeBar,
+    child: SizedBox(
+      height: academyChromeHeightOf(context, subtitle: subtitle != null),
+      child: NavigationToolbar(
+        centerMiddle: true,
+        middleSpacing: 8,
+        leading: leading,
+        trailing: actions.isEmpty
+            ? trailing
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (trailing != null) ...[
+                    trailing!,
+                    const SizedBox(width: AcademyTokens.space),
+                  ],
+                  AcademyChromeGroup(
+                    actions: actions,
+                    style: style,
+                    blurSigma: blurSigma,
+                  ),
+                ],
+              ),
+        middle:
+            middle ??
+            (title == null
+                ? null
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AcademyTheme.of(context).textTheme.titleMedium,
+                      ),
+                      if (subtitle != null)
+                        Text(
+                          subtitle!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AcademyTheme.of(context).textTheme.bodySmall,
+                        ),
+                    ],
+                  )),
+      ),
+    ),
+  );
+}
+
+class AcademyChromeFade extends StatelessWidget {
+  const AcademyChromeFade({super.key, this.bottom = false});
+  final bool bottom;
+  @override
+  Widget build(BuildContext context) => IgnorePointer(
+    child: SizedBox(
+      height: 24,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: bottom ? Alignment.bottomCenter : Alignment.topCenter,
+            end: bottom ? Alignment.topCenter : Alignment.bottomCenter,
+            colors: [
+              AcademyTheme.of(context).scaffoldBackgroundColor,
+              AcademyTheme.of(context).scaffoldBackgroundColor
+                  .withValues(alpha: 0),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+class AcademyChromePage extends StatelessWidget {
+  const AcademyChromePage({
+    super.key,
+    this.title,
+    this.style,
+    this.blurSigma,
+    this.actions = const [],
+    required this.child,
+  });
+  final String? title;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+  final List<AcademyChromeAction> actions;
+  final Widget child;
+  @override
+  Widget build(BuildContext context) => CupertinoPageScaffold(
+    child: Stack(
+      children: [
+        Positioned.fill(
+          child: Center(
+            child: SizedBox(
+              width: 430,
+              child: AcademyPageInsets(
+                top: academyChromeContentTopOf(context),
+                child: child,
+              ),
+            ),
+          ),
+        ),
+        const Positioned(top: 0, left: 0, right: 0, child: AcademyChromeFade()),
+        Positioned(
+          top: academyChromeTopOf(context),
+          left: 0,
+          right: 0,
+          child: AcademyChromeBar(
+            title: title,
+            style: style,
+            blurSigma: blurSigma,
+            actions: actions,
+            leading: Navigator.of(context).canPop()
+                ? AcademyChromeButton(
+                    icon: AcademySymbols.back,
+                    label: AcademyLocalizations.of(context).back,
+                    style: style,
+                    blurSigma: blurSigma,
+                    onPressed: () => Navigator.maybePop(context),
+                  )
+                : null,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+class AcademyChromeModalHeader extends StatelessWidget {
+  const AcademyChromeModalHeader({
+    super.key,
+    this.title,
+    this.style,
+    this.blurSigma,
+    this.leading,
+    this.onClose,
+    this.actions = const [],
+  });
+  final String? title;
+  final AcademyChromeStyle? style;
+  final double? blurSigma;
+  final Widget? leading;
+  final VoidCallback? onClose;
+  final List<AcademyChromeAction> actions;
+  @override
+  Widget build(BuildContext context) => Padding(
+    // Modal spacing is independent of the screen navigation bar metrics.
+    padding: AcademyTheme.of(context).paddings.chromeBottom,
+    child: AcademyChromeBar(
+      title: title,
+      leading: leading,
+      style: style,
+      blurSigma: blurSigma,
+      actions: [
+        ...actions,
+        AcademyChromeAction(
+          AcademySymbols.close,
+          AcademyLocalizations.of(context).close,
+          onClose ?? () => Navigator.pop(context),
+        ),
+      ],
+    ),
+  );
+}

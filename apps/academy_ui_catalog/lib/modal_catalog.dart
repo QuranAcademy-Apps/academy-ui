@@ -6,10 +6,35 @@ import 'search_modal.dart';
 
 class ModalCatalog extends StatelessWidget {
   const ModalCatalog({super.key});
+
+  void _content(
+    BuildContext context,
+    AcademyModalHeaderBehavior behavior,
+  ) => showAcademySheet(
+    context,
+    title: 'Контент',
+    height: 420,
+    headerBehavior: behavior,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Text('Прокрутите содержимое, чтобы увидеть переход под баром.'),
+        const SizedBox(height: 16),
+        for (var i = 1; i <= 20; i++)
+          AcademyRow(
+            title: 'Раздел $i',
+            subtitle:
+                'Содержимое движется, заголовок и закрытие остаются сверху.',
+            icon: AcademySymbols.document,
+          ),
+      ],
+    ),
+  );
   Future<void> _form(BuildContext context) async {
     final result = await showAcademyModal<String>(
       context,
       title: 'Форма и клавиатура',
+      detents: const [ModalSheetDetent.medium, ModalSheetDetent.full],
       builder: (context) => AcademyModalListView(
         children: [
           for (var i = 1; i <= 8; i++) AcademyField(label: 'Поле $i'),
@@ -37,11 +62,19 @@ class ModalCatalog extends StatelessWidget {
           rows: [
             AcademyRow(
               title: 'Контентный шит',
-              onPressed: () => showAcademySheet(
-                context,
-                title: 'Контент',
-                child: const Text('Обычное содержимое модалки.'),
-              ),
+              subtitle: 'Плавный фейд под верхним баром',
+              onPressed: () =>
+                  _content(context, AcademyModalHeaderBehavior.fade),
+            ),
+            AcademyRow(
+              title: 'Контент · прозрачный бар',
+              onPressed: () =>
+                  _content(context, AcademyModalHeaderBehavior.overlay),
+            ),
+            AcademyRow(
+              title: 'Контент · отдельно от бара',
+              onPressed: () =>
+                  _content(context, AcademyModalHeaderBehavior.separate),
             ),
             AcademyRow(
               title: 'Форма и клавиатура',
@@ -70,6 +103,7 @@ class ModalCatalog extends StatelessWidget {
                 context,
                 title: 'Первый экран',
                 nestedNavigation: true,
+                headerBehavior: AcademyModalHeaderBehavior.fade,
                 builder: (context) => AcademyModalListView(
                   children: [
                     AcademyButton(
@@ -113,6 +147,10 @@ class ModalCatalog extends StatelessWidget {
               onPressed: () => showAcademyModal(
                 context,
                 title: 'Список',
+                detents: const [
+                  ModalSheetDetent.medium,
+                  ModalSheetDetent.large,
+                ],
                 builder: (_) => AcademyModalListView(
                   children: [
                     for (var i = 1; i <= 60; i++) AcademyRow(title: 'Пункт $i'),

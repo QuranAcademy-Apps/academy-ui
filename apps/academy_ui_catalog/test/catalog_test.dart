@@ -24,6 +24,27 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
       expect(find.byType(ComponentExamples), findsOneWidget);
+      if (section == CatalogSection.input) {
+        final theme = AcademyTheme.of(
+          tester.element(find.byType(ComponentExamples)),
+        );
+        for (final role in AcademyRadiusRole.values) {
+          expect(theme.radii.value(role), const AcademyRadii().value(role));
+        }
+        for (final role in AcademyPaddingRole.values) {
+          expect(
+            theme.paddings.value(role),
+            const AcademyPaddings().value(role),
+          );
+        }
+        expect(find.byType(AcademyTextField), findsNWidgets(2));
+        expect(find.widgetWithText(AcademyField, 'Почта'), findsOneWidget);
+        expect(find.byType(AcademyFloatingTextField), findsNWidgets(5));
+        expect(
+          tester.widget<AcademySearchBar>(find.byType(AcademySearchBar)).chrome,
+          isTrue,
+        );
+      }
       expect(tester.takeException(), isNull);
       await tester.tap(
         find.byWidgetPredicate(
@@ -58,6 +79,11 @@ void main() {
     await tester.tap(find.text('Оформление'));
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Blur 20'), findsOneWidget);
+    for (final removed in ['Скругления', 'Отступы', 'Цвета', 'Шрифты']) {
+      expect(find.widgetWithText(AcademyRow, removed), findsNothing);
+    }
+    expect(find.widgetWithText(AcademyRow, 'Тема'), findsOneWidget);
+    expect(find.widgetWithText(AcademyRow, 'Навигация'), findsOneWidget);
     expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox());
   });

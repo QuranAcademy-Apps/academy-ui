@@ -76,11 +76,17 @@ void main() {
     await tester.pump(const Duration(milliseconds: 90));
     final halfway = border();
     expect(halfway, isNot(resting));
-    expect(halfway, isNot(academyTheme(Brightness.light).colorScheme.primary));
+    expect(
+      halfway,
+      isNot(academyTheme(Brightness.light).colorScheme.textFieldFocusBorder),
+    );
     expect(tester.getRect(find.byType(EditableText)), geometry);
     await tester.pump(const Duration(milliseconds: 100));
     final focused = border();
-    expect(focused, academyTheme(Brightness.light).colorScheme.primary);
+    expect(
+      focused,
+      academyTheme(Brightness.light).colorScheme.textFieldFocusBorder,
+    );
     FocusManager.instance.primaryFocus!.unfocus();
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 90));

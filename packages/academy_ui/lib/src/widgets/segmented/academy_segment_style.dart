@@ -1,0 +1,1 @@
+enum AcademySegmentStyle { pill, compact }

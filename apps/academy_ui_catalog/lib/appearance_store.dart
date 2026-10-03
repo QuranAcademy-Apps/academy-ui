@@ -14,7 +14,10 @@ class PreferencesAppearanceStore implements AcademyAppearanceStore {
     final data = jsonDecode(saved) as Map<String, dynamic>;
     return AcademyAppearance(
       mode: AcademyAppearanceMode.values.byName(data['mode'] as String),
-      accent: Color(data['accent'] as int),
+      // The previous default navy is replaced by the iOS blue default.
+      accent: data['accent'] == 0xFF263E59
+          ? AcademyTokens.brand
+          : Color(data['accent'] as int),
       chromeStyle: AcademyChromeStyle.values.byName(data['chrome'] as String),
       tabBarDensity: AcademyTabBarDensity.values.byName(
         data['tabBarDensity'] as String? ?? 'standard',

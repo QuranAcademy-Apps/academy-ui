@@ -209,7 +209,7 @@ void main() {
   );
 
   testWidgets(
-    'toast supports both icons, top and bottom and swipes on either axis',
+    'toast supports both icons and swipes toward its top or bottom edge',
     (tester) async {
       tester.view.devicePixelRatio = 1;
       tester.view.physicalSize = const Size(390, 844);
@@ -244,7 +244,7 @@ void main() {
             .length,
         2,
       );
-      await tester.drag(toast, const Offset(120, 0));
+      await tester.drag(toast, const Offset(0, -100));
       await tester.pumpAndSettle();
       expect(toast, findsNothing);
       AcademyToastHost.show(
@@ -254,7 +254,7 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(tester.getRect(toast).top, greaterThan(700));
-      await tester.drag(toast, const Offset(0, -100));
+      await tester.drag(toast, const Offset(0, 100));
       await tester.pumpAndSettle();
       expect(toast, findsNothing);
       expect(tester.takeException(), isNull);

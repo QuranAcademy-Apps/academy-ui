@@ -3,6 +3,121 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  testWidgets('navigation search follows appearance without losing input', (
+    tester,
+  ) async {
+    final appearance = AcademyAppearanceController(
+      initial: const AcademyAppearance(
+        mode: AcademyAppearanceMode.light,
+        chromeStyle: AcademyChromeStyle.flat,
+      ),
+    );
+    await appearance.ready;
+    addTearDown(appearance.dispose);
+    final search = TextEditingController();
+    final contentSearch = TextEditingController();
+    addTearDown(search.dispose);
+    addTearDown(contentSearch.dispose);
+    const searchKey = ValueKey('navigation-search');
+    const buttonKey = ValueKey('navigation-button');
+    await tester.pumpWidget(
+      AcademyApp(
+        appearance: appearance,
+        colorsBuilder: (brightness, accent) =>
+            AcademyPalette(brightness, accent).copyWith(
+              surface: const Color(0xFFABCDEF),
+              surfaceContainerHighest: const Color(0xFF998877),
+              chromeSurface: brightness == Brightness.light
+                  ? const Color(0xFFDBEACC)
+                  : const Color(0xFF123456),
+              chromeTintedSurface: const Color(0xFF556677),
+              chromeGradientStart: const Color(0xFF223344),
+              chromeGradientEnd: const Color(0xFF778899),
+            ),
+        home: Center(
+          child: SizedBox(
+            width: 320,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AcademySearchBar(key: searchKey, controller: search),
+                AcademySearchBar(controller: contentSearch, chrome: false),
+                const AcademyField(label: 'Name'),
+                AcademyChromeButton(
+                  key: buttonKey,
+                  icon: AcademySymbols.search,
+                  label: 'Navigation',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final fieldFinder = find.descendant(
+      of: find.byKey(searchKey),
+      matching: find.byType(CupertinoTextField),
+    );
+    await tester.enterText(fieldFinder, 'query');
+    const selection = TextSelection(baseOffset: 1, extentOffset: 4);
+    search.selection = selection;
+    BoxDecoration? background(Finder anchor) {
+      final boxes = tester
+          .widgetList<DecoratedBox>(
+            find.descendant(of: anchor, matching: find.byType(DecoratedBox)),
+          )
+          .map((box) => box.decoration)
+          .whereType<BoxDecoration>();
+      return boxes.isEmpty ? null : boxes.first;
+    }
+
+    for (final mode in [
+      AcademyAppearanceMode.light,
+      AcademyAppearanceMode.dark,
+    ]) {
+      for (final style in AcademyChromeStyle.values) {
+        appearance.update(
+          appearance.value.copyWith(mode: mode, chromeStyle: style),
+        );
+        await tester.pumpAndSettle();
+        final searchBackground = background(find.byKey(searchKey));
+        final buttonBackground = background(find.byKey(buttonKey));
+        expect(searchBackground?.color, buttonBackground?.color);
+        expect(searchBackground?.gradient, buttonBackground?.gradient);
+        expect(searchBackground?.border, buttonBackground?.border);
+        expect(
+          find.descendant(
+            of: find.byKey(searchKey),
+            matching: find.byType(BackdropFilter),
+          ),
+          style == AcademyChromeStyle.blur ? findsOneWidget : findsNothing,
+        );
+        final field = tester.widget<CupertinoTextField>(fieldFinder);
+        expect(field.decoration!.color, isNull);
+        expect(field.focusNode!.hasFocus, isTrue);
+        expect(search.text, 'query');
+        expect(search.selection, selection);
+        for (final contentField
+            in tester
+                .widgetList<CupertinoTextField>(find.byType(CupertinoTextField))
+                .where((field) => field.controller != search)) {
+          expect(
+            contentField.decoration!.color,
+            AcademyPalette(
+              mode == AcademyAppearanceMode.dark
+                  ? Brightness.dark
+                  : Brightness.light,
+              appearance.value.accent,
+            ).textFieldBackground,
+          );
+        }
+        expect(tester.takeException(), isNull);
+      }
+    }
+  });
+
   for (final direction in TextDirection.values) {
     testWidgets('table leading slots align titles: $direction', (tester) async {
       await tester.pumpWidget(

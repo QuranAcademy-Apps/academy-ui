@@ -97,7 +97,7 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
           Row(
             children: [
               Expanded(
-                child: AcademyCompactSegment<int>(
+                child: AcademySegmentedControl<int>(
                   items: const [0, 1, 2],
                   value: _segment,
                   labelFor: (i) => ['Страница', 'Текст', 'Книга'][i],
@@ -117,7 +117,7 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
           Row(
             children: [
               Expanded(
-                child: AcademyCompactSegment<int>(
+                child: AcademySegmentedControl<int>(
                   items: const [0, 1, 2],
                   value: _segment,
                   labelFor: (i) => ['1×', '1.5×', '2×'][i],
@@ -209,7 +209,7 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
             resting: const Text('Нажмите лупу'),
           ),
           const SizedBox(height: 20),
-          const Text('Тосты — смахните в любую сторону'),
+          const Text('Тосты — смахните к краю экрана'),
           AcademyButton(
             label: 'Сверху · иконка слева',
             onPressed: () => AcademyToastHost.show(
@@ -222,7 +222,7 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
           const SizedBox(height: 8),
           AcademyButton(
             label: 'Снизу · иконка справа',
-            secondary: true,
+            style: AcademyButtonStyle.tinted,
             onPressed: () => AcademyToastHost.show(
               context,
               'Готово',
@@ -232,7 +232,7 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
           const SizedBox(height: 8),
           AcademyButton(
             label: 'Иконки с двух сторон',
-            secondary: true,
+            style: AcademyButtonStyle.tinted,
             onPressed: () => AcademyToastHost.show(
               context,
               'Настройки сохранены',

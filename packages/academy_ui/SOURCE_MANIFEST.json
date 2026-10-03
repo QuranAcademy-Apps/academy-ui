@@ -6,77 +6,138 @@
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_sf_image.dart",
       "target": "lib/src/academy_sf_image.dart",
-      "sha256": "f6dc725a6eedb8f2dbac7203e17fcad160104d1028091c7f40bedea6b8bd41d0"
+      "sha256": "f6dc725a6eedb8f2dbac7203e17fcad160104d1028091c7f40bedea6b8bd41d0",
+      "currentTargets": [
+        "lib/src/widgets/icon/academy_sf_image.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_journey_components.dart",
       "target": "lib/src/academy_journey_components.dart",
-      "sha256": "8fa041d5e5e29291233a321aee55e8dca09f9e8fbdfcf8047182913989afead8"
+      "sha256": "8fa041d5e5e29291233a321aee55e8dca09f9e8fbdfcf8047182913989afead8",
+      "currentTargets": [
+        "lib/src/widgets/journey/academy_journey_components.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_controls.dart",
       "target": "lib/src/academy_controls.dart",
-      "sha256": "48c560931b39cf1f8876551bc39231c6763a03da9a8695aba9509c03a1a4bdb5"
+      "sha256": "48c560931b39cf1f8876551bc39231c6763a03da9a8695aba9509c03a1a4bdb5",
+      "currentTargets": [
+        "lib/src/widgets/search/academy_search_bar.dart",
+        "lib/src/widgets/stepper/academy_stepper.dart",
+        "lib/src/widgets/icon/academy_accessories.dart",
+        "lib/src/widgets/table/academy_grouped_table.dart",
+        "lib/src/widgets/menu/academy_lazy_menu.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_components.dart",
       "target": "lib/src/academy_components.dart",
-      "sha256": "52013daeee81311e7c5cb068ea42156218cab6c0b07dc394dad30bf912d4b547"
+      "sha256": "52013daeee81311e7c5cb068ea42156218cab6c0b07dc394dad30bf912d4b547",
+      "currentTargets": [
+        "lib/src/widgets/button/academy_button.dart",
+        "lib/src/widgets/text_field/academy_field.dart",
+        "lib/src/widgets/surface/academy_surface.dart",
+        "lib/src/widgets/status/academy_status.dart",
+        "lib/src/widgets/feedback/academy_feedback.dart",
+        "lib/src/widgets/image/academy_image.dart",
+        "lib/src/widgets/modal/academy_confirmation.dart",
+        "lib/src/widgets/button/academy_icon_button.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_scroll_behavior.dart",
       "target": "lib/src/academy_scroll_behavior.dart",
-      "sha256": "38440e17f18c4a3b295d66c82fa8df52196616378ac7bdc03da6eb7c19ae6fca"
+      "sha256": "38440e17f18c4a3b295d66c82fa8df52196616378ac7bdc03da6eb7c19ae6fca",
+      "currentTargets": [
+        "lib/src/foundation/scroll/academy_scroll_behavior.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_feedback_extras.dart",
       "target": "lib/src/academy_feedback_extras.dart",
-      "sha256": "f25929fdb9ee265f6e7b293e77b28a76caf474a9de3e90df6db51dd93b1116b7"
+      "sha256": "f25929fdb9ee265f6e7b293e77b28a76caf474a9de3e90df6db51dd93b1116b7",
+      "currentTargets": [
+        "lib/src/widgets/progress/academy_ring_progress.dart",
+        "lib/src/widgets/toast/academy_toast.dart",
+        "lib/src/widgets/tooltip/academy_tips.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_theme.dart",
       "target": "lib/src/academy_theme.dart",
-      "sha256": "91ef3d7e4dc47b4bfb1fc7f214c17cf91209f12d9808777a5b4d463dd57a9c8d"
+      "sha256": "91ef3d7e4dc47b4bfb1fc7f214c17cf91209f12d9808777a5b4d463dd57a9c8d",
+      "currentTargets": [
+        "lib/src/theme/academy_theme.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_navigation.dart",
       "target": "lib/src/academy_navigation.dart",
-      "sha256": "ceb2b73be6ff950068c49e6af1f01ce697f8be63adad9c65819dde7d802990a0"
+      "sha256": "ceb2b73be6ff950068c49e6af1f01ce697f8be63adad9c65819dde7d802990a0",
+      "currentTargets": [
+        "lib/src/widgets/navigation/academy_page.dart",
+        "lib/src/widgets/menu/academy_option_menu.dart",
+        "lib/src/widgets/table/academy_row.dart",
+        "lib/src/widgets/table/academy_divider.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/yalla_page_insets.dart",
       "target": "lib/src/academy_page_insets.dart",
-      "sha256": "5d6037e75cd696cb5fee70fec5b67feb55e46ef7ae2d3458d019522287decb72"
+      "sha256": "5d6037e75cd696cb5fee70fec5b67feb55e46ef7ae2d3458d019522287decb72",
+      "currentTargets": [
+        "lib/src/foundation/layout/academy_page_insets.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/motion/press_scale.dart",
       "target": "lib/src/motion/press_scale.dart",
-      "sha256": "9be3e4375f11372d2e13f83c8eb7280c5eda2dfbfb0592bb25b0220cea1bdc76"
+      "sha256": "9be3e4375f11372d2e13f83c8eb7280c5eda2dfbfb0592bb25b0220cea1bdc76",
+      "currentTargets": [
+        "lib/src/foundation/motion/press_scale.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/motion/soft_fade_switcher.dart",
       "target": "lib/src/motion/soft_fade_switcher.dart",
-      "sha256": "6a38162c2defbc986b75b5d4712577e907321a5e2c834ae5a7247aaefb5bab92"
+      "sha256": "6a38162c2defbc986b75b5d4712577e907321a5e2c834ae5a7247aaefb5bab92",
+      "currentTargets": [
+        "lib/src/foundation/motion/soft_fade_switcher.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/motion/loading_dots_label.dart",
       "target": "lib/src/motion/loading_dots_label.dart",
-      "sha256": "b5473f618888daffb81d5c1df1553f3a4c79d06eee85e6b830d184b1aa69a010"
+      "sha256": "b5473f618888daffb81d5c1df1553f3a4c79d06eee85e6b830d184b1aa69a010",
+      "currentTargets": [
+        "lib/src/foundation/motion/loading_dots_label.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/chrome/yalla_tabs.dart",
       "target": "lib/src/chrome/academy_tabs.dart",
-      "sha256": "4ee1add053ad8157c7079f32afe91551651bd05e6fcbbdf14b1ed4ebd6d3f3cd"
+      "sha256": "4ee1add053ad8157c7079f32afe91551651bd05e6fcbbdf14b1ed4ebd6d3f3cd",
+      "currentTargets": [
+        "lib/src/widgets/navigation/chrome/academy_tabs.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/chrome/yalla_chrome.dart",
       "target": "lib/src/chrome/academy_chrome.dart",
-      "sha256": "4cda35bfadd8eec16694c0410169729d658cc17c0f1e25d4143f9dcfd63fef8b"
+      "sha256": "4cda35bfadd8eec16694c0410169729d658cc17c0f1e25d4143f9dcfd63fef8b",
+      "currentTargets": [
+        "lib/src/widgets/navigation/chrome/academy_chrome.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/lib/shared/design_system/chrome/yalla_chrome_metrics.dart",
       "target": "lib/src/chrome/academy_chrome_metrics.dart",
-      "sha256": "05b6debc96bb7301c0793a6b813cb884d9d678e0ecee736303332ce436909796"
+      "sha256": "05b6debc96bb7301c0793a6b813cb884d9d678e0ecee736303332ce436909796",
+      "currentTargets": [
+        "lib/src/widgets/navigation/chrome/academy_chrome_metrics.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/third_party/stupid_simple_sheet/LICENSE",
@@ -191,32 +252,50 @@
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/core/widgets/modal_sheet_detents.dart",
       "target": "lib/src/modal/modal_sheet_detents.dart",
-      "sha256": "fa95ba2fd9635d6958c6ceec2e5a07c25c2831d1ebc4f2fde124a362ed400a96"
+      "sha256": "fa95ba2fd9635d6958c6ceec2e5a07c25c2831d1ebc4f2fde124a362ed400a96",
+      "currentTargets": [
+        "lib/src/widgets/modal/modal_sheet_detents.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/core/widgets/modal_sheet_corner_mask.dart",
       "target": "lib/src/modal/modal_sheet_corner_mask.dart",
-      "sha256": "0da45dedddcb0fae6fa0ad784f8157d0e1a0e692b358b4a345a35df826463cd9"
+      "sha256": "0da45dedddcb0fae6fa0ad784f8157d0e1a0e692b358b4a345a35df826463cd9",
+      "currentTargets": [
+        "lib/src/widgets/modal/modal_sheet_corner_mask.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/core/widgets/modal_sheet_detents/modal_sheet_layout.dart",
       "target": "lib/src/modal/modal_sheet_detents/modal_sheet_layout.dart",
-      "sha256": "4b114e27aa3883b5a5e76448688a923247a7e9c87694bd03ca9fc70bb9898148"
+      "sha256": "4b114e27aa3883b5a5e76448688a923247a7e9c87694bd03ca9fc70bb9898148",
+      "currentTargets": [
+        "lib/src/widgets/modal/modal_sheet_detents/modal_sheet_layout.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/core/widgets/modal_sheet_detents/modal_detent_sheet.dart",
       "target": "lib/src/modal/modal_sheet_detents/modal_detent_sheet.dart",
-      "sha256": "88262e17bd9b1171e1a229d28fefe59bf5188ad8be28524287386efee86c3573"
+      "sha256": "88262e17bd9b1171e1a229d28fefe59bf5188ad8be28524287386efee86c3573",
+      "currentTargets": [
+        "lib/src/widgets/modal/modal_sheet_detents/modal_detent_sheet.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/core/widgets/modal_sheet_detents/modal_detent_focus.dart",
       "target": "lib/src/modal/modal_sheet_detents/modal_detent_focus.dart",
-      "sha256": "b934da174be85cdccae57697c2c8b7760b6237c1471f718f9ca86fc2e1f6b29d"
+      "sha256": "b934da174be85cdccae57697c2c8b7760b6237c1471f718f9ca86fc2e1f6b29d",
+      "currentTargets": [
+        "lib/src/widgets/modal/modal_sheet_detents/modal_detent_focus.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/core/widgets/modal_sheet_detents/modal_sheet_route.dart",
       "target": "lib/src/modal/modal_sheet_detents/modal_sheet_route.dart",
-      "sha256": "0fb7bd18eb3a1d6f90fa1a617e2b5a0c51082a2f63dc96800ca7e24fbe35eb0b"
+      "sha256": "0fb7bd18eb3a1d6f90fa1a617e2b5a0c51082a2f63dc96800ca7e24fbe35eb0b",
+      "currentTargets": [
+        "lib/src/widgets/modal/modal_sheet_detents/modal_sheet_route.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/Yalla/yalla-app/assets/fonts/Inter.ttf",
@@ -237,55 +316,124 @@
       "source": "/Users/ayub/Developer/quran_flutter/lib/core/widgets/app_menu_anchor.dart",
       "target": "lib/src/academy_menu_anchor.dart",
       "sha256": "2829e66abe5dd7202c35a6018275a39bc1e7ec39e13645e57dad38cce9f86543",
-      "adaptation": "Reusable behavior/layout only; Academy palette and no product services"
+      "adaptation": "Reusable behavior/layout only; Academy palette and no product services",
+      "currentTargets": [
+        "lib/src/widgets/menu/academy_menu_anchor.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/screens/settings/screens/tajweed_rules/tajweed_rules_widgets.dart",
       "target": "lib/src/academy_reader_controls.dart",
       "sha256": "fb7bc236a3e740fcf8ca4c69c69cdf38bc53cfa8bb48b2fe572fd69f548e8ba0",
-      "adaptation": "Reusable behavior/layout only; Academy palette and no product services"
+      "adaptation": "Reusable behavior/layout only; Academy palette and no product services",
+      "currentTargets": [
+        "lib/src/widgets/disclosure/academy_disclosure_card.dart",
+        "lib/src/widgets/menu/academy_menu_item.dart",
+        "lib/src/widgets/menu/academy_menu_button.dart",
+        "lib/src/widgets/segmented/academy_segment_style.dart",
+        "lib/src/widgets/button/academy_settings_square_button.dart",
+        "lib/src/widgets/segmented/academy_segmented_control.dart",
+        "lib/src/widgets/button/academy_compact_icon_button.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/screens/quran_reading/container/widgets/quick_settings/reader_quick_settings_segmented_control.dart",
       "target": "lib/src/academy_reader_controls.dart",
       "sha256": "e2e9feb0d7d5eec61fe0689d1ea58db2f2b755e0aa28cd54ea178826a201a25f",
-      "adaptation": "Reusable behavior/layout only; Academy palette and no product services"
+      "adaptation": "Reusable behavior/layout only; Academy palette and no product services",
+      "currentTargets": [
+        "lib/src/widgets/disclosure/academy_disclosure_card.dart",
+        "lib/src/widgets/menu/academy_menu_item.dart",
+        "lib/src/widgets/menu/academy_menu_button.dart",
+        "lib/src/widgets/segmented/academy_segment_style.dart",
+        "lib/src/widgets/button/academy_settings_square_button.dart",
+        "lib/src/widgets/segmented/academy_segmented_control.dart",
+        "lib/src/widgets/button/academy_compact_icon_button.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/shared/widgets/grouped_table/menu_indicator.dart",
       "target": "lib/src/academy_reader_controls.dart",
       "sha256": "fec212b65185e41445915444e1c6baababa1f5a4e86672cbfd9def02a6447370",
-      "adaptation": "Reusable behavior/layout only; Academy palette and no product services"
+      "adaptation": "Reusable behavior/layout only; Academy palette and no product services",
+      "currentTargets": [
+        "lib/src/widgets/disclosure/academy_disclosure_card.dart",
+        "lib/src/widgets/menu/academy_menu_item.dart",
+        "lib/src/widgets/menu/academy_menu_button.dart",
+        "lib/src/widgets/segmented/academy_segment_style.dart",
+        "lib/src/widgets/button/academy_settings_square_button.dart",
+        "lib/src/widgets/segmented/academy_segmented_control.dart",
+        "lib/src/widgets/button/academy_compact_icon_button.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/screens/quran_reading/list_reader/widgets/reader_pull_down_menu_item.dart",
       "target": "lib/src/academy_reader_controls.dart",
       "sha256": "37955540fd5d40b767e9b1cf908d0a8f1b2cf304d95865b7c7920a48ed092fec",
-      "adaptation": "Reusable behavior/layout only; Academy palette and no product services"
+      "adaptation": "Reusable behavior/layout only; Academy palette and no product services",
+      "currentTargets": [
+        "lib/src/widgets/disclosure/academy_disclosure_card.dart",
+        "lib/src/widgets/menu/academy_menu_item.dart",
+        "lib/src/widgets/menu/academy_menu_button.dart",
+        "lib/src/widgets/segmented/academy_segment_style.dart",
+        "lib/src/widgets/button/academy_settings_square_button.dart",
+        "lib/src/widgets/segmented/academy_segmented_control.dart",
+        "lib/src/widgets/button/academy_compact_icon_button.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/design_system/widgets/chrome/app_chrome_page_scaffold.dart",
       "target": "lib/src/chrome/academy_expanding_search.dart",
       "sha256": "b2e80312650853ab22b3d55a5f6b6db75544a903d390e1ef37c1956878d82ca7",
-      "adaptation": "Reusable behavior/layout only; Academy palette and no product services"
+      "adaptation": "Reusable behavior/layout only; Academy palette and no product services",
+      "currentTargets": [
+        "lib/src/widgets/navigation/chrome/academy_expanding_search.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/design_system/widgets/chrome/app_chrome_search_bar.dart",
       "target": "lib/src/chrome/academy_expanding_search.dart",
       "sha256": "f55431929b9aeba43cf5ee98f9c84967f08592162c58a8aef63d7debf98a0422",
-      "adaptation": "Reusable behavior/layout only; Academy palette and no product services"
+      "adaptation": "Reusable behavior/layout only; Academy palette and no product services",
+      "currentTargets": [
+        "lib/src/widgets/navigation/chrome/academy_expanding_search.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/screens/quran_reading/container/widgets/quick_settings/reader_quick_settings_square_button.dart",
       "target": "lib/src/academy_reader_controls.dart",
       "sha256": "588dd39cf4ca0c27e3d45d81edacb250a0b2dad98f157133def076a07e0e3d31",
-      "adaptation": "68px utility control and theme-field geometry only; app settings/orientation services remain outside package"
+      "adaptation": "68px utility control and theme-field geometry only; app settings/orientation services remain outside package",
+      "currentTargets": [
+        "lib/src/widgets/disclosure/academy_disclosure_card.dart",
+        "lib/src/widgets/menu/academy_menu_item.dart",
+        "lib/src/widgets/menu/academy_menu_button.dart",
+        "lib/src/widgets/segmented/academy_segment_style.dart",
+        "lib/src/widgets/button/academy_settings_square_button.dart",
+        "lib/src/widgets/segmented/academy_segmented_control.dart",
+        "lib/src/widgets/button/academy_compact_icon_button.dart"
+      ]
     },
     {
       "source": "/Users/ayub/Developer/quran_flutter/lib/screens/quran_reading/container/widgets/quick_settings/reader_quick_settings_theme_controls.dart",
       "target": "lib/src/academy_reader_controls.dart",
       "sha256": "464c81692b851e7645e368942146c821560f0234c2df19a2cfe0ab35457693e3",
-      "adaptation": "68px utility control and theme-field geometry only; app settings/orientation services remain outside package"
+      "adaptation": "68px utility control and theme-field geometry only; app settings/orientation services remain outside package",
+      "currentTargets": [
+        "lib/src/widgets/disclosure/academy_disclosure_card.dart",
+        "lib/src/widgets/menu/academy_menu_item.dart",
+        "lib/src/widgets/menu/academy_menu_button.dart",
+        "lib/src/widgets/segmented/academy_segment_style.dart",
+        "lib/src/widgets/button/academy_settings_square_button.dart",
+        "lib/src/widgets/segmented/academy_segmented_control.dart",
+        "lib/src/widgets/button/academy_compact_icon_button.dart"
+      ]
     }
-  ]
+  ],
+  "architectureReference": {
+    "project": "Forui",
+    "url": "https://github.com/duobaseio/forui",
+    "commit": "e69a328c0959ae79ba2a5675916854cbf1e65d8a",
+    "usage": "Architecture and component behavior reference; new Academy implementations, no Forui runtime dependency."
+  }
 }

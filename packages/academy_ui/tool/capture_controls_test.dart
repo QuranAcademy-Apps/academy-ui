@@ -1,5 +1,7 @@
 // Run explicitly: flutter test tool/capture_controls_test.dart --no-pub
 // Produces previews from real library widgets, with bundled fonts loaded.
+// Inter substitutes for system typography in the headless engine; SF glyphs use
+// their own bundled font. This does not validate native SF Pro rasterization.
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -13,6 +15,9 @@ Future<void> fonts() async {
   for (final (family, asset) in [
     ('packages/academy_ui/Inter', 'packages/academy_ui/assets/fonts/Inter.ttf'),
     ('.SF Pro Text', 'packages/academy_ui/assets/fonts/Inter.ttf'),
+    ('.SF Pro Display', 'packages/academy_ui/assets/fonts/Inter.ttf'),
+    ('CupertinoSystemText', 'packages/academy_ui/assets/fonts/Inter.ttf'),
+    ('CupertinoSystemDisplay', 'packages/academy_ui/assets/fonts/Inter.ttf'),
     (
       'packages/flutter_sficon/sficons',
       'packages/flutter_sficon/lib/fonts/sficons.ttf',

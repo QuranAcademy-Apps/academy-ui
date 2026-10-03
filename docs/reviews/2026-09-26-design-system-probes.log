@@ -1,0 +1,67 @@
+00:00 +0: palette contrast sweep
+LOW_CONTRAST Brightness.dark ff263e59 primary/secondaryButton 4.44
+LOW_CONTRAST Brightness.dark ff74537b primary/secondaryButton 4.26
+LOW_CONTRAST Brightness.light ffe8ca79 primary/field 4.21
+LOW_CONTRAST Brightness.light ffe8ca79 primary/primaryContainer 4.14
+LOW_CONTRAST Brightness.light ffe8ca79 primary/secondaryButton 3.93
+00:00 +1: disabled row child remains active
+DISABLED_ROW_CHANGES 1
+00:00 +2: segment target widths on constrained screen
+SEGMENT_TARGET Size(40.0, 44.0)
+00:00 +3: icons inherit large text scaler
+ICON_SCALE 1.0 Size(17.0, 17.0)
+ICON_SCALE 2.0 Size(28.0, 28.0)
+ICON_SCALE 3.0 Size(28.0, 28.0)
+00:00 +4: toast inherits wrong color for client palette
+TOAST_COLOR Color(alpha: 1.0000, red: 0.0000, green: 0.5020, blue: 0.0000, colorSpace: ColorSpace.sRGB)
+EXPECTED_COLOR Color(alpha: 1.0000, red: 0.0000, green: 0.5020, blue: 0.0000, colorSpace: ColorSpace.sRGB)
+00:00 +5: guide completed cannot trigger Done
+GUIDE_DONE_CALLS 0
+00:00 +6: reduce motion standalone press scale
+REDUCE_MOTION_SCALE 0.9
+00:00 +7: disabled editing section still removes
+DISABLED_SECTION_REMOVES 1
+00:00 +8: secondary color override not used by secondary button
+SECONDARY_BUTTON_COLOR Color(alpha: 1.0000, red: 0.8638, green: 0.8789, blue: 0.8958, colorSpace: ColorSpace.sRGB)
+00:00 +9: reader symbol and large text visual comparison
+00:00 +10: page trailing overlaps title
+PAGE_TITLE_RECT Rect.fromLTRB(24.0, 21.5, 296.0, 38.5)
+PAGE_ACTION_RECT Rect.fromLTRB(224.0, 8.0, 304.0, 52.0)
+PAGE_HEADER_OVERLAP true
+00:00 +11: compact button produces nested button semantics
+COMPACT_BUTTON_SEMANTICS SemanticsNode#4
+ │ Rect.fromLTRB(378.0, 278.0, 422.0, 322.0)
+ │ flags: isButton
+ │ label: "Закрыть"
+ │ textDirection: ltr
+ │
+ └─SemanticsNode#5
+     Rect.fromLTRB(0.0, 0.0, 44.0, 44.0)
+     actions: focus, tap
+     flags: isButton, isFocusable
+
+00:00 +12: feedback retry semantics
+FEEDBACK_SEMANTICS SemanticsNode#3
+ │ Rect.fromLTRB(0.0, 0.0, 800.0, 600.0)
+ │ flags: scopesRoute
+ │
+ ├─SemanticsNode#4
+ │   Rect.fromLTRB(350.0, 286.0, 450.0, 306.0)
+ │   flags: isHeader
+ │   label: "Error"
+ │   textDirection: ltr
+ │
+ ├─SemanticsNode#5
+ │   Rect.fromLTRB(347.5, 312.0, 452.5, 327.0)
+ │   label: "Message"
+ │   textDirection: ltr
+ │
+ └─SemanticsNode#6
+     Rect.fromLTRB(307.5, 339.0, 492.5, 383.0)
+     actions: focus, tap
+     flags: isButton, isFocusable
+     label: "Повторить"
+     textDirection: ltr
+
+00:00 +13: All tests passed!
+

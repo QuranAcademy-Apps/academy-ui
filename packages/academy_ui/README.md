@@ -42,6 +42,9 @@ dependencies:
 | Оформление Yalla | `AcademyTheme`, палитра, токены, system/light/dark, акцент, flat/gradient/blur; системная типографика Quran |
 | Действия | `AcademyButton` (primary/secondary/disabled/pending), `AcademyTextButton`, `AcademyIconButton` |
 | Ввод и выбор | `AcademyField`, `AcademySearchBar`, `AcademyStepper`, `AcademyCheckmark`, `AcademyOptionMenu`, `AcademyLazyMenu` |
+| Формы и поиск | `AcademyTextFormField`, `AcademyFormField`, `AcademyFieldDecoration`, `AcademySelect`, `AcademyMultiSelect`, `AcademyAutocomplete` |
+| Даты и значения | `AcademyCalendar`, `AcademyRangeCalendar`, `AcademyLineCalendar`, `AcademyDateField`, `AcademyTimeField`, `AcademyPicker`, `AcademySlider` |
+| Взаимодействие | `AcademyTappable`, `AcademyFocusOutline`, `AcademyPopover`, `AcademyTooltip`, `AcademyInteractionTheme` |
 | Данные | `AcademyGroupedTable`, `AcademyTableSection`, `AcademyRow`, `AcademySurface`, `AcademyDivider` |
 | Навигация | `AcademyPage`, chrome bar/button/menu/group/capsule, `AcademyFloatingTabBar`, `AcademyTabScaffold` |
 | Состояния | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyImage` |
@@ -78,7 +81,34 @@ Blur sigma **20** — значение стандартного оформлен
 навигационные элементы: кнопки chrome, капсулы, таббар. Таблицы, карточки, поля,
 обычный и модальный поиск, модальное содержимое и тосты остаются непрозрачными.
 Навигационный `AcademyExpandingSearch` наследует выбранный эффект вместе с кнопкой.
-Поиск имеет собственный `surfaceContainerHighest` и placeholder `onSurfaceVariant`.
+Материал blur обрабатывает само изображение позади панели: размытие sigma 20,
+насыщенность 1.25 и коррекция светового диапазона. Цветной заливки поверх blur
+нет. Светлая тема поднимает нижнюю границу яркости, тёмная ограничивает верхнюю;
+оттенок берётся из проходящего под панелью контента. Параметры Academy не
+являются рецептом нативного Apple Liquid Glass. Текст/символы — отдельный
+foreground, к которому фильтры не применяются. Контраст подписей рассчитывается
+относительно обработанного фона.
+
+Сила коррекции задаётся через `AcademyApp(chromeBlurToneStrength: .54)`,
+локально — `AcademyChrome(blurToneStrength: .54)` или `AcademyChromeTheme`.
+`0` оставляет обычное размытие без цветовой коррекции, `1` сводит цветовой
+диапазон к белому/чёрному. В стандарте сохраняется 46% диапазона движущегося
+фона с усиленной насыщенностью. `surfaceOpacity` умножает силу коррекции для
+blur; для остальных стилей продолжает управлять альфой заливки.
+Старые имена `chromeBlurTintOpacity` / `blurTintOpacity` сохранены как алиасы
+силы коррекции; они больше не означают альфу цветного слоя. Новый параметр
+имеет приоритет, если переданы оба. `blurBackgroundOf` возвращает цвет
+равномерного фона после фильтров; старый `blurTintOf` возвращает прозрачный
+цвет, поскольку слоя больше нет.
+
+`chromeSurface` задаёт обычные непрозрачные стили навигации и запасную заливку
+при повышенном системном контрасте. В High Contrast фильтр отключается и
+используется непрозрачная поверхность. Настройки inherited Chrome theme
+сохраняются при capture/wrap оверлеев. При собственной силе коррекции клиент
+проверяет читаемость на предполагаемом содержимом.
+
+Поиск по умолчанию использует оформление кнопки закрытия. При `chrome: false`
+его активный фон — `textFieldBackground`. Цвет placeholder — `textFieldSecondaryForeground`.
 Низкоуровневый `AcademyChrome` предназначен для навигации; не оборачивайте им таблицы.
 
 SF Symbols задаются через `AcademySymbols` или `flutter_sficon`, не через Material Icons.
@@ -88,6 +118,19 @@ SF Symbols задаются через `AcademySymbols` или `flutter_sficon`,
 Для своей оболочки приложения
 используйте `academyTheme`, `AcademyTheme`, `AcademyChromeTheme` над Navigator
 и `AcademyScrollBehavior`.
+
+## Отклик кнопок
+
+Основные, тонированные, текстовые, иконочные и квадратные кнопки имеют общий
+отклик на контакт: масштаб до 0.97, уменьшение длинной стороны не более чем на
+5 логических пикселей. Нажатие — 100 мс (`easeOutQuart`), возврат — 100 мс
+(`easeOutCubic`), по принципу [Forui FTappable](https://github.com/duobaseio/forui/blob/main/forui/lib/src/foundation/tappable/tappable.dart).
+
+`foundation/motion/academy_press_effect.dart` меняет только отрисовку: размеры,
+область нажатия, семантика и обработка действия остаются у CupertinoButton.
+Прокрутка/отмена контакта возвращает кнопку в исходный размер. Отключённые кнопки,
+ожидание и Reduce Motion не запускают масштабирование. Приложению не требуется
+дополнительный `PressScale` вокруг стандартной кнопки.
 
 ## Модалки и клавиатура
 
@@ -124,12 +167,47 @@ padding на уровне самого списка. Фиксированный 
 `closeAcademyModal` закрывает весь поток и возвращает typed result приложению.
 Поворот не пересоздаёт вложенный стек.
 
+По умолчанию модалка имеет одно положение (`medium`). `autoHeight` без
+`initialDetent` выбирает одну заданную высоту, `initiallyExpanded` — одну полную.
+Для длинного списка задавайте `detents: [medium, large]`, для раскрываемой формы —
+`[medium, full]`. Дата/время и подтверждения используют компактную высоту по содержимому.
+Редактирование может временно раскрыть форму; `expandOnFocus: false` отключает это
+для коротких модалок. `showAcademySheet(height: ...)` задаёт высоту контентного шита.
+
+`headerBehavior` управляет прокруткой под закреплённым верхним баром:
+
+- `AcademyModalHeaderBehavior.separate` — отдельная область под баром;
+- `fade` — контент проходит под баром с плавным переходом в цвет модалки;
+- `overlay` — контент проходит под прозрачным баром без фейда.
+
+`showAcademySheet` по умолчанию использует `fade`; `showAcademyModal` сохраняет
+`separate` для форм и компактных picker. Длина перехода задаётся через
+`headerFadeExtent` (24 по умолчанию). `pushAcademyModalPage` наследует настройки
+корневой модалки, при необходимости их можно переопределить для страницы.
+Стандартные modal scroll views добавляют высоту бара к **контентному** верхнему
+отступу, сохраняя начальное положение первой строки. Для собственного scroll view
+добавляйте `AcademyModalContentInsets.topOf(context)` к верхнему padding списка.
+Обычный непрокручиваемый builder в режиме underlap также должен учитывать этот
+отступ. Фейд не перехватывает жесты, бар защищает скрытые под ним действия.
+
+```dart
+showAcademyModal<void>(
+  context,
+  title: 'Содержимое',
+  headerBehavior: AcademyModalHeaderBehavior.fade,
+  headerFadeExtent: 32,
+  builder: (_) => AcademyModalListView(children: rows),
+);
+```
+
 Доступны `initialDetent`, `detents`, `autoHeight`, `initiallyExpanded`, `dismissible`
 и `useRootNavigator`. Поверх живого видео задавайте
 `backgroundSnapshotMode: RouteSnapshotMode.never`; по умолчанию фон замораживается
 на время движения шита и прокрутки. Reduce Motion отключает длительность движения.
 
-Скругление шита рисует непрозрачная поверхность, без rounded clip над списком.
+Скругление шита рисует непрозрачная поверхность. Режим `separate` не добавляет
+rounded clip над списком; режимы под баром используют обычный shape clip без
+`saveLayer`, чтобы контент и фейд не выступали за верхние углы шита.
 Для собственного непрозрачного содержимого у верхних углов используйте
 `ModalSheetMaskedFill`; стандартные таблицы/карточки уже делают это.
 
@@ -151,9 +229,12 @@ padding на уровне самого списка. Фиксированный 
 - Двойной шеврон: `AcademyMenuButton(title: ..., subtitle: ..., items: [...])`.
   `chevronOnLeading: true` переносит индикатор в начало, `style` задаёт фон кнопки.
   Внутри модалки меню автоматически использует root overlay и не обрезается её detent.
-- `AcademyCompactSegment<T>`: `pill` для иконок/quick settings, `compact` для
+- `AcademySegmentedControl<T>`: `pill` для иконок/quick settings, `compact` для
   маленьких текстовых сегментов. Визуальная высота 32/31, взаимодействие минимум 44;
   выбранный пункт и callbacks принадлежат приложению, RTL и Reduce Motion учтены.
+  `AcademySegmentedControl.compact` выбирает компактный вариант. `cornerRadius`
+  и `selectionCornerRadius` задают скругления контейнера и выбранного сегмента.
+  `AcademyCompactSegment` остаётся совместимым именем той же реализации.
 - `AcademyCompactIconButton`: визуальный кружок 28 с областью нажатия 44.
   `AcademySettingsSquareButton`: кнопка быстрых настроек 68×68; поддерживает
   отдельный цвет и long press. Для соседнего поля темы у `AcademyMenuButton`
@@ -181,9 +262,12 @@ AcademyToastHost.show(
 );
 ```
 
-Тост адаптирован из Yalla. Его можно смахнуть горизонтально или вертикально,
-либо закрыть нажатием/действием доступности. При удержании таймер приостанавливается;
-короткий drag возвращает тост на место. Замена сообщения и удаление host освобождают
+Тост адаптирован из Yalla. Верхний тост закрывается свайпом вверх, нижний — вниз;
+горизонтальное движение и свайп в противоположную сторону не перемещают и не
+закрывают его. Перемещение при удержании ограничено 96 пунктами по разрешённой
+вертикали. Закрытие происходит после 48 пунктов либо короткого быстрого свайпа.
+Нажатие и действие доступности также закрывают тост. При удержании таймер приостанавливается;
+короткий медленный свайп возвращает тост на место. Замена сообщения и удаление host освобождают
 таймер/анимацию. Иконки могут быть только слева, только справа, с обеих сторон или
 отсутствовать; прежний `icon` остаётся синонимом `leadingIcon`. Тост непрозрачный,
 учитывает клавиатуру и safe area.
@@ -300,4 +384,251 @@ Table parts are individually usable: `AcademyTableHeader` (uppercase/style/custo
 
 `AcademyDraggableTableSection<T>` follows Quran's controlled handle-only drag pattern. The feature owns items, stable IDs, order and persistence. Provide a rowBuilder, onMove callback, optional acceptance filter, inside-card header and outside footer. Moves work within a section, across sections, into empty sections and after the last item. onMove receives a destination index **after source removal**; do not decrement it again. The source remains visible and dimmed; a full-row preview follows the handle. Set editing and onRemove to replace handles with delete buttons. IDs must be unique and stable. rowBuilder must not reuse a GlobalKey between the row and its drag preview.
 
+The handle also opens a keyboard-accessible menu and exposes screen-reader actions for moving up/down. Supply `labelForItem` for domain objects and `moveTargets` for every other section reachable by dragging. Each `AcademyTableMoveTarget` includes the destination's human-readable label, current item count, enabled state and the same acceptance rule as its drop target. Cross-section menu actions append at `itemCount`. Use unique destination labels. The host updates this metadata with the controlled items; it still owns ordering and persistence. `enabled: false` blocks all row content and deletion, while header/footer controls remain independently usable.
+
+### Changes following the September 2026 design-system review
+
+`AcademyApp` supports Russian, English and Arabic built-in wording and native Cupertino localization. Set `locale: Locale('en')` or `Locale('ar')`, or `locale: null` to follow the device; the compatibility default is Russian. An Arabic locale automatically uses RTL. Without `AcademyApp`, register `AcademyLocalizations.delegate`, the global Cupertino/Widgets delegates, and `AcademyLocalizations.supportedLocales` on your app. A custom `LocalizationsDelegate<AcademyLocalizations>` listed first can override wording by returning a subclass. Content titles and descriptions remain client-owned. Enum appearance labels use `labelFor(context)`; the old `label` getter retains Russian wording.
+
+`AcademyButton(style: AcademyButtonStyle.tinted)` uses `secondaryContainer` for its fill and `secondary` for text/border. `secondary: true` remains a compatibility alias. `onSecondary` describes text on a solid `secondary` surface. Selected tabs use the new `onPrimaryContainer` foreground role; custom implementations of `AcademyColors` must provide it. `AcademyColorsData` can derive it from primary/container colors or accept an explicit override. Default small-text pairs meet 4.5:1 contrast across all six catalog accents in light/dark themes; clients own contrast for explicit color overrides.
+
+`AcademyTokens.target` is the 44px Cupertino minimum, `largeTarget` is 48px, and `buttonHeight` is 52px. Shared control/field radii, table insets, spacing and motion durations are consumed by the primitives. Compact segments scroll horizontally when they cannot preserve 44px targets. SF symbols retain their own size under text scaling; navigation back/forward glyphs swap in RTL. Ordinary action buttons share the Flutter SDK Cupertino implementation and preserve a single named focus/action node.
+
+Segment tracks and compact utility buttons share the opaque `segmentBackground` role (`#E1E3E7` light / `#3A3A3C` dark). Selected segments use `segmentSelected` (white / `#636366`). These control fills are independent of page/card surfaces, accent and Chrome style; changing `surface` must not redefine them. Client themes can override both roles explicitly. `test/compact_control_colors_test.dart` protects the default fills and their use during live theme/state changes.
+
+`AcademyGuideStep` accepts `onDone` and `readOnly`. A completed step invokes `onDone ?? onNext`; with neither callback it omits the completion button. `readOnly: true` omits navigation actions. `AcademySearchBar(chrome: true)` follows the navigation background, border and blur style. Its default content variant stays opaque. Use `AcademyExpandingSearch` when search must expand from a navigation icon.
+
+`test/design_system_regression_test.dart` verifies the review fixes, including pointer/keyboard/semantic disabled behavior, icon scaling/direction, narrow headers, color roles/contrast, action semantics, constrained segments, Reduced Motion, accessible moves, localization overrides and completion actions. The dated diagnostics in `docs/reviews` preserve the original defects and are historical evidence, not the current regression suite.
+
 Catalogue: Tables and cards → Table, menu and dragging (Russian labels in the UI).
+
+## Скругления, отступы и шрифты
+
+Значения компонентов управляются четырьмя отдельными сущностями:
+
+- `AcademyRadii` — скругления компонентов: кнопки, поля, таблицы,
+  сегменты, навигация, изображения, тосты, модалки. Значения по умолчанию
+  определены только в `lib/src/theme/academy_radii.dart`.
+- `AcademyPaddings` — 36 ролей внутренних/внешних отступов (`EdgeInsets`),
+  определённых в `lib/src/theme/academy_paddings.dart`.
+- `AcademyColors` / `AcademyPalette` — семантический контракт и значения
+  светлой/тёмной палитры. Все исходные цвета находятся в `academy_palette.dart`;
+  старые константы цветов `AcademyTokens` остаются совместимыми ссылками.
+- `AcademyTypographySettings` — семейства и переопределения 17 текстовых ролей.
+  Размеры, насыщенность и системный tracking находятся в `academy_typography.dart`.
+
+```dart
+AcademyApp(
+  radii: const AcademyRadii(button: 12, table: 18, modal: 28),
+  paddings: const AcademyPaddings(
+    button: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+    tableRow: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+  ),
+  typography: const AcademyTypographySettings(
+    fontFamily: 'Inter',
+    displayFontFamily: 'Inter',
+    fontPackage: 'academy_ui',
+    styles: {
+      AcademyTextRole.bodyLarge: TextStyle(fontSize: 18),
+      AcademyTextRole.labelLarge: TextStyle(fontWeight: FontWeight.w700),
+    },
+  ),
+  home: const MyScreen(),
+);
+```
+
+`copyWith` меняет отдельные параметры без изменения остальных. Для своей оболочки
+эти же сущности передаются в `academyTheme`. Компоненты читают их через
+`AcademyTheme.of(context)`: обновляется и содержимое уже открытых модалок.
+Явный `cornerRadius`, `radius` или `padding` конкретного виджета имеет приоритет
+над темой; без него используется соответствующая роль. Роль `tableRow` задаёт
+горизонтальные отступы строк внутри таблицы; самостоятельные строки по-прежнему
+не добавляют горизонтальные отступы. Отступы учитывают нижнюю скрытую часть шита.
+
+Таббар по умолчанию имеет форму капсулы (`999`, ограничивается половиной высоты),
+но его фон и выделение настраиваются отдельно. Нулевые отступы у внутренних
+кнопок сохраняют геометрию их области нажатия. Геометрия системного popup-меню,
+не предоставленная публичным API `cupertino_ui`, остаётся у этой зависимости;
+отступ меню от краёв экрана настраивается через `menuOverlay`.
+
+Для пользовательского шрифта объявите assets в приложении и задайте его семейства;
+для шрифта приложения `fontPackage` не нужен. Для Inter библиотеки укажите
+`fontPackage: 'academy_ui'`. SF Symbols используют собственный шрифт и не меняются
+при смене типографики текста. Tracking SF применяется только к системным семействам.
+
+Каталог использует стандартные значения библиотеки. Редакторы скруглений,
+отступов, цветовых ролей и типографики удалены, прежние локальные переопределения
+не применяются. В «Оформлении» остаются настройки темы, акцента и навигации.
+Программное переопределение темы через `AcademyApp` доступно приложениям.
+
+Подход сверялся с `quran_flutter/lib/theme`, `Dirham/Flutter/.../foundation`
+и `Yalla/yalla-app/lib/shared/design_system`: отдельные палитры и типографика,
+общая тема над Navigator, значения по умолчанию плюс переопределения клиента.
+
+Скругление `AcademyRadii.table` общее для таблиц, `AcademySurface` и
+`AcademyDisclosureCard`, включая блоки внутри модальных окон. `surface` и
+`disclosure` сохранены как совместимые имена того же значения, а не отдельные
+настройки. Если при создании заданы несколько имён, приоритет у `table`.
+
+## Переиспользуемый ввод
+
+`AcademyTextInput` — настраиваемая основа: контроллер, фокус, ввод, очистка,
+скругление, отступы, `leading` и `trailing`. Три компонента используют эту основу:
+
+- `AcademyTextField` — обычное поле без заголовка.
+- `AcademySearchBar` — поиск с лупой, клавиатурным действием Search, загрузкой и
+  прежней кнопкой отмены. По умолчанию фон, обводка и эффект совпадают с кнопкой
+  закрытия и следуют оформлению навигации; `chrome: false` явно выбирает фон
+  обычного поля. Фокус не меняет обводку поиска.
+- `AcademyField(label: ...)` — поле с заголовком сверху и подсказкой/ошибкой снизу.
+
+У поля и поиска радиус по умолчанию 12. `cornerRadius` позволяет переопределить
+его в конкретном компоненте. `leading`/`trailing` принимают иконку, кнопку или
+другой виджет; стороны следуют направлению текста. Внешние контроллеры и фокус
+остаются собственностью приложения. `readOnly` и `enabled: false` отключают
+очистку, а её место сохраняется, чтобы текст не прыгал.
+
+```dart
+AcademyTextField(
+  placeholder: 'Введите значение',
+  leading: const AcademySfIcon(AcademySymbols.book, size: 18),
+  trailing: const AcademySfIcon(AcademySymbols.checkmark, size: 18),
+);
+AcademySearchBar(controller: searchController);
+const AcademyField(label: 'Имя', placeholder: 'Введите имя');
+```
+
+## Формы, выбор и подсказки
+
+```dart
+// Внутри State экрана; language — String?, formKey — GlobalKey<FormState>.
+Form(
+  key: formKey,
+  child: Column(children: [
+    AcademyTextFormField(
+      label: 'Имя',
+      validator: (v) => v == null || v.trim().isEmpty ? 'Введите имя' : null,
+      onSaved: (v) => name = v ?? '',
+    ),
+    AcademySelect<String>(
+      label: 'Язык',
+      value: language,
+      options: const [
+        AcademySelectOption(value: 'ru', label: 'Русский'),
+        AcademySelectOption(value: 'ar', label: 'العربية'),
+      ],
+      presentation: AcademySelectPresentation.menu,
+      onChanged: (v) => setState(() => language = v),
+      validator: (v) => v == null ? 'Выберите язык' : null,
+    ),
+  ]),
+);
+// Перед сохранением: if (formKey.currentState!.validate()) {
+//   formKey.currentState!.save();
+// }
+```
+
+`AcademyMultiSelect` принимает `Set<T> values` и возвращает неизменяемый снимок.
+В модалке изменения подтверждаются кнопкой «Готово», в popover применяются сразу.
+`presentation: AcademySelectPresentation.menu` открывает обычное меню для локальных
+вариантов без поиска. Множественный выбор применяется сразу, меню остаётся открытым.
+При наличии `loader` используется popover с поиском.
+`presentation` также позволяет явно выбрать `sheet` или `popover`. В режиме `adaptive`
+выбор определяется `AcademyInteractionTheme.density`: `touch` (по умолчанию) или
+`desktop`. Настройка передаётся через `AcademyApp(interaction: ...)` или тему.
+
+`AcademyAutocomplete` принимает `options` либо `loader(query)`, поддерживает
+свободный текст, `onChanged(String)` и `onSelected(T)`. Select/MultiSelect тоже
+поддерживают `loader`; для выбранных удалённых значений задавайте `labelFor` либо
+сохраняйте соответствующие варианты в `options`. Асинхронный источник получает
+запрос с задержкой 200 мс; устаревшие ответы игнорируются. Загрузка, отсутствие
+результатов, ошибка и повторная попытка отображаются компонентом.
+`emptyMessage` и `emptyHint` задают текст пустого результата Autocomplete;
+по умолчанию сообщение локализовано («Ничего не найдено»).
+
+`AcademyPopover` связывает `builder(context, controller)` с
+`contentBuilder(context, close)`. Панель остаётся в границах экрана и закрывается
+по Escape/нажатию снаружи. `AcademyTooltip(message: ..., child: ...)` показывает
+подсказку при наведении, фокусе дочернего контрола и удержании.
+`placement` у Popover, Tooltip, Select/MultiSelect и Autocomplete задаёт сторону:
+`auto`, `above`, `below`, `start`, `end`. Если места недостаточно, панель выбирает
+доступную сторону, учитывая клавиатуру и безопасные области; `start`/`end` следуют RTL.
+
+Select в режиме popover и Autocomplete используют `matchAnchorWidth: true`: панель совпадает с
+фактической шириной поля, следует за изменением размеров и учитывает RTL.
+Для сложного якоря можно передать `anchorKey`; Autocomplete привязывает его к
+самому полю ввода, без заголовка, подсказки и наружных отступов.
+
+Активные поля используют `textFieldBackground`, отключённые — `textFieldDisabledBackground`.
+Отключённые поля дополнительно имеют видимую границу `textFieldDisabledBorder`. Очистка использует
+SF Symbol `xmark.circle.fill` с зоной нажатия 44×44.
+Активные поля не имеют видимой обводки в покое; фокус выделяется акцентом, а при
+повышенном контрасте используется производный `textFieldControlBorder`. Подписи и
+подсказки используют вторичный системный цвет с проверкой читаемости.
+Popover имеет непрозрачную поверхность, тонкую границу и тень. Выбор обозначен
+синей галочкой; между вариантами используются разделители в один физический пиксель.
+
+Стандартная палитра использует роли Cupertino `systemGroupedBackground`,
+`secondarySystemGroupedBackground`, `tertiarySystemGroupedBackground`, `label`
+и `separator`. В светлой теме это нейтральный серый фон и белые поверхности,
+в тёмной — чёрный фон и нейтральные серые поверхности. Стандартный акцент — синий.
+
+## Даты и числовые значения
+
+```dart
+AcademyDateField(
+  label: 'Дата', value: date,
+  firstDate: DateTime(2020), lastDate: DateTime(2035, 12, 31),
+  onChanged: (v) => setState(() => date = v),
+);
+AcademyTimeField(
+  label: 'Время', value: time, // AcademyTime?, например AcademyTime(9, 30)
+  onChanged: (v) => setState(() => time = v),
+);
+AcademySlider(
+  label: 'Размер текста', value: fontSize, min: 12, max: 32, divisions: 20,
+  formatValue: (v) => '${v.round()} пт',
+  onChanged: (v) => setState(() => fontSize = v),
+);
+```
+
+`AcademyCalendar` выбирает день; `AcademyRangeCalendar` — `AcademyDateRange`;
+`AcademyLineCalendar` показывает конечную горизонтальную ленту дней.
+`AcademyPicker<T>` — управляемое колесо с `items`, `value`, `labelFor`, `onChanged`.
+Календари григорианские, с понедельника; поля времени используют 24-часовой формат.
+
+[Структура, владение состоянием и совместимость](../../docs/design-system-architecture.md).
+
+
+### Семантические цвета полей и акцента
+
+Фон полей задаётся отдельно от карточек и навигации: `textFieldBackground`,
+`textFieldSecondaryBackground` (поиск внутри панели), `textFieldDisabledBackground`.
+Текст, placeholder/подписи и отключённое значение используют
+`textFieldForeground`, `textFieldSecondaryForeground`, `textFieldDisabledForeground`.
+Границы: `textFieldBorder`, `textFieldDisabledBorder`, `textFieldFocusBorder`;
+ошибка формы: `textFieldErrorForeground`. Обычные поля, Select, Autocomplete,
+picker и SearchBar без Chrome используют эти общие роли.
+
+`accentColor` сохраняет выбранный исходный оттенок; `accentFill` и `onAccentFill`
+задают контрастную пару кнопки, `accentForeground` — цвет действий на нейтральном
+фоне. Светлый акцент больше не затемняет все заливки ради читаемости ссылок.
+`primary` остаётся прежней ролью foreground. При смене акцента используйте
+`AcademyAppearance.accent`: `colorsBuilder` пересчитает семейство в обеих темах.
+`copyWith` меняет разрешённую роль и сохраняет независимые роли; исключение —
+автоматическая коррекция `onAccentFill` при явной смене `accentFill`.
+
+```dart
+colorsBuilder: (brightness, accent) => AcademyPalette(brightness, accent).copyWith(
+  textFieldBackground: brightness == Brightness.dark
+      ? const Color(0xFF1C1C1E) : const Color(0xFFFFFFFF),
+  textFieldSecondaryBackground: brightness == Brightness.dark
+      ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7),
+),
+```
+
+Клиенты, реализующие `AcademyColors`, должны предоставить новые роли. В
+`AcademyColorsData` новые параметры необязательны для совместимости старого
+конструктора; `from` и `copyWith` сохраняют независимые роли. Для явных клиентских
+переопределений контраст задаёт клиент. Изменение `surface` или
+`surfaceContainerHighest` не должно менять стандартную палитру полей.

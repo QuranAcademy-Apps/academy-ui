@@ -14,3 +14,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+
+# Flutter desktop text-selection menus may use the SDK fallback font.
+flutter:
+  uses-material-design: true
+  config:
+    enable-swift-package-manager: true

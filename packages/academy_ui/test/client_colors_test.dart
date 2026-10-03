@@ -29,8 +29,8 @@ void main() {
       );
       await appearance.ready;
       addTearDown(appearance.dispose);
-      const customField = Color(0xFF123456);
       const customSegment = Color(0xFF246810);
+      const customSelection = Color(0xFFABC012);
       const customShadow = Color(0x88224466);
       const customStatus = Color(0xFF334455);
       const customBarrier = Color(0x44332211);
@@ -45,8 +45,12 @@ void main() {
                 surface: brightness == Brightness.light
                     ? const Color(0xFFABCDEF)
                     : const Color(0xFF654321),
-                surfaceContainerHighest: customField,
+                textFieldBackground: brightness == Brightness.light
+                    ? const Color(0xFFABCDEF)
+                    : const Color(0xFF654321),
+                surfaceContainerHighest: const Color(0xFF123456),
                 segmentBackground: customSegment,
+                segmentSelected: customSelection,
                 segmentShadow: customShadow,
                 toneContainers: {AcademyTone.warning: customStatus},
                 modalBarrier: customBarrier,
@@ -69,6 +73,7 @@ void main() {
                       labelFor: (value) => '$value',
                       onChanged: (_) {},
                     ),
+                    AcademyCompactIconButton(onPressed: () {}),
                     CupertinoButton(
                       child: const Text('Open'),
                       onPressed: () {
@@ -99,7 +104,7 @@ void main() {
             .widget<CupertinoTextField>(find.byType(CupertinoTextField))
             .decoration!
             .color,
-        customField,
+        const Color(0xFFABCDEF),
       );
       final status = tester.widget<Container>(
         find
@@ -120,6 +125,14 @@ void main() {
           .map((box) => box.decoration)
           .whereType<BoxDecoration>();
       expect(boxes.any((box) => box.color == customSegment), isTrue);
+      expect(boxes.any((box) => box.color == customSelection), isTrue);
+      final compactButton = tester.widget<Container>(
+        find.descendant(
+          of: find.byType(AcademyCompactIconButton),
+          matching: find.byType(Container),
+        ),
+      );
+      expect((compactButton.decoration! as BoxDecoration).color, customSegment);
       expect(
         boxes.any(
           (box) =>
@@ -132,11 +145,27 @@ void main() {
       await tester.pumpAndSettle();
       expect(observedBarrier, customBarrier);
       expect(observedModalSurface, const Color(0xFFABCDEF));
+      expect(
+        tester
+            .widgetList<CupertinoTextField>(find.byType(CupertinoTextField))
+            .last
+            .decoration!
+            .color,
+        const Color(0xFFABCDEF),
+      );
       appearance.update(
         appearance.value.copyWith(mode: AcademyAppearanceMode.dark),
       );
       await tester.pumpAndSettle();
       expect(observedModalSurface, const Color(0xFF654321));
+      expect(
+        tester
+            .widgetList<CupertinoTextField>(find.byType(CupertinoTextField))
+            .last
+            .decoration!
+            .color,
+        const Color(0xFF654321),
+      );
       expect(tester.takeException(), isNull);
     },
   );

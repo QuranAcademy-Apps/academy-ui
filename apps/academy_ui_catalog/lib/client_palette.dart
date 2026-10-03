@@ -11,6 +11,23 @@ AcademyColors catalogClientColors(Brightness brightness, Color accent) {
         ? const Color(0xFF18251F)
         : const Color(0xFFF0EADD),
     surface: surface,
+    // Component overrides are explicit; card changes do not recolor inputs.
+    textFieldBackground: surface,
+    textFieldSecondaryBackground: dark
+        ? const Color(0xFF35463C)
+        : const Color(0xFFE8E2D4),
+    textFieldDisabledBackground: dark
+        ? const Color(0xFF35463C)
+        : const Color(0xFFE8E2D4),
+    textFieldForeground: dark
+        ? const Color(0xFFF4F3DF)
+        : const Color(0xFF253C2F),
+    textFieldSecondaryForeground: dark
+        ? const Color(0xFFBCCBBE)
+        : const Color(0xFF5B6B60),
+    textFieldDisabledForeground: dark
+        ? const Color(0xFFBCCBBE)
+        : const Color(0xFF5B6B60),
     surfaceContainerHighest: dark
         ? const Color(0xFF35463C)
         : const Color(0xFFE8E2D4),

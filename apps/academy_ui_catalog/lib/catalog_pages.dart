@@ -1,7 +1,11 @@
+import 'advanced_components_catalog.dart';
+import 'text_fields_catalog.dart';
+
 import 'package:academy_ui/academy_ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'table_menu_examples.dart';
+import 'chrome_material_preview.dart';
 
 enum CatalogSection {
   buttons('Кнопки и действия', AcademySymbols.play),
@@ -59,6 +63,22 @@ class CatalogIndex extends StatelessWidget {
         AcademyTableSection(
           title: 'Компоненты',
           rows: [
+            for (final entry in const {
+              AdvancedCatalogSection.forms: 'Формы, поиск и выбор',
+              AdvancedCatalogSection.dates: 'Календари и выбор значений',
+              AdvancedCatalogSection.interaction:
+                  'Фокус и всплывающие подсказки',
+            }.entries)
+              AcademyRow(
+                title: entry.value,
+                icon: AcademySymbols.filters,
+                onPressed: () => Navigator.of(context).push(
+                  CupertinoPageRoute<void>(
+                    builder: (_) =>
+                        AdvancedComponentsCatalog(section: entry.key),
+                  ),
+                ),
+              ),
             for (final section in CatalogSection.values)
               AcademyRow(
                 title: section.title,
@@ -117,7 +137,7 @@ class _ComponentExamplesState extends State<ComponentExamples> {
           'Вторичная',
           AcademyButton(
             label: 'Дополнительное действие',
-            secondary: true,
+            style: AcademyButtonStyle.tinted,
             onPressed: () => _toast('Выбрано'),
           ),
         ),
@@ -144,9 +164,7 @@ class _ComponentExamplesState extends State<ComponentExamples> {
         ),
       ],
       CatalogSection.input => <Widget>[
-        const AcademyField(label: 'Название', help: 'Обычное поле'),
-        const AcademyField(label: 'Ошибка', error: 'Заполните поле'),
-        const AcademyField(label: 'Недоступное поле', enabled: false),
+        const TextFieldsCatalog(),
         example(
           'Поиск',
           AcademySearchBar(controller: _search, onCancel: _search.clear),
@@ -217,9 +235,10 @@ class _ComponentExamplesState extends State<ComponentExamples> {
         ),
       ],
       CatalogSection.navigation => <Widget>[
+        example('Блюр на меняющемся фоне', const ChromeMaterialPreview()),
         for (final style in AcademyChromeStyle.values)
           example(
-            style.label,
+            style.labelFor(context),
             Align(
               alignment: AlignmentDirectional.centerStart,
               child: AcademyChromeGroup(
@@ -349,16 +368,22 @@ class _ComponentExamplesState extends State<ComponentExamples> {
       ],
       CatalogSection.foundations => <Widget>[
         Text('Заголовок', style: theme.textTheme.titleLarge),
-        Text('Основной текст · Inter', style: theme.textTheme.bodyLarge),
+        Text('Основной текст · SF Pro Text', style: theme.textTheme.bodyLarge),
         Text(
           'Подпись и дополнительный текст',
           style: theme.textTheme.bodySmall,
         ),
         const SizedBox(height: 24),
         for (final (label, color) in [
-          ('Основной', theme.colorScheme.primary),
+          ('Выбранный акцент', theme.colorScheme.accentColor),
+          ('Заливка действия', theme.colorScheme.accentFill),
+          ('Текст действия', theme.colorScheme.accentForeground),
           ('Поверхность', theme.colorScheme.surface),
-          ('Поле', theme.colorScheme.surfaceContainerHighest),
+          ('Фон поля', theme.colorScheme.textFieldBackground),
+          ('Вложенный поиск', theme.colorScheme.textFieldSecondaryBackground),
+          ('Недоступное поле', theme.colorScheme.textFieldDisabledBackground),
+          ('Подсказка поля', theme.colorScheme.textFieldSecondaryForeground),
+          ('Фокус поля', theme.colorScheme.textFieldFocusBorder),
           ('Ошибка', theme.colorScheme.error),
         ])
           AcademyRow(
@@ -405,12 +430,10 @@ class _ComponentExamplesState extends State<ComponentExamples> {
           onPressed: () => setState(() => _selected = !_selected),
         ),
         const SizedBox(height: 24),
-        PressScale(
-          child: AcademyButton(
-            key: _tipTarget,
-            label: 'Кнопка с откликом',
-            onPressed: () => _toast('Нажато'),
-          ),
+        AcademyButton(
+          key: _tipTarget,
+          label: 'Кнопка с откликом',
+          onPressed: () => _toast('Нажато'),
         ),
         AcademyTextButton(
           label: 'Показать подсказку',
@@ -472,14 +495,14 @@ class AppearancePage extends StatelessWidget {
                 ),
                 AcademyOptionMenu(
                   label: 'Навигация',
-                  value: value.chromeStyle.label,
+                  value: value.chromeStyle.labelFor(context),
                   options: AcademyChromeStyle.values
-                      .map((e) => e.label)
+                      .map((e) => e.labelFor(context))
                       .toList(),
                   onSelected: (style) => controller.update(
                     value.copyWith(
                       chromeStyle: AcademyChromeStyle.values.firstWhere(
-                        (e) => e.label == style,
+                        (e) => e.labelFor(context) == style,
                       ),
                     ),
                   ),
@@ -490,14 +513,14 @@ class AppearancePage extends StatelessWidget {
                 ),
                 AcademyOptionMenu(
                   label: 'Пропорции таббара',
-                  value: value.tabBarDensity.label,
+                  value: value.tabBarDensity.labelFor(context),
                   options: AcademyTabBarDensity.values
-                      .map((e) => e.label)
+                      .map((e) => e.labelFor(context))
                       .toList(),
                   onSelected: (label) => controller.update(
                     value.copyWith(
                       tabBarDensity: AcademyTabBarDensity.values.firstWhere(
-                        (e) => e.label == label,
+                        (e) => e.labelFor(context) == label,
                       ),
                     ),
                   ),

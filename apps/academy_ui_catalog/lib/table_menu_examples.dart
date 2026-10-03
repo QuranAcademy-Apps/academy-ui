@@ -132,6 +132,18 @@ class _TableMenuExamplesState extends State<TableMenuExamples> {
         sectionId: id,
         items: _groups[id]!,
         itemId: (item) => item,
+        labelForItem: (item) => item,
+        moveTargets: [
+          for (final destination in _groups.keys)
+            AcademyTableMoveTarget<String>(
+              sectionId: destination,
+              label: destination == 'list'
+                  ? 'При чтении аятов'
+                  : 'При открытии аята',
+              itemCount: _groups[destination]!.length,
+              enabled: _enabled && !_editing,
+            ),
+        ],
         enabled: _enabled,
         editing: _editing,
         onMove: _move,
@@ -174,7 +186,7 @@ class _TableMenuExamplesState extends State<TableMenuExamples> {
       if (id != _groups.keys.last) const SizedBox(height: 12),
     ],
     const AcademyTableFooter(
-      text: 'Перетащите строку за значок справа: измените порядок или перенесите в другую секцию. В режиме «Изменить» можно удалить строку.',
+      text: 'Перетащите строку за значок справа или нажмите на него, чтобы выбрать новое место. В режиме «Изменить» можно удалить строку.',
     ),
     const SizedBox(height: 24),
     const Text('Отдельные компоненты секции'),

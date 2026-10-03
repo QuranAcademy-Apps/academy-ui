@@ -110,7 +110,7 @@ void main() {
                   ],
                 ),
                 const AcademySurface(child: Text('Карточка')),
-                AcademySearchBar(controller: search, chrome: true),
+                AcademySearchBar(controller: search, chrome: false),
                 AcademyChromeButton(
                   icon: AcademySymbols.close,
                   label: 'Закрыть',
@@ -149,11 +149,11 @@ void main() {
         find.byType(CupertinoTextField),
       );
       final theme = academyTheme(Brightness.light);
+      expect(field.decoration!.color, theme.colorScheme.textFieldBackground);
       expect(
-        field.decoration!.color,
-        theme.colorScheme.surfaceContainerHighest,
+        field.placeholderStyle!.color,
+        theme.colorScheme.textFieldSecondaryForeground,
       );
-      expect(field.placeholderStyle!.color, theme.colorScheme.onSurfaceVariant);
     },
   );
 
