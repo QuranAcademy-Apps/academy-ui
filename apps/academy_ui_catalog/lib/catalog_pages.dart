@@ -1,3 +1,4 @@
+import 'profile_components_catalog.dart';
 import 'advanced_components_catalog.dart';
 import 'text_fields_catalog.dart';
 
@@ -63,6 +64,15 @@ class CatalogIndex extends StatelessWidget {
         AcademyTableSection(
           title: 'Компоненты',
           rows: [
+            AcademyRow(
+              title: 'Профиль и поездки',
+              icon: AcademySymbols.person,
+              onPressed: () => Navigator.of(context).push(
+                CupertinoPageRoute<void>(
+                  builder: (_) => const ProfileComponentsCatalog(),
+                ),
+              ),
+            ),
             for (final entry in const {
               AdvancedCatalogSection.forms: 'Формы, поиск и выбор',
               AdvancedCatalogSection.dates: 'Календари и выбор значений',

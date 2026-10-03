@@ -80,6 +80,7 @@ class AcademySfIcon extends StatelessWidget {
 abstract final class AcademySymbols {
   static const dragHandle = sf.SFIcons.sf_line_3_horizontal;
   static const heart = sf.SFIcons.sf_heart;
+  static const lock = sf.SFIcons.sf_lock_fill;
   static const person = sf.SFIcons.sf_person;
   static const circuit = sf.SFIcons.sf_arrow_counterclockwise;
   static const walk = sf.SFIcons.sf_figure_walk;

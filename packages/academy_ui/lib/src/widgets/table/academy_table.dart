@@ -1,3 +1,5 @@
+import '../button/academy_pill_button.dart';
+
 import 'package:flutter/cupertino.dart';
 
 import 'academy_grouped_table.dart';
@@ -40,43 +42,92 @@ class AcademyTableHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.trailing,
+    this.actionLabel,
+    this.onAction,
+    this.actionIcon,
     this.uppercase = true,
     this.style,
     this.padding,
   });
+  const AcademyTableHeader.action({
+    super.key,
+    required this.title,
+    required String action,
+    required VoidCallback? onPressed,
+    IconData? icon,
+    this.uppercase = false,
+    this.style,
+    this.padding,
+  }) : actionLabel = action,
+       onAction = onPressed,
+       actionIcon = icon,
+       trailing = null;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+  final IconData? actionIcon;
   final String title;
   final Widget? trailing;
   final bool uppercase;
   final TextStyle? style;
   final EdgeInsetsGeometry? padding;
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: padding ?? AcademyTheme.of(context).paddings.tableHeader,
-    child: Row(
-      children: [
-        Expanded(
-          child: Semantics(
-            container: true,
-            header: true,
-            child: Text(
-              uppercase ? title.toUpperCase() : title,
-              style:
-                  style ??
-                  AcademyTheme.of(context).textTheme.sectionLabel.copyWith(
-                    color: AcademyTheme.of(context)
-                        .colorScheme
-                        .onSurfaceVariant,
-                  ),
+  Widget build(BuildContext context) {
+    final theme = AcademyTheme.of(context);
+    final heading = Semantics(
+      container: true,
+      header: true,
+      child: Text(
+        uppercase ? title.toUpperCase() : title,
+        style:
+            style ??
+            theme.textTheme.sectionLabel.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
             ),
-          ),
-        ),
-        if (trailing != null) ...[
-          const SizedBox(width: AcademyTokens.inlineGap),
-          Semantics(container: true, child: trailing!),
-        ],
-      ],
-    ),
-  );
+      ),
+    );
+    Widget action() => AcademyPillButton(
+      label: actionLabel!,
+      icon: actionIcon,
+      onPressed: onAction,
+      tinted: false,
+    );
+    return Padding(
+      padding: padding ?? theme.paddings.tableHeader,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (actionLabel != null &&
+              (MediaQuery.textScalerOf(context).scale(1) >=
+                      AcademyTokens.adaptiveTextScale ||
+                  constraints.maxWidth <
+                      AcademyTokens.metadataHorizontalWidth)) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                heading,
+                Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: action(),
+                ),
+              ],
+            );
+          }
+          return Row(
+            children: [
+              Expanded(child: heading),
+              if (actionLabel != null) ...[
+                const SizedBox(width: AcademyTokens.inlineGap),
+                Flexible(child: action()),
+              ],
+              if (trailing != null) ...[
+                const SizedBox(width: AcademyTokens.inlineGap),
+                Semantics(container: true, child: trailing!),
+              ],
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
 
 class AcademyTableFooter extends StatelessWidget {

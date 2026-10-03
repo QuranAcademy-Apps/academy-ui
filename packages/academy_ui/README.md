@@ -632,3 +632,33 @@ colorsBuilder: (brightness, accent) => AcademyPalette(brightness, accent).copyWi
 конструктора; `from` и `copyWith` сохраняют независимые роли. Для явных клиентских
 переопределений контраст задаёт клиент. Изменение `surface` или
 `surfaceContainerHighest` не должно менять стандартную палитру полей.
+
+
+### Профиль, метаданные и этапы
+
+Компоненты не хранят предметные данные: приложение передаёт строки, состояния
+и callbacks. Импорт — `package:academy_ui/academy_ui.dart`.
+
+| API | Назначение |
+| --- | --- |
+| `AcademyValueRow(label:, value:, subtitle:, readOnly:, onPressed:, enabled:)` | Подпись и значение с выравниванием по направлению текста. При узкой ширине или шрифте от 1.5× значение переносится ниже. `readOnly` показывает замок и отключает переход. |
+| `AcademyRow(tone: AcademyTone.error)` | Семантический тон подписи и плитки иконки; foreground иконки учитывает контраст. Прежние вызовы не меняются. |
+| `AcademyRow.action(title:, action:, onPressed:, enabled:)` | Акцентное текстовое действие, вся строка — одна кнопка. |
+| `AcademyActionButton(title:, subtitle:, icon:, onPressed:, pending:, style:)` | Крупная двухстрочная кнопка с круглой иконкой, минимум 64 pt; стили `AcademyButtonStyle.primary/tinted`. `onPressed: null` отключает, `pending` блокирует действие и объявляет загрузку. |
+| `AcademyPillButton(label:, icon:, onPressed:)` | Тонированная таблетка: заливка 36 pt, зона нажатия минимум 44×44. При крупном тексте растёт. `tinted: false` — тихое текстовое действие. |
+| `AcademyTableHeader.action(title:, action:, onPressed:, icon:, uppercase:)` | Заголовок с текстовым действием справа. По умолчанию сохраняет регистр; при крупном тексте действие занимает следующую строку и выравнивается к концу. |
+| `AcademyTimeline(items:)` | Этапы `AcademyTimelineItem(title:, date:, subtitle:, state:)`, линия между точками; состояния `completed/current/upcoming`, порядок и состояние объявляются доступностью. Даты передаются готовыми строками. |
+| `AcademyStatGroup(stats:, alignment:)` | 2–3 элемента `AcademyStat(label:, value:)`; `AcademyStatAlignment.start/center/end`. При узкой ширине или шрифте от 1.5× — вертикальный список. |
+| `AcademyRowIcons` | Роли `person/trip/document/alert/calendar/settings/info/hotel/passport`. Использование: `AcademyRow(icon: AcademySymbols.person, iconColorRole: AcademyRowIcons.person)`. |
+
+Цвета плиток сверены с макетом профиля Yalla: blue, orange, green, red, teal,
+grey, indigo, purple, brown. `colorOf(context)` выбирает светлое/тёмное системное
+значение по AcademyTheme. Явный `iconBackgroundColor` имеет приоритет над ролью,
+а `tone` — над обоими. Тоны, кнопки и текст используют текущую клиентскую палитру.
+Метрики находятся в AcademyTokens, отступы и радиусы — в текущей теме.
+Кнопки используют общий AcademyPressEffect, учитывают Reduce Motion и имеют
+один именованный action-узел; loading объявляется live region. Лента не анимируется.
+
+Примеры и состояния — страница «Профиль и поездки» каталога.
+[Обе темы](../../docs/previews/profile-components.png),
+[2× и RTL](../../docs/previews/profile-components-large-rtl.png).

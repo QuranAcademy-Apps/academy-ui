@@ -76,3 +76,10 @@ export 'src/widgets/picker/academy_picker_fields.dart';
 export 'src/widgets/slider/academy_slider.dart';
 
 export 'src/widgets/text_field/academy_floating_text_field.dart';
+
+export 'src/theme/academy_row_icons.dart';
+export 'src/widgets/table/academy_value_row.dart';
+export 'src/widgets/button/academy_action_button.dart';
+export 'src/widgets/button/academy_pill_button.dart';
+export 'src/widgets/timeline/academy_timeline.dart';
+export 'src/widgets/stat/academy_stat_group.dart';

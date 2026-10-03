@@ -26,6 +26,12 @@ abstract final class AcademyTokens {
   static const target = 44.0;
   static const largeTarget = 48.0;
   static const buttonHeight = 52.0;
+  static const actionButtonHeight = 64.0;
+  static const pillHeight = 36.0;
+  static const timelineDotExtent = 24.0;
+  static const timelineLineWidth = 2.0;
+  static const adaptiveTextScale = 1.5;
+  static const metadataHorizontalWidth = 280.0;
   static const tableIconExtent = 30.0;
   static const motion = Duration(milliseconds: 180);
   static const searchOpenMotion = Duration(milliseconds: 220);

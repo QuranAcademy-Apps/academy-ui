@@ -54,6 +54,8 @@ class AcademyLocalizations {
   String get progress => _text('Прогресс', 'Progress', 'التقدم');
   String get emptyProgress => _text('Нет пунктов', 'No items', 'لا توجد عناصر');
   String get completed => _text('Завершено', 'Completed', 'مكتمل');
+  String get timelineCurrent => _text('Текущий', 'Current', 'الحالي');
+  String get timelineUpcoming => _text('Впереди', 'Upcoming', 'قادم');
   String get done => _text('Готово', 'Done', 'تم');
   String get finish => _text('Завершить', 'Finish', 'إنهاء');
   String get nextStep => _text('Следующий шаг', 'Next step', 'الخطوة التالية');
