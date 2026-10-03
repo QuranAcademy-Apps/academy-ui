@@ -114,11 +114,11 @@ class AcademyTimeline extends StatelessWidget {
                         children: [
                           Text(
                             items[i].title,
-                            style: theme.textTheme.labelLarge,
+                            style: theme.textTheme.bodyStrong,
                           ),
                           Text(
                             items[i].date,
-                            style: theme.textTheme.bodyMedium.copyWith(
+                            style: theme.textTheme.caption.copyWith(
                               color: p.onSurfaceVariant,
                             ),
                           ),
@@ -127,7 +127,7 @@ class AcademyTimeline extends StatelessWidget {
                               padding: theme.paddings.rowSubtitle,
                               child: Text(
                                 items[i].subtitle!,
-                                style: theme.textTheme.bodyMedium,
+                                style: theme.textTheme.bodyDetail,
                               ),
                             ),
                         ],

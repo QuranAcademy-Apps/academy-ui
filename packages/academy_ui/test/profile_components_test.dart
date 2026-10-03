@@ -329,6 +329,85 @@ void main() {
     }
   }
 
+  testWidgets('profile typography matches reference sizes and weights', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      host(
+        Column(
+          children: [
+            AcademyTableHeader.action(
+              title: 'Секция',
+              action: 'Изменить',
+              onPressed: () {},
+            ),
+            AcademyActionButton(
+              title: 'Крупное действие',
+              subtitle: 'Подпись кнопки',
+              icon: AcademySymbols.info,
+              onPressed: () {},
+            ),
+            AcademyPillButton(label: 'Таблетка', onPressed: () {}),
+            AcademyStatGroup(
+              stats: const [
+                AcademyStat(
+                  label: 'Подпись статистики',
+                  value: 'Значение статистики',
+                ),
+                AcademyStat(label: 'Другой', value: '10'),
+              ],
+            ),
+            const AcademyTimeline(
+              items: [
+                AcademyTimelineItem(
+                  title: 'Название этапа',
+                  date: 'Дата этапа',
+                  subtitle: 'Подпись этапа',
+                ),
+              ],
+            ),
+            const AcademyValueRow(
+              label: 'Подпись строки',
+              value: 'Значение строки',
+            ),
+            AcademyRow.action(
+              title: 'Пустая строка',
+              action: 'Добавить',
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+    for (final (text, size, weight, height) in [
+      ('Секция', 13.0, FontWeight.w400, 18 / 13),
+      ('Изменить', 15.0, FontWeight.w600, 20 / 15),
+      ('Крупное действие', 16.0, FontWeight.w600, 22 / 16),
+      ('Подпись кнопки', 13.0, FontWeight.w400, 18 / 13),
+      ('Таблетка', 15.0, FontWeight.w600, 20 / 15),
+      ('Подпись статистики', 13.0, FontWeight.w400, 18 / 13),
+      ('Значение статистики', 15.0, FontWeight.w600, 20 / 15),
+      ('Название этапа', 17.0, FontWeight.w600, 22 / 17),
+      ('Дата этапа', 13.0, FontWeight.w400, 18 / 13),
+      ('Подпись этапа', 15.0, FontWeight.w400, 20 / 15),
+      ('Подпись строки', 17.0, FontWeight.w400, 22 / 17),
+      ('Значение строки', 17.0, FontWeight.w400, 22 / 17),
+    ]) {
+      final style = tester.widget<Text>(find.text(text)).style!;
+      expect(style.fontSize, size, reason: text);
+      expect(style.fontWeight, weight, reason: text);
+      expect(style.height, height, reason: text);
+    }
+    expect(tester.widget<Text>(find.text('Добавить')).style!.fontSize, 17);
+    expect(
+      tester.widget<Text>(find.text('Добавить')).style!.fontWeight,
+      FontWeight.w600,
+    );
+    // Existing compact headers keep their original role.
+    expect(academyTheme(Brightness.light).textTheme.sectionLabel.fontSize, 12);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('pill fill 36 with 44 target and tappable outer margin', (
     tester,
   ) async {

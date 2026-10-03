@@ -86,11 +86,17 @@ class AcademyRow extends StatelessWidget {
     final tileColor = tone != null
         ? toneColor
         : iconBackgroundColor ?? iconColorRole?.colorOf(context);
-    final titleStyle = theme.textTheme.bodyLarge.copyWith(
-      color:
-          toneColor ??
-          (actionLabel != null ? theme.colorScheme.onSurfaceVariant : null),
-    );
+    final titleStyle =
+        (actionLabel == null
+                ? theme.textTheme.bodyLarge
+                : theme.textTheme.bodyRow)
+            .copyWith(
+              color:
+                  toneColor ??
+                  (actionLabel != null
+                      ? theme.colorScheme.onSurfaceVariant
+                      : null),
+            );
     final content = Padding(
       padding: EdgeInsetsDirectional.fromSTEB(
         horizontalPadding ?? AcademyTableRowScope.of(context),

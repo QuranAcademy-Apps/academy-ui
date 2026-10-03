@@ -92,7 +92,7 @@ class AcademyActionButton extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: theme.textTheme.labelLarge.copyWith(
+                          style: theme.textTheme.actionTitle.copyWith(
                             color: foreground,
                           ),
                         ),
@@ -101,7 +101,7 @@ class AcademyActionButton extends StatelessWidget {
                             padding: theme.paddings.rowSubtitle,
                             child: Text(
                               subtitle!,
-                              style: theme.textTheme.bodyMedium.copyWith(
+                              style: theme.textTheme.caption.copyWith(
                                 color: tinted && !disabled
                                     ? p.onSurfaceVariant
                                     : foreground,

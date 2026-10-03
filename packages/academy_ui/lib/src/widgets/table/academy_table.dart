@@ -80,9 +80,10 @@ class AcademyTableHeader extends StatelessWidget {
         uppercase ? title.toUpperCase() : title,
         style:
             style ??
-            theme.textTheme.sectionLabel.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+            (actionLabel != null
+                    ? theme.textTheme.caption
+                    : theme.textTheme.sectionLabel)
+                .copyWith(color: theme.colorScheme.onSurfaceVariant),
       ),
     );
     Widget action() => AcademyPillButton(

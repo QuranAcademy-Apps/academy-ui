@@ -71,7 +71,7 @@ class AcademyPillButton extends StatelessWidget {
                         child: Text(
                           label,
                           textAlign: TextAlign.center,
-                          style: theme.textTheme.labelLarge.copyWith(
+                          style: theme.textTheme.labelMedium.copyWith(
                             color: foreground,
                           ),
                         ),

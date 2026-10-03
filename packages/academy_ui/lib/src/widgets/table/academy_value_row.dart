@@ -40,11 +40,11 @@ class AcademyValueRow extends StatelessWidget {
         showChevron: false,
         titleWidget: LayoutBuilder(
           builder: (context, constraints) {
-            final labelText = Text(label, style: theme.textTheme.bodyLarge);
+            final labelText = Text(label, style: theme.textTheme.bodyRow);
             final valueText = Text(
               value,
               textAlign: TextAlign.end,
-              style: theme.textTheme.bodyLarge.copyWith(
+              style: theme.textTheme.bodyRow.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             );

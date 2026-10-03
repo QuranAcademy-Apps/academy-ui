@@ -3,6 +3,12 @@ import 'package:flutter/foundation.dart';
 
 enum AcademyTextRole {
   bodyLarge,
+  bodyRow,
+  bodyStrong,
+  bodyDetail,
+  caption,
+  labelMedium,
+  actionTitle,
   bodyMedium,
   bodySmall,
   sectionLabel,
@@ -84,6 +90,12 @@ class AcademyTypography {
 
   TextStyle style(AcademyTextRole role) {
     final (size, weight) = switch (role) {
+      AcademyTextRole.bodyRow => (17.0, FontWeight.w400),
+      AcademyTextRole.bodyStrong => (17.0, FontWeight.w600),
+      AcademyTextRole.bodyDetail => (15.0, FontWeight.w400),
+      AcademyTextRole.caption => (13.0, FontWeight.w400),
+      AcademyTextRole.labelMedium => (15.0, FontWeight.w600),
+      AcademyTextRole.actionTitle => (16.0, FontWeight.w600),
       AcademyTextRole.bodyLarge => (17.0, FontWeight.w400),
       AcademyTextRole.bodyMedium => (15.0, FontWeight.w400),
       AcademyTextRole.bodySmall => (13.0, FontWeight.w400),
@@ -121,10 +133,23 @@ class AcademyTypography {
                 ? -.6
                 : trackingForSize(resolvedSize))
           : 0,
+      height: switch (role) {
+        AcademyTextRole.bodyRow || AcademyTextRole.bodyStrong => 22 / 17,
+        AcademyTextRole.bodyDetail || AcademyTextRole.labelMedium => 20 / 15,
+        AcademyTextRole.caption => 18 / 13,
+        AcademyTextRole.actionTitle => 22 / 16,
+        _ => null,
+      },
       color: color,
     ).merge(custom);
   }
 
+  TextStyle get bodyRow => style(AcademyTextRole.bodyRow);
+  TextStyle get bodyStrong => style(AcademyTextRole.bodyStrong);
+  TextStyle get bodyDetail => style(AcademyTextRole.bodyDetail);
+  TextStyle get caption => style(AcademyTextRole.caption);
+  TextStyle get labelMedium => style(AcademyTextRole.labelMedium);
+  TextStyle get actionTitle => style(AcademyTextRole.actionTitle);
   TextStyle get bodyLarge => style(AcademyTextRole.bodyLarge);
   TextStyle get bodyMedium => style(AcademyTextRole.bodyMedium);
   TextStyle get bodySmall => style(AcademyTextRole.bodySmall);

@@ -42,7 +42,7 @@ class AcademyStatGroup extends StatelessWidget {
           Text(
             stat.label,
             textAlign: vertical ? TextAlign.start : textAlign(stat),
-            style: theme.textTheme.bodyMedium.copyWith(
+            style: theme.textTheme.caption.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
@@ -50,7 +50,7 @@ class AcademyStatGroup extends StatelessWidget {
           Text(
             stat.value,
             textAlign: vertical ? TextAlign.start : textAlign(stat),
-            style: theme.textTheme.labelLarge,
+            style: theme.textTheme.labelMedium,
           ),
         ],
       ),
