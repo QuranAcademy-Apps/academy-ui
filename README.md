@@ -4,6 +4,7 @@
 
 - [Academy UI: компоненты, модалки и подключение](packages/academy_ui/README.md).
 - [Интерактивный каталог](apps/academy_ui_catalog/README.md).
+- [Правила Apple HIG и нативный эталон таблиц](docs/frontend/APPLE_HIG.md).
 - [План и источники переноса](docs/plans/design-system-migration.md).
 
 Git remote: `git@github.com:QuranAcademy-Apps/academy-ui.git`.
