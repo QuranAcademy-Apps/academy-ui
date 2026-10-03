@@ -73,11 +73,18 @@ class AcademyRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
+    final toneColor = tone == AcademyTone.error
+        ? AcademyRowIcons.alert.colorOf(context)
+        : tone == null
+        ? null
+        : theme.colorScheme.toneForeground(tone!);
     final tileColor = tone != null
-        ? theme.colorScheme.toneForeground(tone!)
+        ? toneColor
         : iconBackgroundColor ?? iconColorRole?.colorOf(context);
     final titleStyle = theme.textTheme.bodyLarge.copyWith(
-      color: tone == null ? null : theme.colorScheme.toneForeground(tone!),
+      color:
+          toneColor ??
+          (actionLabel != null ? theme.colorScheme.onSurfaceVariant : null),
     );
     final content = Padding(
       padding: EdgeInsetsDirectional.fromSTEB(
@@ -109,7 +116,7 @@ class AcademyRow extends StatelessWidget {
                 child: AcademySfIcon(
                   icon!,
                   size: 17,
-                  color: tone == null
+                  color: tone == null || tone == AcademyTone.error
                       ? theme.colorScheme.iconOnColoredSurface
                       : AcademyContrast.foreground(
                           theme.colorScheme.iconOnColoredSurface,
@@ -143,29 +150,18 @@ class AcademyRow extends StatelessWidget {
                                   color: theme.colorScheme.accentForeground,
                                 ),
                               );
-                              if (MediaQuery.textScalerOf(context).scale(1) >=
-                                      AcademyTokens.adaptiveTextScale ||
-                                  constraints.maxWidth <
-                                      AcademyTokens.metadataHorizontalWidth) {
-                                return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    titleText,
-                                    const SizedBox(
-                                      height: AcademyTokens.labelGap,
-                                    ),
-                                    actionText,
-                                  ],
-                                );
-                              }
                               return Row(
                                 children: [
                                   Expanded(child: titleText),
                                   const SizedBox(
                                     width: AcademyTokens.inlineGap,
                                   ),
-                                  Flexible(child: actionText),
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      maxWidth: constraints.maxWidth * .6,
+                                    ),
+                                    child: actionText,
+                                  ),
                                 ],
                               );
                             },
@@ -204,7 +200,7 @@ class AcademyRow extends StatelessWidget {
             const SizedBox(width: AcademyTokens.inlineGap),
             trailing!,
           ] else if (onPressed != null && actionLabel == null)
-            const AcademySfIcon(AcademySymbols.forward, size: 16),
+            AcademySfIcon(AcademySymbols.forward, size: 16, color: toneColor),
         ],
       ),
     );

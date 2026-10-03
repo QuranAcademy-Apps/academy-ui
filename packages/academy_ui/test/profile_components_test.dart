@@ -40,7 +40,9 @@ List<SemanticsNode> nodes(WidgetTester tester) {
     });
   }
 
-  visit(tester.binding.renderViews.single.owner!.semanticsOwner!.rootSemanticsNode!);
+  visit(
+    tester.binding.renderViews.single.owner!.semanticsOwner!.rootSemanticsNode!,
+  );
   return result;
 }
 
@@ -245,6 +247,43 @@ void main() {
     expect(count, 4);
   });
 
+  for (final scale in [1.0, 2.0]) {
+    for (final direction in TextDirection.values) {
+      testWidgets('action stays at directional edge $scale $direction', (
+        tester,
+      ) async {
+        tester.view.physicalSize = const Size(320, 844);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(
+          host(
+            AcademyTableBody(
+              rows: [
+                AcademyRow.action(
+                  title: 'Данные не заполнены',
+                  action: 'Добавить',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            scale: scale,
+            direction: direction,
+          ),
+        );
+        final action = tester.getRect(find.text('Добавить'));
+        final label = tester.getRect(find.text('Данные не заполнены'));
+        if (direction == TextDirection.ltr) {
+          expect(action.right, closeTo(304, .01));
+          expect(action.left, greaterThan(label.right));
+        } else {
+          expect(action.left, closeTo(16, .01));
+          expect(action.right, lessThan(label.left));
+        }
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
+
   testWidgets('pill fill 36 with 44 target and tappable outer margin', (
     tester,
   ) async {
@@ -321,8 +360,9 @@ void main() {
           brightness: brightness,
         ),
       );
-      final expected = academyTheme(brightness).colorScheme
-          .toneForeground(AcademyTone.error);
+      final expected = brightness == Brightness.dark
+          ? CupertinoColors.systemRed.darkColor
+          : CupertinoColors.systemRed.color;
       expect(tester.widget<Text>(find.text('Удалить')).style!.color, expected);
       final fill = tester.widget<Container>(
         find

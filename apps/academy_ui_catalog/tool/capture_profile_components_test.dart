@@ -61,8 +61,26 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
     await fonts();
-    for (final large in [false, true]) {
-      tester.view.physicalSize = Size(800, large ? 3600 : 2100);
+    for (final mode in [0, 1, 2]) {
+      final large = mode == 1;
+      final detail = mode == 2;
+      tester.view.physicalSize = Size(
+        800,
+        detail
+            ? 620
+            : large
+            ? 3000
+            : 1650,
+      );
+      Widget preview(
+        Brightness brightness, {
+        double scale = 1,
+        TextDirection direction = TextDirection.ltr,
+      }) {
+        final content = panel(brightness, scale: scale, direction: direction);
+        return detail ? SingleChildScrollView(child: content) : content;
+      }
+
       final key = GlobalKey();
       await tester.pumpWidget(
         AcademyApp(
@@ -71,9 +89,11 @@ void main() {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(child: panel(Brightness.light, scale: large ? 2 : 1)),
                 Expanded(
-                  child: panel(
+                  child: preview(Brightness.light, scale: large ? 2 : 1),
+                ),
+                Expanded(
+                  child: preview(
                     Brightness.dark,
                     scale: large ? 2 : 1,
                     direction: large ? TextDirection.rtl : TextDirection.ltr,
@@ -92,7 +112,11 @@ void main() {
         final image = await boundary.toImage(pixelRatio: 1);
         final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
         final file = File(
-          '../../docs/previews/profile-components${large ? '-large-rtl' : ''}.png',
+          '../../docs/previews/profile-components${large
+              ? '-large-rtl'
+              : detail
+              ? '-detail'
+              : ''}.png',
         );
         await file.parent.create(recursive: true);
         await file.writeAsBytes(bytes!.buffer.asUint8List());

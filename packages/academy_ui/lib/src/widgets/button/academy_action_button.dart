@@ -68,7 +68,9 @@ class AcademyActionButton extends StatelessWidget {
                     height: AcademyTokens.target,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: foreground.withValues(alpha: .12),
+                      color: tinted && !disabled
+                          ? p.surface
+                          : foreground.withValues(alpha: .12),
                     ),
                     alignment: Alignment.center,
                     child: pending
@@ -100,7 +102,9 @@ class AcademyActionButton extends StatelessWidget {
                             child: Text(
                               subtitle!,
                               style: theme.textTheme.bodyMedium.copyWith(
-                                color: foreground,
+                                color: tinted && !disabled
+                                    ? p.onSurfaceVariant
+                                    : foreground,
                               ),
                             ),
                           ),

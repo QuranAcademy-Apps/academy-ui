@@ -4,8 +4,9 @@ import '../../theme/academy_theme.dart';
 
 @immutable
 class AcademyStat {
-  const AcademyStat({required this.label, required this.value});
+  const AcademyStat({required this.label, required this.value, this.alignment});
   final String label, value;
+  final AcademyStatAlignment? alignment;
 }
 
 enum AcademyStatAlignment { start, center, end }
@@ -23,12 +24,13 @@ class AcademyStatGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
-    final textAlign = switch (alignment) {
-      AcademyStatAlignment.start => TextAlign.start,
-      AcademyStatAlignment.center => TextAlign.center,
-      AcademyStatAlignment.end => TextAlign.end,
-    };
-    Widget cell(AcademyStat stat) => Semantics(
+    TextAlign textAlign(AcademyStat stat) =>
+        switch (stat.alignment ?? alignment) {
+          AcademyStatAlignment.start => TextAlign.start,
+          AcademyStatAlignment.center => TextAlign.center,
+          AcademyStatAlignment.end => TextAlign.end,
+        };
+    Widget cell(AcademyStat stat, {bool vertical = false}) => Semantics(
       container: true,
       excludeSemantics: true,
       label: stat.label,
@@ -39,7 +41,7 @@ class AcademyStatGroup extends StatelessWidget {
         children: [
           Text(
             stat.label,
-            textAlign: textAlign,
+            textAlign: vertical ? TextAlign.start : textAlign(stat),
             style: theme.textTheme.bodyMedium.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -47,7 +49,7 @@ class AcademyStatGroup extends StatelessWidget {
           const SizedBox(height: AcademyTokens.labelGap),
           Text(
             stat.value,
-            textAlign: textAlign,
+            textAlign: vertical ? TextAlign.start : textAlign(stat),
             style: theme.textTheme.labelLarge,
           ),
         ],
@@ -65,7 +67,7 @@ class AcademyStatGroup extends StatelessWidget {
             children: [
               for (var i = 0; i < stats.length; i++) ...[
                 if (i > 0) const SizedBox(height: AcademyTokens.inlineGap),
-                cell(stats[i]),
+                cell(stats[i], vertical: true),
               ],
             ],
           );

@@ -76,7 +76,12 @@ class AcademyValueRow extends StatelessWidget {
             }
             return Row(
               children: [
-                Expanded(child: labelText),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: constraints.maxWidth * .5,
+                  ),
+                  child: labelText,
+                ),
                 const SizedBox(width: AcademyTokens.inlineGap),
                 Expanded(child: valueContent),
               ],

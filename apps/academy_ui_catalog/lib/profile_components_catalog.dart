@@ -81,12 +81,10 @@ class ProfileComponentExamples extends StatelessWidget {
               title: 'Данные не заполнены',
               action: 'Добавить',
               onPressed: action,
-              icon: AcademySymbols.person,
-              iconColorRole: AcademyRowIcons.person,
             ),
             AcademyRow(
               title: 'Удалить данные',
-              icon: AcademySymbols.close,
+              icon: AcademySymbols.trash,
               tone: AcademyTone.error,
               onPressed: action,
             ),
@@ -103,7 +101,7 @@ class ProfileComponentExamples extends StatelessWidget {
         AcademyActionButton(
           title: 'Связаться с организатором',
           subtitle: 'Помощь и поддержка',
-          icon: AcademySymbols.person,
+          icon: AcademySymbols.phone,
           style: AcademyButtonStyle.tinted,
           onPressed: action,
         ),
@@ -140,18 +138,26 @@ class ProfileComponentExamples extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AcademyTokens.gutter),
-        for (final alignment in AcademyStatAlignment.values)
-          Padding(
-            padding: const EdgeInsets.only(bottom: AcademyTokens.inlineGap),
-            child: AcademyStatGroup(
-              alignment: alignment,
-              stats: const [
-                AcademyStat(label: 'Начало', value: '12 октября'),
-                AcademyStat(label: 'Длительность', value: '10 дней'),
-                AcademyStat(label: 'Окончание', value: '22 октября'),
-              ],
+        AcademyStatGroup(
+          stats: const [
+            AcademyStat(
+              label: 'Начало',
+              value: '12 октября',
+              alignment: AcademyStatAlignment.start,
             ),
-          ),
+            AcademyStat(
+              label: 'Длительность',
+              value: '10 дней',
+              alignment: AcademyStatAlignment.center,
+            ),
+            AcademyStat(
+              label: 'Окончание',
+              value: '22 октября',
+              alignment: AcademyStatAlignment.end,
+            ),
+          ],
+        ),
+        const SizedBox(height: AcademyTokens.gutter),
         const AcademyTimeline(
           items: [
             AcademyTimelineItem(
@@ -180,7 +186,7 @@ class ProfileComponentExamples extends StatelessWidget {
                 icon: switch (role) {
                   AcademyRowIcons.person => AcademySymbols.person,
                   AcademyRowIcons.trip => AcademySymbols.airplane,
-                  AcademyRowIcons.document => AcademySymbols.checklist,
+                  AcademyRowIcons.document => AcademySymbols.document,
                   AcademyRowIcons.alert => AcademySymbols.bell,
                   AcademyRowIcons.calendar => AcademySymbols.calendar,
                   AcademyRowIcons.settings => AcademySymbols.gear,

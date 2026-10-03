@@ -648,13 +648,13 @@ colorsBuilder: (brightness, accent) => AcademyPalette(brightness, accent).copyWi
 | `AcademyPillButton(label:, icon:, onPressed:)` | Тонированная таблетка: заливка 36 pt, зона нажатия минимум 44×44. При крупном тексте растёт. `tinted: false` — тихое текстовое действие. |
 | `AcademyTableHeader.action(title:, action:, onPressed:, icon:, uppercase:)` | Заголовок с текстовым действием справа. По умолчанию сохраняет регистр; при крупном тексте действие занимает следующую строку и выравнивается к концу. |
 | `AcademyTimeline(items:)` | Этапы `AcademyTimelineItem(title:, date:, subtitle:, state:)`, линия между точками; состояния `completed/current/upcoming`, порядок и состояние объявляются доступностью. Даты передаются готовыми строками. |
-| `AcademyStatGroup(stats:, alignment:)` | 2–3 элемента `AcademyStat(label:, value:)`; `AcademyStatAlignment.start/center/end`. При узкой ширине или шрифте от 1.5× — вертикальный список. |
+| `AcademyStatGroup(stats:, alignment:)` | 2–3 элемента `AcademyStat(label:, value:)`; `AcademyStatAlignment.start/center/end`, отдельно для элемента через `AcademyStat.alignment`. При узкой ширине или шрифте от 1.5× — вертикальный список. |
 | `AcademyRowIcons` | Роли `person/trip/document/alert/calendar/settings/info/hotel/passport`. Использование: `AcademyRow(icon: AcademySymbols.person, iconColorRole: AcademyRowIcons.person)`. |
 
 Цвета плиток сверены с макетом профиля Yalla: blue, orange, green, red, teal,
 grey, indigo, purple, brown. `colorOf(context)` выбирает светлое/тёмное системное
 значение по AcademyTheme. Явный `iconBackgroundColor` имеет приоритет над ролью,
-а `tone` — над обоими. Тоны, кнопки и текст используют текущую клиентскую палитру.
+а `tone` — над обоими. Деструктивная строка использует красную роль alert. Кнопки и обычный текст используют текущую клиентскую палитру.
 Метрики находятся в AcademyTokens, отступы и радиусы — в текущей теме.
 Кнопки используют общий AcademyPressEffect, учитывают Reduce Motion и имеют
 один именованный action-узел; loading объявляется live region. Лента не анимируется.
