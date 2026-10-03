@@ -101,7 +101,7 @@ class AcademyActionButton extends StatelessWidget {
                             padding: theme.paddings.rowSubtitle,
                             child: Text(
                               subtitle!,
-                              style: theme.textTheme.caption.copyWith(
+                              style: theme.textTheme.footnote.copyWith(
                                 color: tinted && !disabled
                                     ? p.onSurfaceVariant
                                     : foreground,

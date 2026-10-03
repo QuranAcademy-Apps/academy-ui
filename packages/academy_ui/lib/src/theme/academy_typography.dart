@@ -7,6 +7,7 @@ enum AcademyTextRole {
   bodyStrong,
   bodyDetail,
   caption,
+  footnote,
   labelMedium,
   actionTitle,
   bodyMedium,
@@ -73,12 +74,18 @@ class AcademyTypography {
     }
     const anchors = <List<double>>[
       [10, .12],
+      [11, .06],
+      [12, 0],
       [13, -.08],
-      [15, -.24],
+      [14, -.15],
+      [15, -.23],
+      [16, -.31],
       [17, -.43],
+      [18, -.44],
+      [19, -.45],
     ];
     if (size <= 10) return .12;
-    if (size >= 17) return -.43;
+    if (size >= 19) return -.45;
     for (var i = 0; i < anchors.length - 1; i++) {
       final lo = anchors[i], hi = anchors[i + 1];
       if (size >= lo[0] && size <= hi[0]) {
@@ -93,7 +100,8 @@ class AcademyTypography {
       AcademyTextRole.bodyRow => (17.0, FontWeight.w400),
       AcademyTextRole.bodyStrong => (17.0, FontWeight.w600),
       AcademyTextRole.bodyDetail => (15.0, FontWeight.w400),
-      AcademyTextRole.caption => (13.0, FontWeight.w400),
+      AcademyTextRole.caption => (12.0, FontWeight.w400),
+      AcademyTextRole.footnote => (13.0, FontWeight.w400),
       AcademyTextRole.labelMedium => (15.0, FontWeight.w600),
       AcademyTextRole.actionTitle => (16.0, FontWeight.w600),
       AcademyTextRole.bodyLarge => (17.0, FontWeight.w400),
@@ -136,8 +144,9 @@ class AcademyTypography {
       height: switch (role) {
         AcademyTextRole.bodyRow || AcademyTextRole.bodyStrong => 22 / 17,
         AcademyTextRole.bodyDetail || AcademyTextRole.labelMedium => 20 / 15,
-        AcademyTextRole.caption => 18 / 13,
-        AcademyTextRole.actionTitle => 22 / 16,
+        AcademyTextRole.caption => 16 / 12,
+        AcademyTextRole.footnote => 18 / 13,
+        AcademyTextRole.actionTitle => 21 / 16,
         _ => null,
       },
       color: color,
@@ -148,6 +157,7 @@ class AcademyTypography {
   TextStyle get bodyStrong => style(AcademyTextRole.bodyStrong);
   TextStyle get bodyDetail => style(AcademyTextRole.bodyDetail);
   TextStyle get caption => style(AcademyTextRole.caption);
+  TextStyle get footnote => style(AcademyTextRole.footnote);
   TextStyle get labelMedium => style(AcademyTextRole.labelMedium);
   TextStyle get actionTitle => style(AcademyTextRole.actionTitle);
   TextStyle get bodyLarge => style(AcademyTextRole.bodyLarge);

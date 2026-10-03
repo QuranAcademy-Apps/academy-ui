@@ -161,6 +161,20 @@ class AcademyRow extends StatelessWidget {
                                   color: theme.colorScheme.accentForeground,
                                 ),
                               );
+                              if (MediaQuery.textScalerOf(context).scale(1) >=
+                                  AcademyTokens.adaptiveTextScale) {
+                                return Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    titleText,
+                                    const SizedBox(
+                                      height: AcademyTokens.labelGap,
+                                    ),
+                                    actionText,
+                                  ],
+                                );
+                              }
                               return Row(
                                 children: [
                                   Expanded(child: titleText),

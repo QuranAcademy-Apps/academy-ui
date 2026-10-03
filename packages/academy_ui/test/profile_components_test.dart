@@ -274,10 +274,18 @@ void main() {
         final label = tester.getRect(find.text('Данные не заполнены'));
         if (direction == TextDirection.ltr) {
           expect(action.right, closeTo(304, .01));
-          expect(action.left, greaterThan(label.right));
+          if (scale == 1) {
+            expect(action.left, greaterThan(label.right));
+          }
         } else {
           expect(action.left, closeTo(16, .01));
-          expect(action.right, lessThan(label.left));
+          if (scale == 1) {
+            expect(action.right, lessThan(label.left));
+          }
+        }
+        if (scale == 2) {
+          expect(action.top, greaterThan(label.bottom));
+          expect(label.width, closeTo(288, .01));
         }
         expect(tester.takeException(), isNull);
       });
@@ -329,7 +337,7 @@ void main() {
     }
   }
 
-  testWidgets('profile typography matches reference sizes and weights', (
+  testWidgets('profile typography follows Apple iOS text styles', (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -380,12 +388,12 @@ void main() {
       ),
     );
     for (final (text, size, weight, height) in [
-      ('Секция', 13.0, FontWeight.w400, 18 / 13),
+      ('Секция', 12.0, FontWeight.w400, 16 / 12),
       ('Изменить', 15.0, FontWeight.w600, 20 / 15),
-      ('Крупное действие', 16.0, FontWeight.w600, 22 / 16),
+      ('Крупное действие', 16.0, FontWeight.w600, 21 / 16),
       ('Подпись кнопки', 13.0, FontWeight.w400, 18 / 13),
       ('Таблетка', 15.0, FontWeight.w600, 20 / 15),
-      ('Подпись статистики', 13.0, FontWeight.w400, 18 / 13),
+      ('Подпись статистики', 12.0, FontWeight.w400, 16 / 12),
       ('Значение статистики', 15.0, FontWeight.w600, 20 / 15),
       ('Название этапа', 17.0, FontWeight.w600, 22 / 17),
       ('Дата этапа', 13.0, FontWeight.w400, 18 / 13),

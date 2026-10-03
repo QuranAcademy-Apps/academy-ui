@@ -118,7 +118,7 @@ class AcademyTimeline extends StatelessWidget {
                           ),
                           Text(
                             items[i].date,
-                            style: theme.textTheme.caption.copyWith(
+                            style: theme.textTheme.footnote.copyWith(
                               color: p.onSurfaceVariant,
                             ),
                           ),

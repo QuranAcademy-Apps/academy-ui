@@ -1,4 +1,5 @@
-// Capture the same widgets as the catalog; Inter substitutes for system fonts.
+// Capture catalog widgets with local SF Pro on macOS; Inter elsewhere.
+// System font files are used only for previews and never bundled with the app.
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -6,6 +7,7 @@ import 'package:academy_ui/academy_ui.dart';
 import 'package:academy_ui_catalog/profile_components_catalog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../packages/academy_ui/tool/capture_controls_test.dart'
@@ -61,6 +63,18 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
     await fonts();
+    final systemFont = File('/System/Library/Fonts/SFNS.ttf');
+    if (Platform.isMacOS && systemFont.existsSync()) {
+      await tester.runAsync(() async {
+        final bytes = ByteData.sublistView(await systemFont.readAsBytes());
+        for (final family in [
+          'CupertinoSystemText',
+          'CupertinoSystemDisplay',
+        ]) {
+          await (FontLoader(family)..addFont(Future.value(bytes))).load();
+        }
+      });
+    }
     for (final mode in [0, 1, 2]) {
       final large = mode == 1;
       final detail = mode == 2;
@@ -124,5 +138,5 @@ void main() {
       });
     }
     await tester.pumpWidget(const SizedBox());
-  });
+  }, variant: TargetPlatformVariant.only(TargetPlatform.iOS));
 }
