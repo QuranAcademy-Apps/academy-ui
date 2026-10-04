@@ -1,0 +1,8 @@
+Waiting for another flutter command to release the startup lock...
+00:00 +0: loading /Users/ayub/Developer/academy-ui/docs/reviews/2026-10-04-design-system-probes.dart
+00:00 +0: record standalone chevron resolution in RTL
+FIX VERIFIED: standalone RTL chevron resolves to back
+00:00 +1: record container radius coupling and typography roles
+FIX VERIFIED: table/surface/disclosure = 24/14/14; overrides independent
+FIX VERIFIED: canonical table bodyRow height = 22/17; bodyLarge remains independent
+00:00 +2: All tests passed!

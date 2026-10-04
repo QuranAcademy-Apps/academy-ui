@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../theme/academy_theme.dart';
+import '../../foundation/localizations/academy_localizations.dart';
+import 'academy_button_visual_state.dart';
 import '../../foundation/motion/academy_press_effect.dart';
 
 enum AcademyButtonStyle { primary, tinted }
@@ -26,64 +28,67 @@ class AcademyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final p = theme.colorScheme;
-    final disabled = !pending && onPressed == null;
     final tinted =
         style == AcademyButtonStyle.tinted || style == null && secondary;
-    final background = disabled
-        ? Color.lerp(p.onSurface, p.surface, .88)!
-        : tinted
-        ? p.secondaryContainer
-        : p.accentFill;
-    final foreground = disabled
-        ? p.onSurfaceVariant
-        : tinted
-        ? p.secondary
-        : p.onAccentFill;
+    final state = AcademyButtonVisualState(
+      colors: p,
+      onPressed: onPressed,
+      pending: pending,
+      tinted: tinted,
+    );
+    final background = state.background;
+    final foreground = state.foreground;
     return Semantics(
       liveRegion: pending,
-      child: AcademyPressEffect(
-        enabled: !pending && onPressed != null,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              AcademyTheme.of(context).radii.button,
+      label: label,
+      value: pending ? AcademyLocalizations.of(context).loading : null,
+      enabled: state.enabled,
+      button: true,
+      onTap: state.enabled ? onPressed : null,
+      child: ExcludeSemantics(
+        child: AcademyPressEffect(
+          enabled: state.enabled,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                AcademyTheme.of(context).radii.button,
+              ),
+              border: Border.all(color: state.border),
             ),
-            border: Border.all(
-              color: disabled
-                  ? p.outlineVariant
-                  : tinted
-                  ? p.secondary.withValues(alpha: .24)
-                  : background,
-            ),
-          ),
-          child: CupertinoButton(
-            onPressed: pending ? null : onPressed,
-            color: background,
-            disabledColor: background,
-            borderRadius: BorderRadius.circular(
-              AcademyTheme.of(context).radii.button,
-            ),
-            minimumSize: const Size(
-              AcademyTokens.target,
-              AcademyTokens.buttonHeight,
-            ),
-            padding: AcademyTheme.of(context).paddings.button,
-            child: DefaultTextStyle(
-              style: theme.textTheme.labelLarge.copyWith(color: foreground),
-              textAlign: TextAlign.center,
-              child: pending
-                  ? Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CupertinoActivityIndicator(
-                          radius: 9,
-                          color: foreground,
-                        ),
-                        const SizedBox(width: 10),
-                        Flexible(child: Text(label)),
-                      ],
-                    )
-                  : Text(label),
+            child: CupertinoButton(
+              onPressed: pending ? null : onPressed,
+              color: background,
+              disabledColor: background,
+              borderRadius: BorderRadius.circular(
+                AcademyTheme.of(context).radii.button,
+              ),
+              minimumSize: const Size(
+                AcademyTokens.target,
+                AcademyTokens.buttonHeight,
+              ),
+              padding: AcademyTheme.of(context).paddings.button,
+              child: ExcludeSemantics(
+                child: DefaultTextStyle(
+                  style: theme.textTheme.labelLarge.copyWith(color: foreground),
+                  textAlign: TextAlign.center,
+                  child: pending
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CupertinoActivityIndicator(
+                              radius: 9,
+                              color: foreground,
+                              animating: !MediaQuery.disableAnimationsOf(
+                                context,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(child: Text(label)),
+                          ],
+                        )
+                      : Text(label),
+                ),
+              ),
             ),
           ),
         ),

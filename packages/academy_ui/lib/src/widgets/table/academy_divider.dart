@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../theme/academy_theme.dart';
 
+// Preserve imports that historically exposed the row scope with the divider.
+export '../../foundation/table/academy_table_row_scope.dart';
+
 class AcademyDivider extends StatelessWidget {
   const AcademyDivider({super.key});
   @override
@@ -12,17 +15,4 @@ class AcademyDivider extends StatelessWidget {
       color: AcademyTheme.of(context).colorScheme.outlineVariant,
     ),
   );
-}
-
-class AcademyTableRowScope extends InheritedWidget {
-  const AcademyTableRowScope({super.key, required super.child});
-  static bool contains(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<AcademyTableRowScope>() !=
-      null;
-  static double of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<AcademyTableRowScope>() == null
-      ? 0
-      : AcademyTheme.of(context).paddings.tableRow.left;
-  @override
-  bool updateShouldNotify(AcademyTableRowScope oldWidget) => false;
 }

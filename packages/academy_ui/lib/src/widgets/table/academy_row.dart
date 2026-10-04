@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 
 import '../../theme/academy_theme.dart';
 
-import 'academy_divider.dart';
+import '../../foundation/table/academy_table_row_scope.dart';
 
 /// Adapted from Quran GroupedTableRow: leading, flexible text and accessory.
-class AcademyRow extends StatelessWidget {
+class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
   const AcademyRow({
     super.key,
     required this.title,
@@ -76,6 +76,13 @@ class AcademyRow extends StatelessWidget {
   final bool showChevron;
   final VoidCallback? onPressed;
   @override
+  double separatorStart(BuildContext context) =>
+      (horizontalPadding ?? AcademyTheme.of(context).paddings.tableRow.left) +
+      (icon != null || leading != null
+          ? AcademyTokens.tableIconExtent + AcademyTokens.inlineGap
+          : 0);
+
+  @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final toneColor = tone == AcademyTone.error
@@ -86,17 +93,11 @@ class AcademyRow extends StatelessWidget {
     final tileColor = tone != null
         ? toneColor
         : iconBackgroundColor ?? iconColorRole?.colorOf(context);
-    final titleStyle =
-        (actionLabel == null
-                ? theme.textTheme.bodyLarge
-                : theme.textTheme.bodyRow)
-            .copyWith(
-              color:
-                  toneColor ??
-                  (actionLabel != null
-                      ? theme.colorScheme.onSurfaceVariant
-                      : null),
-            );
+    final titleStyle = theme.textTheme.bodyRow.copyWith(
+      color:
+          toneColor ??
+          (actionLabel != null ? theme.colorScheme.onSurfaceVariant : null),
+    );
     final content = Padding(
       padding: EdgeInsetsDirectional.fromSTEB(
         horizontalPadding ?? AcademyTableRowScope.of(context),

@@ -29,6 +29,8 @@ abstract final class AcademyTokens {
   static const buttonHeight = 52.0;
   static const actionButtonHeight = 64.0;
   static const pillHeight = 36.0;
+  static const pillIconExtent = 15.0;
+  static const actionIconExtent = 24.0;
   static const timelineDotExtent = 24.0;
   static const timelineLineWidth = 2.0;
   static const adaptiveTextScale = 1.5;

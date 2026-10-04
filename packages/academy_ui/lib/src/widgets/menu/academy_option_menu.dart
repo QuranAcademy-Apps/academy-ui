@@ -1,3 +1,6 @@
+import '../../foundation/table/academy_table_row_scope.dart';
+import '../../theme/academy_theme.dart';
+
 import 'academy_menu.dart';
 import 'academy_menu_item.dart';
 
@@ -5,7 +8,8 @@ import 'package:flutter/cupertino.dart';
 
 /// Quran AppMenuAnchor + AppMenuCheckmark pattern. A short selection stays
 /// anchored to its trigger and never opens a modal route.
-class AcademyOptionMenu extends StatelessWidget {
+class AcademyOptionMenu extends StatelessWidget
+    implements AcademyTableRowGeometry {
   const AcademyOptionMenu({
     super.key,
     required this.label,
@@ -25,6 +29,13 @@ class AcademyOptionMenu extends StatelessWidget {
   final AcademyMenuActivation activation;
   final double? menuWidth, menuMaxHeight;
   final bool? useRootOverlay;
+  @override
+  double separatorStart(BuildContext context) =>
+      AcademyTheme.of(context).paddings.tableRow.left +
+      (icon != null
+          ? AcademyTokens.tableIconExtent + AcademyTokens.inlineGap
+          : 0);
+
   @override
   Widget build(BuildContext context) => AcademyMenuRow(
     label: label,

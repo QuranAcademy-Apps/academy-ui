@@ -17,7 +17,14 @@ void main() {
         builder: (_, edited, _) => AcademyApp(
           appearance: appearance,
           radii: edited
-              ? const AcademyRadii(button: 4, field: 6, table: 8, modal: 12)
+              ? const AcademyRadii(
+                  button: 4,
+                  field: 6,
+                  table: 8,
+                  surface: 10,
+                  disclosure: 11,
+                  modal: 12,
+                )
               : const AcademyRadii(),
           paddings: edited
               ? const AcademyPaddings(
@@ -114,12 +121,15 @@ void main() {
     );
     expect(field.padding, const EdgeInsets.all(20));
     expect(field.decoration!.borderRadius, BorderRadius.circular(6));
-    for (final container in [
-      find.widgetWithText(AcademySurface, 'Sheet surface'),
-      find.byWidgetPredicate(
-        (w) => w is AcademyDisclosureCard && w.title == 'Sheet disclosure',
+    for (final (container, radius) in [
+      (find.widgetWithText(AcademySurface, 'Sheet surface'), 10.0),
+      (
+        find.byWidgetPredicate(
+          (w) => w is AcademyDisclosureCard && w.title == 'Sheet disclosure',
+        ),
+        11.0,
       ),
-      find.widgetWithText(AcademyTableBody, 'Sheet row'),
+      (find.widgetWithText(AcademyTableBody, 'Sheet row'), 8.0),
     ]) {
       final fill = tester.widget<ModalSheetMaskedFill>(
         find.descendant(
@@ -127,7 +137,7 @@ void main() {
           matching: find.byType(ModalSheetMaskedFill),
         ),
       );
-      expect(fill.borderRadius, BorderRadius.circular(8));
+      expect(fill.borderRadius, BorderRadius.circular(radius));
     }
     final surface = tester.widget<DecoratedBox>(
       find
@@ -169,7 +179,7 @@ void main() {
             as ShapeDecoration;
     expect(
       (cardDecoration.shape as RoundedSuperellipseBorder).borderRadius,
-      BorderRadius.circular(8),
+      BorderRadius.circular(10),
     );
     final disclosureFill = tester.widget<ModalSheetMaskedFill>(
       find.descendant(
@@ -177,7 +187,7 @@ void main() {
         matching: find.byType(ModalSheetMaskedFill),
       ),
     );
-    expect(disclosureFill.borderRadius, BorderRadius.circular(8));
+    expect(disclosureFill.borderRadius, BorderRadius.circular(11));
     final boxes = tester
         .widgetList<DecoratedBox>(
           find.descendant(
@@ -210,14 +220,19 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  test('legacy container radius names resolve to the same table value', () {
+  test('container radius roles are independent', () {
+    const defaults = AcademyRadii();
+    expect(
+      [defaults.table, defaults.surface, defaults.disclosure],
+      [24, 14, 14],
+    );
     const radii = AcademyRadii(table: 24, surface: 8, disclosure: 12);
-    expect(radii.surface, 24);
-    expect(radii.disclosure, 24);
-    expect(radii.copyWith(surface: 16).table, 16);
-    expect(radii.withValue(AcademyRadiusRole.disclosure, 32).surface, 32);
-    expect(const AcademyRadii(surface: 8).table, 8);
-    expect(const AcademyRadii(disclosure: 12).surface, 12);
+    expect(radii.surface, 8);
+    expect(radii.disclosure, 12);
+    expect(radii.copyWith(surface: 16).table, 24);
+    expect(radii.withValue(AcademyRadiusRole.disclosure, 32).surface, 8);
+    expect(const AcademyRadii(surface: 8).table, 24);
+    expect(const AcademyRadii(disclosure: 12).surface, 14);
   });
 
   test(

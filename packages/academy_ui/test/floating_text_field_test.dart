@@ -31,9 +31,9 @@ void main() {
       final fieldRect = tester.getRect(find.byType(CupertinoTextField));
       focus.requestFocus();
       await tester.pump();
+      await tester.pump();
       await tester.pump(const Duration(milliseconds: 60));
       final movingTop = tester.getTopLeft(label).dy;
-      debugPrint("motion: ${tester.widget<AnimatedAlign>(find.byType(AnimatedAlign)).duration} focus=${focus.hasFocus} alignment=${tester.widget<AnimatedAlign>(find.byType(AnimatedAlign)).alignment} label=${tester.getRect(label)} field=$fieldRect empty=$emptyTop moving=$movingTop");
       await tester.pumpAndSettle();
       final raisedTop = tester.getTopLeft(label).dy;
       expect(raisedTop, lessThan(movingTop));

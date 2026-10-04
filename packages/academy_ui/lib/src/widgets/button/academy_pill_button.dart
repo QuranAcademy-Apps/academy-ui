@@ -47,22 +47,17 @@ class AcademyPillButton extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: tinted ? p.secondaryContainer : null,
-                  borderRadius: BorderRadius.circular(theme.radii.menuButton),
+                  borderRadius: BorderRadius.circular(theme.radii.pillButton),
                 ),
                 child: Padding(
-                  padding:
-                      padding ??
-                      EdgeInsets.symmetric(
-                        horizontal: theme.paddings.menuButton.left,
-                        vertical: AcademyTokens.space / 2,
-                      ),
+                  padding: padding ?? theme.paddings.pillButton,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       if (icon != null) ...[
                         AcademySfIcon(
                           icon!,
-                          size: AcademyTokens.tableIconExtent / 2,
+                          size: AcademyTokens.pillIconExtent,
                           color: foreground,
                         ),
                         const SizedBox(width: AcademyTokens.labelGap),

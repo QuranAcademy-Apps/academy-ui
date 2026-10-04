@@ -6,6 +6,7 @@ import '../../foundation/interaction/academy_interaction.dart';
 import '../../foundation/localizations/academy_localizations.dart';
 import '../icon/academy_sf_image.dart';
 import 'academy_button.dart';
+import 'academy_button_visual_state.dart';
 
 /// Prominent two-line action. The client owns pending and disabled state.
 class AcademyActionButton extends StatelessWidget {
@@ -29,19 +30,17 @@ class AcademyActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final p = theme.colorScheme;
-    final enabled = onPressed != null && !pending;
-    final disabled = onPressed == null && !pending;
     final tinted = style == AcademyButtonStyle.tinted;
-    final background = disabled
-        ? Color.lerp(p.onSurface, p.surface, .88)!
-        : tinted
-        ? p.secondaryContainer
-        : p.accentFill;
-    final foreground = disabled
-        ? p.onSurfaceVariant
-        : tinted
-        ? p.secondary
-        : p.onAccentFill;
+    final state = AcademyButtonVisualState(
+      colors: p,
+      onPressed: onPressed,
+      pending: pending,
+      tinted: tinted,
+    );
+    final enabled = state.enabled;
+    final disabled = state.disabled;
+    final background = state.background;
+    final foreground = state.foreground;
     return Semantics(
       liveRegion: pending,
       child: AcademyActionSemantics(
@@ -80,7 +79,7 @@ class AcademyActionButton extends StatelessWidget {
                           )
                         : AcademySfIcon(
                             icon,
-                            size: AcademyTokens.timelineDotExtent,
+                            size: AcademyTokens.actionIconExtent,
                             color: foreground,
                           ),
                   ),

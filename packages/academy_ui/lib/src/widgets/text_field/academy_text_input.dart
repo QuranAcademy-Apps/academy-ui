@@ -152,11 +152,19 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
     final labelHeight =
         MediaQuery.textScalerOf(context).scale(labelStyle.fontSize ?? 13) *
         (labelStyle.height ?? 1.2);
+    final direction = Directionality.of(context);
+    final fieldPadding = theme.paddings.field.resolve(direction);
+    final fieldStart = direction == TextDirection.ltr
+        ? fieldPadding.left
+        : fieldPadding.right;
+    final fieldEnd = direction == TextDirection.ltr
+        ? fieldPadding.right
+        : fieldPadding.left;
     final inputPadding = floating
         ? EdgeInsetsDirectional.fromSTEB(
-            theme.paddings.field.resolve(Directionality.of(context)).left,
+            fieldStart,
             8 + labelHeight + 4,
-            theme.paddings.field.resolve(Directionality.of(context)).right,
+            fieldEnd,
             12,
           )
         : widget.padding ?? theme.paddings.field;
@@ -225,6 +233,11 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
             padding: inputPadding,
             prefix: widget.leading == null
                 ? null
+                : floating
+                ? SizedBox(
+                    width: AcademyTokens.target,
+                    child: Center(child: widget.leading),
+                  )
                 : Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                       prefixInsets.left,
@@ -273,9 +286,7 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(
                         start:
-                            inputPadding
-                                .resolve(Directionality.of(context))
-                                .left +
+                            fieldStart +
                             (widget.leading == null ? 0 : AcademyTokens.target),
                         end:
                             (widget.clearable ? AcademyTokens.target : 0) +

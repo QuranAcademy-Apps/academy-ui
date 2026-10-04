@@ -37,21 +37,25 @@ dependencies:
 
 ## Состав
 
-| Область | Компоненты |
+| Основная категория | Канонические компоненты |
 | --- | --- |
-| Оформление Yalla | `AcademyTheme`, палитра, токены, system/light/dark, акцент, flat/gradient/blur; системная типографика Quran |
-| Действия | `AcademyButton` (primary/secondary/disabled/pending), `AcademyTextButton`, `AcademyIconButton` |
-| Ввод и выбор | `AcademyField`, `AcademySearchBar`, `AcademyStepper`, `AcademyCheckmark`, `AcademyOptionMenu`, `AcademyLazyMenu` |
-| Формы и поиск | `AcademyTextFormField`, `AcademyFormField`, `AcademyFieldDecoration`, `AcademySelect`, `AcademyMultiSelect`, `AcademyAutocomplete` |
-| Даты и значения | `AcademyCalendar`, `AcademyRangeCalendar`, `AcademyLineCalendar`, `AcademyDateField`, `AcademyTimeField`, `AcademyPicker`, `AcademySlider` |
-| Взаимодействие | `AcademyTappable`, `AcademyFocusOutline`, `AcademyPopover`, `AcademyTooltip`, `AcademyInteractionTheme` |
-| Данные | `AcademyGroupedTable`, `AcademyTableSection`, `AcademyRow`, `AcademySurface`, `AcademyDivider` |
-| Навигация | `AcademyPage`, chrome bar/button/menu/group/capsule, `AcademyFloatingTabBar`, `AcademyTabScaffold` |
-| Состояния | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyImage` |
-| Общие блоки | `AcademyChecklist`, `AcademyJourneyProgress`, `AcademyGuideStep`, tips, motion-примитивы |
-| Дополнения Quran | `AcademyDisclosureCard`, `AcademyMenuAnchor`, `AcademyMenuItem`, `AcademyMenuButton`, `AcademyCompactSegment`, `AcademyCompactIconButton`, `AcademySettingsSquareButton`, `AcademyExpandingSearch` |
-| Модалки Quran | modal route, detents, focus expansion, scroll insets, landscape frame, nested Navigator, masked fills |
-| Готовые сценарии | контентный шит, форма, поиск, подтверждение, вложенный экран, последовательность подсказок |
+| Действия | `AcademyButton`, `AcademyTextButton`, `AcademyIconButton`, `AcademyInfoButton`, `AcademyCompactIconButton`, `AcademySettingsSquareButton`, `AcademyActionButton`, `AcademyPillButton` |
+| Ввод и выбор | `AcademyTextField`, `AcademyField`, `AcademyFloatingTextField`, `AcademyTextFormField`, `AcademySelect`, `AcademyMultiSelect`, `AcademyAutocomplete`, `AcademySearchBar`, `AcademyExpandingSearch`, `AcademyCalendar`, `AcademyRangeCalendar`, `AcademyLineCalendar`, `AcademyDateField`, `AcademyTimeField`, `AcademyPicker`, `AcademySlider`, `AcademyStepper`, `AcademySegmentedControl`, `AcademyCheckmark` |
+| Таблицы и контейнеры | `AcademyGroupedTable`, `AcademyTableSection`, `AcademyTableHeader`, `AcademyTableBody`, `AcademyTableFooter`, `AcademyTableBadge`, `AcademyTableSeparator`, `AcademyTableSectionView`, `AcademyRow`, `AcademyValueRow`, `AcademyDivider`, `AcademyDraggableTableSection`, `AcademyDragHandle`, `AcademySurface`, `AcademyDisclosureCard` |
+| Навигация | `AcademyPage`, `AcademyChrome`, `AcademyChromeBar`, `AcademyChromeButton`, `AcademyChromeGroup`, `AcademyChromeCapsule`, `AcademyChromePage`, `AcademyChromeModalHeader`, `AcademyChromeFade`, `AcademyFloatingTabBar`, `AcademyTabScaffold` |
+| Меню и наложения | `AcademyMenuButton`, `AcademyOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
+| Данные и медиа | `AcademyStat`, `AcademyStatGroup`, `AcademyTimeline`, `AcademyTimelineItem`, `AcademyImage`, `AcademySfImage`, `AcademySfIcon`, `AcademySymbols`, `AcademyChevron` |
+| Контекстная помощь | `AcademyTooltip`, `AcademyTip`, `showAcademyTips` |
+| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep` |
+| Оформление и взаимодействие | `AcademyApp`, `AcademyTheme`, `AcademyAppearanceController`, `AcademyColors`, `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`, `AcademyInteractionTheme`, `AcademyTappable`, `AcademyFocusOutline`, motion-примитивы |
+
+В каталоге три входа: «Компоненты», «Сценарии», «Оформление». Основная категория
+определяет назначение; профиль, поездки и Quran — связанные сценарии. Поиск
+работает по русскому названию и имени API. Одна карточка семейства содержит
+назначение, связанные компоненты, применимые состояния и примеры.
+
+[Руководство выбора, уровни API, все роли типографики и совместимость](../../docs/design-system-reference.md).
+Исторические отчёты находятся в `docs/reviews`; они не заменяют актуальные контракты.
 
 Предметные формы Quran/Yalla, данные, сетевые сервисы и авторизация не перенесены.
 Приложение передаёт данные и callbacks. Схема состояния/DI приложения не навязывается.
@@ -218,7 +222,7 @@ rounded clip над списком; режимы под баром исполь�
 Нижний padding равен `AcademyFloatingTabBar.bottomObstructionOf(context)` плюс
 нужный зазор, чтобы последний элемент был доступен. Пример показывает оба отступа.
 
-## Дополнительные элементы Quran
+## Компактные контролы и меню
 
 - Объединённые кнопки с разделителем: `AcademyChromeGroup(actions: [...])`.
 - Раскрывающийся список: `AcademyDisclosureCard(expanded: ..., onToggle: ..., child: ...)`.
@@ -406,15 +410,15 @@ Catalogue: Tables and cards → Table, menu and dragging (Russian labels in the 
 
 Значения компонентов управляются четырьмя отдельными сущностями:
 
-- `AcademyRadii` — скругления компонентов: кнопки, поля, таблицы,
+- `AcademyRadii` — 26 ролей скруглений компонентов: кнопки, поля, таблицы,
   сегменты, навигация, изображения, тосты, модалки. Значения по умолчанию
   определены только в `lib/src/theme/academy_radii.dart`.
-- `AcademyPaddings` — 36 ролей внутренних/внешних отступов (`EdgeInsets`),
+- `AcademyPaddings` — 37 ролей внутренних/внешних отступов (`EdgeInsets`),
   определённых в `lib/src/theme/academy_paddings.dart`.
 - `AcademyColors` / `AcademyPalette` — семантический контракт и значения
   светлой/тёмной палитры. Все исходные цвета находятся в `academy_palette.dart`;
   старые константы цветов `AcademyTokens` остаются совместимыми ссылками.
-- `AcademyTypographySettings` — семейства и переопределения 17 текстовых ролей.
+- `AcademyTypographySettings` — семейства и переопределения 25 текстовых ролей.
   Размеры, насыщенность и системный tracking находятся в `academy_typography.dart`.
 
 ```dart
@@ -633,6 +637,18 @@ colorsBuilder: (brightness, accent) => AcademyPalette(brightness, accent).copyWi
 переопределений контраст задаёт клиент. Изменение `surface` или
 `surfaceContainerHighest` не должно менять стандартную палитру полей.
 
+### Поля с плавающим заголовком
+
+`AcademyFloatingTextField(label: 'Почта', help: 'Для входа в профиль')` —
+дополнительный вариант на общей основе `AcademyTextInput`. В пустом поле без
+фокуса название находится на месте placeholder. При фокусе или вводе оно плавно
+поднимается и уменьшается; после очистки и потери фокуса возвращается обратно.
+Размер поля не меняется. Поддерживаются `controller`, `focusNode`, `help`, `error`,
+`trailing`, `readOnly`, `enabled`, очистка и тип клавиатуры. Цвета и скругления
+берутся из текущей темы; отключение анимаций системы учитывается.
+Для Flutter Form используйте `AcademyTextFormField(label: 'Почта', floatingLabel: true)`.
+Обычный стиль остаётся стандартным. Все варианты показаны в «Поля и выбор» каталога.
+
 
 ### Профиль, метаданные и этапы
 
@@ -659,7 +675,7 @@ grey, indigo, purple, brown. `colorOf(context)` выбирает светлое/
 Кнопки используют общий AcademyPressEffect, учитывают Reduce Motion и имеют
 один именованный action-узел; loading объявляется live region. Лента не анимируется.
 
-Примеры и состояния — страница «Профиль и поездки» каталога.
+Канонические примеры — «Действия» и «Данные и медиа»; составной пример — сценарий «Профиль и поездки».
 [Обе темы](../../docs/previews/profile-components.png),
 [2× и RTL](../../docs/previews/profile-components-large-rtl.png).
 

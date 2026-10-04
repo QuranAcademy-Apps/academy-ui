@@ -5,7 +5,7 @@ import '../../foundation/interaction/academy_interaction.dart';
 
 import '../icon/academy_sf_image.dart';
 import '../../theme/academy_theme.dart';
-import '../modal/modal_sheet_corner_mask.dart';
+import '../../foundation/surface/academy_surface_mask.dart';
 
 /// Quran TajweedDisclosureCard, with app-owned expansion and opaque fill.
 class AcademyDisclosureCard extends StatelessWidget {
@@ -67,7 +67,9 @@ class AcademyDisclosureCard extends StatelessWidget {
     );
     return ModalSheetMaskedFill(
       color: theme.colorScheme.surface,
-      borderRadius: BorderRadius.circular(AcademyTheme.of(context).radii.table),
+      borderRadius: BorderRadius.circular(
+        AcademyTheme.of(context).radii.disclosure,
+      ),
       child: content,
     );
   }

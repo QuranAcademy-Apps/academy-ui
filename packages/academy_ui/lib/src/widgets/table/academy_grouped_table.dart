@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'academy_table.dart';
 import '../../theme/academy_theme.dart';
-import '../modal/modal_sheet_corner_mask.dart';
+import '../../foundation/surface/academy_surface_mask.dart';
 
 class AcademyTableSection {
   const AcademyTableSection({

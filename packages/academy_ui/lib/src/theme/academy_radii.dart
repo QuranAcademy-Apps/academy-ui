@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 enum AcademyRadiusRole {
   button,
+  pillButton,
   field,
   search,
   surface,
@@ -32,6 +33,7 @@ enum AcademyRadiusRole {
 @immutable
 class AcademyRadii {
   static const defaultButton = 14.0;
+  static const defaultPillButton = 30.0;
   static const defaultField = 12.0;
   static const defaultSearch = defaultField;
   static const defaultSurface = 14.0;
@@ -58,6 +60,7 @@ class AcademyRadii {
   static const defaultModal = 32.0;
   const AcademyRadii({
     this.button = defaultButton,
+    this.pillButton = defaultPillButton,
     this.field = defaultField,
     this.search = defaultSearch,
     double? surface,
@@ -82,7 +85,10 @@ class AcademyRadii {
     this.toast = defaultToast,
     this.progress = defaultProgress,
     this.modal = defaultModal,
-  }) : table = table ?? surface ?? disclosure ?? defaultTable,
+  }) : surface = surface ?? defaultSurface,
+       table = table ?? defaultTable,
+       disclosure = disclosure ?? defaultDisclosure,
+       assert(pillButton >= 0 && pillButton < double.infinity),
        assert(button >= 0 && button < double.infinity),
        assert(field >= 0 && field < double.infinity),
        assert(search >= 0 && search < double.infinity),
@@ -115,19 +121,18 @@ class AcademyRadii {
        assert(progress >= 0 && progress < double.infinity),
        assert(modal >= 0 && modal < double.infinity);
   final double button;
+  final double pillButton;
   final double field;
   final double search;
 
-  /// Compatibility alias: all table-like containers share [table].
-  double get surface => table;
+  final double surface;
   final double table;
   final double tableBadge;
   final double rowIcon;
   final double status;
   final double image;
 
-  /// Compatibility alias for [table].
-  double get disclosure => table;
+  final double disclosure;
   final double stepper;
   final double menuButton;
   final double settingsButton;
@@ -146,6 +151,7 @@ class AcademyRadii {
 
   double value(AcademyRadiusRole role) => switch (role) {
     AcademyRadiusRole.button => button,
+    AcademyRadiusRole.pillButton => pillButton,
     AcademyRadiusRole.field => field,
     AcademyRadiusRole.search => search,
     AcademyRadiusRole.surface => surface,
@@ -174,6 +180,7 @@ class AcademyRadii {
 
   AcademyRadii copyWith({
     double? button,
+    double? pillButton,
     double? field,
     double? search,
     double? surface,
@@ -200,9 +207,12 @@ class AcademyRadii {
     double? modal,
   }) => AcademyRadii(
     button: button ?? this.button,
+    pillButton: pillButton ?? this.pillButton,
     field: field ?? this.field,
     search: search ?? this.search,
-    table: table ?? surface ?? disclosure ?? this.table,
+    table: table ?? this.table,
+    surface: surface ?? this.surface,
+    disclosure: disclosure ?? this.disclosure,
     tableBadge: tableBadge ?? this.tableBadge,
     rowIcon: rowIcon ?? this.rowIcon,
     status: status ?? this.status,
@@ -228,6 +238,7 @@ class AcademyRadii {
   AcademyRadii withValue(AcademyRadiusRole role, double value) =>
       switch (role) {
         AcademyRadiusRole.button => copyWith(button: value),
+        AcademyRadiusRole.pillButton => copyWith(pillButton: value),
         AcademyRadiusRole.field => copyWith(field: value),
         AcademyRadiusRole.search => copyWith(search: value),
         AcademyRadiusRole.surface => copyWith(surface: value),

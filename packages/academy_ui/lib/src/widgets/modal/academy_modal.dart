@@ -7,7 +7,7 @@ import '../icon/academy_sf_image.dart';
 import '../../theme/academy_theme.dart';
 import '../navigation/chrome/academy_chrome.dart';
 import '../navigation/chrome/academy_chrome_metrics.dart';
-import 'modal_sheet_corner_mask.dart';
+import '../../foundation/surface/academy_surface_mask.dart';
 import 'modal_sheet_detents.dart';
 
 /// How scrolling content meets the pinned modal header.

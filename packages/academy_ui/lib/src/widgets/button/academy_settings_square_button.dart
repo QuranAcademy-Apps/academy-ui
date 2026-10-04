@@ -6,7 +6,7 @@ import '../../foundation/motion/academy_press_effect.dart';
 
 import '../icon/academy_sf_image.dart';
 import '../../theme/academy_theme.dart';
-import '../modal/modal_sheet_corner_mask.dart';
+import '../../foundation/surface/academy_surface_mask.dart';
 
 /// Quran ReaderQuickSettingsSquareButton: 68px utility control with rounded corners.
 class AcademySettingsSquareButton extends StatelessWidget {

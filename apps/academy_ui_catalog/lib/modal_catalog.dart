@@ -5,7 +5,8 @@ import 'catalog_pages.dart';
 import 'search_modal.dart';
 
 class ModalCatalog extends StatelessWidget {
-  const ModalCatalog({super.key});
+  const ModalCatalog({super.key, this.embedded = false});
+  final bool embedded;
 
   void _content(
     BuildContext context,
@@ -51,148 +52,157 @@ class ModalCatalog extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => catalogPage(context, 'Модалки', [
-    const Text(
-      'Проверьте открытие, перетаскивание, клавиатуру и возврат между вложенными экранами.',
-    ),
-    const SizedBox(height: 24),
-    AcademyGroupedTable(
-      sections: [
-        AcademyTableSection(
-          rows: [
-            AcademyRow(
-              title: 'Контентный шит',
-              subtitle: 'Плавный фейд под верхним баром',
-              onPressed: () =>
-                  _content(context, AcademyModalHeaderBehavior.fade),
-            ),
-            AcademyRow(
-              title: 'Контент · прозрачный бар',
-              onPressed: () =>
-                  _content(context, AcademyModalHeaderBehavior.overlay),
-            ),
-            AcademyRow(
-              title: 'Контент · отдельно от бара',
-              onPressed: () =>
-                  _content(context, AcademyModalHeaderBehavior.separate),
-            ),
-            AcademyRow(
-              title: 'Форма и клавиатура',
-              onPressed: () => _form(context),
-            ),
-            AcademyRow(
-              title: 'Поиск',
-              onPressed: () => showAcademyModal<int>(
-                context,
+  Widget build(BuildContext context) {
+    final children = <Widget>[
+      const Text(
+        'Проверьте открытие, перетаскивание, клавиатуру и возврат между вложенными экранами.',
+      ),
+      const SizedBox(height: 24),
+      AcademyGroupedTable(
+        sections: [
+          AcademyTableSection(
+            rows: [
+              AcademyRow(
+                title: 'Контентный шит',
+                subtitle: 'Плавный фейд под верхним баром',
+                onPressed: () =>
+                    _content(context, AcademyModalHeaderBehavior.fade),
+              ),
+              AcademyRow(
+                title: 'Контент · прозрачный бар',
+                onPressed: () =>
+                    _content(context, AcademyModalHeaderBehavior.overlay),
+              ),
+              AcademyRow(
+                title: 'Контент · отдельно от бара',
+                onPressed: () =>
+                    _content(context, AcademyModalHeaderBehavior.separate),
+              ),
+              AcademyRow(
+                title: 'Форма и клавиатура',
+                onPressed: () => _form(context),
+              ),
+              AcademyRow(
                 title: 'Поиск',
-                builder: (_) => const SearchModal(),
+                onPressed: () => showAcademyModal<int>(
+                  context,
+                  title: 'Поиск',
+                  builder: (_) => const SearchModal(),
+                ),
               ),
-            ),
-            AcademyRow(
-              title: 'Подтверждение',
-              onPressed: () => showAcademyConfirmation(
-                context,
-                title: 'Продолжить?',
-                message: 'Подтверждение действия.',
-                confirmLabel: 'Продолжить',
+              AcademyRow(
+                title: 'Подтверждение',
+                onPressed: () => showAcademyConfirmation(
+                  context,
+                  title: 'Продолжить?',
+                  message: 'Подтверждение действия.',
+                  confirmLabel: 'Продолжить',
+                ),
               ),
-            ),
-            AcademyRow(
-              title: 'Вложенные экраны',
-              onPressed: () => showAcademyModal(
-                context,
-                title: 'Первый экран',
-                nestedNavigation: true,
-                headerBehavior: AcademyModalHeaderBehavior.fade,
-                builder: (context) => AcademyModalListView(
-                  children: [
-                    AcademyButton(
-                      label: 'Следующий экран',
-                      onPressed: () => pushAcademyModalPage(
-                        context,
-                        title: 'Второй экран',
-                        builder: (context) => AcademyModalListView(
-                          children: [
-                            const AcademyField(label: 'Название'),
-                            AcademyButton(
-                              label: 'Закрыть весь поток',
-                              onPressed: () => closeAcademyModal(context),
-                            ),
-                          ],
+              AcademyRow(
+                title: 'Вложенные экраны',
+                onPressed: () => showAcademyModal(
+                  context,
+                  title: 'Первый экран',
+                  nestedNavigation: true,
+                  headerBehavior: AcademyModalHeaderBehavior.fade,
+                  builder: (context) => AcademyModalListView(
+                    children: [
+                      AcademyButton(
+                        label: 'Следующий экран',
+                        onPressed: () => pushAcademyModalPage(
+                          context,
+                          title: 'Второй экран',
+                          builder: (context) => AcademyModalListView(
+                            children: [
+                              const AcademyField(label: 'Название'),
+                              AcademyButton(
+                                label: 'Закрыть весь поток',
+                                onPressed: () => closeAcademyModal(context),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    ],
+                  ),
+                ),
+              ),
+              AcademyRow(
+                title: 'Начальная высота 300',
+                onPressed: () => showAcademyModal(
+                  context,
+                  title: 'Своя высота',
+                  initialDetent: ModalSheetDetent.auto,
+                  autoHeight: 300,
+                  detents: const [ModalSheetDetent.auto, ModalSheetDetent.full],
+                  builder: (_) => const AcademyModalListView(
+                    children: [
+                      AcademyField(label: 'Нажмите для ввода'),
+                      Text('После снятия фокуса возвращается заданная высота.'),
+                    ],
+                  ),
+                ),
+              ),
+              AcademyRow(
+                title: 'Длинный список · detents',
+                onPressed: () => showAcademyModal(
+                  context,
+                  title: 'Список',
+                  detents: const [
+                    ModalSheetDetent.medium,
+                    ModalSheetDetent.large,
                   ],
+                  builder: (_) => AcademyModalListView(
+                    children: [
+                      for (var i = 1; i <= 60; i++)
+                        AcademyRow(title: 'Пункт $i'),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            AcademyRow(
-              title: 'Начальная высота 300',
-              onPressed: () => showAcademyModal(
-                context,
-                title: 'Своя высота',
-                initialDetent: ModalSheetDetent.auto,
-                autoHeight: 300,
-                detents: const [ModalSheetDetent.auto, ModalSheetDetent.full],
-                builder: (_) => const AcademyModalListView(
-                  children: [
-                    AcademyField(label: 'Нажмите для ввода'),
-                    Text('После снятия фокуса возвращается заданная высота.'),
-                  ],
+              AcademyRow(
+                title: 'Полная высота',
+                onPressed: () => showAcademyModal(
+                  context,
+                  title: 'Полный экран',
+                  initiallyExpanded: true,
+                  builder: (_) => const AcademyModalListView(
+                    children: [Text('Начальная высота — full.')],
+                  ),
                 ),
               ),
-            ),
-            AcademyRow(
-              title: 'Длинный список · detents',
-              onPressed: () => showAcademyModal(
-                context,
-                title: 'Список',
-                detents: const [
-                  ModalSheetDetent.medium,
-                  ModalSheetDetent.large,
-                ],
-                builder: (_) => AcademyModalListView(
-                  children: [
-                    for (var i = 1; i <= 60; i++) AcademyRow(title: 'Пункт $i'),
-                  ],
-                ),
-              ),
-            ),
-            AcademyRow(
-              title: 'Полная высота',
-              onPressed: () => showAcademyModal(
-                context,
-                title: 'Полный экран',
-                initiallyExpanded: true,
-                builder: (_) => const AcademyModalListView(
-                  children: [Text('Начальная высота — full.')],
-                ),
-              ),
-            ),
-            AcademyRow(
-              title: 'Тост внутри модалки',
-              onPressed: () => showAcademyModal(
-                context,
-                title: 'Тост',
-                builder: (context) => AcademyModalListView(
-                  children: [
-                    AcademyButton(
-                      label: 'Показать сверху',
-                      onPressed: () => AcademyToastHost.show(
-                        context,
-                        'Сообщение над модалкой',
-                        position: AcademyToastPosition.top,
-                        leadingIcon: AcademySymbols.info,
-                        trailingIcon: AcademySymbols.checkmark,
+              AcademyRow(
+                title: 'Тост внутри модалки',
+                onPressed: () => showAcademyModal(
+                  context,
+                  title: 'Тост',
+                  builder: (context) => AcademyModalListView(
+                    children: [
+                      AcademyButton(
+                        label: 'Показать сверху',
+                        onPressed: () => AcademyToastHost.show(
+                          context,
+                          'Сообщение над модалкой',
+                          position: AcademyToastPosition.top,
+                          leadingIcon: AcademySymbols.info,
+                          trailingIcon: AcademySymbols.checkmark,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ], tab: true);
+            ],
+          ),
+        ],
+      ),
+    ];
+    return embedded
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
+          )
+        : catalogPage(context, 'Модалки', children);
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../theme/academy_theme.dart';
-import '../modal/modal_sheet_corner_mask.dart';
+import '../../foundation/surface/academy_surface_mask.dart';
 
 class AcademySurface extends StatelessWidget {
   const AcademySurface({super.key, required this.child});
@@ -16,7 +16,7 @@ class AcademySurface extends StatelessWidget {
       return ModalSheetMaskedFill(
         color: AcademyTheme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(
-          AcademyTheme.of(context).radii.table,
+          AcademyTheme.of(context).radii.surface,
         ),
         child: content,
       );
@@ -26,7 +26,7 @@ class AcademySurface extends StatelessWidget {
         color: AcademyTheme.of(context).colorScheme.surface,
         shape: RoundedSuperellipseBorder(
           borderRadius: BorderRadius.circular(
-            AcademyTheme.of(context).radii.table,
+            AcademyTheme.of(context).radii.surface,
           ),
         ),
       ),

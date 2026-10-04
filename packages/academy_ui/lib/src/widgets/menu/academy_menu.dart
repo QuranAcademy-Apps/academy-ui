@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'academy_menu_anchor.dart';
 import '../table/academy_row.dart';
-import '../table/academy_divider.dart';
+import '../../foundation/table/academy_table_row_scope.dart';
 import '../icon/academy_sf_image.dart';
 import '../../theme/academy_theme.dart';
 
@@ -98,7 +98,8 @@ class AcademyMenuDisplay extends StatelessWidget {
   );
 }
 
-class AcademyMenuRow extends StatelessWidget {
+class AcademyMenuRow extends StatelessWidget
+    implements AcademyTableRowGeometry {
   const AcademyMenuRow({
     super.key,
     required this.label,
@@ -130,6 +131,13 @@ class AcademyMenuRow extends StatelessWidget {
         useRootOverlay: useRootOverlay,
         builder: builder,
       );
+  @override
+  double separatorStart(BuildContext context) =>
+      AcademyTheme.of(context).paddings.tableRow.left +
+      (icon != null
+          ? AcademyTokens.tableIconExtent + AcademyTokens.inlineGap
+          : 0);
+
   @override
   Widget build(BuildContext context) {
     final display = AcademyMenuDisplay(value: value);

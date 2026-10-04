@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 enum AcademyPaddingRole {
   button,
+  pillButton,
   textButton,
   fieldOuter,
   field,
@@ -43,6 +44,7 @@ enum AcademyPaddingRole {
 @immutable
 class AcademyPaddings {
   const AcademyPaddings({
+    this.pillButton = const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
     this.button = const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     this.textButton = const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     this.fieldOuter = const EdgeInsets.symmetric(vertical: 10),
@@ -93,6 +95,7 @@ class AcademyPaddings {
     this.groupedTable = const EdgeInsets.all(0),
   });
   final EdgeInsets button;
+  final EdgeInsets pillButton;
   final EdgeInsets textButton;
   final EdgeInsets fieldOuter;
   final EdgeInsets field;
@@ -131,6 +134,7 @@ class AcademyPaddings {
 
   EdgeInsets value(AcademyPaddingRole role) => switch (role) {
     AcademyPaddingRole.button => button,
+    AcademyPaddingRole.pillButton => pillButton,
     AcademyPaddingRole.textButton => textButton,
     AcademyPaddingRole.fieldOuter => fieldOuter,
     AcademyPaddingRole.field => field,
@@ -170,6 +174,7 @@ class AcademyPaddings {
 
   AcademyPaddings copyWith({
     EdgeInsets? button,
+    EdgeInsets? pillButton,
     EdgeInsets? textButton,
     EdgeInsets? fieldOuter,
     EdgeInsets? field,
@@ -207,6 +212,7 @@ class AcademyPaddings {
     EdgeInsets? groupedTable,
   }) => AcademyPaddings(
     button: button ?? this.button,
+    pillButton: pillButton ?? this.pillButton,
     textButton: textButton ?? this.textButton,
     fieldOuter: fieldOuter ?? this.fieldOuter,
     field: field ?? this.field,
@@ -247,6 +253,7 @@ class AcademyPaddings {
   AcademyPaddings withValue(AcademyPaddingRole role, EdgeInsets value) =>
       switch (role) {
         AcademyPaddingRole.button => copyWith(button: value),
+        AcademyPaddingRole.pillButton => copyWith(pillButton: value),
         AcademyPaddingRole.textButton => copyWith(textButton: value),
         AcademyPaddingRole.fieldOuter => copyWith(fieldOuter: value),
         AcademyPaddingRole.field => copyWith(field: value),

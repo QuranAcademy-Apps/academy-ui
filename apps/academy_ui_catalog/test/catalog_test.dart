@@ -37,13 +37,9 @@ void main() {
             const AcademyPaddings().value(role),
           );
         }
-        expect(find.byType(AcademyTextField), findsNWidgets(2));
+        expect(find.byType(AcademyTextField), findsNWidgets(5));
         expect(find.widgetWithText(AcademyField, 'Почта'), findsOneWidget);
-        expect(find.byType(AcademyFloatingTextField), findsNWidgets(5));
-        expect(
-          tester.widget<AcademySearchBar>(find.byType(AcademySearchBar)).chrome,
-          isTrue,
-        );
+        expect(find.byType(AcademyFloatingTextField), findsNWidgets(6));
       }
       expect(tester.takeException(), isNull);
       await tester.tap(

@@ -70,6 +70,19 @@ class _TextFieldsCatalogState extends State<TextFieldsCatalog> {
           ),
           const SizedBox(height: 12),
           const AcademyTextField(
+            placeholder: 'Пароль',
+            obscureText: true,
+            clearable: false,
+          ),
+          const SizedBox(height: 12),
+          const AcademyTextField(
+            placeholder: 'Недоступный ввод',
+            enabled: false,
+          ),
+          const SizedBox(height: 12),
+          const AcademyTextField(placeholder: 'Только чтение', readOnly: true),
+          const SizedBox(height: 12),
+          const AcademyTextField(
             placeholder: 'Поле с иконками',
             leading: AcademySfIcon(AcademySymbols.book, size: 18),
             trailing: AcademySfIcon(AcademySymbols.plus, size: 18),
@@ -96,6 +109,7 @@ class _TextFieldsCatalogState extends State<TextFieldsCatalog> {
         'Нажмите на пустое поле: название плавно поднимется. '
             'После очистки и выхода из поля оно вернётся на место.',
         [
+          const AcademyFloatingTextField(label: 'Пустое поле'),
           AcademyFloatingTextField(
             label: 'Имя',
             controller: _name,

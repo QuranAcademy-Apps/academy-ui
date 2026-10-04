@@ -5,12 +5,9 @@ import '../icon/academy_sf_image.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'academy_grouped_table.dart';
-import '../menu/academy_menu.dart';
-import '../menu/academy_option_menu.dart';
-import 'academy_row.dart';
-import 'academy_divider.dart';
+import '../../foundation/table/academy_table_row_scope.dart';
 import '../../theme/academy_theme.dart';
-import '../modal/modal_sheet_corner_mask.dart';
+import '../../foundation/surface/academy_surface_mask.dart';
 
 /// Compact metadata badge matching Quran's downloaded-content table.
 class AcademyTableBadge extends StatelessWidget {
@@ -258,14 +255,9 @@ class AcademyTableBody extends StatelessWidget {
   }
 
   double _separatorStart(BuildContext context, Widget row) {
-    final hasLeading =
-        row is AcademyRow && (row.icon != null || row.leading != null) ||
-        row is AcademyOptionMenu && row.icon != null ||
-        row is AcademyMenuRow && row.icon != null;
-    return AcademyTheme.of(context).paddings.tableRow.left +
-        (hasLeading
-            ? AcademyTokens.tableIconExtent + AcademyTokens.inlineGap
-            : 0);
+    return row is AcademyTableRowGeometry
+        ? (row as AcademyTableRowGeometry).separatorStart(context)
+        : AcademyTheme.of(context).paddings.tableRow.left;
   }
 }
 
