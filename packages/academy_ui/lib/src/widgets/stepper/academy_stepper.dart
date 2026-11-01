@@ -16,6 +16,7 @@ class AcademyStepper extends StatelessWidget {
   }) : onDecrease = null,
        onIncrease = null,
        centered = false,
+       color = null,
        _actions = false;
 
   /// Callback-driven variant without a value: each half is enabled when its
@@ -25,6 +26,7 @@ class AcademyStepper extends StatelessWidget {
     required this.onDecrease,
     required this.onIncrease,
     this.centered = false,
+    this.color,
   }) : value = 0,
        min = 0,
        max = 0,
@@ -35,6 +37,9 @@ class AcademyStepper extends StatelessWidget {
   final ValueChanged<int> onChanged;
   final VoidCallback? onDecrease, onIncrease;
   final bool centered;
+
+  /// Tint of the actions variant; defaults to the theme's text color.
+  final Color? color;
   final bool _actions;
 
   static void _ignoreChange(int _) {}
@@ -46,7 +51,7 @@ class AcademyStepper extends StatelessWidget {
         onDecrease: onDecrease,
         onIncrease: onIncrease,
         centered: centered,
-        color: AcademyTheme.of(context).colorScheme.onSurface,
+        color: color ?? AcademyTheme.of(context).colorScheme.onSurface,
       );
     }
     final color = AcademyTheme.of(context).colorScheme.onSurface;
