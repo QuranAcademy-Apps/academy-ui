@@ -17,6 +17,8 @@ class AcademySfIcon extends StatelessWidget {
     this.shadows,
     this.textDirection,
     this.semanticsLabel,
+    this.scaleWithText = false,
+    this.mirrorInRtl = true,
   });
 
   final IconData icon;
@@ -30,31 +32,39 @@ class AcademySfIcon extends StatelessWidget {
   final TextDirection? textDirection;
   final String? semanticsLabel;
 
+  /// Follow the ambient text scale. Off by default: symbols keep a fixed size.
+  final bool scaleWithText;
+
+  /// Swap [AcademySymbols.back] and [AcademySymbols.forward] in RTL. Turn off
+  /// when the host relies on the glyph's own right-to-left variant.
+  final bool mirrorInRtl;
+
   @override
   Widget build(BuildContext context) {
     final resolvedSize = fontSize ?? size ?? 24;
     final direction = textDirection ?? Directionality.of(context);
-    final resolvedIcon = direction == TextDirection.rtl
+    final resolvedIcon = mirrorInRtl && direction == TextDirection.rtl
         ? icon == AcademySymbols.back
               ? AcademySymbols.forward
               : icon == AcademySymbols.forward
               ? AcademySymbols.back
               : icon
         : icon;
-    final glyph = MediaQuery.withNoTextScaling(
-      child: ExcludeSemantics(
-        excluding: semanticsLabel == null,
-        child: sf.SFIcon(
-          resolvedIcon,
-          fontSize: resolvedSize,
-          fontWeight: fontWeight,
-          color: color,
-          shadows: shadows,
-          textDirection: direction,
-          semanticsLabel: semanticsLabel,
-        ),
+    final symbol = ExcludeSemantics(
+      excluding: semanticsLabel == null,
+      child: sf.SFIcon(
+        resolvedIcon,
+        fontSize: resolvedSize,
+        fontWeight: fontWeight,
+        color: color,
+        shadows: shadows,
+        textDirection: direction,
+        semanticsLabel: semanticsLabel,
       ),
     );
+    final glyph = scaleWithText
+        ? symbol
+        : MediaQuery.withNoTextScaling(child: symbol);
 
     final resolvedBoxSize = boxSize;
     if (resolvedBoxSize == null) return glyph;

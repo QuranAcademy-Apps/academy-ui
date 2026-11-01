@@ -16,6 +16,8 @@ export 'src/widgets/text_field/academy_field.dart';
 export 'src/widgets/surface/academy_surface.dart';
 export 'src/widgets/status/academy_status.dart';
 export 'src/widgets/feedback/academy_feedback.dart';
+export 'src/widgets/feedback/academy_message_view.dart';
+export 'src/widgets/switch/academy_switch.dart';
 export 'src/widgets/image/academy_image.dart';
 export 'src/widgets/modal/academy_confirmation.dart';
 export 'src/widgets/button/academy_icon_button.dart';

@@ -312,6 +312,19 @@ AcademyToastHost.show(
 [раскрытое меню, поиск и тост](../../docs/previews/quran-interactions.png).
 Повторить рендер можно командой `flutter test tool/capture_controls_test.dart --no-pub`.
 
+## Подключение существующих приложений (Quran)
+
+Параметры, которые позволяют приложению сохранить свой вид, не меняя умолчания:
+
+- `AcademyTypographySettings.tracking` — своя кривая letter-spacing системного шрифта (в том числе для крупных заголовков).
+- `AcademySfIcon(scaleWithText: true, mirrorInRtl: false)` — символ следует системному масштабу текста и не подменяет `back`/`forward` в RTL. По умолчанию размер фиксирован, стрелки подменяются.
+- `AcademySwitch(value:, onChanged:, activeTrackColor:)` — переключатель 51 × 31; цвет по умолчанию — `accentFill`.
+- `AcademyMessageView(message:, onRetry:, retryLabel:)` — текст по центру и необязательная кнопка повтора; подпись приходит от приложения.
+- `AcademyRingProgress.fill(value:, color:)` — кольцо на всё место родителя (inset 1.5, дорожка 22 %, `easeOut`, без семантики).
+- `AcademyInfoButton.inline(onPressed:, iconSize:, color:)` — символ «i» без круглой подложки.
+
+Библиотека построена на `package:flutter/cupertino.dart`. Приложение, которое сидит на `package:cupertino_ui`, должно дополнительно предоставить тему Cupertino из SDK (`CupertinoTheme` из `flutter/cupertino.dart`), иначе динамические цвета и `CupertinoButton`/`CupertinoSwitch` внутри академических виджетов возьмут яркость системы, а не приложения.
+
 ## Проверка и источники
 
 Из каталога можно проверить тему, акцент, оформление навигации, клавиатуру,
