@@ -145,6 +145,9 @@ abstract final class AcademySymbols {
   static const plusCircle = sf.SFIcons.sf_plus_circle;
   static const circle = sf.SFIcons.sf_circle;
   static const restart = sf.SFIcons.sf_arrow_counterclockwise;
+  static const pause = sf.SFIcons.sf_pause;
+  static const playFill = sf.SFIcons.sf_play_fill;
+  static const pauseFill = sf.SFIcons.sf_pause_fill;
 }
 
 /// Quran SFImageView / SFButtonSize composition, without reader dependencies.

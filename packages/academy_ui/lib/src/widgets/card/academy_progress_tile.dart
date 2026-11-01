@@ -5,8 +5,8 @@ import '../../foundation/motion/press_scale.dart';
 import '../../theme/academy_theme.dart';
 import '../icon/academy_sf_image.dart';
 
-/// Compact grid tile of a daily routine (morning adhkar, …): tinted icon,
-/// title, «5/17» caption and a thin progress line. `highlighted` draws the
+/// Grid tile of a daily routine (morning adhkar, …): a large tinted icon,
+/// centered title, «5/17» caption and a thin progress line. `highlighted` draws the
 /// accent outline Quran uses for the last-read row.
 class AcademyProgressTile extends StatelessWidget {
   const AcademyProgressTile({
@@ -44,42 +44,40 @@ class AcademyProgressTile extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
+        padding: const EdgeInsets.fromLTRB(14, 18, 14, 14),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                AcademySfImage(
-                  icon,
-                  frameSize: 32,
-                  symbolSize: 16,
-                  foreground: tint,
-                  background: tint.withValues(alpha: .14),
-                ),
-                const Spacer(),
-                if (done)
-                  AcademySfIcon(
-                    AcademySymbols.completeFill,
-                    size: 20,
-                    color: tint,
-                  )
-                else
-                  Text(
-                    caption,
-                    style: theme.textTheme.caption.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                      fontFeatures: const [FontFeature.tabularFigures()],
-                    ),
-                  ),
-              ],
+            AcademySfImage(
+              icon,
+              frameSize: 60,
+              symbolSize: 30,
+              foreground: tint,
+              background: tint.withValues(alpha: .14),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             Text(
               title,
               maxLines: 2,
+              textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyStrong,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: 4),
+            SizedBox(
+              height: 18,
+              child: done
+                  ? AcademySfIcon(
+                      AcademySymbols.completeFill,
+                      size: 16,
+                      color: tint,
+                    )
+                  : Text(
+                      caption,
+                      style: theme.textTheme.caption.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                      ),
+                    ),
             ),
             const SizedBox(height: 10),
             ClipRRect(
