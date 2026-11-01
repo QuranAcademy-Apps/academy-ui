@@ -322,6 +322,9 @@ AcademyToastHost.show(
 - `AcademyMessageView(message:, onRetry:, retryLabel:)` — текст по центру и необязательная кнопка повтора; подпись приходит от приложения.
 - `AcademyRingProgress.fill(value:, color:)` — кольцо на всё место родителя (inset 1.5, дорожка 22 %, `easeOut`, без семантики).
 - `AcademyInfoButton.inline(onPressed:, iconSize:, color:)` — символ «i» без круглой подложки.
+- `AcademySlidingSegments<T>` — полноширинный селектор со скользящей плашкой (цвета передаются явно, `contentBuilder` рисует сегмент); `AcademyPillSegments<T>` — текстовый селектор 36 pt со скользящей белой плашкой.
+- `AcademyActionStepper(onDecrease:, onIncrease:, color:)` — пилюля «− +» 94 × 32 с независимо отключаемыми половинами.
+- `AcademySymbols` содержит каталог символов приложения Quran (перенесён из `AppSfIcons`); дубли по глифу сведены к одному имени.
 
 Библиотека построена на `package:flutter/cupertino.dart`. Приложение, которое сидит на `package:cupertino_ui`, должно дополнительно предоставить тему Cupertino из SDK (`CupertinoTheme` из `flutter/cupertino.dart`), иначе динамические цвета и `CupertinoButton`/`CupertinoSwitch` внутри академических виджетов возьмут яркость системы, а не приложения.
 
