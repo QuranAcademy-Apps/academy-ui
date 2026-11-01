@@ -40,6 +40,9 @@ class AppSegmented<T extends Object> extends StatelessWidget {
 
   final T value;
   final List<T> values;
+
+  /// A finite width sizes the selector, `null` gives the minimum (41 pt per
+  /// segment) and `double.infinity` fills the parent.
   final double? width;
   final String Function(T value) labelFor;
   final ValueChanged<T> onChanged;
@@ -51,51 +54,58 @@ class AppSegmented<T extends Object> extends StatelessWidget {
   Widget build(BuildContext context) {
     final appColors = AppColorsProvider.maybeOf(context);
     final minWidth = _minSegmentWidth * values.length;
+    final control = AcademySegmentedControl<T>(
+      items: values,
+      value: value,
+      labelFor: labelFor,
+      onChanged: onChanged,
+      height: _minHeight,
+      cornerRadius: _minHeight / 2,
+      selectionCornerRadius: (_minHeight - 2.4 - 1.2) / 2,
+      backgroundColor:
+          backgroundColor ??
+          appColors?.fillPrimary ??
+          CupertinoDynamicColor.resolve(
+            const CupertinoDynamicColor.withBrightness(
+              color: Color(0xFFDADADE),
+              darkColor: Color(0xFF3A3A3C),
+            ),
+            context,
+          ),
+      selectedColor:
+          selectedColor ??
+          appColors?.fillSecondary ??
+          CupertinoDynamicColor.resolve(
+            const CupertinoDynamicColor.withBrightness(
+              color: Color(0xFFFFFFFF),
+              darkColor: Color(0xFF636366),
+            ),
+            context,
+          ),
+      textColor:
+          textColor ?? CupertinoDynamicColor.resolve(_labelColor, context),
+      selectionBorderColor: CupertinoDynamicColor.resolve(
+        _selectedBorderColor,
+        context,
+      ),
+      selectionShadowColor: CupertinoDynamicColor.resolve(
+        _selectedShadowColor,
+        context,
+      ),
+    );
+    // An infinite width means "fill the parent", which the control does by
+    // itself; wrapping it in an infinite SizedBox breaks layout inside sheets.
+    final requested = width;
+    final preferred = requested == null
+        ? minWidth
+        : requested.isFinite
+        ? math.max(requested, minWidth)
+        : null;
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: minWidth, minHeight: _minHeight),
-      child: SizedBox(
-        width: math.max(width ?? minWidth, minWidth),
-        height: _minHeight,
-        child: AcademySegmentedControl<T>(
-          items: values,
-          value: value,
-          labelFor: labelFor,
-          onChanged: onChanged,
-          height: _minHeight,
-          cornerRadius: _minHeight / 2,
-          selectionCornerRadius: (_minHeight - 2.4 - 1.2) / 2,
-          backgroundColor:
-              backgroundColor ??
-              appColors?.fillPrimary ??
-              CupertinoDynamicColor.resolve(
-                const CupertinoDynamicColor.withBrightness(
-                  color: Color(0xFFDADADE),
-                  darkColor: Color(0xFF3A3A3C),
-                ),
-                context,
-              ),
-          selectedColor:
-              selectedColor ??
-              appColors?.fillSecondary ??
-              CupertinoDynamicColor.resolve(
-                const CupertinoDynamicColor.withBrightness(
-                  color: Color(0xFFFFFFFF),
-                  darkColor: Color(0xFF636366),
-                ),
-                context,
-              ),
-          textColor:
-              textColor ?? CupertinoDynamicColor.resolve(_labelColor, context),
-          selectionBorderColor: CupertinoDynamicColor.resolve(
-            _selectedBorderColor,
-            context,
-          ),
-          selectionShadowColor: CupertinoDynamicColor.resolve(
-            _selectedShadowColor,
-            context,
-          ),
-        ),
-      ),
+      child: preferred == null
+          ? control
+          : SizedBox(width: preferred, height: _minHeight, child: control),
     );
   }
 }

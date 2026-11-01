@@ -314,6 +314,8 @@ AcademyToastHost.show(
 
 ## Подключение существующих приложений (Quran)
 
+Подробный разбор проблем переноса и чек-лист: [docs/migrating-an-existing-app.md](../../docs/migrating-an-existing-app.md).
+
 Параметры, которые позволяют приложению сохранить свой вид, не меняя умолчания:
 
 - `AcademyTypographySettings.tracking` — своя кривая letter-spacing системного шрифта (в том числе для крупных заголовков).

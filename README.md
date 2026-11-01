@@ -6,6 +6,7 @@
 - [Интерактивный каталог](apps/academy_ui_catalog/README.md).
 - [Правила Apple HIG и нативный эталон таблиц](docs/frontend/APPLE_HIG.md).
 - [План и источники переноса](docs/plans/design-system-migration.md).
+- [Перенос существующего приложения: грабли и чек-лист](docs/migrating-an-existing-app.md).
 
 Git remote: `git@github.com:QuranAcademy-Apps/academy-ui.git`.
 
