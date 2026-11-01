@@ -1,6 +1,8 @@
 import 'package:academy_ui/academy_ui.dart' show AcademyStepper;
 import 'package:cupertino_ui/cupertino_ui.dart';
 
+import '../../../theme/app_colors.dart';
+
 /// Minus/plus stepper for settings rows: [AcademyStepper.actions].
 class AppStepper extends StatelessWidget {
   const AppStepper({
@@ -19,5 +21,6 @@ class AppStepper extends StatelessWidget {
     onDecrease: onDecrease,
     onIncrease: onIncrease,
     centered: centered,
+    color: context.appColors.textPrimary,
   );
 }
