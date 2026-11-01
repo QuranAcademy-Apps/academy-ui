@@ -24,6 +24,12 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     this.style = AcademySegmentStyle.pill,
     this.cornerRadius,
     this.selectionCornerRadius,
+    this.height,
+    this.backgroundColor,
+    this.selectedColor,
+    this.textColor,
+    this.selectionBorderColor,
+    this.selectionShadowColor,
   }) : assert(items.length > 0),
        assert(cornerRadius == null || cornerRadius >= 0),
        assert(selectionCornerRadius == null || selectionCornerRadius >= 0);
@@ -38,6 +44,12 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     this.cornerRadius,
     this.selectionCornerRadius,
   }) : style = AcademySegmentStyle.compact,
+       height = null,
+       backgroundColor = null,
+       selectedColor = null,
+       textColor = null,
+       selectionBorderColor = null,
+       selectionShadowColor = null,
        assert(items.length > 0),
        assert(cornerRadius == null || cornerRadius >= 0),
        assert(selectionCornerRadius == null || selectionCornerRadius >= 0);
@@ -48,19 +60,36 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
   final ValueChanged<T>? onChanged;
   final AcademySegmentStyle style;
   final double? cornerRadius, selectionCornerRadius;
+
+  /// Exact height of the control (visual and layout). Without it the control is
+  /// 32 pt high inside a 44 pt interaction box.
+  final double? height;
+
+  /// Overrides of the track, thumb and label colors, and of the thumb's hairline
+  /// border and shadow, for hosts whose palette differs from the theme roles.
+  final Color? backgroundColor,
+      selectedColor,
+      textColor,
+      selectionBorderColor,
+      selectionShadowColor;
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final selected = items.indexOf(value).clamp(0, items.length - 1);
     final pill = style == AcademySegmentStyle.pill;
-    final height = math.max(
-      pill ? 32.0 : 31.0,
-      iconFor == null
-          ? academyTextLineHeight(context, theme.textTheme.segmentLabel) + 12
-          : 32.0,
-    );
+    final exact = this.height;
+    final height =
+        exact ??
+        math.max(
+          pill ? 32.0 : 31.0,
+          iconFor == null
+              ? academyTextLineHeight(context, theme.textTheme.segmentLabel) +
+                    12
+              : 32.0,
+        );
+    final box = exact ?? math.max(44, height);
     return SizedBox(
-      height: math.max(44, height),
+      height: box,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final available = constraints.hasBoundedWidth
@@ -79,7 +108,9 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                   height: height,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.segmentBackground,
+                      color:
+                          backgroundColor ??
+                          theme.colorScheme.segmentBackground,
                       borderRadius: BorderRadius.circular(
                         cornerRadius ??
                             (pill
@@ -94,7 +125,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                   for (var i = 1; i < items.length; i++)
                     PositionedDirectional(
                       start: width * i,
-                      top: (math.max(44, height) - 16) / 2,
+                      top: (box - 16) / 2,
                       child: Container(
                         width: .5,
                         height: 16,
@@ -108,11 +139,14 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                   curve: Curves.easeInOutCubic,
                   start: width * selected + 2,
                   width: math.max(0, width - 4),
-                  top: (math.max(44, height) - height) / 2 + 2,
+                  top: (box - height) / 2 + 2,
                   height: height - 4,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.segmentSelected,
+                      color: selectedColor ?? theme.colorScheme.segmentSelected,
+                      border: selectionBorderColor == null
+                          ? null
+                          : Border.all(color: selectionBorderColor!, width: .5),
                       borderRadius: BorderRadius.circular(
                         selectionCornerRadius ??
                             (pill
@@ -121,7 +155,9 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: theme.colorScheme.segmentShadow,
+                          color:
+                              selectionShadowColor ??
+                              theme.colorScheme.segmentShadow,
                           blurRadius: 2,
                           offset: Offset(0, 1),
                         ),
@@ -139,9 +175,9 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                           label: labelFor(item),
                           child: CupertinoButton(
                             padding: EdgeInsets.zero,
-                            minimumSize: const Size(
+                            minimumSize: Size(
                               AcademyTokens.target,
-                              AcademyTokens.target,
+                              exact ?? AcademyTokens.target,
                             ),
                             onPressed: onChanged == null
                                 ? null
@@ -154,7 +190,10 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                                       labelFor(item),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: theme.textTheme.segmentLabel,
+                                      style: textColor == null
+                                          ? theme.textTheme.segmentLabel
+                                          : theme.textTheme.segmentLabel
+                                                .copyWith(color: textColor),
                                     )
                                   : AcademySfIcon(
                                       iconFor!(item),

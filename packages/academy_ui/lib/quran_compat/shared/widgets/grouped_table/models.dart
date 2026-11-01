@@ -27,6 +27,7 @@ class GroupedTable extends StatelessWidget {
   final List<GroupedTableSection> sections;
   final EdgeInsetsGeometry padding;
   final double sectionSpacing;
+
   /// Scroll controller / physics for the outer scrollable. When [shrinkWrap]
   /// is true the table renders as a non-scrolling inline column, so both are
   /// ignored — wrap the table in your own scrollable instead.

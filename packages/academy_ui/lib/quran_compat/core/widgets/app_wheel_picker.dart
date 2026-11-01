@@ -148,7 +148,9 @@ class _SelectionOverlay extends StatelessWidget {
         width: double.infinity,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: colors.backgroundPrimary.withValues(alpha: _selectionOpacity),
+            color: colors.backgroundPrimary.withValues(
+              alpha: _selectionOpacity,
+            ),
             borderRadius: BorderRadius.circular(_selectionRadius),
           ),
         ),

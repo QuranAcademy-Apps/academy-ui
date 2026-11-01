@@ -31,6 +31,7 @@ class AcademyTextInput extends StatefulWidget {
     this.chrome = false,
     this.highlightOnFocus = true,
     this.backgroundColor,
+    this.onCleared,
   }) : assert(cornerRadius == null || cornerRadius >= 0);
 
   final TextEditingController? controller;
@@ -44,6 +45,9 @@ class AcademyTextInput extends StatefulWidget {
   final bool enabled, readOnly, obscureText, autofocus, clearable, chrome;
   final bool highlightOnFocus;
   final Color? backgroundColor;
+
+  /// Called after the clear button emptied the field.
+  final VoidCallback? onCleared;
   final TextInputType? keyboardType;
   final TextInputAction textInputAction;
   final double? cornerRadius;
@@ -91,6 +95,7 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
   void _clear() {
     _controller.clear();
     widget.onChanged?.call('');
+    widget.onCleared?.call();
     _focus.requestFocus();
   }
 

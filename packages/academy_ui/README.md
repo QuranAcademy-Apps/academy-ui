@@ -321,12 +321,20 @@ AcademyToastHost.show(
 - `AcademySwitch(value:, onChanged:, activeTrackColor:)` — переключатель 51 × 31; цвет по умолчанию — `accentFill`.
 - `AcademyMessageView(message:, onRetry:, retryLabel:)` — текст по центру и необязательная кнопка повтора; подпись приходит от приложения.
 - `AcademyRingProgress.fill(value:, color:)` — кольцо на всё место родителя (inset 1.5, дорожка 22 %, `easeOut`, без семантики).
+- `AcademySegmentedControl(height:, backgroundColor:, selectedColor:, textColor:, selectionBorderColor:, selectionShadowColor:)` — точная высота (без 44 pt зоны) и цвета палитры хоста.
+- `AcademySearchBar(onClear:)` — вызывается после очистки поля кнопкой.
 - `AcademyInfoButton.inline(onPressed:, iconSize:, color:)` — символ «i» без круглой подложки.
 - `AcademySlidingSegments<T>` — полноширинный селектор со скользящей плашкой (цвета передаются явно, `contentBuilder` рисует сегмент); `AcademyPillSegments<T>` — текстовый селектор 36 pt со скользящей белой плашкой.
 - `AcademyActionStepper(onDecrease:, onIncrease:, color:)` — пилюля «− +» 94 × 32 с независимо отключаемыми половинами.
 - `AcademySymbols` содержит каталог символов приложения Quran (перенесён из `AppSfIcons`); дубли по глифу сведены к одному имени.
 
 Библиотека построена на `package:flutter/cupertino.dart`. Приложение, которое сидит на `package:cupertino_ui`, должно дополнительно предоставить тему Cupertino из SDK (`CupertinoTheme` из `flutter/cupertino.dart`), иначе динамические цвета и `CupertinoButton`/`CupertinoSwitch` внутри академических виджетов возьмут яркость системы, а не приложения.
+
+## quran_compat
+
+`lib/quran_compat/` — UI-слой приложения Quran (модалки, тосты, chrome, GroupedTable, меню, `AppColors`/`AppTypography`), перенесённый как есть в том же дереве папок. Он построен на `package:cupertino_ui` и работает только в приложении с `cupertino_ui`; Zikro и Yalla его не используют. Дубли с основным API (модалка, тост, chrome, таблица, цвета, типографика) временно остаются и будут сведены. Строки доступности приложение подставляет через `QuranCompatStringsDelegate`.
+
+Шрифт Inter (`assets/fonts/Inter.ttf`) не объявлен в `pubspec.yaml` пакета: шрифт пакета попадает в сборку каждого приложения (+856 КБ). Приложение, которому нужен Inter, объявляет его у себя.
 
 ## Проверка и источники
 

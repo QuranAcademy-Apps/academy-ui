@@ -25,6 +25,7 @@ class AcademySearchBar extends StatefulWidget {
     this.cornerRadius,
     this.autofocus = false,
     this.backgroundColor,
+    this.onClear,
   });
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
@@ -37,6 +38,9 @@ class AcademySearchBar extends StatefulWidget {
   final bool enabled, clearable;
   final double? cornerRadius;
   final bool autofocus;
+
+  /// Called after the clear button emptied the field.
+  final VoidCallback? onClear;
 
   /// Replaces the field fill (for example transparent inside a capsule).
   final Color? backgroundColor;
@@ -134,6 +138,7 @@ class _AcademySearchBarState extends State<AcademySearchBar>
       final field = AcademyTextInput(
         focusNode: _focus,
         autofocus: widget.autofocus,
+        onCleared: widget.onClear,
         backgroundColor: widget.backgroundColor,
         controller: widget.controller,
         placeholder:

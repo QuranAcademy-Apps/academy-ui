@@ -57,7 +57,8 @@ Future<bool> warmDisplayChromeAndroidFromPlatform() async {
 
   // Navigation mode is a Settings.Secure read that is reliable on the first
   // attempt, so capture it up front before the rounded-corner retry loop.
-  _androidNavigationMode = await _fetchNavigationMode() ?? _androidNavigationMode;
+  _androidNavigationMode =
+      await _fetchNavigationMode() ?? _androidNavigationMode;
 
   final previous = _androidBottomRoundedCornerInsetLogicalPx;
   for (final delay in _warmRetryDelays) {

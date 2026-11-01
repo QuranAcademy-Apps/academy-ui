@@ -130,11 +130,11 @@ SheetSnappingConfig modalSheetSnappingConfig({
 
   double snapFor(ModalSheetDetent detent) {
     return (detent.heightOf(
-                  context,
-                  autoHeight: autoHeight,
-                  autoFallbackDetent: autoFallbackDetent,
-                ) /
-                routeHeight)
+              context,
+              autoHeight: autoHeight,
+              autoFallbackDetent: autoFallbackDetent,
+            ) /
+            routeHeight)
         .clamp(0.0, 1.0)
         .toDouble();
   }
@@ -142,10 +142,9 @@ SheetSnappingConfig modalSheetSnappingConfig({
   // Portrait configuration: every requested detent, without collapsing to
   // `.full`. Stashed so the sheet can be restored to these detents when the
   // device rotates back to portrait, even if it was opened in landscape.
-  final portraitSnaps =
-      <double>{for (final detent in {...detents, initialDetent}) snapFor(detent)}
-          .toList()
-        ..sort();
+  final portraitSnaps = <double>{
+    for (final detent in {...detents, initialDetent}) snapFor(detent),
+  }.toList()..sort();
   final portraitConfig = SheetSnappingConfig(
     portraitSnaps,
     initialSnap: snapFor(initialDetent),

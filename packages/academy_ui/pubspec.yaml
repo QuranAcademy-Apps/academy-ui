@@ -20,8 +20,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-flutter:
-  fonts:
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/Inter.ttf
+# No fonts are declared here on purpose: a package font is bundled into every
+# consuming app. assets/fonts/Inter.ttf (OFL) is kept for hosts that want it and
+# must declare it in their own pubspec.

@@ -1,5 +1,6 @@
 import 'package:academy_ui/academy_ui.dart' show AcademySymbols, PressScale;
 import 'package:cupertino_ui/cupertino_ui.dart';
+
 import '../../design_system/widgets/controls/app_switch.dart';
 
 export '../../design_system/widgets/controls/app_switch.dart';
@@ -13,6 +14,7 @@ import '../../theme/app_typography.dart';
 import '../../design_system/widgets/controls/app_menu.dart';
 
 export '../../design_system/widgets/controls/app_menu.dart';
+export '../../design_system/widgets/controls/app_segmented.dart';
 import '../../design_system/widgets/controls/app_stepper.dart';
 
 export '../../design_system/widgets/controls/app_stepper.dart';

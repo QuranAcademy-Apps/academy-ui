@@ -57,9 +57,9 @@ Animation<double>? modalSheetTranslateAnimation(BuildContext context) {
 
 /// Lowest open detent, including through a sheet-local Navigator.
 double modalSheetMinimumExtent(BuildContext context) =>
-    _ModalSheetControllerScope.maybeOf(
-      context,
-    )?.effectiveSnappingConfig.minExtent ??
+    _ModalSheetControllerScope.maybeOf(context)
+        ?.effectiveSnappingConfig
+        .minExtent ??
     1;
 
 /// Exposes the live modal off-screen bottom inset to descendants, recomputed
