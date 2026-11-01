@@ -257,4 +257,81 @@ void main() {
     await tester.pumpAndSettle();
     expect(picked, 1);
   });
+
+  testWidgets('counter view counts taps anywhere and shows completion', (
+    tester,
+  ) async {
+    var count = 0;
+    late StateSetter update;
+    await tester.pumpWidget(
+      _host(
+        SizedBox(
+          width: 360,
+          height: 600,
+          child: StatefulBuilder(
+            builder: (context, setState) {
+              update = setState;
+              return AcademyCounterView(
+                count: count,
+                total: 33,
+                label: 'Счётчик',
+                hint: 'Нажимайте в любом месте',
+                onPressed: () => setState(() => count++),
+              );
+            },
+          ),
+        ),
+        textScale: 2,
+      ),
+    );
+    await tester.tapAt(
+      tester.getTopLeft(find.byType(AcademyCounterView)) + const Offset(10, 10),
+    );
+    await tester.pump();
+    expect(count, 1);
+    expect(find.text('1'), findsOneWidget);
+    update(() => count = 33);
+    await tester.pumpAndSettle();
+    expect(find.text('/ 33'), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('text block shows label and text, tinted on cards', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _host(
+        const SizedBox(
+          width: 320,
+          child: AcademyTextBlock(
+            label: 'Перевод',
+            text: 'Слава Аллаху и хвала Ему.',
+            onCard: true,
+          ),
+        ),
+      ),
+    );
+    expect(find.text('Перевод'), findsOneWidget);
+    expect(find.text('Слава Аллаху и хвала Ему.'), findsOneWidget);
+    final box = tester.widget<Container>(find.byType(Container).first);
+    final color = (box.decoration! as BoxDecoration).color;
+    final context = tester.element(find.byType(AcademyTextBlock));
+    expect(color, AcademyTextBlock.backgroundOf(context, onCard: true));
+  });
+
+  testWidgets('progress tile works without progress', (tester) async {
+    await tester.pumpWidget(
+      _host(
+        const SizedBox(
+          width: 170,
+          child: AcademyProgressTile(
+            title: 'Утренние',
+            icon: AcademySymbols.sun,
+          ),
+        ),
+      ),
+    );
+    expect(find.text('Утренние'), findsOneWidget);
+    expect(find.byType(ClipRRect), findsNothing);
+  });
 }

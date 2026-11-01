@@ -148,6 +148,19 @@ abstract final class AcademySymbols {
   static const pause = sf.SFIcons.sf_pause;
   static const playFill = sf.SFIcons.sf_play_fill;
   static const pauseFill = sf.SFIcons.sf_pause_fill;
+  static const house = sf.SFIcons.sf_house;
+  static const columns = sf.SFIcons.sf_building_columns;
+  static const sunHorizon = sf.SFIcons.sf_sun_horizon;
+  static const weather = sf.SFIcons.sf_cloud_sun_rain;
+  static const conversation = sf.SFIcons.sf_bubble_left_and_bubble_right;
+  static const family = sf.SFIcons.sf_figure_2_and_child_holdinghands;
+  static const moreCircle = sf.SFIcons.sf_ellipsis_circle;
+  static const sleep = sf.SFIcons.sf_moon_zzz;
+  static const handRaised = sf.SFIcons.sf_hand_raised;
+  static const shieldHalf = sf.SFIcons.sf_shield_lefthalf_filled;
+  static const suitcase = sf.SFIcons.sf_suitcase;
+  static const globe = sf.SFIcons.sf_globe_asia_australia;
+  static const playCircle = sf.SFIcons.sf_play_circle;
 }
 
 /// Quran SFImageView / SFButtonSize composition, without reader dependencies.

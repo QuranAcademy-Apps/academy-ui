@@ -92,3 +92,5 @@ export 'src/widgets/navigation/chrome/academy_chrome_menu_button.dart';
 export 'src/widgets/search/academy_search_scrim.dart';
 export 'src/widgets/table/academy_index_badge.dart';
 export 'src/widgets/card/academy_progress_tile.dart';
+export 'src/widgets/text/academy_text_block.dart';
+export 'src/widgets/counter/academy_counter_view.dart';

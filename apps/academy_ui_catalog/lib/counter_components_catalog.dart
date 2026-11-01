@@ -209,6 +209,35 @@ class _CounterComponentsDemoState extends State<CounterComponentsDemo> {
         ),
       ),
       example(
+        'Полноэкранный счётчик (больше трёх повторов)',
+        SizedBox(
+          height: 300,
+          child: AcademyCounterView(
+            count: _count,
+            total: 33,
+            label: 'Счётчик',
+            hint: 'Нажимайте в любом месте',
+            onPressed: () => setState(() => _count = (_count + 1) % 34),
+          ),
+        ),
+      ),
+      example(
+        'Блок перевода (как в Quran)',
+        const Column(
+          children: [
+            AcademyTextBlock(
+              label: 'Транслитерация',
+              text: 'Субхана-Ллахи ва би-хамди-хи.',
+            ),
+            SizedBox(height: 8),
+            AcademyTextBlock(
+              label: 'Перевод',
+              text: 'Слава Аллаху и хвала Ему.',
+            ),
+          ],
+        ),
+      ),
+      example(
         'Карточка подборки',
         Column(
           children: [

@@ -347,6 +347,8 @@ const componentRegistry = <ComponentDescriptor>[
       'AcademyIndexBadge',
       'AcademyChromeMenuButton',
       'AcademySearchScrim',
+      'AcademyCounterView',
+      'AcademyTextBlock',
     ],
     'Counter — счёт повторов; Dots — страницы; Card/Tile — подборка с прогрессом дня; Badge — номер строки; MenuButton — меню «…»; Scrim — состояние поиска.',
     related: ['journey', 'feedback', 'navigation'],
