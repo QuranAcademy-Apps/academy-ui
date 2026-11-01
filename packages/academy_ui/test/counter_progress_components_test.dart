@@ -334,4 +334,27 @@ void main() {
     expect(find.text('Утренние'), findsOneWidget);
     expect(find.byType(ClipRRect), findsNothing);
   });
+
+  testWidgets('compact progress tile is shorter than the regular one', (
+    tester,
+  ) async {
+    Future<double> height(bool compact) async {
+      await tester.pumpWidget(
+        _host(
+          SizedBox(
+            width: 170,
+            child: AcademyProgressTile(
+              title: 'Утренние',
+              icon: AcademySymbols.sun,
+              compact: compact,
+            ),
+          ),
+        ),
+      );
+      return tester.getSize(find.byType(AcademyProgressTile)).height;
+    }
+
+    expect(await height(true), lessThan(await height(false)));
+    expect(tester.takeException(), isNull);
+  });
 }

@@ -12,6 +12,7 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
   final _search = TextEditingController();
   bool _expanded = false;
   int _segment = 0;
+  int _tile = 0;
   String _theme = 'Классическая';
   @override
   void dispose() {
@@ -91,6 +92,24 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: 20),
+          const Text('Плитки с картинками'),
+          const SizedBox(height: 8),
+          AcademyChoiceTiles<int>(
+            items: const [0, 1],
+            value: _tile,
+            labelFor: (i) => ['Страницы', 'Список'][i],
+            previewBuilder: (context, i, selected) => Center(
+              child: AcademySfIcon(
+                [AcademySymbols.book, AcademySymbols.list][i],
+                size: 34,
+                color: selected
+                    ? AcademyTheme.of(context).colorScheme.primary
+                    : AcademyTheme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
+            onChanged: (i) => setState(() => _tile = i),
           ),
           const SizedBox(height: 20),
           const Text('Компактные сегменты и кнопки'),

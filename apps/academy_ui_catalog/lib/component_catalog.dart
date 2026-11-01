@@ -194,6 +194,12 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
               tinted: false,
               onPressed: action,
             ),
+            AcademyResumeCapsule(
+              visible: true,
+              title: 'Утренние азкары',
+              caption: '4/17',
+              onPressed: action,
+            ),
             AcademyIconButton(
               icon: AcademySymbols.plus,
               label: 'Добавить',
@@ -498,6 +504,16 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
           onToggle: () => setState(() => _expanded = !_expanded),
           child: const Text('Управляемое раскрытие'),
         ),
+        AcademyDisclosureTable(
+          title: 'На все случаи жизни',
+          subtitle: 'Крепость мусульманина',
+          expanded: _expanded,
+          onToggle: () => setState(() => _expanded = !_expanded),
+          rows: const [
+            AcademyRow(title: 'Сон и пробуждение', subtitle: '20 дуа'),
+            AcademyRow(title: 'Мечеть и намаз', subtitle: '66 дуа'),
+          ],
+        ),
       ],
       'menus' => [
         AcademyMenuButton(
@@ -551,6 +567,18 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
           stats: [
             AcademyStat(label: 'Завершено', value: '12'),
             AcademyStat(label: 'Всего', value: '20'),
+          ],
+        ),
+        AcademyPrayerStrip(
+          caption: 'Аср через 1 ч 20 мин',
+          highlighted: 2,
+          onPressed: () {},
+          times: const [
+            AcademyPrayerTime(name: 'Фаджр', time: '05:12'),
+            AcademyPrayerTime(name: 'Зухр', time: '12:31'),
+            AcademyPrayerTime(name: 'Аср', time: '15:48'),
+            AcademyPrayerTime(name: 'Магриб', time: '18:07'),
+            AcademyPrayerTime(name: 'Иша', time: '19:34'),
           ],
         ),
         AcademyTimeline(

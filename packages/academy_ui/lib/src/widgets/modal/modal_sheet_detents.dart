@@ -1,4 +1,5 @@
 import '../../theme/academy_theme.dart';
+import '../../foundation/localizations/academy_localizations.dart';
 
 import 'dart:async';
 

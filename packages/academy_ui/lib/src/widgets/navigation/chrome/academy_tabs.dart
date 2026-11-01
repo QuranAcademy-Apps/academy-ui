@@ -365,7 +365,8 @@ class AcademyFloatingTabBar extends StatelessWidget {
 
 /// Lazily builds visited pages and preserves their state; no business navigation.
 class AcademyTabScaffold extends StatefulWidget {
-  const AcademyTabScaffold({super.key, required this.tabs});
+  const AcademyTabScaffold({super.key, required this.tabs})
+    : assert(tabs.length > 0);
   final List<AcademyTab> tabs;
   @override
   State<AcademyTabScaffold> createState() => _AcademyTabScaffoldState();
@@ -374,6 +375,14 @@ class AcademyTabScaffold extends StatefulWidget {
 class _AcademyTabScaffoldState extends State<AcademyTabScaffold> {
   int _index = 0;
   final Set<int> _visited = {0};
+  @override
+  void didUpdateWidget(AcademyTabScaffold oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _index = _index.clamp(0, widget.tabs.length - 1);
+    _visited.removeWhere((index) => index >= widget.tabs.length);
+    _visited.add(_index);
+  }
+
   @override
   Widget build(BuildContext context) {
     final telegram =

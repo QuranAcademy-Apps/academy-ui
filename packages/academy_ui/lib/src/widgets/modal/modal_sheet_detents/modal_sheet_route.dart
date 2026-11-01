@@ -216,11 +216,21 @@ Future<T?> showAcademyModalRoute<T>({
 }) {
   final dismissible = isDismissible ?? true;
   final navigator = Navigator.of(context, rootNavigator: useRootNavigator);
+  final sourceDirection = Directionality.of(context);
+  final directionOverride =
+      sourceDirection != Directionality.of(navigator.context)
+      ? sourceDirection
+      : null;
+  final sourceScaler = MediaQuery.textScalerOf(context);
+  final scalerOverride =
+      sourceScaler != MediaQuery.textScalerOf(navigator.context)
+      ? sourceScaler
+      : null;
   final route = _AcademySheetRoute<T>(
     barrierColor:
         barrierColor ?? AcademyTheme.of(context).colorScheme.modalBarrier,
     barrierDismissible: dismissible,
-    barrierLabel: 'Dismiss modal',
+    barrierLabel: AcademyLocalizations.of(context).close,
     clearBarrierImmediately: clearBarrierImmediately,
     draggable: enableDrag && dismissible,
     motion: CupertinoMotion.smooth(
@@ -236,20 +246,35 @@ Future<T?> showAcademyModalRoute<T>({
     child: InheritedTheme.captureAll(
       context,
       Builder(
-        builder: (context) => SheetBackground(
-          backgroundColor: backgroundColor ?? CupertinoColors.transparent,
-          shape:
-              shape ??
-              RoundedSuperellipseBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(AcademyTheme.of(context).radii.modal),
+        builder: (context) {
+          Widget child = SheetBackground(
+            backgroundColor: backgroundColor ?? CupertinoColors.transparent,
+            shape:
+                shape ??
+                RoundedSuperellipseBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(AcademyTheme.of(context).radii.modal),
+                  ),
                 ),
-              ),
-          clipBehavior: clipBehavior,
-          child: _ModalSheetScrollInsetScope(
-            child: RepaintBoundary(child: Builder(builder: builder)),
-          ),
-        ),
+            clipBehavior: clipBehavior,
+            child: _ModalSheetScrollInsetScope(
+              child: RepaintBoundary(child: Builder(builder: builder)),
+            ),
+          );
+          if (directionOverride != null) {
+            child = Directionality(
+              textDirection: directionOverride,
+              child: child,
+            );
+          }
+          if (scalerOverride != null) {
+            child = MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaler: scalerOverride),
+              child: child,
+            );
+          }
+          return child;
+        },
       ),
       to: navigator.context,
     ),

@@ -17,6 +17,7 @@ class AcademyProgressTile extends StatelessWidget {
     this.progress,
     this.iconColor,
     this.highlighted = false,
+    this.compact = false,
     this.onPressed,
   }) : assert(progress == null || (progress >= 0 && progress <= 1));
   final String title;
@@ -27,6 +28,9 @@ class AcademyProgressTile extends StatelessWidget {
   final IconData icon;
   final Color? iconColor;
   final bool highlighted;
+
+  /// Miniature layout: small icon and title side by side in one row.
+  final bool compact;
   final VoidCallback? onPressed;
 
   @override
@@ -47,25 +51,52 @@ class AcademyProgressTile extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        padding: EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: compact ? 10 : 14,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AcademySfImage(
-              icon,
-              frameSize: 44,
-              symbolSize: 22,
-              foreground: tint,
-              background: tint.withValues(alpha: .14),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyStrong,
-            ),
+            if (compact)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AcademySfImage(
+                    icon,
+                    frameSize: 32,
+                    symbolSize: 17,
+                    foreground: tint,
+                    background: tint.withValues(alpha: .14),
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodyStrong,
+                    ),
+                  ),
+                ],
+              )
+            else ...[
+              AcademySfImage(
+                icon,
+                frameSize: 44,
+                symbolSize: 22,
+                foreground: tint,
+                background: tint.withValues(alpha: .14),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodyStrong,
+              ),
+            ],
             if (caption case final caption?) ...[
               const SizedBox(height: 2),
               done

@@ -161,6 +161,11 @@ abstract final class AcademySymbols {
   static const suitcase = sf.SFIcons.sf_suitcase;
   static const globe = sf.SFIcons.sf_globe_asia_australia;
   static const playCircle = sf.SFIcons.sf_play_circle;
+  static const textAlignCenter = sf.SFIcons.sf_text_aligncenter;
+  static const textFormat = sf.SFIcons.sf_textformat;
+  static const lightbulb = sf.SFIcons.sf_lightbulb;
+  static const forwardEnd = sf.SFIcons.sf_forward_end;
+  static const waveform = sf.SFIcons.sf_waveform;
 }
 
 /// Quran SFImageView / SFButtonSize composition, without reader dependencies.

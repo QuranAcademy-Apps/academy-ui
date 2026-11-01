@@ -73,7 +73,13 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
   void didUpdateWidget(AcademyTextInput oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != widget.controller) {
-      (oldWidget.controller ?? _ownedController!).removeListener(_changed);
+      final previous = oldWidget.controller ?? _ownedController!;
+      final value = previous.value;
+      previous.removeListener(_changed);
+      _ownedController?.dispose();
+      _ownedController = widget.controller == null
+          ? TextEditingController.fromValue(value)
+          : null;
       _controller.addListener(_changed);
     }
     if (oldWidget.focusNode != widget.focusNode) {

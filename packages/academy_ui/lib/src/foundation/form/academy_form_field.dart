@@ -29,6 +29,7 @@ class AcademyFormField<T> extends FormField<T> {
 
 class _AcademyFormFieldState<T> extends FormFieldState<T> {
   late final T _initial;
+  int _changeRevision = 0;
   @override
   void initState() {
     super.initState();
@@ -44,13 +45,19 @@ class _AcademyFormFieldState<T> extends FormFieldState<T> {
 
   void change(T next) {
     if (!widget.enabled) return;
-    // Keep the parent as the sole owner, even when it rejects the request.
-    didChange(field.value);
+    final revision = ++_changeRevision;
     field.onChanged?.call(next);
+    // Let the controlled parent rebuild before Form.onChanged reads/saves us.
+    // A rejected request still marks interaction, using the parent's value.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && revision == _changeRevision) didChange(field.value);
+    });
+    WidgetsBinding.instance.ensureVisualUpdate();
   }
 
   @override
   void reset() {
+    ++_changeRevision;
     super.reset();
     setValue(field.value);
     if (widget.enabled) field.onChanged?.call(_initial);

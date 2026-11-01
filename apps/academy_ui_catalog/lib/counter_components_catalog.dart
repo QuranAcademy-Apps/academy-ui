@@ -128,6 +128,32 @@ class _CounterComponentsDemoState extends State<CounterComponentsDemo> {
         ),
       ),
       example(
+        'Компактные плитки',
+        Row(
+          children: [
+            Expanded(
+              child: AcademyProgressTile(
+                title: 'Утренние',
+                icon: AcademySymbols.sunrise,
+                iconColor: AcademyRowIcons.trip.colorOf(context),
+                compact: true,
+                onPressed: () {},
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: AcademyProgressTile(
+                title: 'Вечерние',
+                icon: AcademySymbols.sunset,
+                iconColor: AcademyRowIcons.info.colorOf(context),
+                compact: true,
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
+      ),
+      example(
         'Нумерованный список и меню «…»',
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

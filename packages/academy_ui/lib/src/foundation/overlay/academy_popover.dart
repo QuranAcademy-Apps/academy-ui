@@ -35,6 +35,7 @@ class AcademyPopover extends StatefulWidget {
     this.placement = AcademyPopoverPlacement.auto,
     this.rootOverlay = true,
     this.dismissOnTapOutside = true,
+    this.consumeOutsideTaps = true,
     this.requestFocus = true,
     this.onOpenChanged,
   }) : assert(width > 0),
@@ -52,6 +53,10 @@ class AcademyPopover extends StatefulWidget {
   /// Optional precise anchor inside a labelled/validated control.
   final GlobalKey? anchorKey;
   final bool rootOverlay, dismissOnTapOutside, requestFocus;
+
+  /// False keeps the anchor interactive and lets outside taps reach the page.
+  /// Useful for suggestions attached to an editable field.
+  final bool consumeOutsideTaps;
   final ValueChanged<bool>? onOpenChanged;
   @override
   State<AcademyPopover> createState() => _AcademyPopoverState();
@@ -59,6 +64,7 @@ class AcademyPopover extends StatefulWidget {
 
 class _AcademyPopoverState extends State<AcademyPopover> {
   final _portal = OverlayPortalController();
+  final _tapRegionGroup = Object();
   AcademyPopoverController? _owned;
   AcademyPopoverController get _controller =>
       widget.controller ?? (_owned ??= AcademyPopoverController());
@@ -202,9 +208,16 @@ class _AcademyPopoverState extends State<AcademyPopover> {
             child: FocusTraversalGroup(child: content),
           );
         }
+        if (widget.dismissOnTapOutside && !widget.consumeOutsideTaps) {
+          content = TapRegion(
+            groupId: _tapRegionGroup,
+            onTapOutside: (_) => _controller.hide(),
+            child: content,
+          );
+        }
         return Stack(
           children: [
-            if (widget.dismissOnTapOutside)
+            if (widget.dismissOnTapOutside && widget.consumeOutsideTaps)
               Positioned.fill(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -233,7 +246,12 @@ class _AcademyPopoverState extends State<AcademyPopover> {
           ],
         );
       },
-      child: widget.builder(context, _controller),
+      child: widget.consumeOutsideTaps
+          ? widget.builder(context, _controller)
+          : TapRegion(
+              groupId: _tapRegionGroup,
+              child: widget.builder(context, _controller),
+            ),
     ),
   );
 }

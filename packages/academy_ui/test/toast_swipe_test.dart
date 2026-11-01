@@ -134,9 +134,7 @@ void main() {
         final context = await host(tester);
         await show(tester, context, position);
         Future<void> flick(double direction) async {
-          final gesture = await tester.startGesture(
-            tester.getCenter(toast),
-          );
+          final gesture = await tester.startGesture(tester.getCenter(toast));
           // Three display-frame samples model a short finger flick. The test
           // helper fling oversamples 40px into 50 events, making Flutter's
           // velocity history too short to pass its fling-distance threshold.

@@ -32,9 +32,19 @@ macOS-приложение: `build/macos/Build/Products/Release/Academy UI Catal
 Это не bundle ID будущего продуктового приложения Zikro. Мобильные проекты
 созданы, сборки/подпись для публикации в App Store/Google Play не выполнялись.
 
-iOS-проект использует Swift Package Manager. Он явно включён в `flutter.config`
-каталога, чтобы глобальные настройки Flutter не отключали нативные плагины.
-После изменения этой настройки выполните `flutter pub get` перед сборкой.
+iOS-проект использует Swift Package Manager. Он включён в `flutter.config`
+каталога. Для воспроизводимой сборки на Flutter 3.47 задайте флаг также при
+подготовке зависимостей и сборке: без него генерация может пропустить нативные
+плагины, несмотря на настройку проекта.
+
+```sh
+FLUTTER_SWIFT_PACKAGE_MANAGER=true flutter pub get
+FLUTTER_SWIFT_PACKAGE_MANAGER=true flutter build ios --simulator --debug --no-pub
+```
+
+Если системный путь разработчика указывает на Command Line Tools, задайте
+`DEVELOPER_DIR` с путём к установленному Xcode для этих команд и `xcrun simctl`.
+Менять системный выбор Xcode для сборки каталога не требуется.
 
 Blur 20 применяется к навигации и поиску; таблицы и обычные поля непрозрачные.
 Тосты поддерживают top/bottom, leading/trailing icons, смахивание и удержание.

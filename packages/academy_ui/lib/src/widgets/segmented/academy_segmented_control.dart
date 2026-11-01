@@ -4,6 +4,7 @@ import 'package:cupertino_ui/cupertino_ui.dart' hide CupertinoButton;
 import 'package:flutter/cupertino.dart' show CupertinoButton;
 
 import '../../foundation/interaction/academy_interaction.dart';
+import '../../foundation/layout/academy_text_metrics.dart';
 
 import '../icon/academy_sf_image.dart';
 import '../../theme/academy_theme.dart';
@@ -54,7 +55,9 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     final pill = style == AcademySegmentStyle.pill;
     final height = math.max(
       pill ? 32.0 : 31.0,
-      iconFor == null ? MediaQuery.textScalerOf(context).scale(13) + 12 : 32.0,
+      iconFor == null
+          ? academyTextLineHeight(context, theme.textTheme.segmentLabel) + 12
+          : 32.0,
     );
     return SizedBox(
       height: math.max(44, height),
