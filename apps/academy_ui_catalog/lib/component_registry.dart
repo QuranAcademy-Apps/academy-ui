@@ -217,6 +217,7 @@ const componentRegistry = <ComponentDescriptor>[
       'AcademyChromePage',
       'AcademyChromeModalHeader',
       'AcademyChromeFade',
+      'AcademyChromeFadeMaterial',
       'AcademyChromeAction',
       'AcademyTab',
       'AcademyChromeButton',

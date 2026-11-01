@@ -12,6 +12,7 @@ class AcademyMessageView extends StatelessWidget {
     this.message,
     this.onRetry,
     this.retryLabel,
+    this.messageColor,
     this.padding = const EdgeInsets.symmetric(horizontal: 32),
   }) : assert(message != null || onRetry != null),
        assert(onRetry == null || retryLabel != null);
@@ -19,6 +20,9 @@ class AcademyMessageView extends StatelessWidget {
   final String? message;
   final VoidCallback? onRetry;
   final String? retryLabel;
+
+  /// Defaults to the theme's secondary text color.
+  final Color? messageColor;
   final EdgeInsetsGeometry padding;
 
   @override
@@ -37,7 +41,7 @@ class AcademyMessageView extends StatelessWidget {
                 message,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
+                  color: messageColor ?? theme.colorScheme.onSurfaceVariant,
                 ),
               ),
               if (onRetry != null) const SizedBox(height: 16),

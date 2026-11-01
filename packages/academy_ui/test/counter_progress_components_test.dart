@@ -161,6 +161,30 @@ void main() {
     expect(tester.getSize(find.byType(AcademyChromeFade)).height, 60);
   });
 
+  testWidgets('chrome fade material is opaque at the bar edge only', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _host(
+        const SizedBox(
+          height: 60,
+          child: AcademyChromeFadeMaterial(bottom: true),
+        ),
+      ),
+    );
+    final box = tester.widget<DecoratedBox>(
+      find.descendant(
+        of: find.byType(AcademyChromeFadeMaterial),
+        matching: find.byType(DecoratedBox),
+      ),
+    );
+    final gradient =
+        (box.decoration as BoxDecoration).gradient! as LinearGradient;
+    expect(gradient.begin, Alignment.bottomCenter);
+    expect(gradient.colors.first.a, greaterThan(0.4));
+    expect(gradient.colors.last.a, 0);
+  });
+
   testWidgets('search scrim dims while open and swaps in results', (
     tester,
   ) async {
