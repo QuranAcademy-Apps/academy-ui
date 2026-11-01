@@ -54,7 +54,7 @@ class AcademyStepper extends StatelessWidget {
         color: color ?? AcademyTheme.of(context).colorScheme.onSurface,
       );
     }
-    final color = AcademyTheme.of(context).colorScheme.onSurface;
+    final tint = AcademyTheme.of(context).colorScheme.onSurface;
     Widget hit(bool increase) {
       final enabled = increase ? value < max : value > min;
       return SizedBox(
@@ -94,7 +94,7 @@ class AcademyStepper extends StatelessWidget {
           icon,
           size: 17,
           boxSize: 17,
-          color: color.withValues(alpha: enabled ? 1 : .35),
+          color: tint.withValues(alpha: enabled ? 1 : .35),
         ),
       ),
     );
@@ -110,7 +110,7 @@ class AcademyStepper extends StatelessWidget {
               width: 96,
               height: 32,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: .12),
+                color: tint.withValues(alpha: .12),
                 borderRadius: BorderRadius.circular(
                   AcademyTheme.of(context).radii.stepper,
                 ),
@@ -122,7 +122,7 @@ class AcademyStepper extends StatelessWidget {
             child: Container(
               width: 1,
               height: 18,
-              color: color.withValues(alpha: .3),
+              color: tint.withValues(alpha: .3),
             ),
           ),
           Positioned.fill(child: Row(children: [hit(false), hit(true)])),
