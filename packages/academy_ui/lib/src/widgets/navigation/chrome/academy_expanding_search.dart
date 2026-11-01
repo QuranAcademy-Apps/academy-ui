@@ -34,10 +34,12 @@ class AcademyExpandingSearch extends StatefulWidget {
   final FocusNode? focusNode;
   final bool enabled, readOnly;
   @override
-  State<AcademyExpandingSearch> createState() => _AcademyExpandingSearchState();
+  State<AcademyExpandingSearch> createState() => AcademyExpandingSearchState();
 }
 
-class _AcademyExpandingSearchState extends State<AcademyExpandingSearch>
+/// Use a `GlobalKey<AcademyExpandingSearchState>` to open or close the search
+/// from outside (for example, a tap on `AcademySearchScrim`).
+class AcademyExpandingSearchState extends State<AcademyExpandingSearch>
     with SingleTickerProviderStateMixin {
   FocusNode? _ownedFocus;
   FocusNode get _focus => widget.focusNode ?? (_ownedFocus ??= FocusNode());
@@ -50,6 +52,16 @@ class _AcademyExpandingSearchState extends State<AcademyExpandingSearch>
     curve: Curves.easeInOutCubic,
   );
   bool _open = false;
+
+  bool get isOpen => _open;
+
+  void open() {
+    if (!_open) _toggle();
+  }
+
+  void close() {
+    if (_open) _toggle();
+  }
 
   void _toggle() {
     if (!widget.enabled) return;

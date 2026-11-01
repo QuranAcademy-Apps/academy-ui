@@ -160,4 +160,101 @@ void main() {
     );
     expect(tester.getSize(find.byType(AcademyChromeFade)).height, 60);
   });
+
+  testWidgets('search scrim dims while open and swaps in results', (
+    tester,
+  ) async {
+    var dismissed = 0;
+    Widget scrim({required bool active, Widget? results}) => _host(
+      SizedBox(
+        width: 300,
+        height: 300,
+        child: AcademySearchScrim(
+          active: active,
+          results: results,
+          onDismiss: () => dismissed++,
+        ),
+      ),
+    );
+    await tester.pumpWidget(scrim(active: false));
+    await tester.tapAt(tester.getCenter(find.byType(AcademySearchScrim)));
+    expect(dismissed, 0);
+    await tester.pumpWidget(scrim(active: true));
+    await tester.pumpAndSettle();
+    await tester.tapAt(tester.getCenter(find.byType(AcademySearchScrim)));
+    expect(dismissed, 1);
+    await tester.pumpWidget(scrim(active: true, results: const Text('Итог')));
+    await tester.pumpAndSettle();
+    expect(find.text('Итог'), findsOneWidget);
+  });
+
+  testWidgets('expanding search can be closed from outside', (tester) async {
+    final key = GlobalKey<AcademyExpandingSearchState>();
+    final controller = TextEditingController();
+    addTearDown(controller.dispose);
+    final states = <bool>[];
+    await tester.pumpWidget(
+      _host(
+        SizedBox(
+          width: 360,
+          child: AcademyExpandingSearch(
+            key: key,
+            controller: controller,
+            onOpenChanged: states.add,
+          ),
+        ),
+      ),
+    );
+    key.currentState!.open();
+    await tester.pumpAndSettle();
+    expect(key.currentState!.isOpen, isTrue);
+    controller.text = 'дуа';
+    key.currentState!.close();
+    await tester.pumpAndSettle();
+    expect(states, [true, false]);
+    expect(controller.text, isEmpty);
+  });
+
+  testWidgets('progress tile, index badge and chrome menu button', (
+    tester,
+  ) async {
+    var taps = 0, picked = 0;
+    await tester.pumpWidget(
+      _host(
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 170,
+              child: AcademyProgressTile(
+                title: 'Утренние азкары',
+                caption: '2/17',
+                progress: 2 / 17,
+                icon: AcademySymbols.sunrise,
+                highlighted: true,
+                onPressed: () => taps++,
+              ),
+            ),
+            const AcademyIndexBadge(125),
+            AcademyChromeMenuButton(
+              label: 'Ещё',
+              items: [
+                AcademyMenuItem(title: 'Список', onPressed: () => picked++),
+              ],
+            ),
+          ],
+        ),
+        textScale: 2,
+      ),
+    );
+    expect(tester.takeException(), isNull);
+    await tester.tap(find.byType(AcademyProgressTile));
+    expect(taps, 1);
+    expect(find.text('125'), findsOneWidget);
+    await tester.tap(find.byType(AcademyChromeMenuButton));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Список'));
+    await tester.pumpAndSettle();
+    expect(picked, 1);
+  });
 }

@@ -143,6 +143,8 @@ abstract final class AcademySymbols {
   static const handTap = sf.SFIcons.sf_hand_tap;
   static const completeFill = sf.SFIcons.sf_checkmark_circle_fill;
   static const plusCircle = sf.SFIcons.sf_plus_circle;
+  static const circle = sf.SFIcons.sf_circle;
+  static const restart = sf.SFIcons.sf_arrow_counterclockwise;
 }
 
 /// Quran SFImageView / SFButtonSize composition, without reader dependencies.

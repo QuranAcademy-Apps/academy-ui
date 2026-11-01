@@ -46,7 +46,7 @@ dependencies:
 | Меню и наложения | `AcademyMenuButton`, `AcademyOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
 | Данные и медиа | `AcademyStat`, `AcademyStatGroup`, `AcademyTimeline`, `AcademyTimelineItem`, `AcademyImage`, `AcademySfImage`, `AcademySfIcon`, `AcademySymbols`, `AcademyChevron` |
 | Контекстная помощь | `AcademyTooltip`, `AcademyTip`, `showAcademyTips` |
-| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyPageDots`, `AcademyProgressCard` |
+| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyPageDots`, `AcademyProgressCard`, `AcademyProgressTile`, `AcademySearchScrim` |
 | Оформление и взаимодействие | `AcademyApp`, `AcademyTheme`, `AcademyAppearanceController`, `AcademyColors`, `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`, `AcademyInteractionTheme`, `AcademyTappable`, `AcademyFocusOutline`, motion-примитивы |
 
 В каталоге три входа: «Компоненты», «Сценарии», «Оформление». Основная категория
@@ -251,6 +251,19 @@ rounded clip над списком; режимы под баром исполь�
   точку по центру, края растворяются. Кладите внутрь `AcademyChromeCapsule`.
 - `AcademyProgressCard`: непрозрачная карточка подборки с иконкой, подписью,
   кольцом прогресса (галочка при 100%) и `highlighted` для актуальной подборки.
+- `AcademyProgressTile`: компактная плитка сетки «Каждый день» (иконка, название,
+  «5/17», тонкая полоса прогресса, `highlighted` — рамка как у последней
+  прочитанной суры в Quran). Долгое нажатие — оберните в
+  `AcademyMenuAnchor(enableLongPressToOpen: true)`.
+- `AcademyIndexBadge(n)`: номер строки в скруглённом квадрате (список сур) для
+  `AcademyRow.leading`.
+- `AcademyChromeMenuButton(label:, items:)`: круглая chrome-кнопка «…» с
+  pull-down меню из `AcademyMenuItem` / `AcademyMenuSeparator`.
+- `AcademySearchScrim(active:, results:, onDismiss:)`: состояние поиска iOS —
+  затемняет страницу, пока поле открыто, и показывает `results` на
+  непрозрачной поверхности при непустом запросе. Закрыть
+  `AcademyExpandingSearch` снаружи: `GlobalKey<AcademyExpandingSearchState>`
+  → `close()` (`open()`, `isOpen`).
 - `AcademyChromeFade(solidExtent:, fadeExtent:)`: сплошная полоса под статус-баром
   и плавный переход в цвет страницы для собственных экранов с плавающим chrome.
 - `AcademyExpandingSearch`: лупа раскрывает поле с выбранным эффектом навигации, получает фокус

@@ -339,8 +339,16 @@ const componentRegistry = <ComponentDescriptor>[
     'counter',
     'Счётчик и прогресс подборки',
     ComponentCategory.feedback,
-    ['AcademyCounterButton', 'AcademyPageDots', 'AcademyProgressCard'],
-    'Counter — счёт повторов с кольцом; Dots — страницы и прочитанные; Card — подборка с прогрессом дня.',
+    [
+      'AcademyCounterButton',
+      'AcademyPageDots',
+      'AcademyProgressCard',
+      'AcademyProgressTile',
+      'AcademyIndexBadge',
+      'AcademyChromeMenuButton',
+      'AcademySearchScrim',
+    ],
+    'Counter — счёт повторов; Dots — страницы; Card/Tile — подборка с прогрессом дня; Badge — номер строки; MenuButton — меню «…»; Scrim — состояние поиска.',
     related: ['journey', 'feedback', 'navigation'],
   ),
   ComponentDescriptor(
