@@ -38,8 +38,14 @@ class AcademyTypographySettings {
     this.displayFontFamily = 'CupertinoSystemDisplay',
     this.fontPackage,
     this.styles = const {},
+    this.tracking,
   });
   final String fontFamily, displayFontFamily;
+
+  /// Replaces the built-in system-font tracking curve for every role (including
+  /// the large headline roles). Receives the resolved font size. Applies only
+  /// to the system font families; custom families always use zero tracking.
+  final double Function(double size)? tracking;
   final String? fontPackage;
 
   /// Treat this map as immutable. Use [withStyle] to update a role.
@@ -50,11 +56,13 @@ class AcademyTypographySettings {
     String? fontPackage,
     bool clearFontPackage = false,
     Map<AcademyTextRole, TextStyle>? styles,
+    double Function(double size)? tracking,
   }) => AcademyTypographySettings(
     fontFamily: fontFamily ?? this.fontFamily,
     displayFontFamily: displayFontFamily ?? this.displayFontFamily,
     fontPackage: clearFontPackage ? null : fontPackage ?? this.fontPackage,
     styles: Map.unmodifiable(styles ?? this.styles),
+    tracking: tracking ?? this.tracking,
   );
   AcademyTypographySettings withStyle(AcademyTextRole role, TextStyle style) =>
       copyWith(styles: {...styles, role: style});
@@ -137,12 +145,13 @@ class AcademyTypography {
       package: settings.fontPackage,
       fontSize: size,
       fontWeight: weight,
-      letterSpacing: system
-          ? (role == AcademyTextRole.headlineMedium ||
-                    role == AcademyTextRole.displaySmall
-                ? -.6
-                : trackingForSize(resolvedSize))
-          : 0,
+      letterSpacing: !system
+          ? 0
+          : settings.tracking?.call(resolvedSize) ??
+                (role == AcademyTextRole.headlineMedium ||
+                        role == AcademyTextRole.displaySmall
+                    ? -.6
+                    : trackingForSize(resolvedSize)),
       height: switch (role) {
         AcademyTextRole.bodyRow || AcademyTextRole.bodyStrong => 22 / 17,
         AcademyTextRole.bodyDetail || AcademyTextRole.labelMedium => 20 / 15,
