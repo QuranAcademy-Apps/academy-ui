@@ -1,18 +1,19 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
 
+import 'package:academy_ui/academy_ui.dart' show AcademySearchBar;
+
 import '../../../core/widgets/gradient_control_chrome.dart';
-import '../search/app_search_bar.dart';
 import 'app_chrome_bar.dart';
 import '../../../l10n/quran_compat_strings.dart';
 
 /// Search field styled as a floating chrome capsule (gradient fill + stroke),
-/// the chrome equivalent of [AppSearchBar]. Hosts an [AppSearchBar] with a
+/// hosting an [AcademySearchBar] with a
 /// transparent fill inside a [GradientControlChrome] capsule and an optional
 /// trailing Cancel button.
 ///
 /// Shadow is disabled because the bar typically sits directly over scrolling
 /// content; pair it with an [AppChromeFadeMaterial] for the edge fade.
-class AppChromeSearchBar extends StatelessWidget {
+class AppChromeSearchBar extends StatefulWidget {
   const AppChromeSearchBar({
     super.key,
     required this.placeholder,
@@ -47,25 +48,41 @@ class AppChromeSearchBar extends StatelessWidget {
   final Widget Function(BuildContext context, Widget field)? fieldWrapper;
 
   @override
+  State<AppChromeSearchBar> createState() => _AppChromeSearchBarState();
+}
+
+class _AppChromeSearchBarState extends State<AppChromeSearchBar> {
+  TextEditingController? _owned;
+
+  TextEditingController get _controller =>
+      widget.controller ?? (_owned ??= TextEditingController());
+
+  @override
+  void dispose() {
+    _owned?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Widget inner = AppSearchBar(
-      placeholder: placeholder,
-      controller: controller,
-      focusNode: focusNode,
-      autofocus: autofocus,
-      isLoading: isLoading,
+    Widget inner = AcademySearchBar(
+      placeholder: widget.placeholder,
+      controller: _controller,
+      focusNode: widget.focusNode,
+      autofocus: widget.autofocus,
+      loading: widget.isLoading,
+      chrome: false,
+      clearable: true,
       backgroundColor: const Color(0x00000000),
-      height: height,
-      borderRadius: GradientControlChrome.capsuleRadius,
-      onChanged: onChanged,
-      onSubmitted: onSubmitted,
-      onClear: onClear,
+      cornerRadius: GradientControlChrome.capsuleRadius,
+      onChanged: widget.onChanged,
+      onSubmitted: widget.onSubmitted,
     );
-    if (fieldWrapper != null) {
-      inner = fieldWrapper!(context, inner);
+    if (widget.fieldWrapper != null) {
+      inner = widget.fieldWrapper!(context, inner);
     }
     final field = SizedBox(
-      height: height,
+      height: widget.height,
       child: GradientControlChrome(
         radius: GradientControlChrome.capsuleRadius,
         enableShadow: false,
@@ -73,7 +90,7 @@ class AppChromeSearchBar extends StatelessWidget {
       ),
     );
 
-    if (onCancel == null) {
+    if (widget.onCancel == null) {
       return field;
     }
 
@@ -84,7 +101,7 @@ class AppChromeSearchBar extends StatelessWidget {
         AppChromeBarIconButton(
           systemName: 'xmark',
           semanticLabel: QuranCompatStrings.of(context).close,
-          onPressed: onCancel,
+          onPressed: widget.onCancel,
         ),
       ],
     );

@@ -1,6 +1,5 @@
 
-import 'package:academy_ui/academy_ui.dart'
-    show AcademyPillSegments, AcademySymbols;
+import 'package:academy_ui/academy_ui.dart' show AcademySymbols;
 import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../../core/widgets/app_menu_anchor.dart';
@@ -99,45 +98,6 @@ class AppMenuDisplay extends StatelessWidget {
           color: iconColor ?? colors.textSecondary,
         ),
       ],
-    );
-  }
-}
-
-class AppSegmented<T extends Object> extends StatelessWidget {
-  const AppSegmented.control({
-    super.key,
-    required this.value,
-    required this.values,
-    required this.labelFor,
-    required this.onChanged,
-    this.width,
-    this.backgroundColor,
-    this.selectedColor,
-    this.textColor,
-  }) : assert(values.length > 0),
-       assert(width == null || width > 0);
-
-  final T value;
-  final List<T> values;
-  final double? width;
-  final String Function(T value) labelFor;
-  final ValueChanged<T> onChanged;
-  final Color? backgroundColor;
-  final Color? selectedColor;
-  final Color? textColor;
-
-  @override
-  Widget build(BuildContext context) {
-    final appColors = AppColorsProvider.maybeOf(context);
-    return AcademyPillSegments<T>(
-      value: value,
-      values: values,
-      labelFor: labelFor,
-      onChanged: onChanged,
-      width: width,
-      backgroundColor: backgroundColor ?? appColors?.fillPrimary,
-      selectedColor: selectedColor ?? appColors?.fillSecondary,
-      textColor: textColor,
     );
   }
 }

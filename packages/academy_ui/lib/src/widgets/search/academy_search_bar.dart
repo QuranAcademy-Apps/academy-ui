@@ -23,6 +23,8 @@ class AcademySearchBar extends StatefulWidget {
     this.enabled = true,
     this.clearable = false,
     this.cornerRadius,
+    this.autofocus = false,
+    this.backgroundColor,
   });
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
@@ -34,6 +36,10 @@ class AcademySearchBar extends StatefulWidget {
   final ValueChanged<String>? onSubmitted;
   final bool enabled, clearable;
   final double? cornerRadius;
+  final bool autofocus;
+
+  /// Replaces the field fill (for example transparent inside a capsule).
+  final Color? backgroundColor;
 
   /// Match the navigation surface when true; otherwise use the opaque field fill.
   final bool chrome;
@@ -127,6 +133,8 @@ class _AcademySearchBarState extends State<AcademySearchBar>
       final theme = AcademyTheme.of(context);
       final field = AcademyTextInput(
         focusNode: _focus,
+        autofocus: widget.autofocus,
+        backgroundColor: widget.backgroundColor,
         controller: widget.controller,
         placeholder:
             widget.placeholder ?? AcademyLocalizations.of(context).search,

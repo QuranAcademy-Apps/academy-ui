@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../theme/academy_theme.dart';
 import '../icon/academy_sf_image.dart';
+import 'academy_action_stepper.dart';
 
 class AcademyStepper extends StatelessWidget {
   const AcademyStepper({
@@ -12,11 +13,42 @@ class AcademyStepper extends StatelessWidget {
     required this.onChanged,
     this.min = 0,
     this.max = 10,
-  });
+  }) : onDecrease = null,
+       onIncrease = null,
+       centered = false,
+       _actions = false;
+
+  /// Callback-driven variant without a value: each half is enabled when its
+  /// callback is non-null. 94 x 32 pill inside a 112 x 44 hit area.
+  const AcademyStepper.actions({
+    super.key,
+    required this.onDecrease,
+    required this.onIncrease,
+    this.centered = false,
+  }) : value = 0,
+       min = 0,
+       max = 0,
+       onChanged = _ignoreChange,
+       _actions = true;
+
   final int value, min, max;
   final ValueChanged<int> onChanged;
+  final VoidCallback? onDecrease, onIncrease;
+  final bool centered;
+  final bool _actions;
+
+  static void _ignoreChange(int _) {}
+
   @override
   Widget build(BuildContext context) {
+    if (_actions) {
+      return AcademyActionStepper(
+        onDecrease: onDecrease,
+        onIncrease: onIncrease,
+        centered: centered,
+        color: AcademyTheme.of(context).colorScheme.onSurface,
+      );
+    }
     final color = AcademyTheme.of(context).colorScheme.onSurface;
     Widget hit(bool increase) {
       final enabled = increase ? value < max : value > min;
