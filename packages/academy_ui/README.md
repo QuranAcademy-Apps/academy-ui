@@ -194,6 +194,11 @@ padding на уровне самого списка. Фиксированный 
 Обычный непрокручиваемый builder в режиме underlap также должен учитывать этот
 отступ. Фейд не перехватывает жесты, бар защищает скрытые под ним действия.
 
+Модалка по умолчанию окрашена в `surface` — как ячейки таблиц. Если внутри
+`AcademyGroupedTable` или карточки, передайте `grouped: true`: фон станет
+`scaffoldBackground` (systemGroupedBackground), и секции будут читаться как
+карточки, как в grouped sheet UIKit. `pushAcademyModalPage` наследует флаг.
+
 ```dart
 showAcademyModal<void>(
   context,

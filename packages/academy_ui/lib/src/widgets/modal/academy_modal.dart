@@ -49,6 +49,8 @@ class AcademyModalContentInsets extends InheritedWidget {
 /// full-height content that is below the resting detent.
 /// A single resting height is the default. Supply [detents] explicitly for a
 /// resizable list or form; [autoHeight] selects a single compact height.
+/// [grouped] paints the sheet with the grouped page background so inset tables
+/// and cards keep their own opaque surface, as in a UIKit grouped sheet.
 Future<T?> showAcademyModal<T>(
   BuildContext context, {
   String? title,
@@ -61,6 +63,7 @@ Future<T?> showAcademyModal<T>(
   AcademyModalHeaderBehavior headerBehavior =
       AcademyModalHeaderBehavior.separate,
   double headerFadeExtent = 24,
+  bool grouped = false,
   bool expandOnFocus = true,
   bool dismissible = true,
   bool useRootNavigator = false,
@@ -94,6 +97,7 @@ Future<T?> showAcademyModal<T>(
             title: title,
             headerBehavior: headerBehavior,
             headerFadeExtent: headerFadeExtent,
+            grouped: grouped,
             builder: builder,
             restingDetent: initial,
             autoHeight: autoHeight,
@@ -123,6 +127,7 @@ Future<T?> pushAcademyModalPage<T>(
   required WidgetBuilder builder,
   AcademyModalHeaderBehavior? headerBehavior,
   double? headerFadeExtent,
+  bool? grouped,
 }) {
   final scope = _ModalFlowScope.maybeOf(context);
   if (scope == null || !scope.nestedNavigation) {
@@ -135,6 +140,7 @@ Future<T?> pushAcademyModalPage<T>(
         builder: builder,
         headerBehavior: headerBehavior ?? scope.headerBehavior,
         headerFadeExtent: headerFadeExtent ?? scope.headerFadeExtent,
+        grouped: grouped ?? scope.grouped,
       ),
     ),
   );
@@ -147,6 +153,7 @@ class _ModalFlowScope extends InheritedWidget {
     required this.setExpansion,
     required this.headerBehavior,
     required this.headerFadeExtent,
+    required this.grouped,
     required super.child,
   });
   final void Function(Object?) close;
@@ -154,6 +161,7 @@ class _ModalFlowScope extends InheritedWidget {
   final void Function(Object, bool) setExpansion;
   final AcademyModalHeaderBehavior headerBehavior;
   final double headerFadeExtent;
+  final bool grouped;
   static _ModalFlowScope? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<_ModalFlowScope>();
   @override
@@ -161,7 +169,8 @@ class _ModalFlowScope extends InheritedWidget {
       close != oldWidget.close ||
       nestedNavigation != oldWidget.nestedNavigation ||
       headerBehavior != oldWidget.headerBehavior ||
-      headerFadeExtent != oldWidget.headerFadeExtent;
+      headerFadeExtent != oldWidget.headerFadeExtent ||
+      grouped != oldWidget.grouped;
 }
 
 class _ModalHost extends StatefulWidget {
@@ -175,6 +184,7 @@ class _ModalHost extends StatefulWidget {
     required this.expandOnFocus,
     required this.headerBehavior,
     required this.headerFadeExtent,
+    required this.grouped,
   });
   final String? title;
   final WidgetBuilder builder;
@@ -185,6 +195,7 @@ class _ModalHost extends StatefulWidget {
   final bool expandOnFocus;
   final AcademyModalHeaderBehavior headerBehavior;
   final double headerFadeExtent;
+  final bool grouped;
   @override
   State<_ModalHost> createState() => _ModalHostState();
 }
@@ -208,6 +219,7 @@ class _ModalHostState extends State<_ModalHost> {
     setExpansion: _setExpansion,
     headerBehavior: widget.headerBehavior,
     headerFadeExtent: widget.headerFadeExtent,
+    grouped: widget.grouped,
     child: ModalDetentFocus(
       restingDetent: widget.restingDetent,
       focusedDetent: widget.expandOnFocus
@@ -226,6 +238,7 @@ class _ModalHostState extends State<_ModalHost> {
                     builder: widget.builder,
                     headerBehavior: widget.headerBehavior,
                     headerFadeExtent: widget.headerFadeExtent,
+                    grouped: widget.grouped,
                   ),
                 ),
               ),
@@ -235,6 +248,7 @@ class _ModalHostState extends State<_ModalHost> {
               builder: widget.builder,
               headerBehavior: widget.headerBehavior,
               headerFadeExtent: widget.headerFadeExtent,
+              grouped: widget.grouped,
             ),
     ),
   );
@@ -248,11 +262,15 @@ class AcademyModalScaffold extends StatelessWidget {
     required this.builder,
     this.headerBehavior = AcademyModalHeaderBehavior.separate,
     this.headerFadeExtent = 24,
+    this.grouped = false,
   }) : assert(headerFadeExtent >= 0 && headerFadeExtent < double.infinity);
   final String? title;
   final WidgetBuilder builder;
   final AcademyModalHeaderBehavior headerBehavior;
   final double headerFadeExtent;
+
+  /// Grouped page background instead of the card surface.
+  final bool grouped;
 
   @override
   Widget build(BuildContext context) {
@@ -261,6 +279,9 @@ class AcademyModalScaffold extends StatelessWidget {
         flow?.nestedNavigation == true && Navigator.canPop(context);
     final theme = AcademyTheme.of(context);
     final underlap = headerBehavior != AcademyModalHeaderBehavior.separate;
+    final background = grouped
+        ? theme.scaffoldBackgroundColor
+        : theme.colorScheme.surface;
     final headerHeight =
         academyChromeHeightOf(context) +
         theme.paddings.chromeBottom.vertical +
@@ -285,7 +306,7 @@ class AcademyModalScaffold extends StatelessWidget {
       child: Builder(builder: builder),
     );
     return ModalSheetRoundedSurface(
-      color: theme.colorScheme.surface,
+      color: background,
       child: underlap
           ? ClipPath(
               // A normal clip, without saveLayer, keeps custom scroll content
@@ -315,10 +336,8 @@ class AcademyModalScaffold extends StatelessWidget {
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 colors: [
-                                  theme.colorScheme.surface,
-                                  theme.colorScheme.surface.withValues(
-                                    alpha: 0,
-                                  ),
+                                  background,
+                                  background.withValues(alpha: 0),
                                 ],
                                 stops: [
                                   (1 - headerFadeExtent / headerHeight).clamp(
