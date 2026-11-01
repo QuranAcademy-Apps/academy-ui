@@ -85,3 +85,6 @@ export 'src/widgets/button/academy_action_button.dart';
 export 'src/widgets/button/academy_pill_button.dart';
 export 'src/widgets/timeline/academy_timeline.dart';
 export 'src/widgets/stat/academy_stat_group.dart';
+export 'src/widgets/counter/academy_counter_button.dart';
+export 'src/widgets/progress/academy_page_dots.dart';
+export 'src/widgets/card/academy_progress_card.dart';

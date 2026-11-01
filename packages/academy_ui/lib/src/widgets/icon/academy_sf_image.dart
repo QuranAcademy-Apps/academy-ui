@@ -128,6 +128,21 @@ abstract final class AcademySymbols {
   static const trash = sf.SFIcons.sf_trash;
   static const logout = sf.SFIcons.sf_rectangle_portrait_and_arrow_right;
   static const expand = sf.SFIcons.sf_arrow_up_left_and_arrow_down_right;
+  static const bookmark = sf.SFIcons.sf_bookmark;
+  static const bookmarkFill = sf.SFIcons.sf_bookmark_fill;
+  static const share = sf.SFIcons.sf_square_and_arrow_up;
+  static const more = sf.SFIcons.sf_ellipsis;
+  static const textSize = sf.SFIcons.sf_textformat_size;
+  static const sunrise = sf.SFIcons.sf_sunrise;
+  static const sunset = sf.SFIcons.sf_sunset;
+  static const moonStars = sf.SFIcons.sf_moon_stars;
+  static const sparkles = sf.SFIcons.sf_sparkles;
+  static const list = sf.SFIcons.sf_list_bullet;
+  static const quote = sf.SFIcons.sf_quote_opening;
+  static const reset = sf.SFIcons.sf_arrow_uturn_backward;
+  static const handTap = sf.SFIcons.sf_hand_tap;
+  static const completeFill = sf.SFIcons.sf_checkmark_circle_fill;
+  static const plusCircle = sf.SFIcons.sf_plus_circle;
 }
 
 /// Quran SFImageView / SFButtonSize composition, without reader dependencies.

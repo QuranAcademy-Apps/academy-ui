@@ -2,6 +2,7 @@ import 'package:academy_ui/academy_ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'component_registry.dart';
+import 'counter_components_catalog.dart';
 import 'catalog_pages.dart';
 import 'advanced_components_catalog.dart';
 import 'profile_components_catalog.dart';
@@ -648,6 +649,7 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
           },
         ),
       ],
+      'counter' => const [CounterComponentsDemo()],
       'journey' => [
         const AcademyJourneyProgress(
           title: 'Подготовка',

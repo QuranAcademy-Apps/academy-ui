@@ -336,6 +336,14 @@ const componentRegistry = <ComponentDescriptor>[
     related: ['feedback'],
   ),
   ComponentDescriptor(
+    'counter',
+    'Счётчик и прогресс подборки',
+    ComponentCategory.feedback,
+    ['AcademyCounterButton', 'AcademyPageDots', 'AcademyProgressCard'],
+    'Counter — счёт повторов с кольцом; Dots — страницы и прочитанные; Card — подборка с прогрессом дня.',
+    related: ['journey', 'feedback', 'navigation'],
+  ),
+  ComponentDescriptor(
     'foundations',
     'Тема, движение и фокус',
     ComponentCategory.foundations,

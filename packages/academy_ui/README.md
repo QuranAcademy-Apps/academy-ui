@@ -46,7 +46,7 @@ dependencies:
 | Меню и наложения | `AcademyMenuButton`, `AcademyOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
 | Данные и медиа | `AcademyStat`, `AcademyStatGroup`, `AcademyTimeline`, `AcademyTimelineItem`, `AcademyImage`, `AcademySfImage`, `AcademySfIcon`, `AcademySymbols`, `AcademyChevron` |
 | Контекстная помощь | `AcademyTooltip`, `AcademyTip`, `showAcademyTips` |
-| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep` |
+| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyPageDots`, `AcademyProgressCard` |
 | Оформление и взаимодействие | `AcademyApp`, `AcademyTheme`, `AcademyAppearanceController`, `AcademyColors`, `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`, `AcademyInteractionTheme`, `AcademyTappable`, `AcademyFocusOutline`, motion-примитивы |
 
 В каталоге три входа: «Компоненты», «Сценарии», «Оформление». Основная категория
@@ -243,6 +243,16 @@ rounded clip над списком; режимы под баром исполь�
   `AcademySettingsSquareButton`: кнопка быстрых настроек 68×68; поддерживает
   отдельный цвет и long press. Для соседнего поля темы у `AcademyMenuButton`
   задайте `minimumHeight: 68, expand: true`.
+- `AcademyCounterButton(count:, total:, label:, onPressed:, onLongPress:)`: круглая
+  chrome-кнопка счёта повторов (зикр, тасбих) с кольцом прогресса; по достижении
+  `total` показывает галочку. Счёт, тактильный отклик и переход дальше — у приложения.
+- `AcademyPageDots(count:, index:, isCompleted:, onSelected:)`: точки страниц ридера
+  (порт Quran `DotStripScroller`); длинная полоса прокручивается и держит текущую
+  точку по центру, края растворяются. Кладите внутрь `AcademyChromeCapsule`.
+- `AcademyProgressCard`: непрозрачная карточка подборки с иконкой, подписью,
+  кольцом прогресса (галочка при 100%) и `highlighted` для актуальной подборки.
+- `AcademyChromeFade(solidExtent:, fadeExtent:)`: сплошная полоса под статус-баром
+  и плавный переход в цвет страницы для собственных экранов с плавающим chrome.
 - `AcademyExpandingSearch`: лупа раскрывает поле с выбранным эффектом навигации, получает фокус
   и превращается в крестик. Крестик снимает фокус, очищает запрос и сворачивает поле.
   Внешний `controller` не освобождается библиотекой; `resting` задаёт обычное содержимое

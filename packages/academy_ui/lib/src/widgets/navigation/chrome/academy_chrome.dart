@@ -594,28 +594,37 @@ class AcademyChromeBar extends StatelessWidget {
   );
 }
 
+/// Edge fade into the page color. `solidExtent` keeps the edge opaque (for
+/// example under the status bar and a floating bar) before `fadeExtent`.
 class AcademyChromeFade extends StatelessWidget {
-  const AcademyChromeFade({super.key, this.bottom = false});
+  const AcademyChromeFade({
+    super.key,
+    this.bottom = false,
+    this.solidExtent = 0,
+    this.fadeExtent = 24,
+  }) : assert(solidExtent >= 0 && fadeExtent > 0);
   final bool bottom;
+  final double solidExtent, fadeExtent;
   @override
-  Widget build(BuildContext context) => IgnorePointer(
-    child: SizedBox(
-      height: 24,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: bottom ? Alignment.bottomCenter : Alignment.topCenter,
-            end: bottom ? Alignment.topCenter : Alignment.bottomCenter,
-            colors: [
-              AcademyTheme.of(context).scaffoldBackgroundColor,
-              AcademyTheme.of(context).scaffoldBackgroundColor
-                  .withValues(alpha: 0),
-            ],
+  Widget build(BuildContext context) {
+    final color = AcademyTheme.of(context).scaffoldBackgroundColor;
+    final height = solidExtent + fadeExtent;
+    return IgnorePointer(
+      child: SizedBox(
+        height: height,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: bottom ? Alignment.bottomCenter : Alignment.topCenter,
+              end: bottom ? Alignment.topCenter : Alignment.bottomCenter,
+              colors: [color, color, color.withValues(alpha: 0)],
+              stops: [0, solidExtent / height, 1],
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class AcademyChromePage extends StatelessWidget {
