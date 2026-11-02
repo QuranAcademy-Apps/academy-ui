@@ -137,57 +137,19 @@ Resolver визуального состояния кнопок и OptionResults
 | `AcademyToastHost.show(icon:)` | `leadingIcon:` / `trailingIcon:` | icon остаётся синонимом leadingIcon |
 | appearance enum `.label` | `.labelFor(context)` | Старый getter сохраняет русский текст |
 | `AcademyPaddingRole.searchLoading` | Применять только в своей композиции, если нужна эта роль | Публичная роль сохранена; отсутствие внутреннего вызова не основание удаления |
-| Старые `src`-пути | Основной barrel `academy_ui.dart` | Переэкспорты общей реализации, не дубли виджетов |
+| Старые `src`-пути | Основной barrel `academy_ui.dart` | Файлы переэкспорта удалены 2026-11-02 (см. ниже) |
 | `widgets/icon/academy_accessories.dart` для InfoButton | `widgets/button/academy_info_button.dart` либо barrel | Старый файл переэкспортирует перемещённую кнопку |
-| `widgets/modal/modal_sheet_corner_mask.dart` | `foundation/surface/academy_surface_mask.dart` либо barrel | Старый путь переэкспортирует те же типы маски |
+| `widgets/modal/modal_sheet_corner_mask.dart` | `foundation/surface/academy_surface_mask.dart` либо barrel | Файл удалён вместе с остальными переэкспортами |
 
-### Инвентарь файлов переэкспорта
+### Удалённые файлы переэкспорта
 
-Срез после исправлений: пути ниже содержат только переэкспорты и комментарии.
-Они сохранены для клиентов. Переэкспорт из общего barrel предпочтительнее прямого
-`src`-импорта. Файлы с собственной реализацией здесь не считаются alias-файлами.
-
-| Совместимый путь относительно lib | Каноническая реализация / экспорт |
-| --- | --- |
-| `src/academy_app.dart` | `src/app/academy_app.dart` |
-| `src/academy_appearance.dart` | `src/app/academy_appearance.dart` |
-| `src/academy_colors.dart` | `src/theme/academy_colors.dart` |
-| `src/academy_components.dart` | `src/widgets/button/academy_button.dart`, `src/widgets/text_field/academy_field.dart`, `src/widgets/surface/academy_surface.dart`, `src/widgets/status/academy_status.dart`, `src/widgets/feedback/academy_feedback.dart`, `src/widgets/image/academy_image.dart`, `src/widgets/modal/academy_confirmation.dart`, `src/widgets/button/academy_icon_button.dart`, `src/widgets/text_field/academy_text_input.dart`, `src/widgets/modal/academy_modal.dart` |
-| `src/academy_controls.dart` | `src/widgets/search/academy_search_bar.dart`, `src/widgets/stepper/academy_stepper.dart`, `src/widgets/icon/academy_accessories.dart`, `src/widgets/table/academy_grouped_table.dart`, `src/widgets/menu/academy_lazy_menu.dart` |
-| `src/academy_draggable_table.dart` | `src/widgets/table/academy_draggable_table.dart` |
-| `src/academy_feedback_extras.dart` | `src/widgets/progress/academy_ring_progress.dart`, `src/widgets/toast/academy_toast.dart`, `src/widgets/tooltip/academy_tips.dart` |
-| `src/academy_interaction.dart` | `src/foundation/interaction/academy_interaction.dart` |
-| `src/academy_journey_components.dart` | `src/widgets/journey/academy_journey_components.dart` |
-| `src/academy_localizations.dart` | `src/foundation/localizations/academy_localizations.dart` |
-| `src/academy_menu.dart` | `src/widgets/menu/academy_menu.dart` |
-| `src/academy_menu_anchor.dart` | `src/widgets/menu/academy_menu_anchor.dart` |
-| `src/academy_navigation.dart` | `src/widgets/navigation/academy_page.dart`, `src/widgets/menu/academy_option_menu.dart`, `src/widgets/table/academy_row.dart`, `src/widgets/table/academy_divider.dart` |
-| `src/academy_paddings.dart` | `src/theme/academy_paddings.dart` |
-| `src/academy_page_insets.dart` | `src/foundation/layout/academy_page_insets.dart` |
-| `src/academy_palette.dart` | `src/theme/academy_palette.dart` |
-| `src/academy_radii.dart` | `src/theme/academy_radii.dart` |
-| `src/academy_reader_controls.dart` | `src/widgets/disclosure/academy_disclosure_card.dart`, `src/widgets/menu/academy_menu_item.dart`, `src/widgets/menu/academy_menu_button.dart`, `src/widgets/segmented/academy_segment_style.dart`, `src/widgets/button/academy_settings_square_button.dart`, `src/widgets/segmented/academy_segmented_control.dart`, `src/widgets/button/academy_compact_icon_button.dart` |
-| `src/academy_scroll_behavior.dart` | `src/foundation/scroll/academy_scroll_behavior.dart` |
-| `src/academy_sf_image.dart` | `src/widgets/icon/academy_sf_image.dart` |
-| `src/academy_table.dart` | `src/widgets/table/academy_table.dart` |
-| `src/academy_text_input.dart` | `src/widgets/text_field/academy_text_input.dart` |
-| `src/academy_theme.dart` | `src/theme/academy_theme.dart` |
-| `src/academy_typography.dart` | `src/theme/academy_typography.dart` |
-| `src/chrome/academy_chrome.dart` | `src/widgets/navigation/chrome/academy_chrome.dart` |
-| `src/chrome/academy_chrome_metrics.dart` | `src/widgets/navigation/chrome/academy_chrome_metrics.dart` |
-| `src/chrome/academy_expanding_search.dart` | `src/widgets/navigation/chrome/academy_expanding_search.dart` |
-| `src/chrome/academy_tabs.dart` | `src/widgets/navigation/chrome/academy_tabs.dart` |
-| `src/modal/academy_modal.dart` | `src/widgets/modal/academy_modal.dart` |
-| `src/modal/modal_sheet_corner_mask.dart` | `src/widgets/modal/modal_sheet_corner_mask.dart` |
-| `src/modal/modal_sheet_detents/modal_detent_focus.dart` | `src/widgets/modal/modal_sheet_detents.dart` |
-| `src/modal/modal_sheet_detents/modal_detent_sheet.dart` | `src/widgets/modal/modal_sheet_detents.dart` |
-| `src/modal/modal_sheet_detents/modal_sheet_layout.dart` | `src/widgets/modal/modal_sheet_detents.dart` |
-| `src/modal/modal_sheet_detents/modal_sheet_route.dart` | `src/widgets/modal/modal_sheet_detents.dart` |
-| `src/modal/modal_sheet_detents.dart` | `src/widgets/modal/modal_sheet_detents.dart` |
-| `src/motion/loading_dots_label.dart` | `src/foundation/motion/loading_dots_label.dart` |
-| `src/motion/press_scale.dart` | `src/foundation/motion/press_scale.dart` |
-| `src/motion/soft_fade_switcher.dart` | `src/foundation/motion/soft_fade_switcher.dart` |
-| `src/widgets/modal/modal_sheet_corner_mask.dart` | `src/foundation/surface/academy_surface_mask.dart` |
+2026-11-02 из `lib/src` удалены 39 файлов, содержавшие только `export` старых путей
+(`src/academy_*.dart`, `src/chrome/`, `src/modal/`, `src/motion/`,
+`src/widgets/modal/modal_sheet_corner_mask.dart`). Проверка: скрипт разрешил
+относительные и `package:`-импорты во всём пакете, тестах и каталоге и не нашёл ни
+одного пользователя; `grep "package:academy_ui/src/"` по Quran, Zikro и Yalla тоже
+пуст. Публичный API — только `package:academy_ui/academy_ui.dart` (и
+`quran_compat/...` для Quran); импорт `src/` не поддерживается.
 
 ## Короткие и длинные таблицы
 

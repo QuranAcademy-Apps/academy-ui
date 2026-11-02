@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:cupertino_ui/cupertino_ui.dart' hide CupertinoButton;
-import 'package:flutter/cupertino.dart' show CupertinoButton;
+import 'package:flutter/cupertino.dart';
 
 import '../../foundation/interaction/academy_interaction.dart';
 import '../../foundation/layout/academy_text_metrics.dart';

@@ -42,8 +42,9 @@ packages/academy_ui/lib/
 
 Крупные файлы `academy_components`, `academy_controls`, `academy_navigation`,
 `academy_reader_controls`, `academy_feedback_extras` разделены по семействам.
-Прежние пути `src` сохранены как файлы переэкспорта. Для приложений основной
-импорт не изменился: `package:academy_ui/academy_ui.dart`.
+Прежние пути `src` как файлы переэкспорта удалены 2026-11-02 (их никто не
+импортировал). Для приложений основной импорт не изменился:
+`package:academy_ui/academy_ui.dart`.
 
 ## Тема и взаимодействие
 
@@ -304,8 +305,7 @@ VoiceOver на физическом устройстве требуют отде
 
 Таблица обращается к `AcademyTableRowGeometry`, а не к классам готового меню.
 `AcademyTableRowLayout` позволяет сообщить inset своей строки. Маска поверхности
-лежит в foundation и не импортирует modal engine; прежний modal-путь переэкспортирует
-её для совместимости. Общий resolver кнопок остаётся внутренней реализацией.
+лежит в foundation и не импортирует modal engine; прежний modal-путь удалён. Общий resolver кнопок остаётся внутренней реализацией.
 
 `AcademyGroupedTable` предназначен для коротких настроек и форм. `scrollable: true`
 строит секции по запросу; строки отдельной секции создаются заранее в Column.

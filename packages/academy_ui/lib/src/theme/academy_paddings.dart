@@ -100,6 +100,9 @@ class AcademyPaddings {
   final EdgeInsets fieldOuter;
   final EdgeInsets field;
   final EdgeInsets search;
+
+  /// `left` is the start side and `right` the end side: the text input applies
+  /// it as `EdgeInsetsDirectional`, so it mirrors in RTL.
   final EdgeInsets searchPrefix;
   final EdgeInsets searchLoading;
   final EdgeInsets surface;

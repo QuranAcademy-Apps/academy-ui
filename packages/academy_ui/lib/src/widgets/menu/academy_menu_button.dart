@@ -1,5 +1,4 @@
-import 'package:cupertino_ui/cupertino_ui.dart' hide CupertinoButton;
-import 'package:flutter/cupertino.dart' show CupertinoButton;
+import 'package:flutter/cupertino.dart';
 
 import 'academy_menu_anchor.dart';
 import '../icon/academy_sf_image.dart';

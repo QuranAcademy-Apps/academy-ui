@@ -62,6 +62,9 @@ class AcademyActionStepper extends StatelessWidget {
           ),
           Positioned.fill(
             child: Row(
+              // The symbols are positioned minus-left / plus-right in both
+              // directions, so the hit areas must not mirror under RTL.
+              textDirection: TextDirection.ltr,
               children: [
                 Expanded(
                   child: _AcademyActionStepperHit(onPressed: onDecrease),
