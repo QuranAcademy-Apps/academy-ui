@@ -76,7 +76,17 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
   void _handlePrimaryFocusChanged() {
     if (!mounted) return;
 
-    final focusedContext = FocusManager.instance.primaryFocus?.context;
+    // Only text input expands the sheet. A nested navigator focuses its
+    // route's scope on every push, and buttons take keyboard focus; neither
+    // brings up the keyboard.
+    final node = FocusManager.instance.primaryFocus;
+    final candidate = node is FocusScopeNode ? null : node?.context;
+    final focusedContext =
+        candidate != null &&
+            (candidate.widget is EditableText ||
+                candidate.findAncestorWidgetOfExactType<EditableText>() != null)
+        ? candidate
+        : null;
     var hasFocusInSubtree = focusedContext == context;
     focusedContext?.visitAncestorElements((ancestor) {
       if (ancestor == context) {

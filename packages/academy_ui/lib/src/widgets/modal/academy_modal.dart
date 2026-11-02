@@ -51,6 +51,11 @@ class AcademyModalContentInsets extends InheritedWidget {
 /// resizable list or form; [autoHeight] selects a single compact height.
 /// [grouped] paints the sheet with the grouped page background so inset tables
 /// and cards keep their own opaque surface, as in a UIKit grouped sheet.
+/// [header] false leaves the header to the content; [enableDrag] false keeps
+/// gestures such as picker wheels inside the content (the barrier still closes).
+/// [moveAboveKeyboard] false keeps the sheet where it rests and leaves the
+/// keyboard inset in the content's MediaQuery (a hand-made keyboard layout);
+/// combine it with [expandOnFocus] false.
 Future<T?> showAcademyModal<T>(
   BuildContext context, {
   String? title,
@@ -66,6 +71,9 @@ Future<T?> showAcademyModal<T>(
   bool grouped = false,
   bool expandOnFocus = true,
   bool dismissible = true,
+  bool enableDrag = true,
+  bool header = true,
+  bool moveAboveKeyboard = true,
   bool useRootNavigator = false,
   RouteSnapshotMode backgroundSnapshotMode =
       RouteSnapshotMode.animatingAndScrolling,
@@ -82,6 +90,8 @@ Future<T?> showAcademyModal<T>(
     context: context,
     useRootNavigator: useRootNavigator,
     isDismissible: dismissible,
+    enableDrag: enableDrag,
+    moveAboveKeyboard: moveAboveKeyboard,
     backgroundSnapshotMode: backgroundSnapshotMode,
     snappingConfig: modalSheetSnappingConfig(
       context: context,
@@ -91,13 +101,14 @@ Future<T?> showAcademyModal<T>(
     ),
     builder: (sheetContext) => LandscapeModalSheetFrame(
       child: SizedBox(
-        height: ModalSheetDetent.full.heightOf(sheetContext),
+        height: modalSheetRouteHeight(sheetContext),
         child: CaptureModalSheetController(
           child: _ModalHost(
             title: title,
             headerBehavior: headerBehavior,
             headerFadeExtent: headerFadeExtent,
             grouped: grouped,
+            header: header,
             builder: builder,
             restingDetent: initial,
             autoHeight: autoHeight,
@@ -185,8 +196,10 @@ class _ModalHost extends StatefulWidget {
     required this.headerBehavior,
     required this.headerFadeExtent,
     required this.grouped,
+    required this.header,
   });
   final String? title;
+  final bool header;
   final WidgetBuilder builder;
   final void Function(Object?) close;
   final ModalSheetDetent restingDetent;
@@ -239,6 +252,7 @@ class _ModalHostState extends State<_ModalHost> {
                     headerBehavior: widget.headerBehavior,
                     headerFadeExtent: widget.headerFadeExtent,
                     grouped: widget.grouped,
+                    header: widget.header,
                   ),
                 ),
               ),
@@ -249,6 +263,7 @@ class _ModalHostState extends State<_ModalHost> {
               headerBehavior: widget.headerBehavior,
               headerFadeExtent: widget.headerFadeExtent,
               grouped: widget.grouped,
+              header: widget.header,
             ),
     ),
   );
@@ -263,9 +278,14 @@ class AcademyModalScaffold extends StatelessWidget {
     this.headerBehavior = AcademyModalHeaderBehavior.separate,
     this.headerFadeExtent = 24,
     this.grouped = false,
+    this.header = true,
   }) : assert(headerFadeExtent >= 0 && headerFadeExtent < double.infinity);
   final String? title;
   final WidgetBuilder builder;
+
+  /// False when the content draws its own [AcademyChromeModalHeader], for
+  /// example to place local actions beside the title.
+  final bool header;
   final AcademyModalHeaderBehavior headerBehavior;
   final double headerFadeExtent;
 
@@ -278,7 +298,8 @@ class AcademyModalScaffold extends StatelessWidget {
     final canGoBack =
         flow?.nestedNavigation == true && Navigator.canPop(context);
     final theme = AcademyTheme.of(context);
-    final underlap = headerBehavior != AcademyModalHeaderBehavior.separate;
+    final underlap =
+        this.header && headerBehavior != AcademyModalHeaderBehavior.separate;
     final background = grouped
         ? theme.scaffoldBackgroundColor
         : theme.colorScheme.surface;
@@ -358,7 +379,7 @@ class AcademyModalScaffold extends StatelessWidget {
             )
           : Column(
               children: [
-                header,
+                if (this.header) header,
                 Expanded(child: ClipRect(child: content)),
               ],
             ),

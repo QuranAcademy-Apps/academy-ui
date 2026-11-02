@@ -88,6 +88,22 @@ class AcademySfIcon extends StatelessWidget {
 }
 
 abstract final class AcademySymbols {
+  // From Yalla (2026-11-02): auth, documents, catalog and map symbols.
+  static const lockOutline = sf.SFIcons.sf_lock;
+  static const key = sf.SFIcons.sf_key;
+  static const lifepreserver = sf.SFIcons.sf_lifepreserver;
+  static const safari = sf.SFIcons.sf_safari;
+  static const arrowRight = sf.SFIcons.sf_arrow_right;
+  static const arrowLeftArrowRight = sf.SFIcons.sf_arrow_left_arrow_right;
+  static const rectangleGrid1x2 = sf.SFIcons.sf_rectangle_grid_1x2;
+  static const camera = sf.SFIcons.sf_camera;
+  static const textViewfinder = sf.SFIcons.sf_text_viewfinder;
+  static const personTextRectangle = sf.SFIcons.sf_person_text_rectangle;
+  static const mappinAndEllipse = sf.SFIcons.sf_mappin_and_ellipse;
+  static const checkmarkShield = sf.SFIcons.sf_checkmark_shield;
+  static const faceId = sf.SFIcons.sf_faceid;
+  static const eye = sf.SFIcons.sf_eye;
+  static const eyeSlash = sf.SFIcons.sf_eye_slash;
   static const dragHandle = sf.SFIcons.sf_line_3_horizontal;
   static const heart = sf.SFIcons.sf_heart;
   static const phone = sf.SFIcons.sf_phone;

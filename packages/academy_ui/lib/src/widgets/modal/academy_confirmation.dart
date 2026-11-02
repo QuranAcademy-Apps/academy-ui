@@ -59,21 +59,22 @@ Future<bool?> showAcademyConfirmation(
       padding.vertical +
       textHeight(message, theme.textTheme.bodyLarge, 0) +
       24 +
+      // Measured with the buttons' own label roles and minimum heights.
       (textHeight(
                 confirm,
-                theme.textTheme.bodyLarge,
+                theme.textTheme.buttonLabel,
                 theme.paddings.button.horizontal,
               ) +
               theme.paddings.button.vertical)
-          .clamp(44, double.infinity) +
+          .clamp(AcademyTokens.buttonHeight, double.infinity) +
       AcademyTokens.inlineGap +
       (textHeight(
                 cancel,
-                theme.textTheme.bodyLarge,
+                theme.textTheme.labelLarge,
                 theme.paddings.textButton.horizontal,
               ) +
               theme.paddings.textButton.vertical)
-          .clamp(44, double.infinity) +
+          .clamp(AcademyTokens.target, double.infinity) +
       view.padding.bottom / view.devicePixelRatio;
   return showAcademyModal<bool>(
     context,

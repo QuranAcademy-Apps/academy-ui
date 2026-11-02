@@ -32,7 +32,13 @@ void main() {
     });
   }
   for (final style in AcademyButtonStyle.values) {
-    for (final action in [false, true]) {
+    // AcademyActionButton offers the primary and tinted styles only.
+    for (final action in [
+      false,
+      if (style == AcademyButtonStyle.primary ||
+          style == AcademyButtonStyle.tinted)
+        true,
+    ]) {
       testWidgets(
         '$style ${action ? 'action' : 'standard'} pending blocks activation and announces loading',
         (tester) async {
@@ -66,12 +72,12 @@ void main() {
           );
           final context = tester.element(find.byType(CupertinoButton));
           final palette = AcademyTheme.of(context).colorScheme;
-          expect(
-            native.color,
-            style == AcademyButtonStyle.primary
-                ? palette.accentFill
-                : palette.secondaryContainer,
-          );
+          expect(native.color, switch (style) {
+            AcademyButtonStyle.primary => palette.actionFill,
+            AcademyButtonStyle.tinted => palette.secondaryContainer,
+            AcademyButtonStyle.neutral => palette.surfaceContainerHighest,
+            AcademyButtonStyle.plain => palette.surface,
+          });
           expect(native.onPressed, isNull);
           final node = tester.getSemantics(find.bySemanticsLabel('Save'));
           expect(

@@ -13,6 +13,7 @@ class AcademyStepper extends StatelessWidget {
     required this.onChanged,
     this.min = 0,
     this.max = 10,
+    this.wide = false,
   }) : onDecrease = null,
        onIncrease = null,
        centered = false,
@@ -30,6 +31,7 @@ class AcademyStepper extends StatelessWidget {
   }) : value = 0,
        min = 0,
        max = 0,
+       wide = false,
        onChanged = _ignoreChange,
        _actions = true;
 
@@ -37,6 +39,10 @@ class AcademyStepper extends StatelessWidget {
   final ValueChanged<int> onChanged;
   final VoidCallback? onDecrease, onIncrease;
   final bool centered;
+
+  /// A 112 x 44 row accessory with the 94 x 32 pill at its end; the larger
+  /// minus target reaches the row's text gap (Yalla, Quran AppStepper).
+  final bool wide;
 
   /// Tint of the actions variant; defaults to the theme's text color.
   final Color? color;
@@ -58,7 +64,7 @@ class AcademyStepper extends StatelessWidget {
     Widget hit(bool increase) {
       final enabled = increase ? value < max : value > min;
       return SizedBox(
-        width: 48,
+        width: wide ? (increase ? 47 : 65) : 48,
         child: Semantics(
           label: increase
               ? AcademyLocalizations.of(context).increase
@@ -98,6 +104,7 @@ class AcademyStepper extends StatelessWidget {
         ),
       ),
     );
+    if (wide) return _wide(context, tint, hit, glyph);
     return SizedBox(
       width: 96,
       height: 44,
@@ -140,4 +147,56 @@ class AcademyStepper extends StatelessWidget {
       ),
     );
   }
+
+  Widget _wide(
+    BuildContext context,
+    Color tint,
+    Widget Function(bool) hit,
+    Widget Function(IconData, bool) glyph,
+  ) => SizedBox(
+    width: 112,
+    height: 44,
+    child: Stack(
+      alignment: Alignment.centerLeft,
+      children: [
+        Positioned(
+          left: 18,
+          child: Container(
+            width: 94,
+            height: 32,
+            decoration: BoxDecoration(
+              color: tint.withValues(alpha: .12),
+              borderRadius: BorderRadius.circular(
+                AcademyTheme.of(context).radii.stepper,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 64.5,
+          child: Container(
+            width: 1,
+            height: 18,
+            color: tint.withValues(alpha: .3),
+          ),
+        ),
+        Positioned.fill(
+          child: Row(
+            textDirection: TextDirection.ltr,
+            children: [hit(false), hit(true)],
+          ),
+        ),
+        Positioned(
+          left: 33,
+          top: 13.5,
+          child: glyph(AcademySymbols.minus, value > min),
+        ),
+        Positioned(
+          left: 80,
+          top: 13.5,
+          child: glyph(AcademySymbols.plus, value < max),
+        ),
+      ],
+    ),
+  );
 }

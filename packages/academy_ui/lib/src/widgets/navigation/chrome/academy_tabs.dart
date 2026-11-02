@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 
 import '../../../theme/academy_theme.dart';
+import '../../../foundation/layout/academy_text_fit.dart';
 import '../../../foundation/interaction/academy_interaction.dart';
 import '../../icon/academy_sf_image.dart';
 import 'academy_chrome.dart';
@@ -10,10 +11,14 @@ import 'academy_chrome_metrics.dart';
 
 class AcademyTab {
   const AcademyTab({
+    this.key,
     required this.label,
     required this.icon,
     required this.builder,
   });
+
+  /// Identifies the tab's button, for example in tests.
+  final Key? key;
   final String label;
   final IconData icon;
   final WidgetBuilder builder;
@@ -80,6 +85,10 @@ class AcademyFloatingTabBar extends StatelessWidget {
     this.surfaceOpacity = 1,
     this.blurSigma,
     this.density,
+    this.maxWidth = 416,
+    this.contentWidth,
+    this.scrollController,
+    this.showIcons = true,
   }) : assert(tabs.length > 0),
        assert(index >= 0 && index < tabs.length);
   final List<AcademyTab> tabs;
@@ -89,6 +98,19 @@ class AcademyFloatingTabBar extends StatelessWidget {
   final double surfaceOpacity;
   final double? blurSigma;
   final AcademyTabBarDensity? density;
+
+  /// Widest panel for the standard and compact densities.
+  final double maxWidth;
+
+  /// Scrollable row width for many text-only tabs; the panel stays bounded.
+  final double? contentWidth;
+  final ScrollController? scrollController;
+
+  /// Text-only variant: a 44pt control with bold 14pt labels and no symbols.
+  final bool showIcons;
+
+  /// Height of the text-only variant ([showIcons] false).
+  static const textOnlyHeight = academyChromeBarHeight;
   static AcademyTabBarDensity densityOf(BuildContext context) =>
       AcademyChromeTheme.maybeOf(context)?.tabBarDensity ??
       AcademyTabBarDensity.standard;
@@ -142,9 +164,19 @@ class AcademyFloatingTabBar extends StatelessWidget {
         ? AcademyTheme.of(context).paddings.compactTabBar
         : AcademyTheme.of(context).paddings.tabBar;
 
-    final height = heightOf(context, density: density);
+    final chrome = AcademyChromeTheme.colorsOf(context);
+    final textOnly = !showIcons && !telegram;
+    final height = textOnly
+        ? textOnlyHeight
+        : heightOf(context, density: density);
     final text = AcademyTheme.of(context).textTheme;
-    final labelStyle = smallLabels
+    final labelStyle = textOnly
+        ? text.tabLabel.copyWith(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            height: 1,
+          )
+        : smallLabels
         ? text.compactTabLabel
         : text.tabLabel.copyWith(height: 1);
     final iconFrame = telegram ? 32.0 : 30.0;
@@ -169,7 +201,7 @@ class AcademyFloatingTabBar extends StatelessWidget {
         builder: (context, constraints) {
           final availableWidth = math.min(
             constraints.maxWidth,
-            telegram ? _TelegramTabMetrics.maxWidth : 416.0,
+            telegram ? _TelegramTabMetrics.maxWidth : maxWidth,
           );
           final panelWidth = compact
               ? math.min(
@@ -178,9 +210,17 @@ class AcademyFloatingTabBar extends StatelessWidget {
                       tabPadding.horizontal,
                 )
               : availableWidth;
+          final resolvedPadding = textOnly
+              ? EdgeInsets.symmetric(horizontal: tabPadding.left)
+              : tabPadding;
           final availableItemsWidth = math.max(
             0.0,
-            panelWidth - tabPadding.horizontal,
+            contentWidth == null
+                ? panelWidth - resolvedPadding.horizontal
+                : math.max(
+                    panelWidth - resolvedPadding.horizontal,
+                    contentWidth! - resolvedPadding.horizontal,
+                  ),
           );
           final widths = smallLabels
               ? _telegramItemWidths(
@@ -196,11 +236,13 @@ class AcademyFloatingTabBar extends StatelessWidget {
             0,
             (sum, width) => sum + width,
           );
-          final barWidth = innerWidth + tabPadding.horizontal;
+          final barWidth = contentWidth == null
+              ? innerWidth + resolvedPadding.horizontal
+              : panelWidth;
           final precedingWidth = widths
               .take(index)
               .fold<double>(0, (sum, width) => sum + width);
-          final itemHeight = height - tabPadding.vertical;
+          final itemHeight = height - resolvedPadding.vertical;
           final selectionWidth = telegram && widths[index] < itemHeight
               ? math.min(innerWidth, itemHeight * 1.2)
               : widths[index];
@@ -210,9 +252,15 @@ class AcademyFloatingTabBar extends StatelessWidget {
                   .toDouble();
           final unselectedColor = AcademyChrome.foregroundColor(
             context,
-            p.onSurfaceVariant,
+            chrome.unselectedForeground ?? p.onSurfaceVariant,
             style: style,
             surfaceOpacity: surfaceOpacity,
+          );
+          final selectedIcon = chrome.selectedIcon ?? p.onPrimaryContainer;
+          final selectedLabel = chrome.selectedLabel ?? p.onPrimaryContainer;
+          final selectionRadius = math.min(
+            itemHeight / 2 - (textOnly ? 4 : 0),
+            AcademyTheme.of(context).radii.tabSelection,
           );
           return SizedBox(
             width: barWidth,
@@ -227,130 +275,159 @@ class AcademyFloatingTabBar extends StatelessWidget {
               child: SizedBox(
                 height: height,
                 child: Padding(
-                  padding: tabPadding,
+                  padding: resolvedPadding,
                   child: LayoutBuilder(
-                    builder: (context, c) => Stack(
-                      children: [
-                        AnimatedPositioned(
-                          duration: MediaQuery.disableAnimationsOf(context)
-                              ? Duration.zero
-                              : AcademyTokens.pressMotion,
-                          curve: Curves.easeOutCubic,
-                          left: Directionality.of(context) == TextDirection.rtl
-                              ? innerWidth - selectionStart - selectionWidth
-                              : selectionStart,
-                          top: 0,
-                          bottom: 0,
-                          width: selectionWidth,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: p.primaryContainer,
-                              borderRadius: BorderRadius.circular(
-                                math.min(
-                                  itemHeight / 2,
-                                  AcademyTheme.of(context).radii.tabSelection,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Row(
+                    builder: (context, c) => _scrollable(
+                      context,
+                      selectionRadius,
+                      SizedBox(
+                        width: innerWidth,
+                        child: Stack(
                           children: [
-                            for (var i = 0; i < tabs.length; i++)
-                              SizedBox(
-                                width: widths[i],
-                                child: AcademyActionSemantics(
-                                  enabled: true,
-                                  selected: i == index,
-                                  label: '',
-                                  child: CupertinoButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () => onChanged(i),
-                                    child: telegram
-                                        ? Stack(
-                                            fit: StackFit.expand,
-                                            children: [
-                                              Positioned(
-                                                top: _TelegramTabMetrics
-                                                    .imageTop,
-                                                left: 0,
-                                                right: 0,
-                                                child: Center(
-                                                  child: AcademySfIcon(
-                                                    tabs[i].icon,
-                                                    size: 24,
-                                                    boxSize: iconFrame,
-                                                    paintExtent: iconFrame,
-                                                    color: i == index
-                                                        ? p.onPrimaryContainer
-                                                        : unselectedColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                left: 0,
-                                                right: 0,
-                                                bottom: _TelegramTabMetrics
-                                                    .labelBottom,
-                                                child: Text(
-                                                  tabs[i].label,
-                                                  textAlign: TextAlign.center,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: labelStyle.copyWith(
-                                                    color: i == index
-                                                        ? p.onPrimaryContainer
-                                                        : unselectedColor,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox.square(
-                                                dimension: iconFrame,
-                                                child: AcademySfIcon(
-                                                  tabs[i].icon,
-                                                  size: 22,
-                                                  boxSize: iconFrame,
-                                                  paintExtent: compact
-                                                      ? 32
-                                                      : iconFrame,
-                                                  color: i == index
-                                                      ? p.onPrimaryContainer
-                                                      : unselectedColor,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 2),
-                                              Text(
-                                                tabs[i].label,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                textHeightBehavior:
-                                                    const TextHeightBehavior(
-                                                      applyHeightToFirstAscent:
-                                                          false,
-                                                      applyHeightToLastDescent:
-                                                          false,
-                                                    ),
-                                                style: labelStyle.copyWith(
-                                                  color: i == index
-                                                      ? p.onPrimaryContainer
-                                                      : unselectedColor,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                            AnimatedPositioned(
+                              duration: MediaQuery.disableAnimationsOf(context)
+                                  ? Duration.zero
+                                  : AcademyTokens.pressMotion,
+                              curve: Curves.easeOutCubic,
+                              left:
+                                  Directionality.of(context) ==
+                                      TextDirection.rtl
+                                  ? innerWidth - selectionStart - selectionWidth
+                                  : selectionStart,
+                              top: textOnly ? 4 : 0,
+                              bottom: textOnly ? 4 : 0,
+                              width: selectionWidth,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: chrome.selection ?? p.primaryContainer,
+                                  borderRadius: BorderRadius.circular(
+                                    selectionRadius,
                                   ),
                                 ),
                               ),
+                            ),
+                            Row(
+                              children: [
+                                for (var i = 0; i < tabs.length; i++)
+                                  SizedBox(
+                                    key: tabs[i].key,
+                                    width: widths[i],
+                                    child: AcademyActionSemantics(
+                                      enabled: true,
+                                      selected: i == index,
+                                      label: '',
+                                      child: CupertinoButton(
+                                        padding: EdgeInsets.zero,
+                                        onPressed: () => onChanged(i),
+                                        child: telegram
+                                            ? Stack(
+                                                fit: StackFit.expand,
+                                                children: [
+                                                  Positioned(
+                                                    top: _TelegramTabMetrics
+                                                        .imageTop,
+                                                    left: 0,
+                                                    right: 0,
+                                                    child: Center(
+                                                      child: AcademySfIcon(
+                                                        tabs[i].icon,
+                                                        size: 24,
+                                                        boxSize: iconFrame,
+                                                        paintExtent: iconFrame,
+                                                        color: i == index
+                                                            ? p.onPrimaryContainer
+                                                            : unselectedColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    left: 0,
+                                                    right: 0,
+                                                    bottom: _TelegramTabMetrics
+                                                        .labelBottom,
+                                                    child: Text(
+                                                      tabs[i].label,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: labelStyle.copyWith(
+                                                        color: i == index
+                                                            ? selectedLabel
+                                                            : unselectedColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            : Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  if (!textOnly) ...[
+                                                    SizedBox.square(
+                                                      dimension: iconFrame,
+                                                      child: AcademySfIcon(
+                                                        tabs[i].icon,
+                                                        size: 22,
+                                                        boxSize: iconFrame,
+                                                        paintExtent: compact
+                                                            ? 32
+                                                            : iconFrame,
+                                                        color: i == index
+                                                            ? selectedIcon
+                                                            : unselectedColor,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 2),
+                                                  ],
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 2,
+                                                        ),
+                                                    child: Text(
+                                                      tabs[i].label,
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      // Large text stops growing
+                                                      // where the tab cannot hold
+                                                      // the whole label.
+                                                      textScaler: compact
+                                                          ? null
+                                                          : academyFitTextScaler(
+                                                              context,
+                                                              tabs[i].label,
+                                                              labelStyle,
+                                                              widths[i] - 4,
+                                                              wholeText: true,
+                                                            ),
+                                                      textHeightBehavior:
+                                                          const TextHeightBehavior(
+                                                            applyHeightToFirstAscent:
+                                                                false,
+                                                            applyHeightToLastDescent:
+                                                                false,
+                                                          ),
+                                                      style: labelStyle.copyWith(
+                                                        color: i == index
+                                                            ? selectedLabel
+                                                            : unselectedColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -358,6 +435,21 @@ class AcademyFloatingTabBar extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _scrollable(BuildContext context, double radius, Widget content) {
+    if (contentWidth == null) return content;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius),
+      child: SingleChildScrollView(
+        controller: scrollController,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: content,
       ),
     );
   }

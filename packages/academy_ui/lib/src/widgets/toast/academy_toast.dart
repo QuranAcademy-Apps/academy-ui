@@ -18,9 +18,13 @@ class AcademyToastHost extends StatefulWidget {
     super.key,
     required this.child,
     this.bottomObstruction = 0,
+    this.style = AcademyChromeStyle.flat,
   });
   final Widget child;
   final double bottomObstruction;
+
+  /// Toast material; pass the app's chrome style to match its navigation.
+  final AcademyChromeStyle style;
   static void show(
     BuildContext context,
     String message, {
@@ -175,8 +179,9 @@ class _AcademyToastHostState extends State<AcademyToastHost>
       widget.child,
       if (_message != null)
         Positioned(
-          left: 16,
-          right: 16,
+          // Clear the side safe areas in landscape too.
+          left: 16 + MediaQuery.paddingOf(context).left,
+          right: 16 + MediaQuery.paddingOf(context).right,
           top: _position == AcademyToastPosition.top
               ? MediaQuery.paddingOf(context).top + 8
               : null,
@@ -236,7 +241,7 @@ class _AcademyToastHostState extends State<AcademyToastHost>
                                   .toastDismissDownHint,
                         onDismiss: _dismiss,
                         child: AcademyChrome(
-                          style: AcademyChromeStyle.flat,
+                          style: widget.style,
                           radius: AcademyTheme.of(context).radii.toast,
                           child: Padding(
                             padding:

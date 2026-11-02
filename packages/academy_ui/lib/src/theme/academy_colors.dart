@@ -13,6 +13,14 @@ abstract interface class AcademyColors {
   /// Readable text and icons on accentFill.
   Color get onAccentFill;
 
+  /// Main call-to-action fill ([AcademyButtonStyle.primary]). Defaults to
+  /// [accentFill]; a brand may use a companion color while selection controls
+  /// keep the accent.
+  Color get actionFill;
+
+  /// Readable text on [actionFill].
+  Color get onActionFill;
+
   /// Accent text and icons on neutral backgrounds.
   Color get accentForeground;
 
@@ -75,6 +83,9 @@ abstract interface class AcademyColors {
   /// Opaque selected segment fill, distinct from [segmentBackground].
   Color get segmentSelected;
   Color get segmentShadow;
+
+  /// Resting fill of menu rows; defaults to [surface].
+  Color get menuSurface;
   Color get menuHighlight;
   Color get iconOnColoredSurface;
   Color get modalBarrier;
@@ -100,6 +111,8 @@ class AcademyColorsData implements AcademyColors {
     Color? accentColor,
     Color? accentFill,
     Color? onAccentFill,
+    Color? actionFill,
+    Color? onActionFill,
     Color? accentForeground,
     Color? textFieldBackground,
     Color? textFieldSecondaryBackground,
@@ -131,6 +144,7 @@ class AcademyColorsData implements AcademyColors {
     required this.segmentBackground,
     required this.segmentSelected,
     required this.segmentShadow,
+    Color? menuSurface,
     required this.menuHighlight,
     required this.iconOnColoredSurface,
     required this.modalBarrier,
@@ -142,10 +156,21 @@ class AcademyColorsData implements AcademyColors {
     required Map<AcademyTone, Color> toneForegrounds,
     required Map<AcademyTone, Color> toneContainers,
   }) : accentColor = accentColor ?? primary,
+       menuSurface = menuSurface ?? surface,
        accentFill = accentFill ?? primary,
        onAccentFill =
            onAccentFill ??
            AcademyContrast.foreground(onPrimary, accentFill ?? primary),
+       actionFill = actionFill ?? accentFill ?? primary,
+       onActionFill =
+           onActionFill ??
+           (actionFill == null
+               ? onAccentFill ??
+                     AcademyContrast.foreground(
+                       onPrimary,
+                       accentFill ?? primary,
+                     )
+               : AcademyContrast.foreground(onPrimary, actionFill)),
        accentForeground = accentForeground ?? primary,
        textFieldBackground = textFieldBackground ?? surface,
        textFieldSecondaryBackground =
@@ -180,6 +205,8 @@ class AcademyColorsData implements AcademyColors {
     accentColor: colors.accentColor,
     accentFill: colors.accentFill,
     onAccentFill: colors.onAccentFill,
+    actionFill: colors.actionFill,
+    onActionFill: colors.onActionFill,
     accentForeground: colors.accentForeground,
     textFieldBackground: colors.textFieldBackground,
     textFieldSecondaryBackground: colors.textFieldSecondaryBackground,
@@ -211,6 +238,7 @@ class AcademyColorsData implements AcademyColors {
     segmentBackground: colors.segmentBackground,
     segmentSelected: colors.segmentSelected,
     segmentShadow: colors.segmentShadow,
+    menuSurface: colors.menuSurface,
     menuHighlight: colors.menuHighlight,
     iconOnColoredSurface: colors.iconOnColoredSurface,
     modalBarrier: colors.modalBarrier,
@@ -228,6 +256,12 @@ class AcademyColorsData implements AcademyColors {
   );
   @override
   final Color accentColor;
+  @override
+  final Color menuSurface;
+  @override
+  final Color actionFill;
+  @override
+  final Color onActionFill;
   @override
   final Color accentFill;
   @override
@@ -340,6 +374,8 @@ extension AcademyColorsOverrides on AcademyColors {
     Color? accentColor,
     Color? accentFill,
     Color? onAccentFill,
+    Color? actionFill,
+    Color? onActionFill,
     Color? accentForeground,
     Color? textFieldBackground,
     Color? textFieldSecondaryBackground,
@@ -371,6 +407,7 @@ extension AcademyColorsOverrides on AcademyColors {
     Color? segmentBackground,
     Color? segmentSelected,
     Color? segmentShadow,
+    Color? menuSurface,
     Color? menuHighlight,
     Color? iconOnColoredSurface,
     Color? modalBarrier,
@@ -389,6 +426,20 @@ extension AcademyColorsOverrides on AcademyColors {
         (accentFill != null
             ? AcademyContrast.foreground(this.onAccentFill, accentFill)
             : this.onAccentFill),
+    // An action fill that follows the accent keeps following it.
+    actionFill:
+        actionFill ??
+        (accentFill != null && this.actionFill == this.accentFill
+            ? accentFill
+            : this.actionFill),
+    onActionFill:
+        onActionFill ??
+        (actionFill != null
+            ? AcademyContrast.foreground(this.onActionFill, actionFill)
+            : accentFill != null && this.actionFill == this.accentFill
+            ? onAccentFill ??
+                  AcademyContrast.foreground(this.onAccentFill, accentFill)
+            : this.onActionFill),
     accentForeground: accentForeground ?? this.accentForeground,
     textFieldBackground: textFieldBackground ?? this.textFieldBackground,
     textFieldSecondaryBackground:
@@ -435,6 +486,12 @@ extension AcademyColorsOverrides on AcademyColors {
     segmentBackground: segmentBackground ?? this.segmentBackground,
     segmentSelected: segmentSelected ?? this.segmentSelected,
     segmentShadow: segmentShadow ?? this.segmentShadow,
+    // A menu surface that follows the card surface keeps following it.
+    menuSurface:
+        menuSurface ??
+        (surface != null && this.menuSurface == this.surface
+            ? surface
+            : this.menuSurface),
     menuHighlight: menuHighlight ?? this.menuHighlight,
     iconOnColoredSurface: iconOnColoredSurface ?? this.iconOnColoredSurface,
     modalBarrier: modalBarrier ?? this.modalBarrier,
@@ -487,6 +544,8 @@ enum AcademyColorRole {
   accentColor,
   accentFill,
   onAccentFill,
+  actionFill,
+  onActionFill,
   accentForeground,
   textFieldBackground,
   textFieldSecondaryBackground,
@@ -518,6 +577,7 @@ enum AcademyColorRole {
   segmentBackground,
   segmentSelected,
   segmentShadow,
+  menuSurface,
   menuHighlight,
   iconOnColoredSurface,
   modalBarrier,
@@ -541,6 +601,8 @@ extension AcademyColorRoles on AcademyColors {
     AcademyColorRole.accentColor => accentColor,
     AcademyColorRole.accentFill => accentFill,
     AcademyColorRole.onAccentFill => onAccentFill,
+    AcademyColorRole.actionFill => actionFill,
+    AcademyColorRole.onActionFill => onActionFill,
     AcademyColorRole.accentForeground => accentForeground,
     AcademyColorRole.textFieldBackground => textFieldBackground,
     AcademyColorRole.textFieldSecondaryBackground =>
@@ -574,6 +636,7 @@ extension AcademyColorRoles on AcademyColors {
     AcademyColorRole.segmentBackground => segmentBackground,
     AcademyColorRole.segmentSelected => segmentSelected,
     AcademyColorRole.segmentShadow => segmentShadow,
+    AcademyColorRole.menuSurface => menuSurface,
     AcademyColorRole.menuHighlight => menuHighlight,
     AcademyColorRole.iconOnColoredSurface => iconOnColoredSurface,
     AcademyColorRole.modalBarrier => modalBarrier,
@@ -598,6 +661,8 @@ extension AcademyColorRoles on AcademyColors {
     AcademyColorRole.accentColor => copyWith(accentColor: color),
     AcademyColorRole.accentFill => copyWith(accentFill: color),
     AcademyColorRole.onAccentFill => copyWith(onAccentFill: color),
+    AcademyColorRole.actionFill => copyWith(actionFill: color),
+    AcademyColorRole.onActionFill => copyWith(onActionFill: color),
     AcademyColorRole.accentForeground => copyWith(accentForeground: color),
     AcademyColorRole.textFieldBackground => copyWith(
       textFieldBackground: color,
@@ -651,6 +716,7 @@ extension AcademyColorRoles on AcademyColors {
     AcademyColorRole.segmentBackground => copyWith(segmentBackground: color),
     AcademyColorRole.segmentSelected => copyWith(segmentSelected: color),
     AcademyColorRole.segmentShadow => copyWith(segmentShadow: color),
+    AcademyColorRole.menuSurface => copyWith(menuSurface: color),
     AcademyColorRole.menuHighlight => copyWith(menuHighlight: color),
     AcademyColorRole.iconOnColoredSurface => copyWith(
       iconOnColoredSurface: color,

@@ -84,15 +84,21 @@ void main() {
         await tester.pumpAndSettle();
         final searchBackground = background(find.byKey(searchKey));
         final buttonBackground = background(find.byKey(buttonKey));
-        expect(searchBackground?.color, buttonBackground?.color);
-        expect(searchBackground?.gradient, buttonBackground?.gradient);
-        expect(searchBackground?.border, buttonBackground?.border);
+        // Glass lightens the top of a circular button on purpose, so only the
+        // capsule material is compared with the button there.
+        if (style != AcademyChromeStyle.glass) {
+          expect(searchBackground?.color, buttonBackground?.color);
+          expect(searchBackground?.gradient, buttonBackground?.gradient);
+          expect(searchBackground?.border, buttonBackground?.border);
+        }
         expect(
           find.descendant(
             of: find.byKey(searchKey),
             matching: find.byType(BackdropFilter),
           ),
-          style == AcademyChromeStyle.blur ? findsOneWidget : findsNothing,
+          style == AcademyChromeStyle.blur || style == AcademyChromeStyle.glass
+              ? findsOneWidget
+              : findsNothing,
         );
         final field = tester.widget<CupertinoTextField>(fieldFinder);
         expect(field.decoration!.color, isNull);
@@ -233,9 +239,12 @@ void main() {
       );
       expect(
         filters,
-        style == AcademyChromeStyle.blur ? findsNWidgets(2) : findsNothing,
+        style == AcademyChromeStyle.blur || style == AcademyChromeStyle.glass
+            ? findsNWidgets(2)
+            : findsNothing,
       );
-      if (style == AcademyChromeStyle.blur) {
+      if (style == AcademyChromeStyle.blur ||
+          style == AcademyChromeStyle.glass) {
         for (final filter in tester.widgetList<BackdropFilter>(filters)) {
           expect(filter.filter.toString(), contains('20.0'));
         }

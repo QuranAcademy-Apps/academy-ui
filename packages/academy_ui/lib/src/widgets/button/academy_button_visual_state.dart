@@ -17,17 +17,17 @@ class AcademyButtonVisualState {
            ? Color.lerp(colors.onSurface, colors.surface, .88)!
            : tinted
            ? colors.secondaryContainer
-           : colors.accentFill,
+           : colors.actionFill,
        foreground = onPressed == null && !pending
            ? colors.onSurfaceVariant
            : tinted
            ? colors.secondary
-           : colors.onAccentFill,
+           : colors.onActionFill,
        border = onPressed == null && !pending
            ? colors.outlineVariant
            : tinted
            ? colors.secondary.withValues(alpha: .24)
-           : colors.accentFill;
+           : colors.actionFill;
 
   final bool enabled;
   final bool disabled;

@@ -27,6 +27,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
     this.closeOnSelect = true,
     this.leadingWidth,
     this.trailingWidth,
+    this.actsWhenChecked = true,
   });
   final String title;
   final String? subtitle;
@@ -38,6 +39,10 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
   final double minimumHeight;
   final bool closeOnSelect;
   final double? leadingWidth, trailingWidth;
+
+  /// False for the current option of a single choice: pressing it closes the
+  /// menu without repeating [onPressed]. Toggles keep the default.
+  final bool actsWhenChecked;
   @override
   bool get isDivider => false;
   @override
@@ -67,7 +72,9 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
     return Semantics(
       selected: checked,
       child: CupertinoMenuItem(
-        onPressed: onPressed,
+        onPressed: onPressed == null || actsWhenChecked || !checked
+            ? onPressed
+            : () {},
         isDestructiveAction: destructive,
         padding: padding,
         constraints: BoxConstraints(minHeight: minimumHeight),
@@ -97,7 +104,10 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
           return BoxDecoration(
             color: highlighted
                 ? theme.colorScheme.menuHighlight
-                : theme.colorScheme.surface,
+                : theme.colorScheme.menuSurface,
+            // Cupertino blends additively in dark mode, which would lighten
+            // an opaque fill; the role colors are the painted colors.
+            backgroundBlendMode: BlendMode.srcOver,
           );
         }),
         leading:

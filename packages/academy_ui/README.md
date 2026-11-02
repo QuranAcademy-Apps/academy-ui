@@ -111,6 +111,25 @@ blur; для остальных стилей продолжает управля
 сохраняются при capture/wrap оверлеев. При собственной силе коррекции клиент
 проверяет читаемость на предполагаемом содержимом.
 
+**Стекло** (`AcademyChromeStyle.glass`, `AcademyInterfaceTransparency.solidGlass`,
+перенесено из Yalla, ADR-0006): почти непрозрачная тонированная заливка (.94),
+слабый backdrop blur (sigma из темы), световой кант сверху/снизу и внешняя тень —
+имитация навигации iOS 26 средствами Flutter, без преломления. Рисует
+`AcademyGlassMaterial`; в High Contrast заменяется непрозрачной поверхностью.
+
+Цвета навигации, отличные от палитры контента, задаёт
+`AcademyChromeTheme(colors: AcademyChromeColors(...))`: символы кнопок,
+подсветка выбранной вкладки, выбранный символ и подпись, невыбранные вкладки,
+обводка и тень выбранной кнопки. Пустая роль сохраняет прежний цвет пакета.
+Yalla использует нейтральные символы и подсветку с насыщенным выбранным символом.
+
+`AcademyFloatingTabBar` дополнительно умеет текстовый вариант 44pt
+(`showIcons: false`), прокрутку многих вкладок (`contentWidth`,
+`scrollController`), `maxWidth` и `AcademyTab.key`; при крупном тексте подпись
+перестаёт расти там, где не помещается, вместо многоточия (`academyFitTextScaler`).
+`AcademyChromeModalHeader(closeOnLeading: true, trailing: AcademyTextButton(...))`
+ставит закрытие слева, а текстовое действие при нехватке места — отдельной строкой.
+
 Поиск по умолчанию использует оформление кнопки закрытия. При `chrome: false`
 его активный фон — `textFieldBackground`. Цвет placeholder — `textFieldSecondaryForeground`.
 Низкоуровневый `AcademyChrome` предназначен для навигации; не оборачивайте им таблицы.
@@ -326,11 +345,11 @@ AcademyToastHost.show(
 - `AcademySegmentedControl(height:, backgroundColor:, selectedColor:, textColor:, selectionBorderColor:, selectionShadowColor:)` — точная высота (без 44 pt зоны) и цвета палитры хоста.
 - `AcademySearchBar(onClear:)` — вызывается после очистки поля кнопкой.
 - `AcademyInfoButton.inline(onPressed:, iconSize:, color:)` — символ «i» без круглой подложки.
-- `AcademySlidingSegments<T>` — полноширинный селектор со скользящей плашкой (цвета передаются явно, `contentBuilder` рисует сегмент); `AcademyPillSegments<T>` — текстовый селектор 36 pt со скользящей белой плашкой.
-- `AcademyActionStepper(onDecrease:, onIncrease:, color:)` — пилюля «− +» 94 × 32 с независимо отключаемыми половинами.
+- `AcademySlidingSegments<T>` — полноширинный селектор со скользящей плашкой (цвета передаются явно, `contentBuilder` рисует сегмент). Текстовый селектор 36 pt — это `AcademySegmentedControl(height: 36, …)`.
+- `AcademyStepper.actions(onDecrease:, onIncrease:, color:)` — пилюля «− +» 94 × 32 с независимо отключаемыми половинами (каждая половина включена, если её колбэк не `null`).
 - `AcademySymbols` содержит каталог символов приложения Quran (перенесён из `AppSfIcons`); дубли по глифу сведены к одному имени.
 
-Библиотека построена на `package:flutter/cupertino.dart`. Приложение, которое сидит на `package:cupertino_ui`, должно дополнительно предоставить тему Cupertino из SDK (`CupertinoTheme` из `flutter/cupertino.dart`), иначе динамические цвета и `CupertinoButton`/`CupertinoSwitch` внутри академических виджетов возьмут яркость системы, а не приложения.
+Библиотека построена на `package:flutter/cupertino.dart`. Исключение — четыре файла, которым нужен `package:cupertino_ui`: `academy_menu.dart`, `academy_menu_anchor.dart`, `academy_menu_item.dart` и `modal_sheet_detents.dart`; остальные виджеты `CupertinoButton` берут из SDK. Приложение, которое сидит на `package:cupertino_ui`, должно дополнительно предоставить тему Cupertino из SDK (`CupertinoTheme` из `flutter/cupertino.dart`), иначе динамические цвета и `CupertinoButton`/`CupertinoSwitch` внутри академических виджетов возьмут яркость системы, а не приложения.
 
 ## quran_compat
 
@@ -451,6 +470,14 @@ The handle also opens a keyboard-accessible menu and exposes screen-reader actio
 ### Changes following the September 2026 design-system review
 
 `AcademyApp` supports Russian, English and Arabic built-in wording and native Cupertino localization. Set `locale: Locale('en')` or `Locale('ar')`, or `locale: null` to follow the device; the compatibility default is Russian. An Arabic locale automatically uses RTL. Without `AcademyApp`, register `AcademyLocalizations.delegate`, the global Cupertino/Widgets delegates, and `AcademyLocalizations.supportedLocales` on your app. A custom `LocalizationsDelegate<AcademyLocalizations>` listed first can override wording by returning a subclass. Content titles and descriptions remain client-owned. Enum appearance labels use `labelFor(context)`; the old `label` getter retains Russian wording.
+
+**Menus and toasts (November 2026, from Yalla).** `AcademyColors.menuSurface` is the resting fill of menu rows (default: `surface`); rows paint it opaquely in dark mode too (`BlendMode.srcOver`). `AcademyMenuItem(actsWhenChecked: false)` makes the current option of a single choice close the menu without repeating its action (`AcademyOptionMenu` and `AcademyChromeMenu` do this). `AcademyToastHost(style:)` sets the toast material, for example the app's chrome style; the toast clears the side safe areas. Menu items are built on `cupertino_ui`: use them with `AcademyMenuAnchor`, not the SDK `CupertinoMenuAnchor`.
+
+**Modals (November 2026, Yalla moved onto `showAcademyModal`).** New options: `header: false` (the content draws its own `AcademyChromeModalHeader`), `enableDrag: false` (picker wheels keep their gestures; the barrier still closes) and `moveAboveKeyboard: false` (the sheet stays where it rests and the content keeps the keyboard inset for a hand-made keyboard layout; use with `expandOnFocus: false`). Fixed: detents were ~7% short whenever the top safe area was non-zero (the content box was `screen − top` while detents and `ModalSheetScrollInsets` measure against the screen; `modalSheetRouteHeight` is now public), Reduce Motion asserted on a zero-length spring, a nested navigator's route focus expanded the sheet like a text field, the scroll inset kept the home-indicator gap under the keyboard, and `showAcademyConfirmation` measured its buttons with the wrong role and minimum. For content pinned to the bottom of a full-height sheet use `ModalSheetScrollInsets.of` (`pinnedBottomOf` is for a content box of `screen − top`). Regressions: `test/modal_regressions_test.dart`.
+
+**Tables (from Yalla, November 2026).** `AcademyRow` adds `eyebrow`, `detail`, `titleStyle`/`subtitleStyle`, `subtitleMaxLines`, `subtitleTextAlign`, `crossAxisAlignment`, `selected`, `trailingSpacing`, `chevron`, `iconForeground`, `leadingExtent` (a wider leading column; symbols and tiles are centered at their natural height) and `pressedColor` (grouped-list highlight of the whole row instead of fading). `AcademyTableHeader` takes a `subtitle` and moves a trailing control under the heading at narrow widths or large text. `AcademyTableSection` takes `subtitle`, `spacingBefore`, header/body/footer paddings, `separatorStart`/`separatorEnd`, `insetCustomRows` (non-row content is inset and keeps its own width, centered) and `clip`. `AcademySliverGroupedTable` builds a long section lazily inside the enclosing `CustomScrollView`. Defaults keep the previous table.
+
+**Buttons (from Yalla, November 2026).** `AcademyColors.actionFill`/`onActionFill` colour the primary call to action; they follow `accentFill` unless a client sets them, so a brand can use a companion CTA colour (Yalla: yellow) while switches and selection keep the accent. `AcademyButtonStyle.neutral` is a raised `surfaceContainerHighest` button with `onSurface` text and the `chromeBorder`; `plain` uses `surface` without a border. `AcademyButton` also accepts `content`, explicit fills (`backgroundColor`, `foregroundColor`, `borderColor`, disabled colours), `minimumHeight`, `radius` and `textStyle`. The primary label uses `AcademyTextRole.buttonLabel`, which follows `labelLarge` until a client styles it. Each button is its own accessibility element (`container: true`). `AcademyTextButton(textStyle:)` changes the label and its `measure`.
 
 `AcademyButton(style: AcademyButtonStyle.tinted)` uses `secondaryContainer` for its fill and `secondary` for text/border. `secondary: true` remains a compatibility alias. `onSecondary` describes text on a solid `secondary` surface. Selected tabs use the new `onPrimaryContainer` foreground role; custom implementations of `AcademyColors` must provide it. `AcademyColorsData` can derive it from primary/container colors or accept an explicit override. Default small-text pairs meet 4.5:1 contrast across all six catalog accents in light/dark themes; clients own contrast for explicit color overrides.
 

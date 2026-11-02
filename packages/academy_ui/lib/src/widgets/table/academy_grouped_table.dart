@@ -17,6 +17,15 @@ class AcademyTableSection {
     this.cornerRadius,
     this.showSeparators = true,
     this.separatorBuilder,
+    this.subtitle,
+    this.spacingBefore,
+    this.headerPadding,
+    this.bodyPadding,
+    this.footerPadding,
+    this.separatorStart,
+    this.separatorEnd,
+    this.insetCustomRows = false,
+    this.clip = false,
   });
   final String? title, footer;
   final List<Widget> rows;
@@ -25,6 +34,17 @@ class AcademyTableSection {
   final double? cornerRadius;
   final bool showSeparators;
   final Widget Function(BuildContext, int)? separatorBuilder;
+
+  /// Explanation under [title].
+  final String? subtitle;
+
+  /// Extra space above this section, after the table's section spacing.
+  final double? spacingBefore;
+  final EdgeInsetsGeometry? headerPadding, bodyPadding, footerPadding;
+
+  /// See [AcademyTableBody].
+  final double? separatorStart, separatorEnd;
+  final bool insetCustomRows, clip;
 }
 
 /// Inline by default; scrolling ownership may instead be delegated to the table.

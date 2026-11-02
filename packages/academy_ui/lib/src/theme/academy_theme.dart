@@ -11,6 +11,9 @@ export 'academy_typography.dart';
 
 import 'package:flutter/cupertino.dart';
 
+import '../widgets/navigation/chrome/academy_chrome.dart'
+    show AcademyChromeColors;
+
 import 'academy_colors.dart';
 export 'academy_colors.dart';
 
@@ -86,8 +89,12 @@ class AcademyThemeData {
     this.paddings = const AcademyPaddings(),
     this.typography = const AcademyTypographySettings(),
     this.interaction = const AcademyInteractionTheme(),
+    this.chromeColors = const AcademyChromeColors(),
   }) : colorScheme = colors ?? AcademyPalette(brightness, accent);
   final AcademyInteractionTheme interaction;
+
+  /// Navigation colors for this brightness; [AcademyChromeTheme] may override.
+  final AcademyChromeColors chromeColors;
   final Brightness brightness;
   final AcademyRadii radii;
   final AcademyPaddings paddings;
@@ -99,6 +106,7 @@ class AcademyThemeData {
     AcademyPaddings? paddings,
     AcademyTypographySettings? typography,
     AcademyInteractionTheme? interaction,
+    AcademyChromeColors? chromeColors,
   }) => AcademyThemeData(
     brightness,
     colorScheme.accentColor,
@@ -107,6 +115,7 @@ class AcademyThemeData {
     paddings: paddings ?? this.paddings,
     typography: typography ?? this.typography,
     interaction: interaction ?? this.interaction,
+    chromeColors: chromeColors ?? this.chromeColors,
   );
   Color get scaffoldBackgroundColor => colorScheme.scaffoldBackground;
   AcademyTypography get textTheme =>
@@ -138,6 +147,7 @@ AcademyThemeData academyTheme(
   AcademyPaddings paddings = const AcademyPaddings(),
   AcademyTypographySettings typography = const AcademyTypographySettings(),
   AcademyInteractionTheme interaction = const AcademyInteractionTheme(),
+  AcademyChromeColors chromeColors = const AcademyChromeColors(),
 }) => AcademyThemeData(
   brightness,
   accent,
@@ -146,4 +156,5 @@ AcademyThemeData academyTheme(
   paddings: paddings,
   typography: typography,
   interaction: interaction,
+  chromeColors: chromeColors,
 );

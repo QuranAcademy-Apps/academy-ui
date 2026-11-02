@@ -88,8 +88,14 @@ double _modalSheetOffscreenBottomInset(
   final topInset = ratio > 0
       ? view.padding.top / ratio
       : MediaQuery.paddingOf(context).top;
+  // The keyboard covers the home indicator: only the part of the safe area
+  // above it counts, as in MediaQueryData.fromView.
   final bottomInset = ratio > 0
-      ? view.padding.bottom / ratio
+      ? (view.padding.bottom - view.viewInsets.bottom).clamp(
+              0.0,
+              double.infinity,
+            ) /
+            ratio
       : MediaQuery.paddingOf(context).bottom;
   final offscreenGap =
       ModalSheetDetent.full.heightOf(context) - restingHeight + topInset;
@@ -232,24 +238,34 @@ double _modalSheetRouteHeight(BuildContext context) {
   return _modalSheetScreenMetrics(context).height;
 }
 
+/// Height every detent and [ModalSheetScrollInsets] are measured against: the
+/// screen above the keyboard. A sheet's content box must have this height in
+/// portrait, otherwise each detent shows only part of its height whenever the
+/// top safe area is non-zero.
+double modalSheetRouteHeight(BuildContext context) =>
+    _modalSheetRouteHeight(context);
+
 ({double height, double paddingTop}) _modalSheetScreenMetrics(
   BuildContext context,
 ) {
   final view = View.of(context);
   final devicePixelRatio = view.devicePixelRatio;
+  // A sheet anchored over the keyboard measures against the whole screen.
+  final keyboard = _ModalKeyboardScope.movesAboveKeyboard(context);
   if (devicePixelRatio <= 0) {
     final mediaQuery = MediaQuery.of(context);
     return (
-      height: (mediaQuery.size.height - mediaQuery.viewInsets.bottom).clamp(
-        0.0,
-        double.infinity,
-      ),
+      height:
+          (mediaQuery.size.height -
+                  (keyboard ? mediaQuery.viewInsets.bottom : 0))
+              .clamp(0.0, double.infinity),
       paddingTop: mediaQuery.padding.top,
     );
   }
   return (
     height:
-        (view.physicalSize.height - view.viewInsets.bottom) / devicePixelRatio,
+        (view.physicalSize.height - (keyboard ? view.viewInsets.bottom : 0)) /
+        devicePixelRatio,
     paddingTop: view.padding.top / devicePixelRatio,
   );
 }

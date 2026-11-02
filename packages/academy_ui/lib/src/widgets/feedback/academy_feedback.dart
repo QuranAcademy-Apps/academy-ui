@@ -17,8 +17,13 @@ class AcademyFeedback extends StatelessWidget {
     required this.title,
     required this.message,
     this.onRetry,
+    this.loadingIndicator,
   });
   final AcademyFeedbackKind kind;
+
+  /// Replaces the activity indicator of [AcademyFeedbackKind.loading], for
+  /// example with a content skeleton.
+  final Widget? loadingIndicator;
   final String title;
   final String message;
   final VoidCallback? onRetry;
@@ -36,7 +41,9 @@ class AcademyFeedback extends StatelessWidget {
               if (kind == AcademyFeedbackKind.loading)
                 Padding(
                   padding: AcademyTheme.of(context).paddings.feedbackIcon,
-                  child: const CupertinoActivityIndicator(radius: 12),
+                  child:
+                      loadingIndicator ??
+                      const CupertinoActivityIndicator(radius: 12),
                 )
               else
                 AcademySfIcon(

@@ -27,6 +27,9 @@ enum AcademyTextRole {
   toast,
   tabLabel,
   compactTabLabel,
+
+  /// Label of the primary (call-to-action) [AcademyButton].
+  buttonLabel,
 }
 
 /// Font families and role-specific styles shared by every component.
@@ -131,6 +134,7 @@ class AcademyTypography {
       AcademyTextRole.toast => (15.0, FontWeight.w600),
       AcademyTextRole.tabLabel => (11.0, FontWeight.w400),
       AcademyTextRole.compactTabLabel => (10.0, FontWeight.w600),
+      AcademyTextRole.buttonLabel => (17.0, FontWeight.w600),
     };
     final custom = settings.styles[role];
     final resolvedSize = custom?.fontSize ?? size;
@@ -190,4 +194,11 @@ class AcademyTypography {
   TextStyle get toast => style(AcademyTextRole.toast);
   TextStyle get tabLabel => style(AcademyTextRole.tabLabel);
   TextStyle get compactTabLabel => style(AcademyTextRole.compactTabLabel);
+
+  /// Follows [labelLarge] (including its client override) unless the client
+  /// styles [AcademyTextRole.buttonLabel] itself.
+  TextStyle get buttonLabel =>
+      settings.styles.containsKey(AcademyTextRole.buttonLabel)
+      ? style(AcademyTextRole.buttonLabel)
+      : labelLarge;
 }

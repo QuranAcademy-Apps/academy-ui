@@ -48,6 +48,8 @@ class AcademyTableHeader extends StatelessWidget {
     this.prominent = false,
     this.style,
     this.padding,
+    this.subtitle,
+    this.subtitleStyle,
   });
   const AcademyTableHeader.action({
     super.key,
@@ -59,6 +61,8 @@ class AcademyTableHeader extends StatelessWidget {
     this.prominent = false,
     this.style,
     this.padding,
+    this.subtitle,
+    this.subtitleStyle,
   }) : actionLabel = action,
        onAction = onPressed,
        actionIcon = icon,
@@ -75,6 +79,10 @@ class AcademyTableHeader extends StatelessWidget {
   final bool prominent;
   final TextStyle? style;
   final EdgeInsetsGeometry? padding;
+
+  /// Explanation under the heading, inside the same [padding].
+  final String? subtitle;
+  final TextStyle? subtitleStyle;
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
@@ -131,30 +139,63 @@ class AcademyTableHeader extends StatelessWidget {
       );
     }
 
-    return Padding(
-      padding: padding ?? theme.paddings.tableHeader,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Row(
+    final header = LayoutBuilder(
+      builder: (context, constraints) {
+        // A trailing control that cannot sit beside the heading (narrow
+        // width or large text) moves under it instead of squeezing it.
+        if (trailing != null &&
+            actionLabel == null &&
+            (constraints.maxWidth < 280 ||
+                MediaQuery.textScalerOf(context).scale(15) > 24)) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: heading),
-              if (actionLabel != null) ...[
-                const SizedBox(width: AcademyTokens.inlineGap),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: constraints.maxWidth * .6,
-                  ),
-                  child: action(),
-                ),
-              ],
-              if (trailing != null) ...[
-                const SizedBox(width: AcademyTokens.inlineGap),
-                Semantics(container: true, child: trailing!),
-              ],
+              heading,
+              Semantics(container: true, child: trailing!),
             ],
           );
-        },
-      ),
+        }
+        return Row(
+          children: [
+            Expanded(child: heading),
+            if (actionLabel != null) ...[
+              const SizedBox(width: AcademyTokens.inlineGap),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: constraints.maxWidth * .6,
+                ),
+                child: action(),
+              ),
+            ],
+            if (trailing != null) ...[
+              const SizedBox(width: AcademyTokens.inlineGap),
+              Semantics(container: true, child: trailing!),
+            ],
+          ],
+        );
+      },
+    );
+    return Padding(
+      padding: padding ?? theme.paddings.tableHeader,
+      child: subtitle == null
+          ? header
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                header,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: AcademyTokens.space),
+                  child: Text(
+                    subtitle!,
+                    style:
+                        subtitleStyle ??
+                        theme.textTheme.bodySmall.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }
@@ -208,10 +249,28 @@ class AcademyTableBody extends StatelessWidget {
     this.showSeparators = true,
     this.separatorBuilder,
     this.padding,
+    this.separatorStart,
+    this.separatorEnd,
+    this.insetCustomRows = false,
+    this.clip = false,
   });
   final List<Widget> rows;
   final double? cornerRadius;
   final bool showSeparators;
+
+  /// Fixed separator start, overriding each row's [AcademyTableRowGeometry].
+  final double? separatorStart;
+
+  /// Separator end inset; default: the row's trailing padding.
+  final double? separatorEnd;
+
+  /// Pads rows that are not [AcademyTableRowGeometry] by the row insets,
+  /// keeps their own width (centered)
+  /// instead of giving them the row scope.
+  final bool insetCustomRows;
+
+  /// Clips row content (such as a pressed highlight) to the rounded surface.
+  final bool clip;
   final Widget Function(BuildContext context, int precedingIndex)?
   separatorBuilder;
   final EdgeInsetsGeometry? padding;
@@ -227,9 +286,20 @@ class AcademyTableBody extends StatelessWidget {
             if (i > 0 && showSeparators)
               separatorBuilder?.call(context, i - 1) ??
                   AcademyTableSeparator(
-                    start: _separatorStart(context, rows[i - 1]),
+                    start:
+                        separatorStart ?? _separatorStart(context, rows[i - 1]),
+                    end: separatorEnd,
                   ),
-            AcademyTableRowScope(child: rows[i]),
+            if (insetCustomRows && rows[i] is! AcademyTableRowGeometry)
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AcademyTheme.of(context).paddings.tableRow.left,
+                ),
+                // Custom content keeps its own width, centered.
+                child: Center(heightFactor: 1, child: rows[i]),
+              )
+            else
+              AcademyTableRowScope(child: rows[i]),
           ],
         ],
       ),
@@ -243,14 +313,15 @@ class AcademyTableBody extends StatelessWidget {
         child: content,
       );
     }
+    final radius = BorderRadius.circular(
+      cornerRadius ?? AcademyTheme.of(context).radii.table,
+    );
     return DecoratedBox(
       decoration: BoxDecoration(
         color: AcademyTheme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(
-          cornerRadius ?? AcademyTheme.of(context).radii.table,
-        ),
+        borderRadius: radius,
       ),
-      child: content,
+      child: clip ? ClipRRect(borderRadius: radius, child: content) : content,
     );
   }
 
@@ -269,24 +340,34 @@ class AcademyTableSectionView extends StatelessWidget {
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
+      if (section.spacingBefore != null)
+        SizedBox(height: section.spacingBefore),
       if (section.header != null || section.title != null)
         section.header ??
             AcademyTableHeader(
               title: section.title!,
+              subtitle: section.subtitle,
               trailing: section.headerTrailing,
               style: section.headerStyle,
+              padding: section.headerPadding,
             ),
       AcademyTableBody(
         rows: section.rows,
         cornerRadius: section.cornerRadius,
         showSeparators: section.showSeparators,
         separatorBuilder: section.separatorBuilder,
+        padding: section.bodyPadding,
+        separatorStart: section.separatorStart,
+        separatorEnd: section.separatorEnd,
+        insetCustomRows: section.insetCustomRows,
+        clip: section.clip,
       ),
       if (section.footerWidget != null || section.footer != null)
         section.footerWidget ??
             AcademyTableFooter(
               text: section.footer!,
               style: section.footerStyle,
+              padding: section.footerPadding,
             ),
     ],
   );

@@ -213,6 +213,9 @@ Future<T?> showAcademyModalRoute<T>({
   // Rounded corners belong to opaque fills. Scrolling content has no rounded
   // clip; custom opaque content uses ModalSheetMaskedFill near sheet corners.
   Clip clipBehavior = Clip.none,
+  // False keeps the sheet in place over the keyboard; the content then owns
+  // the keyboard inset (it stays in its MediaQuery).
+  bool moveAboveKeyboard = true,
 }) {
   final dismissible = isDismissible ?? true;
   final navigator = Navigator.of(context, rootNavigator: useRootNavigator);
@@ -227,18 +230,21 @@ Future<T?> showAcademyModalRoute<T>({
       ? sourceScaler
       : null;
   final route = _AcademySheetRoute<T>(
+    moveAboveKeyboard: moveAboveKeyboard,
     barrierColor:
         barrierColor ?? AcademyTheme.of(context).colorScheme.modalBarrier,
     barrierDismissible: dismissible,
     barrierLabel: AcademyLocalizations.of(context).close,
     clearBarrierImmediately: clearBarrierImmediately,
     draggable: enableDrag && dismissible,
-    motion: CupertinoMotion.smooth(
-      duration: MediaQuery.disableAnimationsOf(context)
-          ? Duration.zero
-          : duration ?? AcademyTokens.sheetMotion,
-      snapToEnd: true,
-    ),
+    // Reduce Motion: an instant move. A spring cannot take a zero duration,
+    // and Motion.none() would hold the sheet where it starts.
+    motion: MediaQuery.disableAnimationsOf(context)
+        ? const Motion.linear(Duration(milliseconds: 1))
+        : CupertinoMotion.smooth(
+            duration: duration ?? AcademyTokens.sheetMotion,
+            snapToEnd: true,
+          ),
     onlyDragWhenScrollWasAtTop: onlyDragWhenScrollWasAtTop,
     overshootResistance: overshootResistance,
     backgroundSnapshotMode: backgroundSnapshotMode,
@@ -257,8 +263,11 @@ Future<T?> showAcademyModalRoute<T>({
                   ),
                 ),
             clipBehavior: clipBehavior,
-            child: _ModalSheetScrollInsetScope(
-              child: RepaintBoundary(child: Builder(builder: builder)),
+            child: _ModalKeyboardScope(
+              moveAboveKeyboard: moveAboveKeyboard,
+              child: _ModalSheetScrollInsetScope(
+                child: RepaintBoundary(child: Builder(builder: builder)),
+              ),
             ),
           );
           if (directionOverride != null) {
@@ -288,6 +297,7 @@ Future<T?> showAcademyModalRoute<T>({
 
 class _AcademySheetRoute<T> extends StupidSimpleSheetRoute<T> {
   _AcademySheetRoute({
+    required bool moveAboveKeyboard,
     required super.child,
     super.settings,
     required this.overshootResistance,
@@ -300,7 +310,7 @@ class _AcademySheetRoute<T> extends StupidSimpleSheetRoute<T> {
     required super.snappingConfig,
     required super.draggable,
     required super.backgroundSnapshotMode,
-  }) : super(originateAboveBottomViewInset: true);
+  }) : super(originateAboveBottomViewInset: moveAboveKeyboard);
 
   @override
   final double overshootResistance;
@@ -310,4 +320,22 @@ class _AcademySheetRoute<T> extends StupidSimpleSheetRoute<T> {
   // ScrollNotification своего контента и комбинирует это с anim/drag-логикой в
   // _updateSnapshotState. Здесь ничего настраивать не нужно — режим работает для
   // любого backgroundSnapshotMode != never.
+}
+
+/// Whether the sheet moves above the keyboard. When it does not, the content
+/// owns the keyboard inset and detents keep the full screen height.
+class _ModalKeyboardScope extends InheritedWidget {
+  const _ModalKeyboardScope({
+    required this.moveAboveKeyboard,
+    required super.child,
+  });
+  final bool moveAboveKeyboard;
+  static bool movesAboveKeyboard(BuildContext context) =>
+      context
+          .getInheritedWidgetOfExactType<_ModalKeyboardScope>()
+          ?.moveAboveKeyboard ??
+      true;
+  @override
+  bool updateShouldNotify(_ModalKeyboardScope oldWidget) =>
+      moveAboveKeyboard != oldWidget.moveAboveKeyboard;
 }

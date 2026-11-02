@@ -72,6 +72,12 @@ class AcademyPalette implements AcademyColors {
       ? CupertinoColors.black
       : CupertinoColors.white;
   @override
+  Color get menuSurface => surface;
+  @override
+  Color get actionFill => accentFill;
+  @override
+  Color get onActionFill => onAccentFill;
+  @override
   Color get accentForeground => AcademyContrast.foreground(
     AcademyContrast.foreground(
       AcademyContrast.foreground(_themedAccent, textFieldBackground),

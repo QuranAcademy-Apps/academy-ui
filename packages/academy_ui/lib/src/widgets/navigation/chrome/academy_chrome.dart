@@ -3,15 +3,20 @@ import '../../menu/academy_menu_anchor.dart';
 import '../../../foundation/interaction/academy_interaction.dart';
 import '../../menu/academy_menu_item.dart';
 
+import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/cupertino.dart';
+
+import '../../../foundation/layout/academy_text_fit.dart';
+import '../../button/academy_button.dart' show AcademyTextButton;
 
 import '../../icon/academy_sf_image.dart';
 import '../../../theme/academy_theme.dart';
 import '../../../foundation/layout/academy_page_insets.dart';
 import '../../../foundation/motion/press_scale.dart';
 import 'academy_chrome_metrics.dart';
+import 'academy_glass_material.dart';
 
 enum AcademyChromeStyle {
   gradient,
@@ -19,9 +24,12 @@ enum AcademyChromeStyle {
   blur,
   tinted,
   outlined,
+
+  /// Near-opaque tinted glass of iOS 26 navigation (see [AcademyGlassMaterial]).
+  glass,
   none;
 
-  static const panelStyles = [flat, gradient, blur];
+  static const panelStyles = [flat, gradient, blur, glass];
 
   /// Legacy Russian label. Prefer [labelFor] for localized UI.
   String get label =>
@@ -32,7 +40,8 @@ enum AcademyChromeStyle {
 
 enum AcademyInterfaceTransparency {
   normal,
-  softBlur;
+  softBlur,
+  solidGlass;
 
   String get label =>
       const AcademyLocalizations(Locale('ru')).transparency(name);
@@ -42,11 +51,13 @@ enum AcademyInterfaceTransparency {
   AcademyChromeStyle get chromeStyle => switch (this) {
     normal => AcademyChromeStyle.flat,
     softBlur => AcademyChromeStyle.blur,
+    solidGlass => AcademyChromeStyle.glass,
   };
 
   double get blurSigma => switch (this) {
     normal => 20,
     softBlur => 20,
+    solidGlass => 20,
   };
 }
 
@@ -61,6 +72,66 @@ enum AcademyTabBarDensity {
       AcademyLocalizations.of(context).tabDensity(name);
 }
 
+/// Navigation colors that may differ from the content palette, for example a
+/// neutral tab highlight with a saturated selected symbol. A null role keeps
+/// the palette default noted on it.
+@immutable
+class AcademyChromeColors {
+  const AcademyChromeColors({
+    this.buttonForeground,
+    this.selection,
+    this.selectedIcon,
+    this.selectedLabel,
+    this.unselectedForeground,
+    this.border,
+    this.shadow,
+  });
+
+  /// Chrome button symbols; default: the Cupertino primary color.
+  final Color? buttonForeground;
+
+  /// Selected tab pill and selected chrome button; default: primaryContainer.
+  final Color? selection;
+
+  /// Selected tab symbol and selected button symbol; default: onPrimaryContainer.
+  final Color? selectedIcon;
+
+  /// Selected tab label; default: onPrimaryContainer.
+  final Color? selectedLabel;
+
+  /// Unselected tab symbol and label; default: onSurfaceVariant, contrast-fixed.
+  final Color? unselectedForeground;
+
+  /// Group separators and the selected button rim; default: outlineVariant.
+  final Color? border;
+
+  /// Elevation of opaque chrome (soft, chrome, tinted, outlined) and of the
+  /// selected button; default: none.
+  final Color? shadow;
+
+  @override
+  bool operator ==(Object other) =>
+      other is AcademyChromeColors &&
+      other.buttonForeground == buttonForeground &&
+      other.selection == selection &&
+      other.selectedIcon == selectedIcon &&
+      other.selectedLabel == selectedLabel &&
+      other.unselectedForeground == unselectedForeground &&
+      other.border == border &&
+      other.shadow == shadow;
+
+  @override
+  int get hashCode => Object.hash(
+    buttonForeground,
+    selection,
+    selectedIcon,
+    selectedLabel,
+    unselectedForeground,
+    border,
+    shadow,
+  );
+}
+
 class AcademyChromeTheme extends InheritedTheme {
   const AcademyChromeTheme({
     super.key,
@@ -70,6 +141,7 @@ class AcademyChromeTheme extends InheritedTheme {
     double? blurToneStrength,
     double? blurTintOpacity,
     this.tabBarDensity = AcademyTabBarDensity.standard,
+    this.colors,
   }) : blurToneStrength =
            blurToneStrength ??
            blurTintOpacity ??
@@ -89,6 +161,13 @@ class AcademyChromeTheme extends InheritedTheme {
   /// Compatibility alias for backdrop tone correction; no overlay is painted.
   double get blurTintOpacity => blurToneStrength;
   final AcademyTabBarDensity tabBarDensity;
+
+  /// Overrides [AcademyThemeData.chromeColors] below this theme.
+  final AcademyChromeColors? colors;
+
+  /// Navigation colors: the nearest override, else the active theme's.
+  static AcademyChromeColors colorsOf(BuildContext context) =>
+      maybeOf(context)?.colors ?? AcademyTheme.of(context).chromeColors;
   static AcademyChromeTheme? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AcademyChromeTheme>();
   @override
@@ -96,13 +175,15 @@ class AcademyChromeTheme extends InheritedTheme {
       style != oldWidget.style ||
       blurSigma != oldWidget.blurSigma ||
       blurToneStrength != oldWidget.blurToneStrength ||
-      tabBarDensity != oldWidget.tabBarDensity;
+      tabBarDensity != oldWidget.tabBarDensity ||
+      colors != oldWidget.colors;
   @override
   Widget wrap(BuildContext context, Widget child) => AcademyChromeTheme(
     style: style,
     blurSigma: blurSigma,
     blurToneStrength: blurToneStrength,
     tabBarDensity: tabBarDensity,
+    colors: colors,
     child: child,
   );
 }
@@ -279,6 +360,13 @@ class AcademyChrome extends StatelessWidget {
     if (style == AcademyChromeStyle.none) return child;
     final p = AcademyTheme.of(context).colorScheme;
     final highContrast = MediaQuery.highContrastOf(context);
+    if (style == AcademyChromeStyle.glass && !highContrast) {
+      return AcademyGlassMaterial(
+        radius: radius ?? AcademyTheme.of(context).radii.chrome,
+        blurSigma: blurSigma,
+        child: child,
+      );
+    }
     final surface = DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
@@ -311,7 +399,21 @@ class AcademyChrome extends StatelessWidget {
       ),
       child: child,
     );
-    if (style != AcademyChromeStyle.blur || highContrast) return surface;
+    if (style != AcademyChromeStyle.blur || highContrast) {
+      final shadow = AcademyChromeTheme.colorsOf(context).shadow;
+      if (shadow == null) return surface;
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            radius ?? AcademyTheme.of(context).radii.chrome,
+          ),
+          boxShadow: [
+            BoxShadow(color: shadow, blurRadius: 8, offset: const Offset(0, 2)),
+          ],
+        ),
+        child: surface,
+      );
+    }
     return ClipRRect(
       borderRadius: BorderRadius.circular(
         radius ?? AcademyTheme.of(context).radii.chrome,
@@ -337,50 +439,98 @@ class AcademyChromeButton extends StatelessWidget {
     this.onPressed,
     this.style,
     this.blurSigma,
+    this.selected,
+    this.foreground,
+    this.semanticsValue,
   });
   final IconData icon;
   final String label;
+
+  /// Current state read after [label], for example the selected list style.
+  final String? semanticsValue;
   final VoidCallback? onPressed;
   final AcademyChromeStyle? style;
   final double? blurSigma;
+
+  /// A toggled button: an opaque selection disc instead of the material.
+  final bool? selected;
+
+  /// Symbol color; default: [AcademyChromeColors.buttonForeground].
+  final Color? foreground;
   @override
-  Widget build(BuildContext context) => AcademyActionSemantics(
-    label: label,
-    enabled: onPressed != null,
-    child: PressScale(
-      enabled: onPressed != null && !MediaQuery.disableAnimationsOf(context),
-      child: SizedBox.square(
-        dimension: academyChromeBarHeight,
-        child: AcademyChrome(
-          radius: AcademyTheme.of(context).radii.chromeButton,
-          style: style,
-          blurSigma: blurSigma,
-          child: CupertinoButton(
-            padding: EdgeInsets.zero,
-            minimumSize: Size.zero,
-            onPressed: onPressed,
-            child: AnimatedSwitcher(
-              duration: MediaQuery.disableAnimationsOf(context)
-                  ? Duration.zero
-                  : AcademyTokens.motion,
-              child: AcademySfImage(
-                icon,
-                key: ValueKey(icon),
-                foreground: AcademyChrome.foregroundColor(
+  Widget build(BuildContext context) {
+    final colors = AcademyTheme.of(context).colorScheme;
+    final chrome = AcademyChromeTheme.colorsOf(context);
+    final button = CupertinoButton(
+      padding: EdgeInsets.zero,
+      minimumSize: Size.zero,
+      onPressed: onPressed,
+      child: AnimatedSwitcher(
+        duration: MediaQuery.disableAnimationsOf(context)
+            ? Duration.zero
+            : AcademyTokens.motion,
+        child: AcademySfImage(
+          icon,
+          key: ValueKey(icon),
+          foreground: onPressed == null
+              ? AcademyChrome.foregroundColor(
                   context,
-                  onPressed == null
-                      ? AcademyTheme.of(context).colorScheme.onSurfaceVariant
-                      : CupertinoTheme.of(context).primaryColor,
+                  colors.onSurfaceVariant,
+                  style: style,
+                  minimumContrast: 3,
+                )
+              : selected == true
+              ? chrome.selectedIcon ?? colors.onPrimaryContainer
+              : AcademyChrome.foregroundColor(
+                  context,
+                  foreground ??
+                      chrome.buttonForeground ??
+                      CupertinoTheme.of(context).primaryColor,
                   style: style,
                   minimumContrast: 3,
                 ),
-              ),
-            ),
-          ),
         ),
       ),
-    ),
-  );
+    );
+    return AcademyActionSemantics(
+      label: label,
+      value: semanticsValue,
+      enabled: onPressed != null,
+      selected: selected,
+      child: PressScale(
+        enabled: onPressed != null && !MediaQuery.disableAnimationsOf(context),
+        child: SizedBox.square(
+          dimension: academyChromeBarHeight,
+          child: selected == true
+              ? DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: chrome.selection ?? colors.primaryContainer,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: chrome.border ?? colors.outlineVariant,
+                      width: .5,
+                    ),
+                    boxShadow: [
+                      if (chrome.shadow != null)
+                        BoxShadow(
+                          color: chrome.shadow!,
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                    ],
+                  ),
+                  child: button,
+                )
+              : AcademyChrome(
+                  radius: AcademyTheme.of(context).radii.chromeButton,
+                  style: style,
+                  blurSigma: blurSigma,
+                  child: button,
+                ),
+        ),
+      ),
+    );
+  }
 }
 
 class AcademyChromeMenu extends StatelessWidget {
@@ -406,7 +556,11 @@ class AcademyChromeMenu extends StatelessWidget {
     menuChildren: [
       for (final option in options)
         AcademyMenuItem(
-          onPressed: () => onSelected(option),
+          // The current option still closes the menu, without repeating the
+          // side effects of selecting it.
+          onPressed: () {
+            if (option != value) onSelected(option);
+          },
           checked: option == value,
           title: option,
         ),
@@ -507,7 +661,9 @@ class AcademyChromeGroup extends StatelessWidget {
             Container(
               width: .5,
               height: 20,
-              color: AcademyTheme.of(context).colorScheme.outlineVariant,
+              color:
+                  AcademyChromeTheme.colorsOf(context).border ??
+                  AcademyTheme.of(context).colorScheme.outlineVariant,
             ),
           AcademyChromeButton(
             icon: actions[i].icon,
@@ -528,6 +684,7 @@ class AcademyChromeBar extends StatelessWidget {
     this.title,
     this.middle,
     this.subtitle,
+    this.height,
     this.leading,
     this.trailing,
     this.actions = const [],
@@ -537,6 +694,9 @@ class AcademyChromeBar extends StatelessWidget {
   final String? title;
   final Widget? middle;
   final String? subtitle;
+
+  /// Bar height; default: [academyChromeHeightOf] for the title and subtitle.
+  final double? height;
   final Widget? leading;
   final Widget? trailing;
   final List<AcademyChromeAction> actions;
@@ -546,7 +706,8 @@ class AcademyChromeBar extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
     padding: AcademyTheme.of(context).paddings.chromeBar,
     child: SizedBox(
-      height: academyChromeHeightOf(context, subtitle: subtitle != null),
+      height:
+          height ?? academyChromeHeightOf(context, subtitle: subtitle != null),
       child: NavigationToolbar(
         centerMiddle: true,
         middleSpacing: 8,
@@ -689,32 +850,91 @@ class AcademyChromeModalHeader extends StatelessWidget {
     this.style,
     this.blurSigma,
     this.leading,
+    this.trailing,
+    this.closeOnLeading = false,
     this.onClose,
     this.actions = const [],
-  });
+  }) : assert(!closeOnLeading || leading == null),
+       assert(trailing == null || closeOnLeading);
   final String? title;
   final AcademyChromeStyle? style;
   final double? blurSigma;
   final Widget? leading;
+
+  /// Trailing control when close sits on the leading side (for example a
+  /// "Reset" [AcademyTextButton]).
+  final Widget? trailing;
+
+  /// Places close on the leading side, freeing the trailing side.
+  final bool closeOnLeading;
   final VoidCallback? onClose;
   final List<AcademyChromeAction> actions;
+
+  /// A text action wider than the room beside the title would squeeze the
+  /// title out or clip the action at large text, so it takes its own row.
+  bool _stacksTrailing(BuildContext context, double width) {
+    final action = trailing;
+    if (title == null || action is! AcademyTextButton) return false;
+    final actionSize = action.measure(context);
+    final titleWidth = academyTextWidth(
+      context,
+      title!,
+      AcademyTheme.of(context).textTheme.titleMedium,
+    );
+    final barPadding = AcademyTheme.of(context).paddings.chromeBar.horizontal;
+    const middleSpacing = 8.0;
+    final side = math.max(academyChromeBarHeight, actionSize.width);
+    final middle = width - barPadding - 2 * side - 2 * middleSpacing;
+    return titleWidth > middle ||
+        actionSize.height > academyChromeHeightOf(context);
+  }
+
   @override
-  Widget build(BuildContext context) => Padding(
-    // Modal spacing is independent of the screen navigation bar metrics.
-    padding: AcademyTheme.of(context).paddings.chromeBottom,
-    child: AcademyChromeBar(
-      title: title,
-      leading: leading,
-      style: style,
-      blurSigma: blurSigma,
-      actions: [
-        ...actions,
-        AcademyChromeAction(
-          AcademySymbols.close,
-          AcademyLocalizations.of(context).close,
-          onClose ?? () => Navigator.pop(context),
-        ),
-      ],
-    ),
-  );
+  Widget build(BuildContext context) {
+    final close = onClose ?? () => Navigator.pop(context);
+    final closeLabel = AcademyLocalizations.of(context).close;
+    return Padding(
+      // Modal spacing is independent of the screen navigation bar metrics.
+      padding: AcademyTheme.of(context).paddings.chromeBottom,
+      child: LayoutBuilder(
+        builder: (context, box) {
+          final stacked = _stacksTrailing(context, box.maxWidth);
+          final bar = AcademyChromeBar(
+            title: title,
+            leading: closeOnLeading
+                ? AcademyChromeButton(
+                    icon: AcademySymbols.close,
+                    label: closeLabel,
+                    onPressed: close,
+                    style: style,
+                    blurSigma: blurSigma,
+                  )
+                : leading,
+            trailing: stacked ? null : trailing,
+            style: style,
+            blurSigma: blurSigma,
+            actions: [
+              ...actions,
+              if (!closeOnLeading)
+                AcademyChromeAction(AcademySymbols.close, closeLabel, close),
+            ],
+          );
+          if (!stacked) return bar;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              bar,
+              Padding(
+                padding: AcademyTheme.of(context).paddings.chromeBar,
+                child: Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: trailing,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
 }

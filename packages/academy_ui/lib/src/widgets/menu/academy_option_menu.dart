@@ -50,6 +50,7 @@ class AcademyOptionMenu extends StatelessWidget
         AcademyMenuItem(
           title: option,
           checked: option == value,
+          actsWhenChecked: false,
           onPressed: () => onSelected(option),
         ),
     ],
