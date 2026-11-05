@@ -418,7 +418,7 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
         ),
       ],
       'picker' => [
-        AcademyDateField(
+        AcademyDateInput(
           label: 'Дата',
           value: _date,
           onChanged: (v) => setState(() => _date = v),
@@ -520,7 +520,7 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
           title: 'Команды',
           items: [AcademyMenuItem(title: 'Выполнить', onPressed: action)],
         ),
-        AcademyOptionMenu(
+        AcademyInlineOptionMenu(
           label: 'Короткий выбор',
           value: _choice ?? 'ru',
           options: const ['ru', 'en', 'ar'],
@@ -888,7 +888,7 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
                         AcademyTableSection(
                           title: 'Проверка отображения',
                           rows: [
-                            AcademyOptionMenu(
+                            AcademyInlineOptionMenu(
                               label: 'Тема примера',
                               value: _brightness == null
                                   ? 'По каталогу'
@@ -915,7 +915,7 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
                                 onChanged: (v) => setState(() => _large = v),
                               ),
                             ),
-                            AcademyOptionMenu(
+                            AcademyInlineOptionMenu(
                               label: 'Направление',
                               value: _direction == null
                                   ? 'По каталогу'

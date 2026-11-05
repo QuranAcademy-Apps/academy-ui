@@ -144,7 +144,7 @@ class _AdvancedComponentsCatalogState extends State<AdvancedComponentsCatalog> {
       ),
     ]),
     AdvancedCatalogSection.dates => catalogPage(context, 'Даты и значения', [
-      AcademyDateField(
+      AcademyDateInput(
         label: 'Дата',
         value: _date,
         onChanged: (v) => setState(() => _date = v),

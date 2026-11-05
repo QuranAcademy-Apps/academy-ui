@@ -1,4 +1,4 @@
-import 'package:academy_ui/academy_ui.dart' show AcademyMessageView;
+import 'package:academy_ui/academy_ui.dart' show AcademyFeedback;
 import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../../theme/app_colors.dart';
@@ -15,7 +15,7 @@ class AppMessageView extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   @override
-  Widget build(BuildContext context) => AcademyMessageView(
+  Widget build(BuildContext context) => AcademyFeedback.compact(
     message: message,
     messageColor: context.appColors.textSecondary,
     padding: padding,

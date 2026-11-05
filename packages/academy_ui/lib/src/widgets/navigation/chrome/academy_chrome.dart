@@ -38,29 +38,6 @@ enum AcademyChromeStyle {
       AcademyLocalizations.of(context).chromeStyle(name);
 }
 
-enum AcademyInterfaceTransparency {
-  normal,
-  softBlur,
-  solidGlass;
-
-  String get label =>
-      const AcademyLocalizations(Locale('ru')).transparency(name);
-  String labelFor(BuildContext context) =>
-      AcademyLocalizations.of(context).transparency(name);
-
-  AcademyChromeStyle get chromeStyle => switch (this) {
-    normal => AcademyChromeStyle.flat,
-    softBlur => AcademyChromeStyle.blur,
-    solidGlass => AcademyChromeStyle.glass,
-  };
-
-  double get blurSigma => switch (this) {
-    normal => 20,
-    softBlur => 20,
-    solidGlass => 20,
-  };
-}
-
 /// Inherited appearance shared by every chrome surface, including route overlays.
 enum AcademyTabBarDensity {
   standard,
@@ -442,9 +419,13 @@ class AcademyChromeButton extends StatelessWidget {
     this.selected,
     this.foreground,
     this.semanticsValue,
+    this.semanticsExpanded,
   });
   final IconData icon;
   final String label;
+
+  /// Open state of the menu this button controls.
+  final bool? semanticsExpanded;
 
   /// Current state read after [label], for example the selected list style.
   final String? semanticsValue;
@@ -497,6 +478,7 @@ class AcademyChromeButton extends StatelessWidget {
       value: semanticsValue,
       enabled: onPressed != null,
       selected: selected,
+      expanded: semanticsExpanded,
       child: PressScale(
         enabled: onPressed != null && !MediaQuery.disableAnimationsOf(context),
         child: SizedBox.square(

@@ -22,16 +22,3 @@ class AcademyCheckmark extends StatelessWidget {
         : const SizedBox(width: 18),
   );
 }
-
-class AcademyChevron extends StatelessWidget {
-  const AcademyChevron({super.key, this.turns = 0});
-  final double turns;
-  @override
-  Widget build(BuildContext context) => AnimatedRotation(
-    turns: turns,
-    duration: MediaQuery.disableAnimationsOf(context)
-        ? Duration.zero
-        : AcademyTokens.motion,
-    child: AcademySfIcon(AcademySymbols.forward, size: 16),
-  );
-}

@@ -74,7 +74,7 @@ void main() {
     await tester.pumpWidget(
       AcademyApp(
         home: Center(
-          child: AcademyOptionMenu(
+          child: AcademyInlineOptionMenu(
             label: 'Город',
             value: 'Москва',
             options: const ['Москва', 'Казань'],

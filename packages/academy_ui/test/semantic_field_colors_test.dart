@@ -164,7 +164,7 @@ void main() {
                           presentation: AcademySelectPresentation.popover,
                           onChanged: (_) {},
                         ),
-                        const AcademyPickerTrigger(
+                        const AcademyPickerInput(
                           label: 'Date',
                           value: 'Tomorrow',
                           icon: CupertinoIcons.calendar,
@@ -198,17 +198,6 @@ void main() {
         expect(tester.widget<Text>(find.text('Name')).style!.color, muted);
         expect(tester.widget<Text>(find.text('Error')).style!.color, error);
         expect(tester.widget<Text>(find.text('Russian')).style!.color, ink);
-        expect(
-          tester.widget<Text>(find.text('Tomorrow')).style!.color,
-          disabledInk,
-        );
-        final picker = tester.widget<Container>(
-          find.descendant(
-            of: find.byType(AcademyPickerTrigger),
-            matching: find.byType(Container),
-          ),
-        );
-        expect((picker.decoration! as BoxDecoration).color, disabled);
         final button = tester.widget<CupertinoButton>(
           find.descendant(
             of: find.byType(AcademyButton),

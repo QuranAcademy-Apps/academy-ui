@@ -70,7 +70,11 @@ class AcademyInlineOptionMenu extends StatelessWidget
       child: Row(
         children: [
           if (icon != null) ...[
-            AcademySfIcon(icon!, size: 22),
+            AcademySfIcon(
+              icon!,
+              size: 22,
+              boxSize: AcademyTokens.tableIconExtent,
+            ),
             const SizedBox(width: 12),
           ],
           Expanded(

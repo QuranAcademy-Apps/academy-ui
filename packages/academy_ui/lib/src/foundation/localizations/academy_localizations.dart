@@ -100,11 +100,6 @@ class AcademyLocalizations {
     'glass' => _text('Стекло', 'Glass', 'زجاج'),
     _ => _text('Без chrome', 'No chrome', 'بدون كروم'),
   };
-  String transparency(String name) => switch (name) {
-    'softBlur' => _text('Мягкий blur', 'Soft blur', 'تمويه ناعم'),
-    'solidGlass' => _text('Однотонная', 'Solid glass', 'زجاج معتم'),
-    _ => _text('Обычная', 'Normal', 'عادي'),
-  };
   String tabDensity(String name) => switch (name) {
     'compact' => _text('Компактный', 'Compact', 'مضغوط'),
     'telegram' => 'Telegram',

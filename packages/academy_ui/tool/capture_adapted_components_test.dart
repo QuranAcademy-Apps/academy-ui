@@ -55,7 +55,7 @@ Widget panel(Brightness brightness) {
                   onChanged: (_) {},
                 ),
                 const SizedBox(height: 8),
-                AcademyDateField(
+                AcademyDateInput(
                   label: 'Дата',
                   value: DateTime(2026, 10, 2),
                   onChanged: (_) {},

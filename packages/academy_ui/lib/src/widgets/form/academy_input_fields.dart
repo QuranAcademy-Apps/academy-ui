@@ -1,10 +1,14 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import '../../foundation/localizations/academy_localizations.dart';
 import '../../foundation/table/academy_table_row_scope.dart';
 import '../../theme/academy_theme.dart';
+import '../../foundation/form/academy_form_field.dart';
 import '../button/academy_button.dart';
+import '../calendar/academy_calendar.dart';
 import '../icon/academy_sf_image.dart';
 import '../modal/academy_modal.dart';
 import '../table/academy_row.dart';
@@ -105,9 +109,15 @@ class AcademyFloatingInput extends StatefulWidget {
   const AcademyFloatingInput({
     super.key,
     required this.label,
-    required this.controller,
+    this.controller,
     this.enabled = true,
+    this.readOnly = false,
+    this.autofocus = false,
+    this.help,
     this.error,
+    this.onChanged,
+    this.onSubmitted,
+    this.textInputAction,
     this.keyboardType,
     this.inputFormatters,
     this.obscure = false,
@@ -129,9 +139,16 @@ class AcademyFloatingInput extends StatefulWidget {
     this.focusedBorderWidth = 1,
   });
   final String label;
-  final TextEditingController controller;
-  final bool enabled, obscure;
+
+  /// Owned by the caller; omitted, the field owns one.
+  final TextEditingController? controller;
+  final bool enabled, readOnly, autofocus, obscure;
+
+  /// Shown below the field while there is no [error].
+  final String? help;
   final String? error;
+  final ValueChanged<String>? onChanged, onSubmitted;
+  final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final int maxLines;
@@ -154,21 +171,28 @@ class AcademyFloatingInput extends StatefulWidget {
 
 class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
   late FocusNode _focus = widget.focusNode ?? FocusNode();
+  TextEditingController? _ownedController;
+  TextEditingController get _controller =>
+      widget.controller ?? (_ownedController ??= TextEditingController());
   void _refresh() => setState(() {});
 
   @override
   void initState() {
     super.initState();
     _focus.addListener(_refresh);
-    widget.controller.addListener(_refresh);
+    _controller.addListener(_refresh);
   }
 
   @override
   void didUpdateWidget(covariant AcademyFloatingInput oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != widget.controller) {
-      oldWidget.controller.removeListener(_refresh);
-      widget.controller.addListener(_refresh);
+      (oldWidget.controller ?? _ownedController)?.removeListener(_refresh);
+      if (widget.controller != null) {
+        _ownedController?.dispose();
+        _ownedController = null;
+      }
+      _controller.addListener(_refresh);
     }
     if (oldWidget.focusNode != widget.focusNode) {
       _focus.removeListener(_refresh);
@@ -181,7 +205,8 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
 
   @override
   void dispose() {
-    widget.controller.removeListener(_refresh);
+    _controller.removeListener(_refresh);
+    _ownedController?.dispose();
     _focus.removeListener(_refresh);
     if (widget.focusNode == null) _focus.dispose();
     super.dispose();
@@ -193,7 +218,7 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
     final colors = theme.colorScheme;
     final raised =
         _focus.hasFocus ||
-        widget.controller.text.isNotEmpty ||
+        _controller.text.isNotEmpty ||
         widget.placeholder != null;
     final duration = MediaQuery.disableAnimationsOf(context)
         ? Duration.zero
@@ -206,8 +231,9 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
         .copyWith(height: 1.2);
     final canClear =
         widget.enabled &&
+        !widget.readOnly &&
         widget.allowClear &&
-        widget.controller.text.isNotEmpty &&
+        _controller.text.isNotEmpty &&
         (!widget.clearOnlyWhenFocused || _focus.hasFocus);
     final labelHeight =
         MediaQuery.textScalerOf(context).scale(labelStyle.fontSize ?? 13) *
@@ -219,6 +245,7 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
     // Decoration consumes the border width; keep the editable origin fixed.
     final borderCompensation = 1 - borderWidth;
     return _FieldError(
+      help: widget.help,
       error: widget.error,
       child: Stack(
         children: [
@@ -227,9 +254,13 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: widget.minimumHeight),
               child: CupertinoTextField(
-                controller: widget.controller,
+                controller: _controller,
                 focusNode: _focus,
                 enabled: widget.enabled,
+                readOnly: widget.readOnly,
+                autofocus: widget.autofocus,
+                onChanged: widget.onChanged,
+                textInputAction: widget.textInputAction,
                 keyboardType: widget.keyboardType,
                 inputFormatters: widget.inputFormatters,
                 obscureText: widget.obscure,
@@ -242,7 +273,10 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
                 autocorrect: false,
                 enableSuggestions: false,
                 cursorColor: colors.primary,
-                onSubmitted: (_) => _focus.unfocus(),
+                onSubmitted: (value) {
+                  _focus.unfocus();
+                  widget.onSubmitted?.call(value);
+                },
                 style: valueStyle.copyWith(
                   color: widget.enabled
                       ? colors.onSurface
@@ -272,7 +306,8 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
                                     onPressed: !canClear
                                         ? null
                                         : () {
-                                            widget.controller.clear();
+                                            _controller.clear();
+                                            widget.onChanged?.call('');
                                             _focus.requestFocus();
                                           },
                                     child: AcademySfIcon(
@@ -399,15 +434,26 @@ BoxDecoration _fieldDecoration(
 }
 
 class _FieldError extends StatelessWidget {
-  const _FieldError({required this.child, this.error});
+  const _FieldError({required this.child, this.help, this.error});
   final Widget child;
-  final String? error;
+  final String? help, error;
   @override
   Widget build(BuildContext context) => Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       child,
+      if (error == null && help != null)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
+          child: Text(
+            help!,
+            style: AcademyTheme.of(context).textTheme.bodySmall.copyWith(
+              fontSize: 12,
+              color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       if (error != null)
         Semantics(
           liveRegion: true,
@@ -453,16 +499,18 @@ class AcademyPickerInput extends StatelessWidget {
     required this.icon,
     this.value,
     this.onPressed,
+    this.help,
     this.error,
   });
   final String label;
-  final String? value, error;
+  final String? value, help, error;
   final IconData icon;
   final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     return _FieldError(
+      help: help,
       error: error,
       child: Semantics(
         label: label,
@@ -531,22 +579,32 @@ class AcademyDateInput extends StatefulWidget {
     required this.label,
     required this.value,
     required this.onChanged,
+    this.firstDate,
+    this.lastDate,
+    this.help,
     this.error,
+    this.validator,
+    this.onSaved,
   });
   final String label;
-  final DateTime? value;
+  final DateTime? value, firstDate, lastDate;
   final ValueChanged<DateTime>? onChanged;
-  final String? error;
+  final String? help, error;
+  final FormFieldValidator<DateTime>? validator;
+  final FormFieldSetter<DateTime>? onSaved;
   @override
   State<AcademyDateInput> createState() => _AcademyDateInputState();
 }
 
 class _AcademyDateInputState extends State<AcademyDateInput> {
-  Future<void> _pick() async {
+  Future<void> _pick(ValueChanged<DateTime?> change) async {
     FocusManager.instance.primaryFocus?.unfocus();
-    var draft = widget.value ?? DateTime.now();
-    final first = DateTime(1900);
-    final last = DateTime(2100, 12, 31);
+    final first = academyDateOnly(widget.firstDate ?? DateTime(1900));
+    final last = academyDateOnly(widget.lastDate ?? DateTime(2100, 12, 31));
+    if (last.isBefore(first)) {
+      throw ArgumentError('lastDate precedes firstDate');
+    }
+    var draft = academyDateOnly(widget.value ?? DateTime.now());
     if (draft.isBefore(first)) draft = first;
     if (draft.isAfter(last)) draft = last;
     final result = await showAcademyModal<DateTime>(
@@ -559,44 +617,76 @@ class _AcademyDateInputState extends State<AcademyDateInput> {
           MediaQuery.paddingOf(context).bottom +
           (MediaQuery.textScalerOf(context).scale(17) - 17) * 3,
       builder: (context) => AcademyModalFit(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: draft,
-                  minimumDate: first,
-                  maximumDate: last,
-                  onDateTimeChanged: (date) =>
-                      draft = DateTime(date.year, date.month, date.day),
-                ),
+        child: LayoutBuilder(
+          builder: (context, box) {
+            const padding = EdgeInsets.fromLTRB(16, 12, 16, 16);
+            final wheel = CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              initialDateTime: draft,
+              minimumDate: first,
+              maximumDate: last,
+              onDateTimeChanged: (date) =>
+                  draft = DateTime(date.year, date.month, date.day),
+            );
+            final done = AcademyButton(
+              label: AcademyLocalizations.of(context).done,
+              onPressed: () => Navigator.of(context).pop(draft),
+            );
+            final buttonHeight = math.max(
+              52.0,
+              MediaQuery.textScalerOf(context).scale(20) * 1.3 + 32,
+            );
+            // A landscape sheet cannot hold the wheel and the action: scroll.
+            if (box.maxHeight < 216 + 16 + padding.vertical + buttonHeight) {
+              return ListView(
+                padding: padding,
+                children: [
+                  SizedBox(height: 216, child: wheel),
+                  const SizedBox(height: 16),
+                  done,
+                ],
+              );
+            }
+            return Padding(
+              padding: padding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(child: wheel),
+                  const SizedBox(height: 16),
+                  done,
+                ],
               ),
-              const SizedBox(height: 16),
-              AcademyButton(
-                label: 'Готово',
-                onPressed: () => Navigator.of(context).pop(draft),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
-    if (mounted && result != null) widget.onChanged?.call(result);
+    if (mounted && result != null) change(result);
   }
 
   @override
-  Widget build(BuildContext context) => AcademyPickerInput(
-    label: widget.label,
-    value: widget.value == null
+  Widget build(BuildContext context) => AcademyFormField<DateTime?>(
+    value: widget.value,
+    // A form reset to an empty initial value leaves the caller's date alone.
+    onChanged: widget.onChanged == null
         ? null
-        : '${widget.value!.day.toString().padLeft(2, '0')}.'
-              '${widget.value!.month.toString().padLeft(2, '0')}.'
-              '${widget.value!.year.toString().padLeft(4, '0')}',
-    icon: AcademySymbols.calendar,
-    error: widget.error,
-    onPressed: widget.onChanged == null ? null : _pick,
+        : (date) {
+            if (date != null) widget.onChanged!(date);
+          },
+    validator: widget.validator,
+    onSaved: widget.onSaved,
+    builder: (field, change) => AcademyPickerInput(
+      label: widget.label,
+      value: widget.value == null
+          ? null
+          : '${widget.value!.day.toString().padLeft(2, '0')}.'
+                '${widget.value!.month.toString().padLeft(2, '0')}.'
+                '${widget.value!.year.toString().padLeft(4, '0')}',
+      icon: AcademySymbols.calendar,
+      help: widget.help,
+      error: widget.error ?? field.errorText,
+      onPressed: widget.onChanged == null ? null : () => _pick(change),
+    ),
   );
 }

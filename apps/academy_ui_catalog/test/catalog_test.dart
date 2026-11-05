@@ -39,7 +39,7 @@ void main() {
         }
         expect(find.byType(AcademyTextField), findsNWidgets(5));
         expect(find.widgetWithText(AcademyField, 'Почта'), findsOneWidget);
-        expect(find.byType(AcademyFloatingTextField), findsNWidgets(6));
+        expect(find.byType(AcademyFloatingInput), findsNWidgets(6));
       }
       expect(tester.takeException(), isNull);
       await tester.tap(
@@ -78,8 +78,14 @@ void main() {
     for (final removed in ['Скругления', 'Отступы', 'Цвета', 'Шрифты']) {
       expect(find.widgetWithText(AcademyRow, removed), findsNothing);
     }
-    expect(find.widgetWithText(AcademyRow, 'Тема'), findsOneWidget);
-    expect(find.widgetWithText(AcademyRow, 'Навигация'), findsOneWidget);
+    expect(
+      find.widgetWithText(AcademyInlineOptionMenu, 'Тема'),
+      findsOneWidget,
+    );
+    expect(
+      find.widgetWithText(AcademyInlineOptionMenu, 'Навигация'),
+      findsOneWidget,
+    );
     expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox());
   });

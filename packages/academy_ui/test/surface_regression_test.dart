@@ -52,7 +52,7 @@ void main() {
                       sections: [
                         AcademyTableSection(
                           rows: [
-                            AcademyOptionMenu(
+                            AcademyInlineOptionMenu(
                               label: 'Theme',
                               value: 'Light',
                               options: const ['Light', 'Dark'],

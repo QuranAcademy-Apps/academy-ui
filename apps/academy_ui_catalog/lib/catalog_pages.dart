@@ -220,7 +220,7 @@ class _ComponentExamplesState extends State<ComponentExamples> {
                   onPressed: () => _toast('Строка'),
                 ),
                 const AcademyRow(title: 'Строка без действия'),
-                AcademyOptionMenu(
+                AcademyInlineOptionMenu(
                   label: 'Выбор',
                   value: 'Первый',
                   options: const ['Первый', 'Второй'],
@@ -477,7 +477,7 @@ class AppearancePage extends StatelessWidget {
     builder: (context, _) {
       final value = controller.value;
       return catalogPage(context, 'Оформление', [
-        AcademyOptionMenu(
+        AcademyInlineOptionMenu(
           label: 'Палитра',
           value: customColors ? 'Пример клиента' : 'По умолчанию',
           options: const ['По умолчанию', 'Пример клиента'],
@@ -491,7 +491,7 @@ class AppearancePage extends StatelessWidget {
           sections: [
             AcademyTableSection(
               rows: [
-                AcademyOptionMenu(
+                AcademyInlineOptionMenu(
                   label: 'Тема',
                   value: value.mode.name,
                   options: AcademyAppearanceMode.values
@@ -503,7 +503,7 @@ class AppearancePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                AcademyOptionMenu(
+                AcademyInlineOptionMenu(
                   label: 'Навигация',
                   value: value.chromeStyle.labelFor(context),
                   options: AcademyChromeStyle.values
@@ -521,7 +521,7 @@ class AppearancePage extends StatelessWidget {
                   title: 'Blur 20',
                   subtitle: 'Только элементы навигации',
                 ),
-                AcademyOptionMenu(
+                AcademyInlineOptionMenu(
                   label: 'Пропорции таббара',
                   value: value.tabBarDensity.labelFor(context),
                   options: AcademyTabBarDensity.values

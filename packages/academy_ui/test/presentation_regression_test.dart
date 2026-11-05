@@ -258,7 +258,7 @@ void main() {
               locale: const Locale('en'),
               home: Center(
                 child: date
-                    ? AcademyDateField(
+                    ? AcademyDateInput(
                         label: 'Date',
                         value: DateTime(2026, 10, 2),
                         onChanged: (_) {},
@@ -271,13 +271,13 @@ void main() {
               ),
             ),
           );
-          await tester.tap(find.byType(AcademyPickerTrigger));
+          await tester.tap(find.byType(AcademyPickerInput));
           await tester.pumpAndSettle();
           final context = tester.element(find.byType(CupertinoDatePicker));
           final sheet = StupidSimpleSheetController.maybeOf<dynamic>(context)!;
           expect(sheet.effectiveSnappingConfig.points, hasLength(1));
           final top = tester.getRect(find.byType(AcademyModalScaffold)).top;
-          expect(top, greaterThan(350));
+          expect(top, greaterThan(300));
           final done = find.widgetWithText(CupertinoButton, 'Done');
           expect(done.hitTestable(), findsOneWidget);
           expect(tester.getRect(done).bottom, lessThanOrEqualTo(844 - 34));

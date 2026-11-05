@@ -172,11 +172,11 @@ void main() {
     });
   });
 
-  group('AcademyStrokeChevron', () {
+  group('AcademyChevron', () {
     double flip(WidgetTester tester) => tester
         .widget<Transform>(
           find.descendant(
-            of: find.byType(AcademyStrokeChevron),
+            of: find.byType(AcademyChevron),
             matching: find.byType(Transform),
           ),
         )
@@ -185,7 +185,7 @@ void main() {
         .x;
 
     testWidgets('mirrors in RTL only', (tester) async {
-      const chevron = AcademyStrokeChevron.right(color: Color(0xFF000000));
+      const chevron = AcademyChevron.right(color: Color(0xFF000000));
       await tester.pumpWidget(_app(chevron));
       expect(flip(tester), 1);
       await tester.pumpWidget(_app(chevron, direction: TextDirection.rtl));
@@ -194,12 +194,9 @@ void main() {
 
     testWidgets('has the default 7 x 12 size', (tester) async {
       await tester.pumpWidget(
-        _app(const AcademyStrokeChevron.left(color: Color(0xFF000000))),
+        _app(const AcademyChevron.left(color: Color(0xFF000000))),
       );
-      expect(
-        tester.getSize(find.byType(AcademyStrokeChevron)),
-        const Size(7, 12),
-      );
+      expect(tester.getSize(find.byType(AcademyChevron)), const Size(7, 12));
     });
   });
 }

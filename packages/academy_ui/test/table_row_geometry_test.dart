@@ -65,7 +65,7 @@ void main() {
                   icon: AcademySymbols.gear,
                   items: [],
                 ),
-                AcademyOptionMenu(
+                AcademyInlineOptionMenu(
                   label: 'Option',
                   value: 'Value',
                   icon: AcademySymbols.gear,

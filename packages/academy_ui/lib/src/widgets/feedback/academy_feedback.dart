@@ -14,21 +14,80 @@ class AcademyFeedback extends StatelessWidget {
   const AcademyFeedback({
     super.key,
     required this.kind,
-    required this.title,
-    required this.message,
+    required String this.title,
+    required String this.message,
     this.onRetry,
     this.loadingIndicator,
-  });
+  }) : retryLabel = null,
+       messageColor = null,
+       _compactPadding = null;
+
+  /// Text only, with an optional filled retry button below it. The retry label
+  /// is supplied by the host so it follows the app language.
+  const AcademyFeedback.compact({
+    super.key,
+    this.message,
+    this.onRetry,
+    this.retryLabel,
+    this.messageColor,
+    EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 32),
+  }) : assert(message != null || onRetry != null),
+       assert(onRetry == null || retryLabel != null),
+       kind = AcademyFeedbackKind.empty,
+       title = null,
+       loadingIndicator = null,
+       _compactPadding = padding;
   final AcademyFeedbackKind kind;
 
   /// Replaces the activity indicator of [AcademyFeedbackKind.loading], for
   /// example with a content skeleton.
   final Widget? loadingIndicator;
-  final String title;
-  final String message;
+  final String? title;
+  final String? message;
   final VoidCallback? onRetry;
+  final String? retryLabel;
+
+  /// Compact message color; default: the theme's secondary text color.
+  final Color? messageColor;
+  final EdgeInsetsGeometry? _compactPadding;
+
+  Widget _compact(BuildContext context, EdgeInsetsGeometry padding) {
+    final theme = AcademyTheme.of(context);
+    return Center(
+      child: Padding(
+        padding: padding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (message != null) ...[
+              Text(
+                message!,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyLarge.copyWith(
+                  color: messageColor ?? theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              if (onRetry != null) const SizedBox(height: 16),
+            ],
+            if (onRetry != null)
+              CupertinoButton.filled(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 22,
+                  vertical: 10,
+                ),
+                onPressed: onRetry,
+                child: Text(retryLabel!),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final compactPadding = _compactPadding;
+    if (compactPadding != null) return _compact(context, compactPadding);
     final theme = AcademyTheme.of(context);
     return Padding(
       padding: AcademyTheme.of(context).paddings.feedback,
@@ -60,14 +119,14 @@ class AcademyFeedback extends StatelessWidget {
               Semantics(
                 header: true,
                 child: Text(
-                  title,
+                  title!,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.feedbackTitle,
                 ),
               ),
               const SizedBox(height: 6),
               Text(
-                message,
+                message!,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,

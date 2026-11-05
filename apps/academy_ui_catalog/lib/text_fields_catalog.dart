@@ -109,13 +109,13 @@ class _TextFieldsCatalogState extends State<TextFieldsCatalog> {
         'Нажмите на пустое поле: название плавно поднимется. '
             'После очистки и выхода из поля оно вернётся на место.',
         [
-          const AcademyFloatingTextField(label: 'Пустое поле'),
-          AcademyFloatingTextField(
+          const AcademyFloatingInput(label: 'Пустое поле'),
+          AcademyFloatingInput(
             label: 'Имя',
             controller: _name,
             textInputAction: TextInputAction.next,
           ),
-          AcademyFloatingTextField(
+          AcademyFloatingInput(
             label: 'Номер телефона',
             controller: _phone,
             help: 'Для входа в профиль',
@@ -128,7 +128,7 @@ class _TextFieldsCatalogState extends State<TextFieldsCatalog> {
               final invalid =
                   value.text.isNotEmpty &&
                   !RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value.text);
-              return AcademyFloatingTextField(
+              return AcademyFloatingInput(
                 label: 'Почта',
                 controller: _email,
                 help: 'Для важных писем и входа в профиль',
@@ -137,13 +137,13 @@ class _TextFieldsCatalogState extends State<TextFieldsCatalog> {
               );
             },
           ),
-          AcademyFloatingTextField(
+          AcademyFloatingInput(
             label: 'Подтверждённая почта',
             controller: _verified,
             help: 'Для важных писем и входа в профиль',
             readOnly: true,
-            clearable: false,
-            trailing: Semantics(
+            allowClear: false,
+            suffix: Semantics(
               label: 'Почта подтверждена',
               child: AcademySfIcon(
                 AcademySymbols.complete,
@@ -153,10 +153,7 @@ class _TextFieldsCatalogState extends State<TextFieldsCatalog> {
               ),
             ),
           ),
-          const AcademyFloatingTextField(
-            label: 'Недоступное поле',
-            enabled: false,
-          ),
+          const AcademyFloatingInput(label: 'Недоступное поле', enabled: false),
         ],
       ),
     ],

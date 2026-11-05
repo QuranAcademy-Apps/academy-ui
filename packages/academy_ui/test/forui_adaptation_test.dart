@@ -376,7 +376,7 @@ void main() {
         locale: const Locale('en'),
         navigatorKey: nav,
         home: Center(
-          child: AcademyDateField(
+          child: AcademyDateInput(
             label: 'Date',
             value: value,
             onChanged: (v) => value = v,
@@ -384,7 +384,7 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.byType(AcademyPickerTrigger));
+    await tester.tap(find.byType(AcademyPickerInput));
     await tester.pumpAndSettle();
     tester
         .widget<CupertinoDatePicker>(find.byType(CupertinoDatePicker))
@@ -392,7 +392,7 @@ void main() {
     nav.currentState!.pop();
     await tester.pumpAndSettle();
     expect(value, DateTime(2026, 10, 2));
-    await tester.tap(find.byType(AcademyPickerTrigger));
+    await tester.tap(find.byType(AcademyPickerInput));
     await tester.pumpAndSettle();
     tester
         .widget<CupertinoDatePicker>(find.byType(CupertinoDatePicker))
@@ -483,7 +483,7 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.byType(AcademyPickerTrigger));
+    await tester.tap(find.byType(AcademyPickerInput));
     await tester.pumpAndSettle();
     tester
         .widget<CupertinoDatePicker>(find.byType(CupertinoDatePicker))
@@ -491,7 +491,7 @@ void main() {
     nav.currentState!.pop();
     await tester.pumpAndSettle();
     expect(value, const AcademyTime(9, 30));
-    await tester.tap(find.byType(AcademyPickerTrigger));
+    await tester.tap(find.byType(AcademyPickerInput));
     await tester.pumpAndSettle();
     tester
         .widget<CupertinoDatePicker>(find.byType(CupertinoDatePicker))

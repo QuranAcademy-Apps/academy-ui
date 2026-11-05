@@ -15,7 +15,7 @@ void main() {
           home: Center(
             child: SizedBox(
               width: 320,
-              child: AcademyFloatingTextField(
+              child: AcademyFloatingInput(
                 label: 'Почта',
                 controller: controller,
                 focusNode: focus,
@@ -77,11 +77,11 @@ void main() {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: AcademyFloatingTextField(
+                    child: AcademyFloatingInput(
                       label: 'Почта',
                       controller: controller,
-                      clearable: false,
-                      trailing: const Icon(CupertinoIcons.checkmark),
+                      allowClear: false,
+                      suffix: const Icon(CupertinoIcons.checkmark),
                       error: 'Проверьте адрес почты',
                     ),
                   ),

@@ -15,7 +15,6 @@ class AcademyTextInput extends StatefulWidget {
     this.onChanged,
     this.onSubmitted,
     this.placeholder,
-    this.floatingLabel,
     this.semanticLabel,
     this.leading,
     this.trailing,
@@ -38,8 +37,6 @@ class AcademyTextInput extends StatefulWidget {
   final FocusNode? focusNode;
   final ValueChanged<String>? onChanged, onSubmitted;
 
-  /// Optional in-field label that floats on focus or when a value is present.
-  final String? floatingLabel;
   final String? placeholder, semanticLabel;
   final Widget? leading, trailing;
   final bool enabled, readOnly, obscureText, autofocus, clearable, chrome;
@@ -157,30 +154,9 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
       ),
     );
     final prefixInsets = theme.paddings.searchPrefix;
-    final floating = widget.floatingLabel != null;
-    final raised = _focus.hasFocus || _controller.text.isNotEmpty;
-    final labelStyle = theme.textTheme.bodySmall;
-    final labelHeight =
-        MediaQuery.textScalerOf(context).scale(labelStyle.fontSize ?? 13) *
-        (labelStyle.height ?? 1.2);
-    final direction = Directionality.of(context);
-    final fieldPadding = theme.paddings.field.resolve(direction);
-    final fieldStart = direction == TextDirection.ltr
-        ? fieldPadding.left
-        : fieldPadding.right;
-    final fieldEnd = direction == TextDirection.ltr
-        ? fieldPadding.right
-        : fieldPadding.left;
-    final inputPadding = floating
-        ? EdgeInsetsDirectional.fromSTEB(
-            fieldStart,
-            8 + labelHeight + 4,
-            fieldEnd,
-            12,
-          )
-        : widget.padding ?? theme.paddings.field;
+    final inputPadding = widget.padding ?? theme.paddings.field;
     final input = Semantics(
-      label: widget.semanticLabel ?? widget.floatingLabel,
+      label: widget.semanticLabel,
       child: TweenAnimationBuilder<Color?>(
         tween: ColorTween(
           end: !widget.enabled
@@ -200,7 +176,7 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
         duration: duration,
         curve: Curves.easeInOut,
         builder: (context, borderColor, _) {
-          final editor = CupertinoTextField(
+          return CupertinoTextField(
             controller: _controller,
             focusNode: _focus,
             enabled: widget.enabled,
@@ -215,10 +191,9 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
             keyboardType: widget.keyboardType,
             textInputAction: widget.textInputAction,
             cursorColor: colors.accentForeground,
-            placeholder: floating
-                ? null
-                : widget.placeholder ??
-                      AcademyLocalizations.of(context).inputPlaceholder,
+            placeholder:
+                widget.placeholder ??
+                AcademyLocalizations.of(context).inputPlaceholder,
             placeholderStyle: theme.textTheme.bodyLarge.copyWith(
               color: widget.chrome
                   ? AcademyChrome.foregroundColor(
@@ -244,11 +219,6 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
             padding: inputPadding,
             prefix: widget.leading == null
                 ? null
-                : floating
-                ? SizedBox(
-                    width: AcademyTokens.target,
-                    child: Center(child: widget.leading),
-                  )
                 : Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                       prefixInsets.left,
@@ -286,61 +256,6 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
                       width: 1,
                     ),
                   ),
-          );
-          if (!floating) return editor;
-          return Stack(
-            children: [
-              editor,
-              Positioned.fill(
-                child: IgnorePointer(
-                  child: ExcludeSemantics(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.only(
-                        start:
-                            fieldStart +
-                            (widget.leading == null ? 0 : AcademyTokens.target),
-                        end:
-                            (widget.clearable ? AcademyTokens.target : 0) +
-                            (widget.trailing == null
-                                ? 0
-                                : AcademyTokens.target) +
-                            12,
-                      ),
-                      child: AnimatedAlign(
-                        alignment: raised
-                            ? AlignmentDirectional.topStart
-                            : AlignmentDirectional.centerStart,
-                        duration: duration,
-                        curve: Curves.easeInOut,
-                        child: AnimatedPadding(
-                          duration: duration,
-                          curve: Curves.easeInOut,
-                          padding: EdgeInsets.only(top: raised ? 8 : 0),
-                          child: AnimatedDefaultTextStyle(
-                            duration: duration,
-                            curve: Curves.easeInOut,
-                            style:
-                                (raised
-                                        ? labelStyle
-                                        : theme.textTheme.bodyLarge)
-                                    .copyWith(
-                                      color: widget.enabled
-                                          ? colors.textFieldSecondaryForeground
-                                          : colors.textFieldDisabledForeground,
-                                    ),
-                            child: Text(
-                              widget.floatingLabel!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
           );
         },
       ),

@@ -272,7 +272,7 @@ class _CatalogSettingsPageState extends State<CatalogSettingsPage> {
     T value,
     List<T> values,
     ValueChanged<T> changed,
-  ) => AcademyOptionMenu(
+  ) => AcademyInlineOptionMenu(
     label: label,
     value: value.name,
     options: values.map((r) => r.name).toList(),
@@ -334,7 +334,7 @@ class _CatalogSettingsPageState extends State<CatalogSettingsPage> {
         ),
         const SizedBox(height: 16),
         familyPicker(_family, _selectFamily),
-        AcademyOptionMenu(
+        AcademyInlineOptionMenu(
           label: 'Параметры',
           value: _panel,
           options: const ['Скругления', 'Отступы', 'Шрифты', 'Цвета'],
@@ -417,7 +417,7 @@ class _CatalogSettingsPageState extends State<CatalogSettingsPage> {
               ),
             ),
           ),
-          AcademyOptionMenu(
+          AcademyInlineOptionMenu(
             label: 'Начертание',
             value: '${font.fontWeight?.value ?? 400}',
             options: const ['300', '400', '500', '600', '700', '800'],

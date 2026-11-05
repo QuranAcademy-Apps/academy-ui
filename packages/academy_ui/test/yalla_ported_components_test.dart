@@ -264,4 +264,59 @@ void main() {
     expect(find.text('условия', findRichText: true), findsOneWidget);
     expect(find.byType(AcademySkeletonBlock), findsWidgets);
   });
+
+  testWidgets('floating input owns a controller and reports edits and help', (
+    tester,
+  ) async {
+    final edits = <String>[];
+    await tester.pumpWidget(
+      AcademyApp(
+        home: Center(
+          child: AcademyFloatingInput(
+            label: 'Почта',
+            help: 'Для входа',
+            onChanged: edits.add,
+          ),
+        ),
+      ),
+    );
+    expect(find.text('Для входа'), findsOneWidget);
+    await tester.enterText(find.byType(CupertinoTextField), 'a');
+    expect(edits, ['a']);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('date input validates in a form and honours its range', (
+    tester,
+  ) async {
+    final form = GlobalKey<FormState>();
+    await tester.pumpWidget(
+      AcademyApp(
+        home: Center(
+          child: Form(
+            key: form,
+            child: AcademyDateInput(
+              label: 'Дата',
+              value: null,
+              firstDate: DateTime(2020),
+              lastDate: DateTime(2021),
+              onChanged: (_) {},
+              validator: (v) => v == null ? 'Выберите дату' : null,
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(form.currentState!.validate(), isFalse);
+    await tester.pump();
+    expect(find.text('Выберите дату'), findsOneWidget);
+    await tester.tap(find.byType(AcademyPickerInput));
+    await tester.pumpAndSettle();
+    final picker = tester.widget<CupertinoDatePicker>(
+      find.byType(CupertinoDatePicker),
+    );
+    expect(picker.minimumDate, DateTime(2020));
+    expect(picker.maximumDate, DateTime(2021));
+    expect(picker.initialDateTime, DateTime(2021));
+  });
 }

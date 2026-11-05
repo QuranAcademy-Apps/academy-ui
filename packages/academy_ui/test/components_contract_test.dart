@@ -45,7 +45,7 @@ void main() {
                               sections: [
                                 AcademyTableSection(
                                   rows: [
-                                    AcademyOptionMenu(
+                                    AcademyInlineOptionMenu(
                                       label: 'Внешний вид',
                                       value: 'Системная тема',
                                       options: const ['Системная тема'],

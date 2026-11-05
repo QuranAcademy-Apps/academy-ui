@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'academy_text_input.dart';
 import '../form/academy_field_decoration.dart';
+import '../form/academy_input_fields.dart';
 
 /// Flutter Form integration. External controllers and focus nodes stay owned by
 /// the caller. Omitting a controller uses the initialValue owned by this field.
@@ -34,8 +35,26 @@ class AcademyTextFormField extends FormField<String> {
          initialValue: controller?.text ?? initialValue ?? '',
          builder: (field) {
            final state = field as _AcademyTextFormFieldState;
+           if (floatingLabel) {
+             return AcademyFloatingInput(
+               key: inputKey,
+               label: label ?? '',
+               controller: state.controller,
+               focusNode: focusNode,
+               help: help,
+               error: state.errorText,
+               placeholder: placeholder,
+               enabled: enabled,
+               readOnly: readOnly,
+               obscure: obscureText,
+               suffix: trailing,
+               keyboardType: keyboardType,
+               textInputAction: textInputAction,
+               onChanged: onChanged,
+             );
+           }
            return AcademyFieldDecoration(
-             label: floatingLabel ? null : label,
+             label: label,
              help: help,
              error: state.errorText,
              child: AcademyTextInput(
@@ -43,7 +62,6 @@ class AcademyTextFormField extends FormField<String> {
                controller: state.controller,
                focusNode: focusNode,
                semanticLabel: label,
-               floatingLabel: floatingLabel ? label : null,
                placeholder: placeholder,
                enabled: enabled,
                readOnly: readOnly,

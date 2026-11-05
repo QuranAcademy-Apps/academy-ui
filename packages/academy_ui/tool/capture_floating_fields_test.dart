@@ -60,29 +60,29 @@ void main() {
                     const SizedBox(height: 24),
                     const Text('Плавающий заголовок'),
                     const SizedBox(height: 12),
-                    const AcademyFloatingTextField(
+                    const AcademyFloatingInput(
                       label: 'Почта',
                       help: 'Пустое поле — название на месте placeholder',
                     ),
-                    AcademyFloatingTextField(label: 'Имя', controller: name),
-                    AcademyFloatingTextField(
+                    AcademyFloatingInput(label: 'Имя', controller: name),
+                    AcademyFloatingInput(
                       label: 'Почта',
                       controller: error,
                       error: 'Похоже, почта написана неверно',
                     ),
-                    AcademyFloatingTextField(
+                    AcademyFloatingInput(
                       label: 'Почта',
                       controller: email,
                       help: 'Для важных писем и входа в профиль',
-                      clearable: false,
+                      allowClear: false,
                       readOnly: true,
-                      trailing: AcademySfIcon(
+                      suffix: AcademySfIcon(
                         AcademySymbols.complete,
                         color: AcademyTheme.of(context).colorScheme
                             .toneForeground(AcademyTone.success),
                       ),
                     ),
-                    const AcademyFloatingTextField(
+                    const AcademyFloatingInput(
                       label: 'Недоступное поле',
                       enabled: false,
                     ),

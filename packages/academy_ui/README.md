@@ -40,10 +40,10 @@ dependencies:
 | Основная категория | Канонические компоненты |
 | --- | --- |
 | Действия | `AcademyButton`, `AcademyTextButton`, `AcademyIconButton`, `AcademyInfoButton`, `AcademyCompactIconButton`, `AcademySettingsSquareButton`, `AcademyActionButton`, `AcademyPillButton` |
-| Ввод и выбор | `AcademyTextField`, `AcademyField`, `AcademyFloatingTextField`, `AcademyTextFormField`, `AcademySelect`, `AcademyMultiSelect`, `AcademyAutocomplete`, `AcademySearchBar`, `AcademyExpandingSearch`, `AcademyCalendar`, `AcademyRangeCalendar`, `AcademyLineCalendar`, `AcademyDateField`, `AcademyTimeField`, `AcademyPicker`, `AcademySlider`, `AcademyStepper`, `AcademySegmentedControl`, `AcademyCheckmark` |
+| Ввод и выбор | `AcademyTextField`, `AcademyField`, `AcademyFloatingInput`, `AcademyTextFormField`, `AcademySelect`, `AcademyMultiSelect`, `AcademyAutocomplete`, `AcademySearchBar`, `AcademyExpandingSearch`, `AcademyCalendar`, `AcademyRangeCalendar`, `AcademyLineCalendar`, `AcademyDateField`, `AcademyTimeField`, `AcademyPicker`, `AcademySlider`, `AcademyStepper`, `AcademySegmentedControl`, `AcademyCheckmark` |
 | Таблицы и контейнеры | `AcademyGroupedTable`, `AcademyTableSection`, `AcademyTableHeader`, `AcademyTableBody`, `AcademyTableFooter`, `AcademyTableBadge`, `AcademyTableSeparator`, `AcademyTableSectionView`, `AcademyRow`, `AcademyValueRow`, `AcademyDivider`, `AcademyDraggableTableSection`, `AcademyDragHandle`, `AcademySurface`, `AcademyDisclosureCard` |
 | Навигация | `AcademyPage`, `AcademyChrome`, `AcademyChromeBar`, `AcademyChromeButton`, `AcademyChromeGroup`, `AcademyChromeCapsule`, `AcademyChromePage`, `AcademyChromeModalHeader`, `AcademyChromeFade`, `AcademyFloatingTabBar`, `AcademyTabScaffold` |
-| Меню и наложения | `AcademyMenuButton`, `AcademyOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
+| Меню и наложения | `AcademyMenuButton`, `AcademyInlineOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
 | Данные и медиа | `AcademyStat`, `AcademyStatGroup`, `AcademyTimeline`, `AcademyTimelineItem`, `AcademyImage`, `AcademySfImage`, `AcademySfIcon`, `AcademySymbols`, `AcademyChevron` |
 | Контекстная помощь | `AcademyTooltip`, `AcademyTip`, `showAcademyTips` |
 | Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyPageDots`, `AcademyProgressCard`, `AcademyProgressTile`, `AcademySearchScrim` |
@@ -111,7 +111,7 @@ blur; для остальных стилей продолжает управля
 сохраняются при capture/wrap оверлеев. При собственной силе коррекции клиент
 проверяет читаемость на предполагаемом содержимом.
 
-**Стекло** (`AcademyChromeStyle.glass`, `AcademyInterfaceTransparency.solidGlass`,
+**Стекло** (`AcademyChromeStyle.glass`,
 перенесено из Yalla, ADR-0006): почти непрозрачная тонированная заливка (.94),
 слабый backdrop blur (sigma из темы), световой кант сверху/снизу и внешняя тень —
 имитация навигации iOS 26 средствами Flutter, без преломления. Рисует
@@ -340,7 +340,7 @@ AcademyToastHost.show(
 - `AcademyTypographySettings.tracking` — своя кривая letter-spacing системного шрифта (в том числе для крупных заголовков).
 - `AcademySfIcon(scaleWithText: true, mirrorInRtl: false)` — символ следует системному масштабу текста и не подменяет `back`/`forward` в RTL. По умолчанию размер фиксирован, стрелки подменяются.
 - `AcademySwitch(value:, onChanged:, activeTrackColor:)` — переключатель 51 × 31; цвет по умолчанию — `accentFill`.
-- `AcademyMessageView(message:, onRetry:, retryLabel:)` — текст по центру и необязательная кнопка повтора; подпись приходит от приложения.
+- `AcademyFeedback.compact(message:, onRetry:, retryLabel:)` — текст по центру и необязательная кнопка повтора; подпись приходит от приложения.
 - `AcademyRingProgress.fill(value:, color:)` — кольцо на всё место родителя (inset 1.5, дорожка 22 %, `easeOut`, без семантики).
 - `AcademySegmentedControl(height:, backgroundColor:, selectedColor:, textColor:, selectionBorderColor:, selectionShadowColor:)` — точная высота (без 44 pt зоны) и цвета палитры хоста.
 - `AcademySearchBar(onClear:)` — вызывается после очистки поля кнопкой.
@@ -444,7 +444,7 @@ For the source comparison and outstanding patterns, see
 
 `AcademyMenu` is independent of any row: provide `items` and a trigger `builder(context, toggle)`. Configure width/maxHeight, root overlay, safe overlay padding, long-press opening, swipe selection and open/close callbacks. An optional controller enables programmatic opening/closing; position specifies an opening point relative to the anchor's top-left corner. `AcademyMenuDisplay` is the passive value plus double chevron.
 
-`AcademyMenuRow` supports `AcademyMenuActivation.row` (whole cell) and `.accessory` (only value/chevron). In accessory mode `onRowPressed` is an independent optional cell action. `AcademyOptionMenu` uses the same contract for string options.
+`AcademyMenuRow` supports `AcademyMenuActivation.row` (whole cell) and `.accessory` (only value/chevron). In accessory mode `onRowPressed` is an independent optional cell action. `AcademyInlineOptionMenu` uses the same contract for string options.
 
 `AcademyMenuItem` supports leading/trailing icons or custom widgets; title/subtitle widgets; selection on the left, right or hidden; disabled/destructive states; item padding/minimum height; accessory widths; and closeOnSelect. `AcademyMenuSeparator` adds an explicit separator. All fills and text/icon colors use the client palette.
 
@@ -475,7 +475,7 @@ The handle also opens a keyboard-accessible menu and exposes screen-reader actio
 
 **Photo viewer and network image (November 2026, from Yalla).** `AcademyNetworkImage` shows plain HTTPS media with a skeleton while loading, a soft fade-in and the caller's `fallback` for invalid URLs and errors; pass `provider:` to plug in a disk cache (for example `CachedNetworkImageProvider`) — the package itself adds no cache dependency. `showAcademyPhotoViewer` opens a full-screen pager with pinch zoom up to 5× and swipe-down dismissal; image builders read `AcademyPhotoDecodeScope` (tiers from `academyPhotoDecodeWidth`) to decode for the viewport and ask for more detail after zooming. Contracts: `test/photo_viewer_network_image_test.dart`.
 
-**Menus and toasts (November 2026, from Yalla).** `AcademyColors.menuSurface` is the resting fill of menu rows (default: `surface`); rows paint it opaquely in dark mode too (`BlendMode.srcOver`). `AcademyMenuItem(actsWhenChecked: false)` makes the current option of a single choice close the menu without repeating its action (`AcademyOptionMenu` and `AcademyChromeMenu` do this). `AcademyToastHost(style:)` sets the toast material, for example the app's chrome style; the toast clears the side safe areas. Menu items are built on `cupertino_ui`: use them with `AcademyMenuAnchor`, not the SDK `CupertinoMenuAnchor`.
+**Menus and toasts (November 2026, from Yalla).** `AcademyColors.menuSurface` is the resting fill of menu rows (default: `surface`); rows paint it opaquely in dark mode too (`BlendMode.srcOver`). `AcademyMenuItem(actsWhenChecked: false)` makes the current option of a single choice close the menu without repeating its action (`AcademyInlineOptionMenu` and `AcademyChromeMenu` do this). `AcademyToastHost(style:)` sets the toast material, for example the app's chrome style; the toast clears the side safe areas. Menu items are built on `cupertino_ui`: use them with `AcademyMenuAnchor`, not the SDK `CupertinoMenuAnchor`.
 
 **Modals (November 2026, Yalla moved onto `showAcademyModal`).** New options: `header: false` (the content draws its own `AcademyChromeModalHeader`), `enableDrag: false` (picker wheels keep their gestures; the barrier still closes) and `moveAboveKeyboard: false` (the sheet stays where it rests and the content keeps the keyboard inset for a hand-made keyboard layout; use with `expandOnFocus: false`). Fixed: detents were ~7% short whenever the top safe area was non-zero (the content box was `screen − top` while detents and `ModalSheetScrollInsets` measure against the screen; `modalSheetRouteHeight` is now public), Reduce Motion asserted on a zero-length spring, a nested navigator's route focus expanded the sheet like a text field, the scroll inset kept the home-indicator gap under the keyboard, and `showAcademyConfirmation` measured its buttons with the wrong role and minimum. For content pinned to the bottom of a full-height sheet use `ModalSheetScrollInsets.of` (`pinnedBottomOf` is for a content box of `screen − top`). Regressions: `test/modal_regressions_test.dart`.
 
@@ -669,7 +669,7 @@ Popover имеет непрозрачную поверхность, тонкую
 ## Даты и числовые значения
 
 ```dart
-AcademyDateField(
+AcademyDateInput(
   label: 'Дата', value: date,
   firstDate: DateTime(2020), lastDate: DateTime(2035, 12, 31),
   onChanged: (v) => setState(() => date = v),
@@ -728,8 +728,8 @@ colorsBuilder: (brightness, accent) => AcademyPalette(brightness, accent).copyWi
 
 ### Поля с плавающим заголовком
 
-`AcademyFloatingTextField(label: 'Почта', help: 'Для входа в профиль')` —
-дополнительный вариант на общей основе `AcademyTextInput`. В пустом поле без
+`AcademyFloatingInput(label: 'Почта', help: 'Для входа в профиль')` —
+дополнительный вариант поля; `AcademyTextFormField(floatingLabel: true)` использует его же. В пустом поле без
 фокуса название находится на месте placeholder. При фокусе или вводе оно плавно
 поднимается и уменьшается; после очистки и потери фокуса возвращается обратно.
 Размер поля не меняется. Поддерживаются `controller`, `focusNode`, `help`, `error`,

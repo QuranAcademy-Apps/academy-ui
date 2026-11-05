@@ -49,13 +49,13 @@ void main() {
     );
   });
 
-  testWidgets('AcademyMessageView shows the message and a retry button', (
+  testWidgets('AcademyFeedback.compact shows the message and a retry button', (
     tester,
   ) async {
     var retried = 0;
     await tester.pumpWidget(
       _app(
-        AcademyMessageView(
+        AcademyFeedback.compact(
           message: 'Failed',
           onRetry: () => retried++,
           retryLabel: 'Again',
@@ -67,10 +67,12 @@ void main() {
     expect(retried, 1);
   });
 
-  testWidgets('AcademyMessageView without a retry has no button', (
+  testWidgets('AcademyFeedback.compact without a retry has no button', (
     tester,
   ) async {
-    await tester.pumpWidget(_app(const AcademyMessageView(message: 'Empty')));
+    await tester.pumpWidget(
+      _app(const AcademyFeedback.compact(message: 'Empty')),
+    );
     expect(find.byType(CupertinoButton), findsNothing);
   });
 

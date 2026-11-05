@@ -154,7 +154,7 @@ void main() {
                           icon: AcademySymbols.gear,
                           iconBackgroundColor: CupertinoColors.activeBlue,
                         ),
-                        AcademyOptionMenu(
+                        AcademyInlineOptionMenu(
                           label: 'Choice',
                           value: 'One',
                           options: const ['One'],
