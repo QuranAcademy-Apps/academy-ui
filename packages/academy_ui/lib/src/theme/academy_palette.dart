@@ -189,6 +189,19 @@ class AcademyPalette implements AcademyColors {
   @override
   Color get modalBarrier => const Color(0x40000000);
   @override
+  Color get scrim => dark ? const Color(0x99000000) : const Color(0x52000000);
+  @override
+  Color get chromeFade =>
+      dark ? const Color(0xFF000000) : const Color(0xFFFFFFFF);
+  @override
+  Color get photoViewerBackdrop => const Color(0xFF000000);
+  @override
+  Color get photoViewerControl => const Color(0xFFF2F3F4);
+  @override
+  Color get onPhotoViewerControl => const Color(0xFF0B131D);
+  @override
+  Color get photoViewerControlShadow => const Color(0x66000000);
+  @override
   Color get chromeGradientStart => surfaceContainerHighest;
   @override
   Color get chromeGradientEnd => surface;

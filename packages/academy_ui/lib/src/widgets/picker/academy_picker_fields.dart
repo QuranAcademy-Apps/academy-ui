@@ -6,7 +6,6 @@ import '../../foundation/form/academy_form_field.dart';
 import '../../foundation/localizations/academy_localizations.dart';
 import '../../theme/academy_theme.dart';
 import '../form/academy_input_fields.dart';
-import '../icon/academy_sf_image.dart';
 import '../modal/academy_modal.dart';
 import '../navigation/chrome/academy_chrome_metrics.dart';
 
@@ -67,7 +66,7 @@ class AcademyTimeField extends StatelessWidget {
       onSaved: onSaved,
       builder: (field, change) => AcademyPickerInput(
         label: label,
-        icon: AcademySymbols.clock,
+        icon: AcademyTheme.of(context).icons.clock,
         value: value == null
             ? null
             : '${local.datePickerHour(value!.hour)}:${local.datePickerMinute(value!.minute)}',

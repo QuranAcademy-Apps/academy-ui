@@ -20,6 +20,7 @@ class AcademySlidingSegments<T extends Object> extends StatelessWidget {
     required this.contentBuilder,
     this.height = 32,
     this.selectedWidth,
+    this.selectedShadowColor = const Color(0x1A000000),
   });
 
   final List<T> items;
@@ -34,6 +35,7 @@ class AcademySlidingSegments<T extends Object> extends StatelessWidget {
   /// Text segments can grow with Dynamic Type; icon segments retain 32 points.
   final double height;
   final double? selectedWidth;
+  final Color selectedShadowColor;
 
   static const _spacing = 2.0;
   static const _horizontalInset = 2.0;
@@ -98,9 +100,9 @@ class AcademySlidingSegments<T extends Object> extends StatelessWidget {
                               borderRadius: BorderRadius.circular(
                                 _itemCornerRadius,
                               ),
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
-                                  color: Color(0x1A000000),
+                                  color: selectedShadowColor,
                                   blurRadius: 2,
                                   offset: Offset(0, 1),
                                 ),

@@ -37,7 +37,7 @@ class AcademyInfoButton extends StatelessWidget {
         minimumSize: Size.zero,
         onPressed: onPressed,
         child: AcademySfIcon(
-          AcademySymbols.info,
+          AcademyTheme.of(context).icons.info,
           fontSize: iconSize,
           color: color ?? AcademyTheme.of(context).colorScheme.accentForeground,
           scaleWithText: true,
@@ -48,7 +48,7 @@ class AcademyInfoButton extends StatelessWidget {
 
   Widget _round(BuildContext context) => AcademyIconButton(
     label: AcademyLocalizations.of(context).information,
-    icon: AcademySymbols.info,
+    icon: AcademyTheme.of(context).icons.info,
     onPressed: onPressed,
   );
 }

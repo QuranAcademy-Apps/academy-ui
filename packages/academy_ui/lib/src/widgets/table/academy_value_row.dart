@@ -53,7 +53,7 @@ class AcademyValueRow extends StatelessWidget {
               children: [
                 if (readOnly) ...[
                   AcademySfIcon(
-                    AcademySymbols.lock,
+                    AcademyTheme.of(context).icons.lock,
                     size: AcademyTokens.tableIconExtent / 2,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),

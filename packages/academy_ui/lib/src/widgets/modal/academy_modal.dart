@@ -3,7 +3,6 @@ import '../../foundation/localizations/academy_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stupid_simple_sheet/stupid_simple_sheet.dart';
 
-import '../icon/academy_sf_image.dart';
 import '../../theme/academy_theme.dart';
 import '../navigation/chrome/academy_chrome.dart';
 import '../navigation/chrome/academy_chrome_metrics.dart';
@@ -315,7 +314,7 @@ class AcademyModalScaffold extends StatelessWidget {
         onClose: flow == null ? null : () => flow.close(null),
         leading: canGoBack
             ? AcademyChromeButton(
-                icon: AcademySymbols.back,
+                icon: AcademyTheme.of(context).icons.back,
                 label: AcademyLocalizations.of(context).back,
                 onPressed: () => Navigator.of(context).maybePop(),
               )

@@ -21,7 +21,7 @@ class AcademyImage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               AcademySfIcon(
-                AcademySymbols.photo,
+                AcademyTheme.of(context).icons.photo,
                 size: 32,
                 fontWeight: FontWeight.w400,
                 color: theme.colorScheme.onSurfaceVariant.withValues(

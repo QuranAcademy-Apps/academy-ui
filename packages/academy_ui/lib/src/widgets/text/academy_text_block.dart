@@ -42,7 +42,9 @@ class AcademyTextBlock extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: backgroundOf(context, onCard: onCard),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(
+          AcademyTheme.of(context).radii.textBlock,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

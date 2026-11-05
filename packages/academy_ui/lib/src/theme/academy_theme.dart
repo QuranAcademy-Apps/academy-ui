@@ -1,10 +1,13 @@
 import 'academy_interaction_theme.dart';
+import 'academy_icons.dart';
+import 'academy_row_icons.dart';
 export 'academy_interaction_theme.dart';
 import 'academy_palette.dart';
 export 'academy_palette.dart';
 import 'academy_radii.dart';
 import 'academy_paddings.dart';
 import 'academy_typography.dart';
+export 'academy_icons.dart';
 export 'academy_radii.dart';
 export 'academy_paddings.dart';
 export 'academy_typography.dart';
@@ -90,8 +93,16 @@ class AcademyThemeData {
     this.typography = const AcademyTypographySettings(),
     this.interaction = const AcademyInteractionTheme(),
     this.chromeColors = const AcademyChromeColors(),
+    this.icons = const AcademyIcons(),
+    this.rowIconColors = const {},
   }) : colorScheme = colors ?? AcademyPalette(brightness, accent);
   final AcademyInteractionTheme interaction;
+
+  /// Glyphs the library draws on its own.
+  final AcademyIcons icons;
+
+  /// Replaces the default tile color of an [AcademyRowIcons] role.
+  final Map<AcademyRowIcons, Color> rowIconColors;
 
   /// Navigation colors for this brightness; [AcademyChromeTheme] may override.
   final AcademyChromeColors chromeColors;
@@ -107,6 +118,8 @@ class AcademyThemeData {
     AcademyTypographySettings? typography,
     AcademyInteractionTheme? interaction,
     AcademyChromeColors? chromeColors,
+    AcademyIcons? icons,
+    Map<AcademyRowIcons, Color>? rowIconColors,
   }) => AcademyThemeData(
     brightness,
     colorScheme.accentColor,
@@ -116,6 +129,8 @@ class AcademyThemeData {
     typography: typography ?? this.typography,
     interaction: interaction ?? this.interaction,
     chromeColors: chromeColors ?? this.chromeColors,
+    icons: icons ?? this.icons,
+    rowIconColors: rowIconColors ?? this.rowIconColors,
   );
   Color get scaffoldBackgroundColor => colorScheme.scaffoldBackground;
   AcademyTypography get textTheme =>
@@ -148,6 +163,8 @@ AcademyThemeData academyTheme(
   AcademyTypographySettings typography = const AcademyTypographySettings(),
   AcademyInteractionTheme interaction = const AcademyInteractionTheme(),
   AcademyChromeColors chromeColors = const AcademyChromeColors(),
+  AcademyIcons icons = const AcademyIcons(),
+  Map<AcademyRowIcons, Color> rowIconColors = const {},
 }) => AcademyThemeData(
   brightness,
   accent,
@@ -157,4 +174,6 @@ AcademyThemeData academyTheme(
   typography: typography,
   interaction: interaction,
   chromeColors: chromeColors,
+  icons: icons,
+  rowIconColors: rowIconColors,
 );

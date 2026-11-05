@@ -89,7 +89,7 @@ class AcademyProgressCard extends StatelessWidget {
             const SizedBox(width: AcademyTokens.inlineGap),
             done
                 ? AcademySfIcon(
-                    AcademySymbols.completeFill,
+                    AcademyTheme.of(context).icons.complete,
                     fontSize: 30,
                     boxSize: 36,
                     color: tint,

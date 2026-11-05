@@ -16,6 +16,9 @@ enum AcademyRowIcons {
   passport;
 
   Color colorOf(BuildContext context) {
+    final theme = AcademyTheme.of(context);
+    final custom = theme.rowIconColors[this];
+    if (custom != null) return custom;
     final color = switch (this) {
       person => CupertinoColors.systemBlue,
       trip => CupertinoColors.systemOrange,
@@ -27,8 +30,6 @@ enum AcademyRowIcons {
       hotel => CupertinoColors.systemPurple,
       passport => CupertinoColors.systemBrown,
     };
-    return AcademyTheme.of(context).brightness == Brightness.dark
-        ? color.darkColor
-        : color.color;
+    return theme.brightness == Brightness.dark ? color.darkColor : color.color;
   }
 }

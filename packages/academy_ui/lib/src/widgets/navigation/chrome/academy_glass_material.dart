@@ -1,5 +1,7 @@
 // Tinted glass imitation of iOS 26 navigation chrome, ported from Yalla
 // (YallaGlassMaterial, ADR-0006, accepted 2026-10-12). No refraction.
+import 'academy_chrome.dart';
+
 import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
@@ -47,15 +49,21 @@ class AcademyGlassMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = AcademyTheme.of(context).brightness == Brightness.dark;
+    final colors = AcademyChromeTheme.colorsOf(context);
+    final customFill = colors.glassFill;
     final opacity = density.clamp(0.0, 1.0);
-    final fill = dark
+    final fill = customFill != null
+        ? [customFill, customFill, customFill]
+        : dark
         ? const [Color(0xFF313233), Color(0xFF313233), Color(0xFF313233)]
         : const [Color(0xFFF6F6F6), Color(0xFFF6F6F6), Color(0xFFFFFFFF)];
     return _OutsideShadow(
       radius: radius,
       dark: dark,
       shadow: BoxShadow(
-        color: CupertinoColors.black.withValues(alpha: dark ? .02 : .035),
+        color: (colors.glassShadow ?? CupertinoColors.black).withValues(
+          alpha: dark ? .02 : .035,
+        ),
         blurRadius: 2.5,
         offset: const Offset(0, 1.5),
       ),
@@ -73,7 +81,7 @@ class AcademyGlassMaterial extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, bounds) {
                     final circular = bounds.maxWidth <= bounds.maxHeight * 1.1;
-                    final localFill = !dark && circular
+                    final localFill = customFill == null && !dark && circular
                         ? const [
                             Color(0xFFF8F8F8),
                             Color(0xFFF8F8F8),
@@ -103,7 +111,12 @@ class AcademyGlassMaterial extends StatelessWidget {
             child: IgnorePointer(
               child: RepaintBoundary(
                 child: CustomPaint(
-                  painter: _GlassStrokePainter(radius: radius, dark: dark),
+                  painter: _GlassStrokePainter(
+                    radius: radius,
+                    dark: dark,
+                    rim: colors.glassRim,
+                    edge: colors.glassEdge,
+                  ),
                 ),
               ),
             ),
@@ -119,20 +132,26 @@ class AcademyGlassMaterial extends StatelessWidget {
 /// Keep edge-light dimensions in logical points, including on live 44pt controls.
 /// Vertical weighting fades the highlights before they reach the side walls.
 class _GlassStrokePainter extends CustomPainter {
-  _GlassStrokePainter({required this.radius, required this.dark});
+  _GlassStrokePainter({
+    required this.radius,
+    required this.dark,
+    this.rim,
+    this.edge,
+  });
   final double radius;
   final bool dark;
+  final Color? rim, edge;
 
   // These profiles depend only on the theme, never on a frame or widget size.
-  static final _darkGradients = _gradients(true);
-  static final _lightGradients = _gradients(false);
+  static final _darkGradients = _gradients(true, CupertinoColors.white);
+  static final _lightGradients = _gradients(false, CupertinoColors.white);
   Size? _size;
   late RSuperellipse _shape;
   late Path _contactPath;
   late Paint _contactPaint;
   final _rims = <({Path path, Paint paint})>[];
 
-  static List<LinearGradient> _gradients(bool dark) {
+  static List<LinearGradient> _gradients(bool dark, Color rim) {
     const lightProfile = [
       0.0,
       .65,
@@ -165,7 +184,7 @@ class _GlassStrokePainter extends CustomPainter {
         colors: List.generate(33, (i) {
           final t = i / 32;
           final weight = math.pow((2 * t - 1).abs(), 3).toDouble();
-          return CupertinoColors.white.withValues(
+          return rim.withValues(
             alpha:
                 alpha * weight * (dark && t > .5 ? (depth > 1 ? .60 : .91) : 1),
           );
@@ -178,6 +197,7 @@ class _GlassStrokePainter extends CustomPainter {
     if (_size == size) return;
     _size = size;
     final rect = Offset.zero & size;
+    final contact = edge ?? CupertinoColors.black;
     _shape = _materialShape(rect, radius, dark: dark);
     _contactPath = Path()..addRSuperellipse(_shape.deflate(.25));
     _contactPaint = Paint()
@@ -187,15 +207,20 @@ class _GlassStrokePainter extends CustomPainter {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          CupertinoColors.black.withValues(alpha: dark ? 0 : .058),
-          CupertinoColors.black.withValues(alpha: dark ? .74 : .23),
-          CupertinoColors.black.withValues(alpha: dark ? .74 : .23),
-          CupertinoColors.black.withValues(alpha: dark ? 0 : .085),
+          contact.withValues(alpha: dark ? 0 : .058),
+          contact.withValues(alpha: dark ? .74 : .23),
+          contact.withValues(alpha: dark ? .74 : .23),
+          contact.withValues(alpha: dark ? 0 : .085),
         ],
         stops: const [0, .42, .58, 1],
       ).createShader(rect);
     _rims.clear();
-    final gradients = dark ? _darkGradients : _lightGradients;
+    final customRim = rim;
+    final gradients = customRim != null
+        ? _gradients(dark, customRim)
+        : dark
+        ? _darkGradients
+        : _lightGradients;
     for (var depth = 0; depth < gradients.length; depth++) {
       final inset = depth * .5 + .25;
       if (inset >= size.shortestSide / 2) break;
@@ -227,7 +252,10 @@ class _GlassStrokePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_GlassStrokePainter old) =>
-      radius != old.radius || dark != old.dark;
+      radius != old.radius ||
+      dark != old.dark ||
+      rim != old.rim ||
+      edge != old.edge;
 }
 
 class _OutsideShadow extends StatelessWidget {

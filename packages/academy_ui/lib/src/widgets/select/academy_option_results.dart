@@ -236,7 +236,7 @@ class _AcademyOptionResultsState<T extends Object>
                         if (widget.selected.contains(option.value)) ...[
                           const SizedBox(width: 8),
                           AcademySfIcon(
-                            AcademySymbols.checkmark,
+                            AcademyTheme.of(context).icons.checkmark,
                             size: 16,
                             color: theme.colorScheme.primary,
                           ),

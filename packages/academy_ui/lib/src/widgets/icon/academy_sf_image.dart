@@ -1,4 +1,6 @@
 // Adapted from quran_flutter/lib/core/widgets/app_sf_icon.dart.
+import '../../theme/academy_theme.dart';
+
 import 'dart:math' as math;
 
 import 'package:flutter/widgets.dart';
@@ -43,24 +45,36 @@ class AcademySfIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final resolvedSize = fontSize ?? size ?? 24;
     final direction = textDirection ?? Directionality.of(context);
+    final icons = AcademyTheme.of(context).icons;
     final resolvedIcon = mirrorInRtl && direction == TextDirection.rtl
-        ? icon == AcademySymbols.back
-              ? AcademySymbols.forward
-              : icon == AcademySymbols.forward
-              ? AcademySymbols.back
+        ? icon == icons.back
+              ? icons.forward
+              : icon == icons.forward
+              ? icons.back
               : icon
         : icon;
     final symbol = ExcludeSemantics(
       excluding: semanticsLabel == null,
-      child: sf.SFIcon(
-        resolvedIcon,
-        fontSize: resolvedSize,
-        fontWeight: fontWeight,
-        color: color,
-        shadows: shadows,
-        textDirection: direction,
-        semanticsLabel: semanticsLabel,
-      ),
+      // SFIcon always draws from its own font; a client glyph keeps its font.
+      child: resolvedIcon.fontFamily == AcademySymbols.back.fontFamily
+          ? sf.SFIcon(
+              resolvedIcon,
+              fontSize: resolvedSize,
+              fontWeight: fontWeight,
+              color: color,
+              shadows: shadows,
+              textDirection: direction,
+              semanticsLabel: semanticsLabel,
+            )
+          : Icon(
+              resolvedIcon,
+              size: resolvedSize,
+              weight: fontWeight?.value.toDouble(),
+              color: color,
+              shadows: shadows,
+              textDirection: direction,
+              semanticLabel: semanticsLabel,
+            ),
     );
     final glyph = scaleWithText
         ? symbol

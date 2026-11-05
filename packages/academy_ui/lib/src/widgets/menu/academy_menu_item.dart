@@ -117,7 +117,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AcademySfIcon(
-                        AcademySymbols.checkmark,
+                        AcademyTheme.of(context).icons.checkmark,
                         size: 17,
                         boxSize: 22,
                         color: theme.colorScheme.onSurface,
@@ -133,7 +133,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                   )
                 : showLeadingCheck
                 ? AcademySfIcon(
-                    AcademySymbols.checkmark,
+                    AcademyTheme.of(context).icons.checkmark,
                     size: 17,
                     boxSize: 22,
                     color: theme.colorScheme.onSurface,
@@ -164,7 +164,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                         const SizedBox(width: 8),
                       if (showTrailingCheck)
                         AcademySfIcon(
-                          AcademySymbols.checkmark,
+                          AcademyTheme.of(context).icons.checkmark,
                           size: 17,
                           boxSize: 22,
                           color: theme.colorScheme.onSurface,

@@ -1,8 +1,8 @@
 // Ported from quran_flutter AppStepper.
+import '../../theme/academy_theme.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
-import '../icon/academy_sf_image.dart';
 
 /// 94 x 32 minus/plus pill. A null callback dims its half; [color] tints the
 /// track, divider and symbols.
@@ -48,7 +48,9 @@ class AcademyActionStepper extends StatelessWidget {
               height: _frameHeight,
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(
+                  AcademyTheme.of(context).radii.stepper,
+                ),
               ),
             ),
           ),
@@ -79,7 +81,7 @@ class AcademyActionStepper extends StatelessWidget {
             left: minusIconLeft,
             top: _iconTop,
             child: _AcademyActionStepperIcon(
-              icon: AcademySymbols.minus,
+              icon: AcademyTheme.of(context).icons.minus,
               isEnabled: onDecrease != null,
               color: color,
             ),
@@ -88,7 +90,7 @@ class AcademyActionStepper extends StatelessWidget {
             left: plusIconLeft,
             top: _iconTop,
             child: _AcademyActionStepperIcon(
-              icon: AcademySymbols.plus,
+              icon: AcademyTheme.of(context).icons.plus,
               isEnabled: onIncrease != null,
               color: color,
             ),

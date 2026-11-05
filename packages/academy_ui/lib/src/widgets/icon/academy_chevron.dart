@@ -77,7 +77,7 @@ class AcademyChevron extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.contain,
           child: AcademySfIcon(
-            AcademySymbols.forward,
+            AcademyTheme.of(context).icons.forward,
             size: _symbolSize,
             color: color ?? AcademyTheme.of(context).colorScheme.labelTertiary,
           ),

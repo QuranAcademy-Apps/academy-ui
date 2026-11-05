@@ -53,7 +53,7 @@ class AcademyDragHandle extends StatelessWidget {
               0,
             ),
             child: AcademySfIcon(
-              AcademySymbols.dragHandle,
+              AcademyTheme.of(context).icons.dragHandle,
               size: 18,
               boxSize: 44,
               color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
@@ -302,7 +302,7 @@ class _DraggableRowState<T extends Object> extends State<_DraggableRow<T>> {
                     ? null
                     : () => widget.onRemove!(widget.data.item),
                 child: AcademySfIcon(
-                  AcademySymbols.trash,
+                  AcademyTheme.of(context).icons.trash,
                   color: theme.colorScheme.error,
                   size: 20,
                 ),

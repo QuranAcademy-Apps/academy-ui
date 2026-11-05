@@ -26,6 +26,8 @@ enum AcademyRadiusRole {
   tabSelection,
   toast,
   progress,
+  textBlock,
+  skeleton,
   modal,
 }
 
@@ -57,6 +59,8 @@ class AcademyRadii {
   static const defaultTabSelection = 999.0;
   static const defaultToast = 28.0;
   static const defaultProgress = 3.0;
+  static const defaultTextBlock = 12.0;
+  static const defaultSkeleton = 14.0;
   static const defaultModal = 32.0;
   const AcademyRadii({
     this.button = defaultButton,
@@ -84,6 +88,8 @@ class AcademyRadii {
     this.tabSelection = defaultTabSelection,
     this.toast = defaultToast,
     this.progress = defaultProgress,
+    this.textBlock = defaultTextBlock,
+    this.skeleton = defaultSkeleton,
     this.modal = defaultModal,
   }) : surface = surface ?? defaultSurface,
        table = table ?? defaultTable,
@@ -147,6 +153,8 @@ class AcademyRadii {
   final double tabSelection;
   final double toast;
   final double progress;
+  final double textBlock;
+  final double skeleton;
   final double modal;
 
   double value(AcademyRadiusRole role) => switch (role) {
@@ -175,6 +183,8 @@ class AcademyRadii {
     AcademyRadiusRole.tabSelection => tabSelection,
     AcademyRadiusRole.toast => toast,
     AcademyRadiusRole.progress => progress,
+    AcademyRadiusRole.textBlock => textBlock,
+    AcademyRadiusRole.skeleton => skeleton,
     AcademyRadiusRole.modal => modal,
   };
 
@@ -204,6 +214,8 @@ class AcademyRadii {
     double? tabSelection,
     double? toast,
     double? progress,
+    double? textBlock,
+    double? skeleton,
     double? modal,
   }) => AcademyRadii(
     button: button ?? this.button,
@@ -232,6 +244,8 @@ class AcademyRadii {
     tabSelection: tabSelection ?? this.tabSelection,
     toast: toast ?? this.toast,
     progress: progress ?? this.progress,
+    textBlock: textBlock ?? this.textBlock,
+    skeleton: skeleton ?? this.skeleton,
     modal: modal ?? this.modal,
   );
 
@@ -264,6 +278,8 @@ class AcademyRadii {
         AcademyRadiusRole.tabSelection => copyWith(tabSelection: value),
         AcademyRadiusRole.toast => copyWith(toast: value),
         AcademyRadiusRole.progress => copyWith(progress: value),
+        AcademyRadiusRole.textBlock => copyWith(textBlock: value),
+        AcademyRadiusRole.skeleton => copyWith(skeleton: value),
         AcademyRadiusRole.modal => copyWith(modal: value),
       };
 }

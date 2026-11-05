@@ -16,7 +16,7 @@ class AcademyResumeCapsule extends StatelessWidget {
     required this.visible,
     required this.title,
     this.caption,
-    this.icon = AcademySymbols.playFill,
+    this.icon,
     this.onPressed,
   });
 
@@ -25,7 +25,9 @@ class AcademyResumeCapsule extends StatelessWidget {
 
   /// Second line, «4/17».
   final String? caption;
-  final IconData icon;
+
+  /// Default: the theme's [AcademyIcons.play].
+  final IconData? icon;
   final VoidCallback? onPressed;
 
   @override
@@ -60,7 +62,7 @@ class AcademyResumeCapsule extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         AcademySfImage(
-                          icon,
+                          icon ?? AcademyTheme.of(context).icons.play,
                           frameSize: 32,
                           symbolSize: 16,
                           foreground: accent,

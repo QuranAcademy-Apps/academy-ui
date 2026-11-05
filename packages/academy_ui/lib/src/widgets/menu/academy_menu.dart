@@ -66,13 +66,11 @@ class AcademyMenu extends StatelessWidget {
 
 /// Passive right accessory, used independently when the whole row opens a menu.
 class AcademyMenuDisplay extends StatelessWidget {
-  const AcademyMenuDisplay({
-    super.key,
-    required this.value,
-    this.icon = AcademySymbols.upDown,
-  });
+  const AcademyMenuDisplay({super.key, required this.value, this.icon});
   final String value;
-  final IconData icon;
+
+  /// Default: the theme's [AcademyIcons.upDown].
+  final IconData? icon;
   @override
   Widget build(BuildContext context) => Row(
     mainAxisSize: MainAxisSize.min,
@@ -89,7 +87,7 @@ class AcademyMenuDisplay extends StatelessWidget {
       ),
       const SizedBox(width: 8),
       AcademySfIcon(
-        icon,
+        icon ?? AcademyTheme.of(context).icons.upDown,
         size: 15,
         boxSize: 20,
         color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,

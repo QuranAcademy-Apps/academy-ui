@@ -14,7 +14,7 @@ class AcademyCheckmark extends StatelessWidget {
   Widget build(BuildContext context) => MediaQuery.withNoTextScaling(
     child: selected
         ? AcademySfIcon(
-            AcademySymbols.checkmark,
+            AcademyTheme.of(context).icons.checkmark,
             size: 18,
             boxSize: 18,
             color: color ?? AcademyTheme.of(context).colorScheme.onSurface,

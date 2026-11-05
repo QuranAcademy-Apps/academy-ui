@@ -48,7 +48,7 @@ class AcademyDisclosureTable extends StatelessWidget {
                   duration: duration,
                   curve: Curves.easeInOut,
                   child: AcademySfIcon(
-                    AcademySymbols.forward,
+                    AcademyTheme.of(context).icons.forward,
                     size: 16,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),

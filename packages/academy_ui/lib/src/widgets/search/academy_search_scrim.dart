@@ -31,11 +31,7 @@ class AcademySearchScrim extends StatelessWidget {
     final duration = MediaQuery.disableAnimationsOf(context)
         ? Duration.zero
         : AcademyTokens.motion;
-    final dim =
-        dimColor ??
-        (theme.brightness == Brightness.dark
-            ? const Color(0x99000000)
-            : const Color(0x52000000));
+    final dim = dimColor ?? theme.colorScheme.scrim;
     final showResults = active && results != null;
     return IgnorePointer(
       ignoring: !active,

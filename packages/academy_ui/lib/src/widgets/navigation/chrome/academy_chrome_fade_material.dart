@@ -1,3 +1,5 @@
+import '../../../theme/academy_theme.dart';
+
 import 'package:flutter/cupertino.dart';
 
 /// Translucent edge plate under a floating bar: content dissolves softly as it
@@ -18,7 +20,7 @@ class AcademyChromeFadeMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = CupertinoTheme.brightnessOf(context) == Brightness.dark;
-    final material = dark ? const Color(0xFF000000) : const Color(0xFFFFFFFF);
+    final material = AcademyTheme.of(context).colorScheme.chromeFade;
     final base = dark ? 0.58 : 0.62;
     // A short (landscape phone) viewport would turn the plate into a heavy band.
     final density = MediaQuery.sizeOf(context).height < 500 ? base * 0.6 : base;

@@ -107,8 +107,8 @@ class AcademyFeedback extends StatelessWidget {
               else
                 AcademySfIcon(
                   kind == AcademyFeedbackKind.error
-                      ? AcademySymbols.cloud
-                      : AcademySymbols.search,
+                      ? AcademyTheme.of(context).icons.loadError
+                      : AcademyTheme.of(context).icons.empty,
                   size: 44,
                   fontWeight: FontWeight.w400,
                   color: theme.colorScheme.onSurfaceVariant.withValues(

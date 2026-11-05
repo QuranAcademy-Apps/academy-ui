@@ -97,6 +97,24 @@ abstract interface class AcademyColors {
   Color get chromeSurface;
   Color get chromeTintedSurface;
   Color get chromeBorder;
+
+  /// Dims content behind navigation search.
+  Color get scrim;
+
+  /// Edge fade under floating navigation.
+  Color get chromeFade;
+
+  /// Full-screen photo backdrop, in both themes.
+  Color get photoViewerBackdrop;
+
+  /// Fill of the photo viewer close button.
+  Color get photoViewerControl;
+
+  /// Symbol of the photo viewer close button.
+  Color get onPhotoViewerControl;
+
+  /// Outline and shadow of the close button.
+  Color get photoViewerControlShadow;
   Color toneForeground(AcademyTone tone);
   Color toneContainer(AcademyTone tone);
 }
@@ -157,6 +175,12 @@ class AcademyColorsData implements AcademyColors {
     required this.chromeSurface,
     required this.chromeTintedSurface,
     required this.chromeBorder,
+    Color? scrim,
+    Color? chromeFade,
+    Color? photoViewerBackdrop,
+    Color? photoViewerControl,
+    Color? onPhotoViewerControl,
+    Color? photoViewerControlShadow,
     required Map<AcademyTone, Color> toneForegrounds,
     required Map<AcademyTone, Color> toneContainers,
   }) : accentColor = accentColor ?? primary,
@@ -188,6 +212,13 @@ class AcademyColorsData implements AcademyColors {
        textFieldDisabledForeground =
            textFieldDisabledForeground ?? onSurfaceVariant,
        textFieldBorder = textFieldBorder ?? outline,
+       scrim = scrim ?? const Color(0x52000000),
+       chromeFade = chromeFade ?? const Color(0xFFFFFFFF),
+       photoViewerBackdrop = photoViewerBackdrop ?? const Color(0xFF000000),
+       photoViewerControl = photoViewerControl ?? const Color(0xFFF2F3F4),
+       onPhotoViewerControl = onPhotoViewerControl ?? const Color(0xFF0B131D),
+       photoViewerControlShadow =
+           photoViewerControlShadow ?? const Color(0x66000000),
        textFieldDisabledBorder = textFieldDisabledBorder ?? outline,
        textFieldFocusBorder = textFieldFocusBorder ?? primary,
        textFieldErrorForeground = textFieldErrorForeground ?? error,
@@ -253,6 +284,12 @@ class AcademyColorsData implements AcademyColors {
     chromeSurface: colors.chromeSurface,
     chromeTintedSurface: colors.chromeTintedSurface,
     chromeBorder: colors.chromeBorder,
+    scrim: colors.scrim,
+    chromeFade: colors.chromeFade,
+    photoViewerBackdrop: colors.photoViewerBackdrop,
+    photoViewerControl: colors.photoViewerControl,
+    onPhotoViewerControl: colors.onPhotoViewerControl,
+    photoViewerControlShadow: colors.photoViewerControlShadow,
     toneForegrounds: {
       for (final tone in AcademyTone.values) tone: colors.toneForeground(tone),
     },
@@ -352,6 +389,18 @@ class AcademyColorsData implements AcademyColors {
   final Color chromeTintedSurface;
   @override
   final Color chromeBorder;
+  @override
+  final Color scrim;
+  @override
+  final Color chromeFade;
+  @override
+  final Color photoViewerBackdrop;
+  @override
+  final Color photoViewerControl;
+  @override
+  final Color onPhotoViewerControl;
+  @override
+  final Color photoViewerControlShadow;
   final Map<AcademyTone, Color> _toneForegrounds, _toneContainers;
   @override
   Color toneForeground(AcademyTone tone) => _toneForegrounds[tone]!;
@@ -425,6 +474,12 @@ extension AcademyColorsOverrides on AcademyColors {
     Color? chromeSurface,
     Color? chromeTintedSurface,
     Color? chromeBorder,
+    Color? scrim,
+    Color? chromeFade,
+    Color? photoViewerBackdrop,
+    Color? photoViewerControl,
+    Color? onPhotoViewerControl,
+    Color? photoViewerControlShadow,
     Map<AcademyTone, Color>? toneForegrounds,
     Map<AcademyTone, Color>? toneContainers,
   }) => AcademyColorsData(
@@ -514,6 +569,13 @@ extension AcademyColorsOverrides on AcademyColors {
     chromeSurface: chromeSurface ?? this.chromeSurface,
     chromeTintedSurface: chromeTintedSurface ?? this.chromeTintedSurface,
     chromeBorder: chromeBorder ?? this.chromeBorder,
+    scrim: scrim ?? this.scrim,
+    chromeFade: chromeFade ?? this.chromeFade,
+    photoViewerBackdrop: photoViewerBackdrop ?? this.photoViewerBackdrop,
+    photoViewerControl: photoViewerControl ?? this.photoViewerControl,
+    onPhotoViewerControl: onPhotoViewerControl ?? this.onPhotoViewerControl,
+    photoViewerControlShadow:
+        photoViewerControlShadow ?? this.photoViewerControlShadow,
     toneForegrounds: {
       for (final tone in AcademyTone.values)
         tone: toneForegrounds?[tone] ?? toneForeground(tone),
@@ -601,6 +663,12 @@ enum AcademyColorRole {
   chromeSurface,
   chromeTintedSurface,
   chromeBorder,
+  scrim,
+  chromeFade,
+  photoViewerBackdrop,
+  photoViewerControl,
+  onPhotoViewerControl,
+  photoViewerControlShadow,
   neutralForeground,
   neutralContainer,
   successForeground,
@@ -661,6 +729,12 @@ extension AcademyColorRoles on AcademyColors {
     AcademyColorRole.chromeSurface => chromeSurface,
     AcademyColorRole.chromeTintedSurface => chromeTintedSurface,
     AcademyColorRole.chromeBorder => chromeBorder,
+    AcademyColorRole.scrim => scrim,
+    AcademyColorRole.chromeFade => chromeFade,
+    AcademyColorRole.photoViewerBackdrop => photoViewerBackdrop,
+    AcademyColorRole.photoViewerControl => photoViewerControl,
+    AcademyColorRole.onPhotoViewerControl => onPhotoViewerControl,
+    AcademyColorRole.photoViewerControlShadow => photoViewerControlShadow,
     AcademyColorRole.neutralForeground => toneForeground(AcademyTone.neutral),
     AcademyColorRole.neutralContainer => toneContainer(AcademyTone.neutral),
     AcademyColorRole.successForeground => toneForeground(AcademyTone.success),
@@ -748,6 +822,18 @@ extension AcademyColorRoles on AcademyColors {
       chromeTintedSurface: color,
     ),
     AcademyColorRole.chromeBorder => copyWith(chromeBorder: color),
+    AcademyColorRole.scrim => copyWith(scrim: color),
+    AcademyColorRole.chromeFade => copyWith(chromeFade: color),
+    AcademyColorRole.photoViewerBackdrop => copyWith(
+      photoViewerBackdrop: color,
+    ),
+    AcademyColorRole.photoViewerControl => copyWith(photoViewerControl: color),
+    AcademyColorRole.onPhotoViewerControl => copyWith(
+      onPhotoViewerControl: color,
+    ),
+    AcademyColorRole.photoViewerControlShadow => copyWith(
+      photoViewerControlShadow: color,
+    ),
     AcademyColorRole.neutralForeground => copyWith(
       toneForegrounds: {AcademyTone.neutral: color},
     ),

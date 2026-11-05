@@ -201,7 +201,7 @@ class _CalendarState extends State<_Calendar> {
                     ? null
                     : () => setState(() => _show(previous)),
                 child: AcademySfIcon(
-                  AcademySymbols.back,
+                  AcademyTheme.of(context).icons.back,
                   size: 18,
                   semanticsLabel: strings.previousMonth,
                 ),
@@ -219,7 +219,7 @@ class _CalendarState extends State<_Calendar> {
                     ? null
                     : () => setState(() => _show(next)),
                 child: AcademySfIcon(
-                  AcademySymbols.forward,
+                  AcademyTheme.of(context).icons.forward,
                   size: 18,
                   semanticsLabel: strings.nextMonth,
                 ),

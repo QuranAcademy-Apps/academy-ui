@@ -188,7 +188,10 @@ class AcademyMultiSelect<T extends Object> extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          const AcademySfIcon(AcademySymbols.close, size: 12),
+                          AcademySfIcon(
+                            AcademyTheme.of(context).icons.close,
+                            size: 12,
+                          ),
                         ],
                       ),
                     ),
@@ -339,7 +342,7 @@ class _SelectControlState<T extends Object> extends State<_SelectControl<T>> {
             ),
             const SizedBox(width: 8),
             AcademySfIcon(
-              AcademySymbols.upDown,
+              AcademyTheme.of(context).icons.upDown,
               size: 16,
               color: widget.enabled
                   ? theme.colorScheme.textFieldSecondaryForeground
@@ -453,7 +456,7 @@ class _SelectionPanelState<T extends Object> extends State<_SelectionPanel<T>> {
                 highlightOnFocus: false,
                 bordered: false,
                 leading: AcademySfIcon(
-                  AcademySymbols.search,
+                  AcademyTheme.of(context).icons.search,
                   size: 18,
                   color: AcademyTheme.of(context)
                       .colorScheme

@@ -180,7 +180,9 @@ class AcademyContentSkeleton extends StatelessWidget {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: AcademyTheme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(
+                      AcademyTheme.of(context).radii.skeleton,
+                    ),
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(16),

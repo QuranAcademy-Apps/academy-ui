@@ -101,7 +101,7 @@ class AcademyProgressTile extends StatelessWidget {
               const SizedBox(height: 2),
               done
                   ? AcademySfIcon(
-                      AcademySymbols.completeFill,
+                      AcademyTheme.of(context).icons.complete,
                       size: 14,
                       color: tint,
                     )
@@ -116,7 +116,7 @@ class AcademyProgressTile extends StatelessWidget {
             if (progress case final progress?) ...[
               const SizedBox(height: 8),
               ClipRRect(
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(theme.radii.progress),
                 child: SizedBox(
                   height: 3,
                   child: ColoredBox(

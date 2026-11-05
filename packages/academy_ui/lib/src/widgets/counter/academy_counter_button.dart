@@ -77,7 +77,7 @@ class AcademyCounterButton extends StatelessWidget {
                     duration: animate ? AcademyTokens.motion : Duration.zero,
                     child: completed
                         ? AcademySfIcon(
-                            AcademySymbols.checkmark,
+                            AcademyTheme.of(context).icons.checkmark,
                             key: const ValueKey('done'),
                             fontSize: size * .36,
                             fontWeight: FontWeight.w700,

@@ -125,7 +125,7 @@ class AcademyInlineOptionMenu extends StatelessWidget
           ),
           const SizedBox(width: 8),
           AcademySfIcon(
-            AcademySymbols.down,
+            AcademyTheme.of(context).icons.down,
             size: 15,
             color: AcademyTheme.of(context).colorScheme.labelTertiary,
           ),

@@ -60,6 +60,33 @@ dependencies:
 Предметные формы Quran/Yalla, данные, сетевые сервисы и авторизация не перенесены.
 Приложение передаёт данные и callbacks. Схема состояния/DI приложения не навязывается.
 
+## Настройка под приложение
+
+У пакета есть значения по умолчанию, но приложение может заменить каждое из них.
+Сначала идёт тема: она действует на всё приложение. Параметр конкретного виджета
+имеет приоритет над темой.
+
+```dart
+AcademyApp(
+  colorsBuilder: (brightness, accent) => AcademyPalette(brightness, accent)
+      .copyWith(scrim: const Color(0x66102030), menuHighlight: myHighlight),
+  radii: const AcademyRadii(field: 16, textBlock: 8),
+  icons: const AcademyIcons(forward: MyIcons.next, close: MyIcons.cross),
+  rowIconColors: const {AcademyRowIcons.trip: Color(0xFF0A7A5C)},
+  chromeColors: const AcademyChromeColors(glassFill: Color(0xFFF0EDE6)),
+  home: const MyScreen(),
+);
+```
+
+- **Цвета:** `AcademyColors` (роли, включая `scrim`, `chromeFade` и цвета просмотра
+  фото), `AcademyChromeColors` (навигация и стекло), `rowIconColors` (плитки строк).
+- **Иконки:** `AcademyIcons` — символы, которые пакет рисует сам. Подойдёт `IconData`
+  из любого шрифта. Иконки, которые приложение передаёт в виджет, тема не меняет.
+- **Формы и отступы:** `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`.
+- **Подписи:** свой `LocalizationsDelegate<AcademyLocalizations>`.
+
+Без `AcademyApp` те же значения передаются в `academyTheme(...)`.
+
 ## Тема и прозрачность
 
 `AcademyApp` — необязательная оболочка `CupertinoApp`: размещает тему над Navigator,

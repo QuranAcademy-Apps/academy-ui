@@ -136,12 +136,12 @@ class AcademyStepper extends StatelessWidget {
           PositionedDirectional(
             start: 15.5,
             top: 13.5,
-            child: glyph(AcademySymbols.minus, value > min),
+            child: glyph(AcademyTheme.of(context).icons.minus, value > min),
           ),
           PositionedDirectional(
             start: 63.5,
             top: 13.5,
-            child: glyph(AcademySymbols.plus, value < max),
+            child: glyph(AcademyTheme.of(context).icons.plus, value < max),
           ),
         ],
       ),
@@ -189,12 +189,12 @@ class AcademyStepper extends StatelessWidget {
         Positioned(
           left: 33,
           top: 13.5,
-          child: glyph(AcademySymbols.minus, value > min),
+          child: glyph(AcademyTheme.of(context).icons.minus, value > min),
         ),
         Positioned(
           left: 80,
           top: 13.5,
-          child: glyph(AcademySymbols.plus, value < max),
+          child: glyph(AcademyTheme.of(context).icons.plus, value < max),
         ),
       ],
     ),

@@ -39,7 +39,9 @@ class AcademyDisclosureCard extends StatelessWidget {
                 Expanded(child: Text(title, style: theme.textTheme.titleSmall)),
                 const SizedBox(width: AcademyTokens.inlineGap),
                 AcademySfIcon(
-                  expanded ? AcademySymbols.up : AcademySymbols.down,
+                  expanded
+                      ? AcademyTheme.of(context).icons.up
+                      : AcademyTheme.of(context).icons.down,
                   size: 18,
                   boxSize: 22,
                   color: theme.colorScheme.onSurfaceVariant,

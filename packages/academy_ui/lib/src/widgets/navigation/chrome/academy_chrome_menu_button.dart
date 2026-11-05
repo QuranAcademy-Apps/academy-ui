@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../icon/academy_sf_image.dart';
+import '../../../theme/academy_theme.dart';
 import '../../menu/academy_menu_anchor.dart';
 import 'academy_chrome.dart';
 
@@ -11,12 +11,14 @@ class AcademyChromeMenuButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.items,
-    this.icon = AcademySymbols.more,
+    this.icon,
     this.style,
     this.blurSigma,
   });
   final String label;
-  final IconData icon;
+
+  /// Default: the theme's [AcademyIcons.more].
+  final IconData? icon;
   final List<Widget> items;
   final AcademyChromeStyle? style;
   final double? blurSigma;
@@ -26,7 +28,7 @@ class AcademyChromeMenuButton extends StatelessWidget {
     consumeOutsideTaps: true,
     menuChildren: items,
     builder: (context, controller, child) => AcademyChromeButton(
-      icon: icon,
+      icon: icon ?? AcademyTheme.of(context).icons.more,
       label: label,
       style: style,
       blurSigma: blurSigma,

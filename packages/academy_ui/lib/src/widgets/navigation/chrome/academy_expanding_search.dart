@@ -2,7 +2,6 @@ import '../../../foundation/localizations/academy_localizations.dart';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../icon/academy_sf_image.dart';
 import '../../../theme/academy_theme.dart';
 import '../../text_field/academy_text_input.dart';
 import 'academy_chrome.dart';
@@ -159,7 +158,9 @@ class AcademyExpandingSearchState extends State<AcademyExpandingSearch>
         ),
         const SizedBox(width: 8),
         AcademyChromeButton(
-          icon: _open ? AcademySymbols.close : AcademySymbols.search,
+          icon: _open
+              ? AcademyTheme.of(context).icons.close
+              : AcademyTheme.of(context).icons.search,
           label: _open
               ? AcademyLocalizations.of(context).closeSearch
               : AcademyLocalizations.of(context).openSearch,

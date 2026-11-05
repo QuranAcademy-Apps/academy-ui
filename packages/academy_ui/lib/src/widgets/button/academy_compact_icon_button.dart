@@ -11,11 +11,13 @@ import '../../theme/academy_theme.dart';
 class AcademyCompactIconButton extends StatelessWidget {
   const AcademyCompactIconButton({
     super.key,
-    this.icon = AcademySymbols.close,
+    this.icon,
     this.label,
     required this.onPressed,
   });
-  final IconData icon;
+
+  /// Default: the theme's [AcademyIcons.close].
+  final IconData? icon;
   final String? label;
   final VoidCallback? onPressed;
   @override
@@ -37,7 +39,7 @@ class AcademyCompactIconButton extends StatelessWidget {
           ),
           child: Center(
             child: AcademySfIcon(
-              icon,
+              icon ?? AcademyTheme.of(context).icons.close,
               size: 17,
               color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
             ),

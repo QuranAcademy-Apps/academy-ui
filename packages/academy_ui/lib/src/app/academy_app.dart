@@ -1,3 +1,5 @@
+import '../theme/academy_row_icons.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -23,6 +25,9 @@ class AcademyApp extends StatefulWidget {
     this.paddings = const AcademyPaddings(),
     this.typography = const AcademyTypographySettings(),
     this.interaction = const AcademyInteractionTheme(),
+    this.icons = const AcademyIcons(),
+    this.rowIconColors = const {},
+    this.chromeColors = const AcademyChromeColors(),
     this.toastBottomObstruction = 0,
     double? chromeBlurToneStrength,
     double? chromeBlurTintOpacity,
@@ -52,6 +57,11 @@ class AcademyApp extends StatefulWidget {
   final AcademyPaddings paddings;
   final AcademyTypographySettings typography;
   final AcademyInteractionTheme interaction;
+
+  /// Glyphs the library draws on its own.
+  final AcademyIcons icons;
+  final Map<AcademyRowIcons, Color> rowIconColors;
+  final AcademyChromeColors chromeColors;
   final double toastBottomObstruction;
   final double chromeBlurToneStrength;
 
@@ -122,6 +132,9 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       paddings: widget.paddings,
       typography: widget.typography,
       interaction: widget.interaction,
+      icons: widget.icons,
+      rowIconColors: widget.rowIconColors,
+      chromeColors: widget.chromeColors,
       colors: widget.colorsBuilder?.call(brightness, appearance.accent),
     );
     return CupertinoApp(

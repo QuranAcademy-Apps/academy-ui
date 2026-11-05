@@ -1,3 +1,5 @@
+import '../../theme/academy_theme.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 
@@ -257,7 +259,8 @@ class _AcademyPhotoViewerState extends State<AcademyPhotoViewer>
             Positioned.fill(
               child: ColoredBox(
                 key: const ValueKey('photo-viewer-backdrop'),
-                color: CupertinoColors.black.withValues(alpha: 1 - progress),
+                color: AcademyTheme.of(context).colorScheme.photoViewerBackdrop
+                    .withValues(alpha: 1 - progress),
               ),
             ),
             Positioned.fill(
@@ -295,21 +298,29 @@ class _AcademyPhotoViewerState extends State<AcademyPhotoViewer>
     child: DecoratedBox(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: const Color(0x66000000)),
-        boxShadow: const [BoxShadow(color: Color(0x66000000), blurRadius: 12)],
+        border: Border.all(
+          color: AcademyTheme.of(context).colorScheme.photoViewerControlShadow,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AcademyTheme.of(context)
+                .colorScheme
+                .photoViewerControlShadow,
+            blurRadius: 12,
+          ),
+        ],
       ),
       child: CupertinoButton(
         key: const ValueKey('photo-viewer-close'),
         padding: EdgeInsets.zero,
         minimumSize: const Size(48, 48),
         onPressed: _close,
-        child: const AcademySfImage(
-          AcademySymbols.close,
+        child: AcademySfImage(
+          AcademyTheme.of(context).icons.close,
           frameSize: 48,
           symbolSize: 20,
-          // A light chip in both themes: the backdrop is always black.
-          foreground: Color(0xFF0B131D),
-          background: Color(0xFFF2F3F4),
+          foreground: AcademyTheme.of(context).colorScheme.onPhotoViewerControl,
+          background: AcademyTheme.of(context).colorScheme.photoViewerControl,
         ),
       ),
     ),

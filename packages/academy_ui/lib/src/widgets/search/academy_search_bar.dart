@@ -156,7 +156,7 @@ class _AcademySearchBarState extends State<AcademySearchBar>
         leading:
             widget.leading ??
             AcademySfIcon(
-              AcademySymbols.search,
+              AcademyTheme.of(context).icons.search,
               size: 18,
               color: widget.chrome
                   ? AcademyChrome.foregroundColor(
@@ -170,7 +170,7 @@ class _AcademySearchBarState extends State<AcademySearchBar>
             : widget.trailing,
       );
       final closeButton = AcademyChromeButton(
-        icon: AcademySymbols.close,
+        icon: AcademyTheme.of(context).icons.close,
         label: AcademyLocalizations.of(context).closeSearch,
         onPressed: _cancel,
       );

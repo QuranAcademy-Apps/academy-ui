@@ -62,7 +62,23 @@ class AcademyChromeColors {
     this.unselectedForeground,
     this.border,
     this.shadow,
+    this.glassFill,
+    this.glassRim,
+    this.glassEdge,
+    this.glassShadow,
   });
+
+  /// Fill of the [AcademyChromeStyle.glass] material; default: a neutral tint.
+  final Color? glassFill;
+
+  /// Inner highlight of the glass rim; default: white.
+  final Color? glassRim;
+
+  /// Thin contact line around the glass; default: black.
+  final Color? glassEdge;
+
+  /// Soft shadow under the glass; default: black.
+  final Color? glassShadow;
 
   /// Chrome button symbols; default: the Cupertino primary color.
   final Color? buttonForeground;
@@ -95,7 +111,11 @@ class AcademyChromeColors {
       other.selectedLabel == selectedLabel &&
       other.unselectedForeground == unselectedForeground &&
       other.border == border &&
-      other.shadow == shadow;
+      other.shadow == shadow &&
+      other.glassFill == glassFill &&
+      other.glassRim == glassRim &&
+      other.glassEdge == glassEdge &&
+      other.glassShadow == glassShadow;
 
   @override
   int get hashCode => Object.hash(
@@ -106,6 +126,10 @@ class AcademyChromeColors {
     unselectedForeground,
     border,
     shadow,
+    glassFill,
+    glassRim,
+    glassEdge,
+    glassShadow,
   );
 }
 
@@ -581,7 +605,10 @@ class AcademyChromeMenu extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: AcademyTokens.labelGap),
-                    const AcademySfIcon(AcademySymbols.down, size: 15),
+                    AcademySfIcon(
+                      AcademyTheme.of(context).icons.down,
+                      size: 15,
+                    ),
                   ],
                 ),
               ),
@@ -811,7 +838,7 @@ class AcademyChromePage extends StatelessWidget {
             actions: actions,
             leading: Navigator.of(context).canPop()
                 ? AcademyChromeButton(
-                    icon: AcademySymbols.back,
+                    icon: AcademyTheme.of(context).icons.back,
                     label: AcademyLocalizations.of(context).back,
                     style: style,
                     blurSigma: blurSigma,
@@ -885,7 +912,7 @@ class AcademyChromeModalHeader extends StatelessWidget {
             title: title,
             leading: closeOnLeading
                 ? AcademyChromeButton(
-                    icon: AcademySymbols.close,
+                    icon: AcademyTheme.of(context).icons.close,
                     label: closeLabel,
                     onPressed: close,
                     style: style,
@@ -898,7 +925,11 @@ class AcademyChromeModalHeader extends StatelessWidget {
             actions: [
               ...actions,
               if (!closeOnLeading)
-                AcademyChromeAction(AcademySymbols.close, closeLabel, close),
+                AcademyChromeAction(
+                  AcademyTheme.of(context).icons.close,
+                  closeLabel,
+                  close,
+                ),
             ],
           );
           if (!stacked) return bar;

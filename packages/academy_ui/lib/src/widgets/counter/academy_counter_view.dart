@@ -70,7 +70,7 @@ class AcademyCounterView extends StatelessWidget {
                         child: Center(
                           child: completed
                               ? AcademySfIcon(
-                                  AcademySymbols.checkmark,
+                                  AcademyTheme.of(context).icons.checkmark,
                                   size: size * .3,
                                   fontWeight: FontWeight.w700,
                                   color: accent,

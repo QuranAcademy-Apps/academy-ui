@@ -340,7 +340,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
           ] else if (onPressed != null && actionLabel == null && showChevron)
             chevron ??
                 AcademySfIcon(
-                  AcademySymbols.forward,
+                  AcademyTheme.of(context).icons.forward,
                   size: 16,
                   color: toneColor,
                 ),

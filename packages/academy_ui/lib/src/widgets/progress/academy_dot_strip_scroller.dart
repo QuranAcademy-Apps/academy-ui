@@ -1,4 +1,6 @@
 // Ported from quran_flutter DotStripScroller.
+import '../../theme/academy_theme.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
@@ -16,11 +18,11 @@ class AcademyDotStripScroller extends StatefulWidget {
     this.gestureWidth = stripWidth,
     this.fillAvailableHeight = false,
     this.dotsTipBuilder,
-    this.dotColor = CupertinoColors.label,
+    this.dotColor,
   });
 
   /// Color of the dots.
-  final Color dotColor;
+  final Color? dotColor;
 
   /// Число дискретных позиций (и верхняя граница числа точек). Должно быть > 0.
   final int steps;
@@ -115,7 +117,8 @@ class _AcademyDotStripScrollerState extends State<AcademyDotStripScroller> {
             pointSize: pointSize,
             spacing: desiredSpacing,
           );
-    final dotColor = widget.dotColor;
+    final dotColor =
+        widget.dotColor ?? AcademyTheme.of(context).colorScheme.onSurface;
 
     return SizedBox.expand(
       child: Padding(

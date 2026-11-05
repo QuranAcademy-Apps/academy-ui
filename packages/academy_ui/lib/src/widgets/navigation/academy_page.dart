@@ -1,5 +1,4 @@
 import '../../foundation/localizations/academy_localizations.dart';
-import '../icon/academy_sf_image.dart';
 import 'chrome/academy_chrome.dart';
 import 'chrome/academy_chrome_metrics.dart';
 import '../../foundation/layout/academy_page_insets.dart';
@@ -115,7 +114,7 @@ class AcademyPage extends StatelessWidget {
                     leading ??
                     (showBackButton && Navigator.of(context).canPop()
                         ? AcademyChromeButton(
-                            icon: AcademySymbols.back,
+                            icon: AcademyTheme.of(context).icons.back,
                             label: AcademyLocalizations.of(context).back,
                             onPressed: () => Navigator.maybePop(context),
                           )

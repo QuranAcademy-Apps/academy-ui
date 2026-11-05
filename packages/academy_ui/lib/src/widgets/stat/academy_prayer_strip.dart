@@ -112,7 +112,11 @@ class AcademyPrayerStrip extends StatelessWidget {
                   ),
                 ),
                 if (onPressed != null)
-                  AcademySfIcon(AcademySymbols.forward, size: 12, color: muted),
+                  AcademySfIcon(
+                    AcademyTheme.of(context).icons.forward,
+                    size: 12,
+                    color: muted,
+                  ),
               ],
             ),
           ),

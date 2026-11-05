@@ -111,7 +111,7 @@ class AcademyCompletionMark extends StatelessWidget {
       child: completed
           ? Center(
               child: AcademySfIcon(
-                AcademySymbols.checkmark,
+                AcademyTheme.of(context).icons.checkmark,
                 size: 13,
                 color: p.onAccentFill,
               ),

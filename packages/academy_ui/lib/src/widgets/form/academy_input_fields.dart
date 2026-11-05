@@ -91,7 +91,7 @@ class AcademyReadOnlyField extends AcademyRow {
                 ] else if (locked) ...[
                   const SizedBox(width: 12),
                   AcademySfIcon(
-                    AcademySymbols.lockOutline,
+                    AcademyTheme.of(context).icons.readOnly,
                     size: 16,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -135,7 +135,7 @@ class AcademyFloatingInput extends StatefulWidget {
     this.allowClear = true,
     this.reserveClearSpace = true,
     this.minimumHeight = 48,
-    this.cornerRadius = 12,
+    this.cornerRadius,
     this.focusedBorderWidth = 1,
   });
   final String label;
@@ -163,7 +163,10 @@ class AcademyFloatingInput extends StatefulWidget {
 
   /// Keep the usual form geometry; compact columns may reclaim the hidden icon.
   final bool reserveClearSpace;
-  final double minimumHeight, cornerRadius, focusedBorderWidth;
+  final double minimumHeight, focusedBorderWidth;
+
+  /// Default: the theme's field radius.
+  final double? cornerRadius;
 
   @override
   State<AcademyFloatingInput> createState() => _AcademyFloatingInputState();
@@ -321,7 +324,7 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
                                               _focus.requestFocus();
                                             },
                                       child: AcademySfIcon(
-                                        AcademySymbols.clear,
+                                        AcademyTheme.of(context).icons.clear,
                                         size: 18,
                                         color: colors.onSurfaceVariant,
                                         semanticsLabel: AcademyLocalizations.of(
@@ -418,13 +421,15 @@ BoxDecoration _fieldDecoration(
   required bool enabled,
   String? error,
   bool focused = false,
-  double cornerRadius = 12,
+  double? cornerRadius,
   double borderWidth = 1,
 }) {
   final colors = AcademyTheme.of(context).colorScheme;
   return BoxDecoration(
     color: enabled ? colors.surface : colors.surfaceContainerHighest,
-    borderRadius: BorderRadius.circular(cornerRadius),
+    borderRadius: BorderRadius.circular(
+      cornerRadius ?? AcademyTheme.of(context).radii.field,
+    ),
     border: Border.all(
       width: borderWidth,
       color: error != null
@@ -472,7 +477,7 @@ class _FieldError extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 1, right: 4),
                     child: AcademySfIcon(
-                      AcademySymbols.exclamationmarkCircle,
+                      AcademyTheme.of(context).icons.error,
                       size: 12,
                       boxSize: 14,
                       color: AcademyTheme.of(context).colorScheme.error,
@@ -688,7 +693,7 @@ class _AcademyDateInputState extends State<AcademyDateInput> {
           : '${widget.value!.day.toString().padLeft(2, '0')}.'
                 '${widget.value!.month.toString().padLeft(2, '0')}.'
                 '${widget.value!.year.toString().padLeft(4, '0')}',
-      icon: AcademySymbols.calendar,
+      icon: AcademyTheme.of(context).icons.calendar,
       help: widget.help,
       error: widget.error ?? field.errorText,
       onPressed: widget.onChanged == null ? null : () => _pick(change),

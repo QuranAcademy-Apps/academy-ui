@@ -141,7 +141,7 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
                 ),
                 onPressed: canClear ? _clear : null,
                 child: AcademySfIcon(
-                  AcademySymbols.clear,
+                  AcademyTheme.of(context).icons.clear,
                   size: 18,
                   boxSize: 22,
                   color: widget.chrome
