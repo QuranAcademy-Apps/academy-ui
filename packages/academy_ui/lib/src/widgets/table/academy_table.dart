@@ -5,6 +5,7 @@ import '../icon/academy_sf_image.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'academy_grouped_table.dart';
+import 'academy_row.dart';
 import '../../foundation/table/academy_table_row_scope.dart';
 import '../../theme/academy_theme.dart';
 import '../../foundation/surface/academy_surface_mask.dart';
@@ -90,9 +91,10 @@ class AcademyTableHeader extends StatelessWidget {
       container: true,
       header: true,
       child: Text(
-        uppercase ? title.toUpperCase() : title,
+        uppercase || theme.table.headerUppercase ? title.toUpperCase() : title,
         style:
             style ??
+            theme.table.headerStyle ??
             (prominent
                     ? theme.textTheme.sectionHeading
                     : theme.textTheme.bodyStrong)
@@ -221,6 +223,7 @@ class AcademyTableFooter extends StatelessWidget {
       text,
       style:
           style ??
+          AcademyTheme.of(context).table.footerStyle ??
           AcademyTheme.of(context).textTheme.bodySmall.copyWith(
             color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -235,7 +238,10 @@ class AcademyTableSeparator extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
     padding: EdgeInsetsDirectional.only(
       start: start ?? AcademyTheme.of(context).paddings.tableRow.left,
-      end: end ?? AcademyTheme.of(context).paddings.tableRow.right,
+      end:
+          end ??
+          AcademyTheme.of(context).table.separatorEnd ??
+          AcademyTheme.of(context).paddings.tableRow.right,
     ),
     child: Container(
       height: .5,
@@ -257,9 +263,13 @@ class AcademyTableBody extends StatelessWidget {
     this.separatorEnd,
     this.insetCustomRows = false,
     this.clip = false,
+    this.animated = false,
   });
   final List<Widget> rows;
   final double? cornerRadius;
+
+  /// Resizes smoothly as rows come and go; a row with a new key fades in.
+  final bool animated;
   final bool showSeparators;
 
   /// Fixed separator start, overriding each row's [AcademyTableRowGeometry].
@@ -280,7 +290,17 @@ class AcademyTableBody extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   @override
   Widget build(BuildContext context) {
-    final content = Padding(
+    final inModal = ModalSheetSurfaceScope.isInModalSheet(context);
+    Widget rowOf(Widget row) {
+      final faded = animated ? _FadeInRow(key: row.key, child: row) : row;
+      // A modal fill repaints while scrolling: cache the glyphs apart from it,
+      // unless the row paints a fill of its own.
+      return inModal && !(row is AcademyRow && row.paintsOwnBackground)
+          ? RepaintBoundary(child: faded)
+          : faded;
+    }
+
+    final column = Padding(
       padding: padding ?? AcademyTheme.of(context).paddings.tableBody,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -300,15 +320,25 @@ class AcademyTableBody extends StatelessWidget {
                   horizontal: AcademyTheme.of(context).paddings.tableRow.left,
                 ),
                 // Custom content keeps its own width, centered.
-                child: Center(heightFactor: 1, child: rows[i]),
+                child: Center(heightFactor: 1, child: rowOf(rows[i])),
               )
             else
-              AcademyTableRowScope(child: rows[i]),
+              AcademyTableRowScope(child: rowOf(rows[i])),
           ],
         ],
       ),
     );
-    if (ModalSheetSurfaceScope.isInModalSheet(context)) {
+    final content = animated
+        ? AnimatedSize(
+            duration: MediaQuery.disableAnimationsOf(context)
+                ? Duration.zero
+                : AcademyTokens.layoutMotion,
+            curve: Curves.easeInOut,
+            alignment: Alignment.topCenter,
+            child: column,
+          )
+        : column;
+    if (inModal) {
       return ModalSheetMaskedFill(
         color: AcademyTheme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(
@@ -320,6 +350,15 @@ class AcademyTableBody extends StatelessWidget {
     final radius = BorderRadius.circular(
       cornerRadius ?? AcademyTheme.of(context).radii.table,
     );
+    if (AcademyTheme.of(context).table.clipSurface) {
+      return ClipRRect(
+        borderRadius: radius,
+        child: ColoredBox(
+          color: AcademyTheme.of(context).colorScheme.surface,
+          child: content,
+        ),
+      );
+    }
     return DecoratedBox(
       decoration: BoxDecoration(
         color: AcademyTheme.of(context).colorScheme.surface,
@@ -336,9 +375,44 @@ class AcademyTableBody extends StatelessWidget {
   }
 }
 
+/// Fades a row in once, when first mounted.
+class _FadeInRow extends StatefulWidget {
+  const _FadeInRow({super.key, required this.child});
+  final Widget child;
+  @override
+  State<_FadeInRow> createState() => _FadeInRowState();
+}
+
+class _FadeInRowState extends State<_FadeInRow>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 260),
+    value: MediaQuery.disableAnimationsOf(context) ? 1 : 0,
+  )..forward();
+  late final Animation<double> _opacity = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeOut,
+  );
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      FadeTransition(opacity: _opacity, child: widget.child);
+}
+
 class AcademyTableSectionView extends StatelessWidget {
-  const AcademyTableSectionView({super.key, required this.section});
+  const AcademyTableSectionView({
+    super.key,
+    required this.section,
+    this.animated = false,
+  });
   final AcademyTableSection section;
+  final bool animated;
   @override
   Widget build(BuildContext context) => Column(
     mainAxisSize: MainAxisSize.min,
@@ -365,6 +439,7 @@ class AcademyTableSectionView extends StatelessWidget {
         separatorEnd: section.separatorEnd,
         insetCustomRows: section.insetCustomRows,
         clip: section.clip,
+        animated: animated,
       ),
       if (section.footerWidget != null || section.footer != null)
         section.footerWidget ??

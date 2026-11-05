@@ -1,6 +1,7 @@
 import 'academy_interaction_theme.dart';
 import 'academy_icons.dart';
 import 'academy_sizes.dart';
+import 'academy_table_theme.dart';
 import 'academy_toast_theme.dart';
 import 'academy_row_icons.dart';
 export 'academy_interaction_theme.dart';
@@ -11,6 +12,7 @@ import 'academy_paddings.dart';
 import 'academy_typography.dart';
 export 'academy_icons.dart';
 export 'academy_sizes.dart';
+export 'academy_table_theme.dart';
 export 'academy_toast_theme.dart';
 export 'academy_radii.dart';
 export 'academy_paddings.dart';
@@ -99,6 +101,8 @@ class AcademyThemeData {
     this.icons = const AcademyIcons(),
     this.sizes = const AcademySizes(),
     this.toast = const AcademyToastTheme(),
+    this.table = const AcademyTableTheme(),
+    this.switchColor,
     this.checkmarkColor,
     this.feedbackLoadingIndicator,
     this.rowIconColors = const {},
@@ -113,6 +117,12 @@ class AcademyThemeData {
 
   /// Look and placement of [AcademyToastOverlay].
   final AcademyToastTheme toast;
+
+  /// Look of tables and rows.
+  final AcademyTableTheme table;
+
+  /// [AcademySwitch] track; default: the accent fill.
+  final Color? switchColor;
 
   /// [AcademyCheckmark] color; default: the text color.
   final Color? checkmarkColor;
@@ -140,6 +150,8 @@ class AcademyThemeData {
     AcademyIcons? icons,
     AcademySizes? sizes,
     AcademyToastTheme? toast,
+    AcademyTableTheme? table,
+    Color? switchColor,
     Color? checkmarkColor,
     Widget? feedbackLoadingIndicator,
     Map<AcademyRowIcons, Color>? rowIconColors,
@@ -155,6 +167,8 @@ class AcademyThemeData {
     icons: icons ?? this.icons,
     sizes: sizes ?? this.sizes,
     toast: toast ?? this.toast,
+    table: table ?? this.table,
+    switchColor: switchColor ?? this.switchColor,
     checkmarkColor: checkmarkColor ?? this.checkmarkColor,
     feedbackLoadingIndicator:
         feedbackLoadingIndicator ?? this.feedbackLoadingIndicator,
@@ -194,6 +208,8 @@ AcademyThemeData academyTheme(
   AcademyIcons icons = const AcademyIcons(),
   AcademySizes sizes = const AcademySizes(),
   AcademyToastTheme toast = const AcademyToastTheme(),
+  AcademyTableTheme table = const AcademyTableTheme(),
+  Color? switchColor,
   Color? checkmarkColor,
   Widget? feedbackLoadingIndicator,
   Map<AcademyRowIcons, Color> rowIconColors = const {},
@@ -209,6 +225,8 @@ AcademyThemeData academyTheme(
   icons: icons,
   sizes: sizes,
   toast: toast,
+  table: table,
+  switchColor: switchColor,
   checkmarkColor: checkmarkColor,
   feedbackLoadingIndicator: feedbackLoadingIndicator,
   rowIconColors: rowIconColors,

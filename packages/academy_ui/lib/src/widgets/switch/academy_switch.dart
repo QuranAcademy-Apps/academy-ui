@@ -4,7 +4,7 @@ import '../../theme/academy_theme.dart';
 
 /// Standard 51 x 31 Cupertino switch for rows and forms.
 ///
-/// [activeTrackColor] defaults to the accent fill of the active theme.
+/// [activeTrackColor] defaults to the theme's switch color or accent fill.
 class AcademySwitch extends StatelessWidget {
   const AcademySwitch({
     super.key,
@@ -26,7 +26,9 @@ class AcademySwitch extends StatelessWidget {
         value: value,
         onChanged: onChanged,
         activeTrackColor:
-            activeTrackColor ?? AcademyTheme.of(context).colorScheme.accentFill,
+            activeTrackColor ??
+            AcademyTheme.of(context).switchColor ??
+            AcademyTheme.of(context).colorScheme.accentFill,
       ),
     ),
   );

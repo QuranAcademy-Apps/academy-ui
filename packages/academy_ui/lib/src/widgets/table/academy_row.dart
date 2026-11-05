@@ -1,4 +1,6 @@
 import '../switch/academy_switch.dart';
+import '../../foundation/motion/press_scale.dart';
+import 'academy_row_accessory.dart';
 import '../../theme/academy_row_icons.dart';
 import '../../foundation/interaction/academy_interaction.dart';
 import '../icon/academy_sf_image.dart';
@@ -21,7 +23,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     this.tone,
     this.actionLabel,
     this.trailing,
-    this.showChevron = true,
+    this.showChevron,
     this.onPressed,
     this.leading,
     this.titleWidget,
@@ -42,9 +44,18 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     this.leadingExtent,
     this.iconForeground,
     this.selected,
-    this.trailingSpacing = AcademyTokens.inlineGap,
+    this.trailingSpacing,
     this.chevron,
     this.pressedColor,
+    this.trailingText,
+    this.trailingTextStyle,
+    this.leadingGap,
+    this.semanticLabel,
+    this.semanticHint,
+    this.excludeFromSemantics = false,
+    this.wrapper,
+    this.separatorInset,
+    this.paintsOwnBackground = false,
   });
 
   /// One action for the entire row; the accent label is not a nested button.
@@ -80,9 +91,18 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
        leadingExtent = null,
        iconForeground = null,
        selected = null,
-       trailingSpacing = AcademyTokens.inlineGap,
+       trailingSpacing = null,
        chevron = null,
-       pressedColor = null;
+       pressedColor = null,
+       trailingText = null,
+       trailingTextStyle = null,
+       leadingGap = null,
+       semanticLabel = null,
+       semanticHint = null,
+       excludeFromSemantics = false,
+       wrapper = null,
+       separatorInset = null,
+       paintsOwnBackground = false;
 
   final AcademyTone? tone;
   final AcademyRowIcons? iconColorRole;
@@ -102,7 +122,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
   final Widget? trailing;
 
   /// Navigation accessory; does not reserve space when hidden.
-  final bool showChevron;
+  final bool? showChevron;
   final VoidCallback? onPressed;
 
   /// Small caption above the title, for example a city above a hotel.
@@ -129,8 +149,30 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
   /// Exposes the selected state to accessibility.
   final bool? selected;
 
-  /// Gap before [trailing].
-  final double trailingSpacing;
+  /// Gap before [trailing]; default: the table theme's.
+  final double? trailingSpacing;
+
+  /// One line of text beside [trailing], at most 170pt wide.
+  final String? trailingText;
+  final TextStyle? trailingTextStyle;
+
+  /// Gap after the leading content; default: the table theme's.
+  final double? leadingGap;
+
+  /// Replaces what accessibility reads from the row's content.
+  final String? semanticLabel;
+  final String? semanticHint;
+  final bool excludeFromSemantics;
+
+  /// Wraps the finished row, for example in a Dismissible.
+  final Widget Function(BuildContext context, Widget child)? wrapper;
+
+  /// Fixed separator start under this row.
+  final double? separatorInset;
+
+  /// The row paints its own opaque background, so a modal table must not cache
+  /// it in a repaint boundary: the fill follows the sheet while scrolling.
+  final bool paintsOwnBackground;
 
   /// Replaces the navigation chevron.
   final Widget? chevron;
@@ -139,12 +181,17 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
   /// fading the content.
   final Color? pressedColor;
   @override
-  double separatorStart(BuildContext context) =>
-      (horizontalPadding ?? AcademyTheme.of(context).paddings.tableRow.left) +
-      (icon != null || leading != null
-          ? (leadingExtent ?? AcademyTheme.of(context).sizes.rowIconExtent) +
-                AcademyTokens.inlineGap
-          : 0);
+  double separatorStart(BuildContext context) {
+    if (separatorInset case final inset?) return inset;
+    final theme = AcademyTheme.of(context);
+    final start = horizontalPadding ?? theme.paddings.tableRow.left;
+    if (!theme.table.separatorFollowsLeading) return start;
+    return start +
+        (icon != null || leading != null
+            ? (leadingExtent ?? theme.sizes.rowIconExtent) +
+                  (leadingGap ?? theme.table.leadingGap)
+            : 0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,8 +204,15 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     final tileColor = tone != null
         ? toneColor
         : iconBackgroundColor ?? iconColorRole?.colorOf(context);
+    final table = theme.table;
+    final gap = leadingGap ?? table.leadingGap;
+    final textVertical = verticalPadding ?? theme.paddings.tableRow.top;
+    final stretchTrailing =
+        trailing is AcademyRowAccessory &&
+        (trailing as AcademyRowAccessory).stretches;
     final titleStyle =
         this.titleStyle ??
+        table.rowTitleStyle ??
         theme.textTheme.bodyRow.copyWith(
           color:
               toneColor ??
@@ -187,61 +241,61 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
                   )),
       ),
     );
-    final content = Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(
-        horizontalPadding ?? AcademyTableRowScope.of(context),
-        verticalPadding ?? AcademyTheme.of(context).paddings.tableRow.top,
-        horizontalPadding ??
-            (!AcademyTableRowScope.contains(context)
-                ? 0
-                : AcademyTheme.of(context).paddings.tableRow.right),
-        verticalPadding ?? AcademyTheme.of(context).paddings.tableRow.bottom,
-      ),
-      child: Row(
-        crossAxisAlignment:
-            crossAxisAlignment ??
-            (eyebrow == null
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start),
-        children: [
-          if (leading != null) ...[
-            if (leadingExtent != null)
-              SizedBox.square(dimension: leadingExtent, child: leading)
-            else
-              SizedBox(
-                width: AcademyTheme.of(context).sizes.rowIconExtent,
-                child: leading,
+    Widget aroundText(Widget child) => table.paddingAroundText
+        ? Padding(
+            padding: EdgeInsets.symmetric(vertical: textVertical),
+            child: child,
+          )
+        : child;
+    final body = Row(
+      crossAxisAlignment: stretchTrailing
+          ? CrossAxisAlignment.stretch
+          : crossAxisAlignment ??
+                (eyebrow == null
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start),
+      children: [
+        if (leading != null) ...[
+          if (leadingExtent != null)
+            SizedBox.square(dimension: leadingExtent, child: leading)
+          else if (table.fixedLeadingColumn)
+            SizedBox(
+              width: AcademyTheme.of(context).sizes.rowIconExtent,
+              child: leading,
+            )
+          else
+            leading!,
+          SizedBox(width: gap),
+        ] else if (icon != null) ...[
+          if (leadingExtent != null)
+            SizedBox(
+              width: leadingExtent,
+              child: Center(
+                heightFactor: 1,
+                child: tileColor != null
+                    ? tile(tileColor)
+                    : AcademySfIcon(
+                        icon!,
+                        size: AcademyTheme.of(context).sizes.rowIcon,
+                        color: CupertinoTheme.of(context).primaryColor,
+                      ),
               ),
-            const SizedBox(width: AcademyTokens.inlineGap),
-          ] else if (icon != null) ...[
-            if (leadingExtent != null)
-              SizedBox(
-                width: leadingExtent,
-                child: Center(
-                  heightFactor: 1,
-                  child: tileColor != null
-                      ? tile(tileColor)
-                      : AcademySfIcon(
-                          icon!,
-                          size: AcademyTheme.of(context).sizes.rowIcon,
-                          color: CupertinoTheme.of(context).primaryColor,
-                        ),
-                ),
-              )
-            else if (tileColor != null)
-              tile(tileColor)
-            else
-              AcademySfIcon(
-                icon!,
-                size: AcademyTheme.of(context).sizes.rowIcon,
-                boxSize: AcademyTheme.of(context).sizes.rowIconExtent,
-                paintExtent: AcademyTheme.of(context).sizes.rowIconExtent,
-                color: CupertinoTheme.of(context).primaryColor,
-              ),
-            const SizedBox(width: AcademyTokens.inlineGap),
-          ],
-          Expanded(
-            child: Column(
+            )
+          else if (tileColor != null)
+            tile(tileColor)
+          else
+            AcademySfIcon(
+              icon!,
+              size: AcademyTheme.of(context).sizes.rowIcon,
+              boxSize: AcademyTheme.of(context).sizes.rowIconExtent,
+              paintExtent: AcademyTheme.of(context).sizes.rowIconExtent,
+              color: CupertinoTheme.of(context).primaryColor,
+            ),
+          SizedBox(width: gap),
+        ],
+        Expanded(
+          child: aroundText(
+            Column(
               crossAxisAlignment: subtitleTextAlign == TextAlign.start
                   ? CrossAxisAlignment.start
                   : CrossAxisAlignment.stretch,
@@ -321,6 +375,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
                           : TextOverflow.ellipsis,
                       style:
                           subtitleStyle ??
+                          table.rowSubtitleStyle ??
                           AcademyTheme.of(context).textTheme.bodyMedium
                               .copyWith(
                                 color: AcademyTheme.of(context)
@@ -340,18 +395,43 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
               ],
             ),
           ),
-          if (trailing != null) ...[
-            SizedBox(width: trailingSpacing),
-            trailing!,
-          ] else if (onPressed != null && actionLabel == null && showChevron)
-            chevron ??
-                AcademySfIcon(
-                  AcademyTheme.of(context).icons.forward,
-                  size: AcademyTheme.of(context).sizes.rowChevron,
-                  color: toneColor,
-                ),
+        ),
+        if (trailingText != null) ...[
+          const SizedBox(width: AcademyTokens.inlineGap),
+          aroundText(
+            AcademyRowTrailingText(trailingText!, style: trailingTextStyle),
+          ),
         ],
+        if (trailing != null) ...[
+          SizedBox(width: trailingSpacing ?? table.trailingSpacing),
+          AcademyRowEnabledScope(enabled: enabled, child: trailing!),
+        ] else if (onPressed != null &&
+            actionLabel == null &&
+            (showChevron ?? table.showChevron))
+          chevron ??
+              table.chevronBuilder?.call(context, 0) ??
+              AcademySfIcon(
+                AcademyTheme.of(context).icons.forward,
+                size: AcademyTheme.of(context).sizes.rowChevron,
+                color: toneColor,
+              ),
+      ],
+    );
+    final endInset =
+        horizontalPadding ??
+        (!AcademyTableRowScope.contains(context)
+            ? 0.0
+            : theme.paddings.tableRow.right);
+    final content = Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(
+        horizontalPadding ?? AcademyTableRowScope.of(context),
+        table.paddingAroundText ? 0 : textVertical,
+        stretchTrailing ? 0 : endInset,
+        table.paddingAroundText
+            ? 0
+            : verticalPadding ?? theme.paddings.tableRow.bottom,
       ),
+      child: stretchTrailing ? IntrinsicHeight(child: body) : body,
     );
     final interaction = GestureDetector(
       onLongPress: enabled ? onLongPress : null,
@@ -363,7 +443,23 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     final accessible = selected == null
         ? merged
         : Semantics(selected: selected, child: merged);
-    final row = onPressed == null
+    final tappable = enabled && (onPressed != null || onLongPress != null);
+    final row = table.press != null && tappable
+        ? ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: minHeight ?? theme.sizes.rowHeight,
+            ),
+            child: PressScale(
+              onTap: onPressed,
+              onLongPress: onLongPress,
+              pressedScale: table.press!.scale,
+              pressDuration: table.press!.duration,
+              releaseDuration: table.press!.duration,
+              pressDelay: table.press!.delay,
+              child: content,
+            ),
+          )
+        : onPressed == null
         ? ConstrainedBox(
             constraints: BoxConstraints(
               minHeight: minHeight ?? AcademyTheme.of(context).sizes.rowHeight,
@@ -400,17 +496,30 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
             ),
             child: accessible,
           );
-    return AcademyInteractionBlocker(
-      enabled: enabled,
-      label: title,
-      value: subtitle,
-      button: onPressed != null,
-      checked: switch (trailing) {
-        final CupertinoSwitch toggle => toggle.value,
-        final AcademySwitch toggle => toggle.value,
-        _ => null,
-      },
-      child: row,
-    );
+    final Widget semantics = excludeFromSemantics
+        ? ExcludeSemantics(child: row)
+        : semanticLabel != null || semanticHint != null
+        ? Semantics(
+            container: true,
+            button: tappable,
+            enabled: enabled,
+            label: semanticLabel,
+            hint: semanticHint,
+            excludeSemantics: semanticLabel != null,
+            child: row,
+          )
+        : AcademyInteractionBlocker(
+            enabled: enabled,
+            label: title,
+            value: subtitle,
+            button: onPressed != null,
+            checked: switch (trailing) {
+              final CupertinoSwitch toggle => toggle.value,
+              final AcademySwitch toggle => toggle.value,
+              _ => null,
+            },
+            child: row,
+          );
+    return wrapper?.call(context, semantics) ?? semantics;
   }
 }

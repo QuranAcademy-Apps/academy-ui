@@ -47,6 +47,7 @@ export 'src/widgets/navigation/academy_page.dart';
 export 'src/widgets/navigation/academy_large_title_page.dart';
 export 'src/widgets/menu/academy_inline_option_menu.dart';
 export 'src/widgets/table/academy_row.dart';
+export 'src/widgets/table/academy_row_accessory.dart';
 export 'src/widgets/table/academy_divider.dart';
 export 'src/foundation/layout/academy_page_insets.dart';
 export 'src/foundation/scroll/academy_scroll_behavior.dart';
