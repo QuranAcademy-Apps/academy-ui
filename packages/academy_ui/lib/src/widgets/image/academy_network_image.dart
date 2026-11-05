@@ -21,6 +21,7 @@ class AcademyNetworkImage extends StatelessWidget {
     this.width,
     this.height,
     this.cacheWidth,
+    this.autoCacheWidth = false,
     this.gaplessPlayback = false,
     this.fit = BoxFit.cover,
     this.alignment = Alignment.center,
@@ -33,6 +34,10 @@ class AcademyNetworkImage extends StatelessWidget {
   final String? semanticLabel;
   final double? width, height;
   final int? cacheWidth;
+
+  /// Decodes at [width] times the device pixel ratio, unless [cacheWidth] is
+  /// set: a full-size photo otherwise fills the image cache.
+  final bool autoCacheWidth;
   final bool gaplessPlayback;
   final BoxFit fit;
   final Alignment alignment;
@@ -49,12 +54,18 @@ class AcademyNetworkImage extends StatelessWidget {
       return fallback;
     }
     final loadingLabel = AcademyLocalizations.of(context).imageLoading;
+    final logicalWidth = width;
+    final decodeWidth =
+        cacheWidth ??
+        (autoCacheWidth && logicalWidth != null && logicalWidth.isFinite
+            ? (logicalWidth * MediaQuery.devicePixelRatioOf(context)).round()
+            : null);
     return Image(
       // Keep a lower tier only for the same source; a new URL resets pixels.
       key: gaplessPlayback ? ValueKey(url) : null,
       gaplessPlayback: gaplessPlayback,
       image: ResizeImage.resizeIfNeeded(
-        cacheWidth,
+        decodeWidth,
         null,
         provider?.call(url) ?? NetworkImage(url),
       ),

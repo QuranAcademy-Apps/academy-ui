@@ -1,6 +1,7 @@
 import '../../foundation/localizations/academy_localizations.dart';
 import 'chrome/academy_chrome.dart';
 import 'chrome/academy_chrome_metrics.dart';
+import 'chrome/academy_tabs.dart';
 import '../../foundation/layout/academy_page_insets.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -26,6 +27,8 @@ class AcademyPage extends StatelessWidget {
     this.backgroundColor,
     this.headerBackgroundBuilder,
     this.maxContentWidth = 430,
+    this.hasTabBar = false,
+    this.bottomGap = 16,
   });
   final String title;
   final Widget child;
@@ -38,6 +41,12 @@ class AcademyPage extends StatelessWidget {
   final bool softTopFade;
   final bool resizeToAvoidBottomInset;
   final Color? backgroundColor;
+
+  /// Keeps [AcademyPageInsets.bottomOf] clear of an [AcademyTabScaffold] bar.
+  final bool hasTabBar;
+
+  /// Space above the bottom edge of a page without a tab bar.
+  final double bottomGap;
 
   /// Use infinity for pages with photography that fills the viewport.
   final double maxContentWidth;
@@ -81,6 +90,10 @@ class AcademyPage extends StatelessWidget {
                   width: maxContentWidth,
                   child: AcademyPageInsets(
                     top: top + barHeight + academyChromeContentGap,
+                    bottom: hasTabBar
+                        ? AcademyFloatingTabBar.bottomObstructionOf(context) +
+                              24
+                        : academyChromeBottomOf(context) + bottomGap,
                     child: child,
                   ),
                 ),

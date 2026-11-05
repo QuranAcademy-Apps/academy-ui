@@ -80,8 +80,12 @@ double _modalSheetOffscreenBottomInset(
   final routeHeight = _modalSheetRouteHeight(context);
   if (routeHeight <= 0) return MediaQuery.paddingOf(context).bottom;
   final animation = controller.animation;
-  final restingFraction =
-      animation != null && animation.status == AnimationStatus.completed
+  final settled =
+      animation != null &&
+      (animation.status == AnimationStatus.completed ||
+          controller is _AcademySheetRoute<dynamic> &&
+              controller.restsAtTarget);
+  final restingFraction = settled
       ? animation.value
       : controller.effectiveSnappingConfig.initialSnap;
   final restingHeight = (restingFraction * routeHeight)

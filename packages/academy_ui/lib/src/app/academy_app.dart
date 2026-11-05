@@ -31,6 +31,8 @@ class AcademyApp extends StatefulWidget {
     this.table = const AcademyTableTheme(),
     this.tabBar = const AcademyTabBarTheme(),
     this.chromeMaterial = const AcademyChromeMaterial(),
+    this.chromeBottomInsetOf,
+    this.scrollBehavior = const AcademyScrollBehavior(),
     this.rowIconColors = const {},
     this.chromeColors = const AcademyChromeColors(),
     this.toastBottomObstruction = 0,
@@ -53,6 +55,13 @@ class AcademyApp extends StatefulWidget {
        );
   final Widget home;
   final AcademyAppearanceController? appearance;
+
+  /// See [AcademyThemeData.chromeBottomInsetOf].
+  final double Function(BuildContext context)? chromeBottomInsetOf;
+
+  /// Use [AcademyScrollBehavior.forEnvironment] where a mouse should select
+  /// text rather than drag.
+  final ScrollBehavior scrollBehavior;
   final GlobalKey<NavigatorState>? navigatorKey;
   final String title;
 
@@ -148,6 +157,7 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       table: widget.table,
       tabBar: widget.tabBar,
       chromeMaterial: widget.chromeMaterial,
+      chromeBottomInsetOf: widget.chromeBottomInsetOf,
       rowIconColors: widget.rowIconColors,
       chromeColors: widget.chromeColors,
       colors: widget.colorsBuilder?.call(brightness, appearance.accent),
@@ -165,7 +175,7 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: widget.supportedLocales,
-      scrollBehavior: const AcademyScrollBehavior(),
+      scrollBehavior: widget.scrollBehavior,
       builder: (_, child) => AcademyTheme(
         data: theme,
         child: AcademyChromeTheme(

@@ -4,12 +4,14 @@ import '../../foundation/localizations/academy_localizations.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class AcademyRingProgress extends StatelessWidget {
   /// A labelled 36 pt ring in the theme's primary color.
   const AcademyRingProgress({super.key, required this.value})
     : size = 36,
       color = null,
+      listenable = null,
       _inset = 2,
       _trackOpacity = .2,
       _curve = Curves.linear,
@@ -19,32 +21,60 @@ class AcademyRingProgress extends StatelessWidget {
   /// (the theme's primary color when null): 1.5 pt inset, 22% track, eased.
   const AcademyRingProgress.fill({super.key, required this.value, this.color})
     : size = null,
+      listenable = null,
       _inset = 1.5,
       _trackOpacity = .22,
       _curve = Curves.easeOut,
       _labelled = false;
 
+  /// [AcademyRingProgress.fill] for a value that changes often, such as a
+  /// download: each tick repaints only this ring, not the list around it.
+  const AcademyRingProgress.listenable({
+    super.key,
+    required ValueListenable<double> this.listenable,
+    this.color,
+  }) : value = 0,
+       size = null,
+       _inset = 1.5,
+       _trackOpacity = .22,
+       _curve = Curves.easeOut,
+       _labelled = false;
+
   final double value;
   final double? size;
   final Color? color;
+  final ValueListenable<double>? listenable;
   final double _inset, _trackOpacity;
   final Curve _curve;
   final bool _labelled;
 
   @override
   Widget build(BuildContext context) {
+    final listenable = this.listenable;
+    return listenable == null
+        ? _ring(context, value)
+        : ValueListenableBuilder<double>(
+            valueListenable: listenable,
+            builder: (context, value, _) => _ring(context, value),
+          );
+  }
+
+  Widget _ring(BuildContext context, double value) {
     final ring = TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: value.clamp(0, 1)),
       duration: MediaQuery.disableAnimationsOf(context)
           ? Duration.zero
           : AcademyTokens.progressMotion,
       curve: _curve,
-      builder: (context, v, child) => CustomPaint(
-        painter: _Ring(
-          v,
-          color ?? CupertinoTheme.of(context).primaryColor,
-          _inset,
-          _trackOpacity,
+      // Its own layer: a running ring must not repaint what surrounds it.
+      builder: (context, v, child) => RepaintBoundary(
+        child: CustomPaint(
+          painter: _Ring(
+            v,
+            color ?? CupertinoTheme.of(context).primaryColor,
+            _inset,
+            _trackOpacity,
+          ),
         ),
       ),
     );

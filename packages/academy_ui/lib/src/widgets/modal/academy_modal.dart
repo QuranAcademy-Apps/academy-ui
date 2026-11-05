@@ -76,6 +76,7 @@ Future<T?> showAcademyModal<T>(
   bool useRootNavigator = false,
   RouteSnapshotMode backgroundSnapshotMode =
       RouteSnapshotMode.animatingAndScrolling,
+  bool clipContent = true,
 }) {
   assert(headerFadeExtent >= 0 && headerFadeExtent.isFinite);
   final initial =
@@ -108,6 +109,7 @@ Future<T?> showAcademyModal<T>(
             headerFadeExtent: headerFadeExtent,
             grouped: grouped,
             header: header,
+            clipContent: clipContent,
             builder: builder,
             restingDetent: initial,
             autoHeight: autoHeight,
@@ -151,6 +153,7 @@ Future<T?> pushAcademyModalPage<T>(
         headerBehavior: headerBehavior ?? scope.headerBehavior,
         headerFadeExtent: headerFadeExtent ?? scope.headerFadeExtent,
         grouped: grouped ?? scope.grouped,
+        clipContent: scope.clipContent,
       ),
     ),
   );
@@ -172,6 +175,7 @@ class _ModalFlowScope extends InheritedWidget {
     required this.headerBehavior,
     required this.headerFadeExtent,
     required this.grouped,
+    required this.clipContent,
     required super.child,
   });
   final void Function(Object?) close;
@@ -180,6 +184,7 @@ class _ModalFlowScope extends InheritedWidget {
   final AcademyModalHeaderBehavior headerBehavior;
   final double headerFadeExtent;
   final bool grouped;
+  final bool clipContent;
   static _ModalFlowScope? maybeOf(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<_ModalFlowScope>();
   @override
@@ -188,7 +193,8 @@ class _ModalFlowScope extends InheritedWidget {
       nestedNavigation != oldWidget.nestedNavigation ||
       headerBehavior != oldWidget.headerBehavior ||
       headerFadeExtent != oldWidget.headerFadeExtent ||
-      grouped != oldWidget.grouped;
+      grouped != oldWidget.grouped ||
+      clipContent != oldWidget.clipContent;
 }
 
 class _ModalHost extends StatefulWidget {
@@ -204,9 +210,11 @@ class _ModalHost extends StatefulWidget {
     required this.headerFadeExtent,
     required this.grouped,
     required this.header,
+    required this.clipContent,
   });
   final String? title;
   final bool header;
+  final bool clipContent;
   final WidgetBuilder builder;
   final void Function(Object?) close;
   final ModalSheetDetent restingDetent;
@@ -240,6 +248,7 @@ class _ModalHostState extends State<_ModalHost> {
     headerBehavior: widget.headerBehavior,
     headerFadeExtent: widget.headerFadeExtent,
     grouped: widget.grouped,
+    clipContent: widget.clipContent,
     child: ModalDetentFocus(
       restingDetent: widget.restingDetent,
       focusedDetent: widget.expandOnFocus
@@ -260,6 +269,7 @@ class _ModalHostState extends State<_ModalHost> {
                     headerFadeExtent: widget.headerFadeExtent,
                     grouped: widget.grouped,
                     header: widget.header,
+                    clipContent: widget.clipContent,
                   ),
                 ),
               ),
@@ -271,6 +281,7 @@ class _ModalHostState extends State<_ModalHost> {
               headerFadeExtent: widget.headerFadeExtent,
               grouped: widget.grouped,
               header: widget.header,
+              clipContent: widget.clipContent,
             ),
     ),
   );
@@ -286,6 +297,7 @@ class AcademyModalScaffold extends StatelessWidget {
     this.headerFadeExtent = 24,
     this.grouped = false,
     this.header = true,
+    this.clipContent = true,
   }) : assert(headerFadeExtent >= 0 && headerFadeExtent < double.infinity);
   final String? title;
   final WidgetBuilder builder;
@@ -298,6 +310,13 @@ class AcademyModalScaffold extends StatelessWidget {
 
   /// Grouped page background instead of the card surface.
   final bool grouped;
+
+  /// Clips content that scrolls under the header to the sheet's rounded
+  /// corners. A rounded clip renders that content offscreen on every scroll
+  /// frame, so a text-heavy list can drop frames. When false, only the header
+  /// fade is clipped; opaque content must then mask its own fill with
+  /// [ModalSheetMaskedFill], as tables and surfaces already do.
+  final bool clipContent;
 
   @override
   Widget build(BuildContext context) {
@@ -336,59 +355,56 @@ class AcademyModalScaffold extends StatelessWidget {
       top: underlap ? headerHeight : 0,
       child: Builder(builder: builder),
     );
+    Widget rounded(Widget child) => ClipPath(
+      // A normal clip, without saveLayer, keeps custom scroll content and the
+      // edge gradient inside the sheet's upper corners.
+      clipper: ShapeBorderClipper(
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(theme.radii.modal),
+          ),
+        ),
+      ),
+      child: child,
+    );
+    final fade = RepaintBoundary(
+      child: IgnorePointer(
+        child: ExcludeSemantics(
+          child: DecoratedBox(
+            key: const ValueKey('academy-modal-header-fade'),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [background, background.withValues(alpha: 0)],
+                stops: [
+                  (1 - headerFadeExtent / headerHeight).clamp(0.0, 1.0),
+                  1,
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    Widget underlapped() => Stack(
+      children: [
+        Positioned.fill(child: content),
+        if (headerBehavior == AcademyModalHeaderBehavior.fade)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: headerHeight,
+            child: clipContent ? fade : rounded(fade),
+          ),
+        Positioned(top: 0, left: 0, right: 0, child: header),
+      ],
+    );
     return ModalSheetRoundedSurface(
       color: background,
       child: underlap
-          ? ClipPath(
-              // A normal clip, without saveLayer, keeps custom scroll content
-              // and the edge gradient inside the sheet's upper corners.
-              clipper: ShapeBorderClipper(
-                shape: RoundedSuperellipseBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(theme.radii.modal),
-                  ),
-                ),
-              ),
-              child: Stack(
-                children: [
-                  Positioned.fill(child: content),
-                  if (headerBehavior == AcademyModalHeaderBehavior.fade)
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: headerHeight,
-                      child: RepaintBoundary(
-                        child: IgnorePointer(
-                          child: ExcludeSemantics(
-                            child: DecoratedBox(
-                              key: const ValueKey('academy-modal-header-fade'),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    background,
-                                    background.withValues(alpha: 0),
-                                  ],
-                                  stops: [
-                                    (1 - headerFadeExtent / headerHeight).clamp(
-                                      0.0,
-                                      1.0,
-                                    ),
-                                    1,
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  Positioned(top: 0, left: 0, right: 0, child: header),
-                ],
-              ),
-            )
+          ? (clipContent ? rounded(underlapped()) : underlapped())
           : Column(
               children: [
                 if (this.header) header,
@@ -406,13 +422,16 @@ class AcademyModalListView extends StatelessWidget {
     required this.children,
     this.padding,
     this.controller,
+    this.physics,
   });
   final List<Widget> children;
   final EdgeInsets? padding;
   final ScrollController? controller;
+  final ScrollPhysics? physics;
   @override
   Widget build(BuildContext context) => ListView(
     controller: controller,
+    physics: physics,
     padding: (padding ?? AcademyTheme.of(context).paddings.modal).copyWith(
       top:
           (padding ?? AcademyTheme.of(context).paddings.modal).top +
@@ -427,11 +446,18 @@ class AcademyModalListView extends StatelessWidget {
 }
 
 class AcademyModalScrollView extends StatelessWidget {
-  const AcademyModalScrollView({super.key, required this.child, this.padding});
+  const AcademyModalScrollView({
+    super.key,
+    required this.child,
+    this.padding,
+    this.physics,
+  });
   final Widget child;
   final EdgeInsets? padding;
+  final ScrollPhysics? physics;
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
+    physics: physics,
     padding: (padding ?? AcademyTheme.of(context).paddings.modal).copyWith(
       top:
           (padding ?? AcademyTheme.of(context).paddings.modal).top +
@@ -509,15 +535,32 @@ class _AcademyModalSearchState extends State<AcademyModalSearch> {
 /// home indicator are consumed like a SafeArea. Scroll views do not need it:
 /// use [AcademyModalListView] or add [ModalSheetScrollInsets.of] to padding.
 class AcademyModalFit extends StatelessWidget {
-  const AcademyModalFit({super.key, required this.child});
+  const AcademyModalFit({
+    super.key,
+    required this.child,
+    this.minimumBottom = 0,
+  });
   final Widget child;
+
+  /// Least space above the screen edge, for devices without a home indicator.
+  final double minimumBottom;
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: EdgeInsets.only(bottom: ModalSheetScrollInsets.of(context)),
-    child: MediaQuery.removePadding(
-      context: context,
-      removeBottom: true,
-      child: child,
-    ),
-  );
+  Widget build(BuildContext context) {
+    final view = View.of(context);
+    final safe = view.devicePixelRatio > 0
+        ? view.padding.bottom / view.devicePixelRatio
+        : 0.0;
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom:
+            ModalSheetScrollInsets.of(context) +
+            (minimumBottom - safe).clamp(0.0, double.infinity),
+      ),
+      child: MediaQuery.removePadding(
+        context: context,
+        removeBottom: true,
+        child: child,
+      ),
+    );
+  }
 }

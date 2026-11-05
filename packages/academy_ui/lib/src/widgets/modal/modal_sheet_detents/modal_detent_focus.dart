@@ -51,8 +51,11 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
 
   @override
   void didChangeMetrics() {
-    // Fires on every keyboard frame. Restarting the spring each time would also
-    // pull back a sheet the user has dragged, so only a new height moves it.
+    // Fires on every keyboard frame, before that frame lays out the new route
+    // height. A spring would lag behind it and drag the sheet's top edge under
+    // the status bar, so a sheet at rest moves right away, without one.
+    if (_followMetrics()) return;
+    // Only a new height moves it, which also leaves a dragged sheet alone.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) _applyDetent(onlyIfMoved: true);
     });
@@ -70,12 +73,45 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
     }
   }
 
-  void _applyDetent({bool onlyIfMoved = false}) => _setRouteDetent(
-    _hasFocusInSubtree || widget.keepExpanded
-        ? widget.focusedDetent
-        : widget.restingDetent,
-    onlyIfMoved: onlyIfMoved,
-  );
+  ModalSheetDetent get _detent => _hasFocusInSubtree || widget.keepExpanded
+      ? widget.focusedDetent
+      : widget.restingDetent;
+
+  void _applyDetent({bool onlyIfMoved = false}) =>
+      _setRouteDetent(_detent, onlyIfMoved: onlyIfMoved);
+
+  /// Whether a sheet at rest took the metrics change.
+  bool _followMetrics() {
+    final route = _routeController;
+    if (route is! _AcademySheetRoute<dynamic> ||
+        !route.isCurrent ||
+        !route.restsAtTarget) {
+      return false;
+    }
+    final snap = _snapFor(_detent);
+    if (snap == null) return true;
+    if ((snap - (_lastSnap ?? route.effectiveSnappingConfig.initialSnap))
+            .abs() >=
+        0.001) {
+      _lastSnap = snap;
+      route.settleAt(snap);
+    }
+    return true;
+  }
+
+  double? _snapFor(ModalSheetDetent detent) {
+    final routeHeight = _modalSheetRouteHeight(context);
+    if (routeHeight <= 0) return null;
+    final snap =
+        (effectiveLandscapeModalDetent(
+                  context,
+                  detent,
+                ).heightOf(context, autoHeight: widget.autoHeight) /
+                routeHeight)
+            .clamp(0.0, 1.0)
+            .toDouble();
+    return snap <= 0 ? null : snap;
+  }
 
   void _handlePrimaryFocusChanged() {
     if (!mounted) return;
@@ -108,17 +144,8 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
   void _setRouteDetent(ModalSheetDetent detent, {required bool onlyIfMoved}) {
     final controller = _routeController;
     if (controller == null) return;
-    final routeHeight = _modalSheetRouteHeight(context);
-    if (routeHeight <= 0) return;
-    final snap =
-        (effectiveLandscapeModalDetent(
-                  context,
-                  detent,
-                ).heightOf(context, autoHeight: widget.autoHeight) /
-                routeHeight)
-            .clamp(0.0, 1.0)
-            .toDouble();
-    if (snap <= 0) return;
+    final snap = _snapFor(detent);
+    if (snap == null) return;
     final last = _lastSnap ?? controller.effectiveSnappingConfig.initialSnap;
     if (onlyIfMoved && (snap - last).abs() < 0.001) return;
     _lastSnap = snap;

@@ -402,7 +402,9 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
       return Positioned(
         left: 16 + mediaPadding.left,
         right: 16 + mediaPadding.right,
-        top: mediaPadding.top + widget.top,
+        top:
+            (theme.toast.topInsetOf?.call(context) ?? mediaPadding.top) +
+            widget.top,
         child: child,
       );
     }

@@ -122,12 +122,20 @@ class AcademyPicker<T extends Object> extends StatefulWidget {
     required this.labelFor,
     required this.onChanged,
     this.height = 216,
+    this.diameterRatio = 1.07,
+    this.changeReportingBehavior = ChangeReportingBehavior.onScrollUpdate,
   }) : assert(items.length > 0);
   final List<T> items;
   final T value;
   final String Function(T) labelFor;
   final ValueChanged<T>? onChanged;
   final double height;
+
+  /// See [CupertinoPicker.diameterRatio].
+  final double diameterRatio;
+
+  /// Use [ChangeReportingBehavior.onScrollEnd] when [onChanged] does real work.
+  final ChangeReportingBehavior changeReportingBehavior;
   @override
   State<AcademyPicker<T>> createState() => _AcademyPickerState<T>();
 }
@@ -185,6 +193,8 @@ class _AcademyPickerState<T extends Object> extends State<AcademyPicker<T>> {
               },
               child: CupertinoPicker.builder(
                 scrollController: _controller,
+                diameterRatio: widget.diameterRatio,
+                changeReportingBehavior: widget.changeReportingBehavior,
                 itemExtent: (MediaQuery.textScalerOf(context).scale(18) + 20)
                     .clamp(44, double.infinity),
                 onSelectedItemChanged: (index) {

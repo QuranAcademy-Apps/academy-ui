@@ -177,7 +177,9 @@ SF Symbols задаются через `AcademySymbols` или `flutter_sficon`,
 разрешаются платформой; веб использует доступный Flutter fallback, если SF недоступен.
 Для своей оболочки приложения
 используйте `academyTheme`, `AcademyTheme`, `AcademyChromeTheme` над Navigator
-и `AcademyScrollBehavior`.
+и `AcademyScrollBehavior`. `AcademyScrollBehavior.forEnvironment` включает перетаскивание
+мышью только на нативных платформах Apple (передаётся в `AcademyApp.scrollBehavior`), а
+`AcademySelectionSafeScrollBoundary` оставляет мыши выделение текста внутри своего поддерева.
 
 ## Отклик кнопок
 
@@ -248,6 +250,19 @@ padding на уровне самого списка. Фиксированный 
 `separate` для форм и компактных picker. Длина перехода задаётся через
 `headerFadeExtent` (24 по умолчанию). `pushAcademyModalPage` наследует настройки
 корневой модалки, при необходимости их можно переопределить для страницы.
+
+Контент под баром по умолчанию клипуется по скруглённым углам шита. Скруглённый
+клип рендерит этот контент вне экрана на каждом кадре скролла, поэтому длинный
+текстовый список может терять кадры. `clipContent: false` клипует только фейд;
+непрозрачный контент тогда сам маскирует заливку через `ModalSheetMaskedFill`, как
+уже делают таблицы и поверхности. Включайте после замера в `--profile` на устройстве.
+
+`AcademyModalFit(minimumBottom: 8)` держит закреплённый низ над плоским краем экрана,
+а `AcademyModalListView` и `AcademyModalScrollView` принимают `physics`.
+
+Экран с тяжёлой загрузкой подмешивает `AcademyDeferredRouteInit` и выполняет её в
+`onRouteTransitionComplete`, уже после анимации перехода и подъёма шита. Значения,
+нужные первому кадру (например, у переключателя), читайте синхронно в `initState`.
 Стандартные modal scroll views добавляют высоту бара к **контентному** верхнему
 отступу, сохраняя начальное положение первой строки. Для собственного scroll view
 добавляйте `AcademyModalContentInsets.topOf(context)` к верхнему padding списка.
@@ -286,6 +301,22 @@ rounded clip над списком; режимы под баром исполь�
 Список читает `AcademyPageInsets.topOf(context)` **внутри** `AcademyPage`.
 Нижний padding равен `AcademyFloatingTabBar.bottomObstructionOf(context)` плюс
 нужный зазор, чтобы последний элемент был доступен. Пример показывает оба отступа.
+
+`AcademyPageInsets.bottomOf(context)` отдаёт готовый нижний отступ: на странице с
+`hasTabBar: true` он учитывает таббар, на остальных равен safe area (минимум 8) плюс
+`bottomGap` (16 по умолчанию).
+
+Для списка со своим `ScrollController` оберните его в `AcademyScrollToTop`: Flutter
+сам обрабатывает тап по статус-бару только у `PrimaryScrollController`.
+`AcademyStableTopInset` не даёт контенту прыгать, когда экран скрывает статус-бар;
+чтобы отступ был верным с первого кадра, вызывайте
+`AcademyTopInsetMemory.instance.observe(mediaQuery)` у корня приложения.
+
+На Android задайте `chromeBottomInsetOf` темы через
+`academyAndroidChromeBottomInset(mediaQuery, roundedCornerInset:, gestureNavigation:)`:
+радиус углов и режим навигации приложение получает из своего нативного канала.
+`academyNormalizedAndroidLandscape` выравнивает боковые инсеты в landscape; это
+эвристика, проверяйте её на своих устройствах.
 
 ## Компактные контролы и меню
 
@@ -343,6 +374,7 @@ rounded clip над списком; режимы под баром исполь�
 из обычных и модальных экранов. Для своей оболочки используйте `AcademyToastHost`
 над Navigator. При необходимости задайте `toastBottomObstruction` в AcademyApp
 или `bottomObstruction` в отдельном host, чтобы учесть нижнюю панель.
+`AcademyToastTheme.topInsetOf` опускает верхний `AcademyToastOverlay` ниже навбара.
 
 ```dart
 AcademyToastHost.show(
@@ -379,6 +411,8 @@ AcademyToastHost.show(
 - `AcademySfIcon(scaleWithText: true, mirrorInRtl: false)` — символ следует системному масштабу текста и не подменяет `back`/`forward` в RTL. По умолчанию размер фиксирован, стрелки подменяются.
 - `AcademySwitch(value:, onChanged:, activeTrackColor:)` — переключатель 51 × 31; цвет по умолчанию — `accentFill`.
 - `AcademyFeedback.compact(message:, onRetry:, retryLabel:)` — текст по центру и необязательная кнопка повтора; подпись приходит от приложения.
+- `AcademyRingProgress.listenable(listenable:, color:)` — кольцо для частых обновлений: тик перерисовывает только его.
+- `AcademyNetworkImage(autoCacheWidth: true)` и `AcademyImage(cacheWidth:)` — декодирование под размер показа.
 - `AcademyRingProgress.fill(value:, color:)` — кольцо на всё место родителя (inset 1.5, дорожка 22 %, `easeOut`, без семантики).
 - `AcademySegmentedControl(height:, backgroundColor:, selectedColor:, textColor:, selectionBorderColor:, selectionShadowColor:)` — точная высота (без 44 pt зоны) и цвета палитры хоста.
 - `AcademySearchBar(onClear:)` — вызывается после очистки поля кнопкой.

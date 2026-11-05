@@ -316,6 +316,20 @@ Future<T?> showAcademyModalRoute<T>({
 }
 
 class _AcademySheetRoute<T> extends StupidSimpleSheetRoute<T> {
+  /// Whether the sheet stands where it was last sent, rather than opening,
+  /// being dragged or on its way.
+  bool get restsAtTarget {
+    final target = animationTargetValue, value = controller?.value;
+    return target != null && value != null && (value - target).abs() < 0.001;
+  }
+
+  /// Moves the sheet to [fraction] within the coming frame, without a spring.
+  void settleAt(double fraction) {
+    animationTargetValue = fraction;
+    stickingPoint = fraction;
+    controller?.animateWith(_SettledSimulation(fraction));
+  }
+
   _AcademySheetRoute({
     required bool moveAboveKeyboard,
     required super.child,
@@ -358,4 +372,16 @@ class _ModalKeyboardScope extends InheritedWidget {
   @override
   bool updateShouldNotify(_ModalKeyboardScope oldWidget) =>
       moveAboveKeyboard != oldWidget.moveAboveKeyboard;
+}
+
+/// Holds one position; finishes on its first tick.
+class _SettledSimulation extends Simulation {
+  _SettledSimulation(this.position);
+  final double position;
+  @override
+  double x(double time) => position;
+  @override
+  double dx(double time) => 0;
+  @override
+  bool isDone(double time) => true;
 }

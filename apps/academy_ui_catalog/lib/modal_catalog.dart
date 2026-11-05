@@ -10,12 +10,14 @@ class ModalCatalog extends StatelessWidget {
 
   void _content(
     BuildContext context,
-    AcademyModalHeaderBehavior behavior,
-  ) => showAcademySheet(
+    AcademyModalHeaderBehavior behavior, {
+    bool clipContent = true,
+  }) => showAcademySheet(
     context,
     title: 'Контент',
     height: 420,
     headerBehavior: behavior,
+    clipContent: clipContent,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -170,6 +172,15 @@ class ModalCatalog extends StatelessWidget {
                   builder: (_) => const AcademyModalListView(
                     children: [Text('Начальная высота — full.')],
                   ),
+                ),
+              ),
+              AcademyRow(
+                title: 'Контент · без клипа',
+                subtitle: 'Для замера плавности и проверки углов',
+                onPressed: () => _content(
+                  context,
+                  AcademyModalHeaderBehavior.fade,
+                  clipContent: false,
                 ),
               ),
               AcademyRow(

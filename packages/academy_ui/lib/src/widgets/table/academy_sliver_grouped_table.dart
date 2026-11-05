@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../foundation/surface/academy_surface_mask.dart';
 import '../../foundation/table/academy_table_row_scope.dart';
 import '../../theme/academy_theme.dart';
 import 'academy_table.dart';
@@ -38,6 +39,7 @@ class AcademySliverGroupedTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final corner = Radius.circular(cornerRadius ?? theme.radii.table);
+    final inModal = ModalSheetSurfaceScope.isInModalSheet(context);
     // A separator starts where the previous row's content does. Remembering
     // that spares building the previous row a second time just to ask it.
     final rowStarts = <int, double>{};
@@ -50,6 +52,7 @@ class AcademySliverGroupedTable extends StatelessWidget {
         if (header != null) SliverToBoxAdapter(child: header),
         SliverList.builder(
           itemCount: itemCount,
+          addRepaintBoundaries: !inModal,
           itemBuilder: (context, index) {
             final row = itemBuilder(context, index);
             rowStarts[index] = rowStart(context, row);
@@ -63,39 +66,44 @@ class AcademySliverGroupedTable extends StatelessWidget {
                 rowStarts[index - 1] ??
                 rowStart(context, itemBuilder(context, index - 1));
 
+            final content = Padding(
+              padding: EdgeInsets.only(
+                top: first ? edgePadding : 0,
+                bottom: last ? edgePadding : 0,
+              ),
+              child: Column(
+                children: [
+                  if (!first)
+                    AcademyTableSeparator(start: start(), end: separatorEnd),
+                  if (insetCustomRows && row is! AcademyTableRowGeometry)
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: theme.paddings.tableRow.left,
+                      ),
+                      // Custom content keeps its own width, centered.
+                      child: Center(heightFactor: 1, child: row),
+                    )
+                  else
+                    AcademyTableRowScope(child: row),
+                ],
+              ),
+            );
+            // A rounded clip over scrolling rows renders them offscreen on
+            // every frame, and the mask of a sheet's corners repaints: cache
+            // the glyphs apart from it.
+            if (inModal) {
+              return ModalSheetMaskedFill(
+                color: theme.colorScheme.surface,
+                borderRadius: radius,
+                child: RepaintBoundary(child: content),
+              );
+            }
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 borderRadius: radius,
               ),
-              child: ClipRRect(
-                borderRadius: radius,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: first ? edgePadding : 0,
-                    bottom: last ? edgePadding : 0,
-                  ),
-                  child: Column(
-                    children: [
-                      if (!first)
-                        AcademyTableSeparator(
-                          start: start(),
-                          end: separatorEnd,
-                        ),
-                      if (insetCustomRows && row is! AcademyTableRowGeometry)
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: theme.paddings.tableRow.left,
-                          ),
-                          // Custom content keeps its own width, centered.
-                          child: Center(heightFactor: 1, child: row),
-                        )
-                      else
-                        AcademyTableRowScope(child: row),
-                    ],
-                  ),
-                ),
-              ),
+              child: ClipRRect(borderRadius: radius, child: content),
             );
           },
         ),

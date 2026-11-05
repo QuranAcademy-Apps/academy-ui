@@ -5,9 +5,17 @@ import 'package:flutter/cupertino.dart';
 import '../../theme/academy_theme.dart';
 
 class AcademyImage extends StatelessWidget {
-  const AcademyImage({super.key, this.url, required this.label});
+  const AcademyImage({
+    super.key,
+    this.url,
+    required this.label,
+    this.cacheWidth,
+  });
   final String? url;
   final String label;
+
+  /// Decode width in pixels: a full-size photo otherwise fills the image cache.
+  final int? cacheWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +60,7 @@ class AcademyImage extends StatelessWidget {
             ? fallback
             : Image.network(
                 url!,
+                cacheWidth: cacheWidth,
                 fit: BoxFit.cover,
                 semanticLabel: label,
                 frameBuilder: (_, child, frame, synchronous) => frame == null

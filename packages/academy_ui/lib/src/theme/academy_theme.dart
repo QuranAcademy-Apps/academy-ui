@@ -108,6 +108,7 @@ class AcademyThemeData {
     this.table = const AcademyTableTheme(),
     this.tabBar = const AcademyTabBarTheme(),
     this.chromeMaterial = const AcademyChromeMaterial(),
+    this.chromeBottomInsetOf,
     this.switchColor,
     this.checkmarkColor,
     this.feedbackLoadingIndicator,
@@ -129,6 +130,10 @@ class AcademyThemeData {
 
   /// Look and placement of the tab bar.
   final AcademyTabBarTheme tabBar;
+
+  /// Replaces [academyChromeBottomOf], for example with
+  /// [academyAndroidChromeBottomInset]. Must not call it back.
+  final double Function(BuildContext context)? chromeBottomInsetOf;
 
   /// Surface of chrome controls.
   final AcademyChromeMaterial chromeMaterial;
@@ -165,6 +170,7 @@ class AcademyThemeData {
     AcademyTableTheme? table,
     AcademyTabBarTheme? tabBar,
     AcademyChromeMaterial? chromeMaterial,
+    double Function(BuildContext context)? chromeBottomInsetOf,
     Color? switchColor,
     Color? checkmarkColor,
     Widget? feedbackLoadingIndicator,
@@ -184,6 +190,7 @@ class AcademyThemeData {
     table: table ?? this.table,
     tabBar: tabBar ?? this.tabBar,
     chromeMaterial: chromeMaterial ?? this.chromeMaterial,
+    chromeBottomInsetOf: chromeBottomInsetOf ?? this.chromeBottomInsetOf,
     switchColor: switchColor ?? this.switchColor,
     checkmarkColor: checkmarkColor ?? this.checkmarkColor,
     feedbackLoadingIndicator:
@@ -227,6 +234,7 @@ AcademyThemeData academyTheme(
   AcademyTableTheme table = const AcademyTableTheme(),
   AcademyTabBarTheme tabBar = const AcademyTabBarTheme(),
   AcademyChromeMaterial chromeMaterial = const AcademyChromeMaterial(),
+  double Function(BuildContext context)? chromeBottomInsetOf,
   Color? switchColor,
   Color? checkmarkColor,
   Widget? feedbackLoadingIndicator,
@@ -246,6 +254,7 @@ AcademyThemeData academyTheme(
   table: table,
   tabBar: tabBar,
   chromeMaterial: chromeMaterial,
+  chromeBottomInsetOf: chromeBottomInsetOf,
   switchColor: switchColor,
   checkmarkColor: checkmarkColor,
   feedbackLoadingIndicator: feedbackLoadingIndicator,

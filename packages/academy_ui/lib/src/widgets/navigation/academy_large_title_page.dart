@@ -87,6 +87,7 @@ class _AcademyLargeTitlePageState extends State<AcademyLargeTitlePage> {
         child: AcademyPage(
           title: widget.title,
           showBackButton: !widget.tab,
+          hasTabBar: widget.tab,
           headerBackgroundBuilder: (context, _) => AnimatedBuilder(
             key: const ValueKey('large-title-header-background'),
             animation: _scroll,

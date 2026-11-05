@@ -6,11 +6,24 @@ import 'package:flutter/physics.dart';
 
 /// Touch uses native bounce; wheel input gets a viewport-only edge spring.
 class AcademyScrollBehavior extends CupertinoScrollBehavior {
-  const AcademyScrollBehavior();
+  const AcademyScrollBehavior({this.mouseDrag = true});
+
+  /// Mouse dragging only where the platform has native Apple pointers. A mouse
+  /// drag elsewhere would scroll instead of selecting text.
+  factory AcademyScrollBehavior.forEnvironment({
+    required TargetPlatform platform,
+    required bool isWeb,
+  }) => AcademyScrollBehavior(
+    mouseDrag:
+        !isWeb &&
+        (platform == TargetPlatform.macOS || platform == TargetPlatform.iOS),
+  );
+
+  final bool mouseDrag;
   @override
   Set<PointerDeviceKind> get dragDevices => {
     ...super.dragDevices,
-    PointerDeviceKind.mouse,
+    if (mouseDrag) PointerDeviceKind.mouse,
   };
   @override
   ScrollPhysics getScrollPhysics(BuildContext context) =>
@@ -21,6 +34,24 @@ class AcademyScrollBehavior extends CupertinoScrollBehavior {
     Widget child,
     ScrollableDetails details,
   ) => _WheelEdgeSpring(details: details, child: child);
+}
+
+/// Lets a mouse select text inside [child], keeping every other inherited
+/// scroll setting. Wrap scrollables that contain selectable or editable text.
+class AcademySelectionSafeScrollBoundary extends StatelessWidget {
+  const AcademySelectionSafeScrollBoundary({super.key, required this.child});
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    final behavior = ScrollConfiguration.of(context);
+    if (!behavior.dragDevices.contains(PointerDeviceKind.mouse)) return child;
+    return ScrollConfiguration(
+      behavior: behavior.copyWith(
+        dragDevices: behavior.dragDevices.difference({PointerDeviceKind.mouse}),
+      ),
+      child: child,
+    );
+  }
 }
 
 class _WheelEdgeSpring extends StatefulWidget {

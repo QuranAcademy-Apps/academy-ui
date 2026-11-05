@@ -16,12 +16,14 @@ Future<void> showAcademySheet(
   double? height,
   AcademyModalHeaderBehavior headerBehavior = AcademyModalHeaderBehavior.fade,
   double headerFadeExtent = 24,
+  bool clipContent = true,
 }) => showAcademyModal<void>(
   context,
   title: title,
   autoHeight: height,
   headerBehavior: headerBehavior,
   headerFadeExtent: headerFadeExtent,
+  clipContent: clipContent,
   builder: (context) => AcademyModalScrollView(
     padding: AcademyTheme.of(context).paddings.modal,
     child: child,
