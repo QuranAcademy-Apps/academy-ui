@@ -60,6 +60,7 @@ class AcademyChromeColors {
     this.selectedIcon,
     this.selectedLabel,
     this.unselectedForeground,
+    this.unselectedLabel,
     this.border,
     this.shadow,
     this.glassFill,
@@ -95,6 +96,9 @@ class AcademyChromeColors {
   /// Unselected tab symbol and label; default: onSurfaceVariant, contrast-fixed.
   final Color? unselectedForeground;
 
+  /// Unselected tab label; default: [unselectedForeground].
+  final Color? unselectedLabel;
+
   /// Group separators and the selected button rim; default: outlineVariant.
   final Color? border;
 
@@ -110,6 +114,7 @@ class AcademyChromeColors {
       other.selectedIcon == selectedIcon &&
       other.selectedLabel == selectedLabel &&
       other.unselectedForeground == unselectedForeground &&
+      other.unselectedLabel == unselectedLabel &&
       other.border == border &&
       other.shadow == shadow &&
       other.glassFill == glassFill &&
@@ -124,6 +129,7 @@ class AcademyChromeColors {
     selectedIcon,
     selectedLabel,
     unselectedForeground,
+    unselectedLabel,
     border,
     shadow,
     glassFill,
@@ -143,6 +149,7 @@ class AcademyChromeTheme extends InheritedTheme {
     double? blurTintOpacity,
     this.tabBarDensity = AcademyTabBarDensity.standard,
     this.colors,
+    this.reduceTransparency = false,
   }) : blurToneStrength =
            blurToneStrength ??
            blurTintOpacity ??
@@ -166,6 +173,9 @@ class AcademyChromeTheme extends InheritedTheme {
   /// Overrides [AcademyThemeData.chromeColors] below this theme.
   final AcademyChromeColors? colors;
 
+  /// Paints chrome as flat opaque controls and drops edge fades.
+  final bool reduceTransparency;
+
   /// Navigation colors: the nearest override, else the active theme's.
   static AcademyChromeColors colorsOf(BuildContext context) =>
       maybeOf(context)?.colors ?? AcademyTheme.of(context).chromeColors;
@@ -177,7 +187,8 @@ class AcademyChromeTheme extends InheritedTheme {
       blurSigma != oldWidget.blurSigma ||
       blurToneStrength != oldWidget.blurToneStrength ||
       tabBarDensity != oldWidget.tabBarDensity ||
-      colors != oldWidget.colors;
+      colors != oldWidget.colors ||
+      reduceTransparency != oldWidget.reduceTransparency;
   @override
   Widget wrap(BuildContext context, Widget child) => AcademyChromeTheme(
     style: style,
@@ -185,6 +196,7 @@ class AcademyChromeTheme extends InheritedTheme {
     blurToneStrength: blurToneStrength,
     tabBarDensity: tabBarDensity,
     colors: colors,
+    reduceTransparency: reduceTransparency,
     child: child,
   );
 }
@@ -200,6 +212,10 @@ class AcademyChrome extends StatelessWidget {
     this.blurSigma,
     double? blurToneStrength,
     double? blurTintOpacity,
+    this.showShadow = true,
+    this.shadows,
+    this.borderWidth,
+    this.frostsBackdrop = false,
   }) : blurToneStrength = blurToneStrength ?? blurTintOpacity,
        assert(surfaceOpacity >= 0 && surfaceOpacity <= 1),
        assert(
@@ -216,6 +232,19 @@ class AcademyChrome extends StatelessWidget {
   final AcademyChromeStyle? style;
   final double? blurSigma;
   final double? blurToneStrength;
+
+  /// Lets elevation fall on the content under this surface.
+  final bool showShadow;
+
+  /// Elevation; default: [AcademyChromeMaterial.shadows].
+  final List<BoxShadow>? shadows;
+
+  /// Stroke; default: [AcademyChromeMaterial.borderWidth].
+  final double? borderWidth;
+
+  /// Blurs live content behind the surface. Under reduced transparency the
+  /// surface goes away, so that content shows through.
+  final bool frostsBackdrop;
 
   /// Compatibility alias for backdrop tone correction.
   double? get blurTintOpacity => blurToneStrength;
@@ -352,6 +381,73 @@ class AcademyChrome extends StatelessWidget {
     );
   }
 
+  Widget _reduced(BuildContext context, AcademyChromeMaterial material) {
+    if (frostsBackdrop) return child;
+    final theme = AcademyTheme.of(context);
+    final width = borderWidth ?? material.borderWidth;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color:
+            material.reducedFill ??
+            theme.colorScheme.chromeSurface.withValues(alpha: 1),
+        borderRadius: BorderRadius.circular(radius ?? theme.radii.chrome),
+        border: Border.all(
+          color: CupertinoDynamicColor.resolve(
+            material.reducedBorder ?? theme.colorScheme.chromeBorder,
+            context,
+          ),
+          width: width <= 0 ? 1 : width,
+        ),
+      ),
+      child: child,
+    );
+  }
+
+  Widget _stroked(BuildContext context, AcademyChromeMaterial material) {
+    final theme = AcademyTheme.of(context);
+    final resolvedRadius = radius ?? theme.radii.chrome;
+    final borderRadius = BorderRadius.circular(resolvedRadius);
+    final painted = CustomPaint(
+      foregroundPainter: _ChromeStrokePainter(
+        gradient: material.borderGradient!,
+        radius: resolvedRadius,
+        width: borderWidth ?? material.borderWidth,
+      ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          gradient:
+              material.fill ??
+              LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  theme.colorScheme.chromeGradientStart,
+                  theme.colorScheme.chromeGradientEnd,
+                ],
+              ),
+        ),
+        child: child,
+      ),
+    );
+    final sigma = material.backdropBlurSigma;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: borderRadius,
+        boxShadow: showShadow ? shadows ?? material.shadows : const [],
+      ),
+      child: frostsBackdrop
+          ? ClipRRect(
+              borderRadius: borderRadius,
+              child: BackdropFilter.grouped(
+                filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+                child: painted,
+              ),
+            )
+          : painted,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final appearance = AcademyChromeTheme.maybeOf(context);
@@ -359,7 +455,16 @@ class AcademyChrome extends StatelessWidget {
         this.style ?? appearance?.style ?? AcademyChromeStyle.gradient;
     final blurSigma = this.blurSigma ?? appearance?.blurSigma ?? 20;
     if (style == AcademyChromeStyle.none) return child;
-    final p = AcademyTheme.of(context).colorScheme;
+    final theme = AcademyTheme.of(context);
+    final p = theme.colorScheme;
+    final material = theme.chromeMaterial;
+    if (appearance?.reduceTransparency ?? false) {
+      return _reduced(context, material);
+    }
+    if (style == AcademyChromeStyle.gradient &&
+        material.borderGradient != null) {
+      return _stroked(context, material);
+    }
     final highContrast = MediaQuery.highContrastOf(context);
     if (style == AcademyChromeStyle.glass && !highContrast) {
       return AcademyGlassMaterial(
@@ -430,6 +535,40 @@ class AcademyChrome extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ChromeStrokePainter extends CustomPainter {
+  const _ChromeStrokePainter({
+    required this.gradient,
+    required this.radius,
+    required this.width,
+  });
+
+  final Gradient gradient;
+  final double radius, width;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (width <= 0) return;
+    final rect = Offset.zero & size;
+    final inset = width / 2;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        rect.deflate(inset),
+        Radius.circular(radius > inset ? radius - inset : 0),
+      ),
+      Paint()
+        ..shader = gradient.createShader(rect)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = width,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_ChromeStrokePainter oldDelegate) =>
+      oldDelegate.gradient != gradient ||
+      oldDelegate.radius != radius ||
+      oldDelegate.width != width;
 }
 
 class AcademyChromeButton extends StatelessWidget {

@@ -90,6 +90,7 @@ AcademyApp(
 - **Размеры:** `AcademySizes` (`sizes:` в `AcademyApp`) — высоты кнопок, полей и строк, размеры символов.
 - **Шрифты:** `AcademyTypographySettings`: семейство и стиль любой роли, включая `fieldLabel`, `fieldMessage`, `tabText`.
 - **Формы и отступы:** `AcademyRadii`, `AcademyPaddings`.
+- **Панель и таб-бар:** `AcademyChromeMaterial` (`chromeMaterial:`) — заливка, обводка, тень и вид при уменьшенной прозрачности; `AcademyChromeColors` — цвета; `AcademyTabBarTheme` (`tabBar:`) — вид и положение таб-бара. Выбранной вкладкой снаружи управляет `AcademyTabController`.
 - **Таблицы:** `AcademyTableTheme` (`table:`) — заголовки и стили строк, шеврон, отступы, отклик нажатия, разделители. У `AcademyRow` те же настройки есть параметрами; концевые элементы строк — `AcademyRowAccessory`, `AcademyRowDisclosure`, `AcademyRowTrailingText`.
 - **Тосты:** `AcademyToastTheme` (`toast:`) — материал капсулы и нижний отступ `AcademyToastOverlay`.
 - **Подписи:** свой `LocalizationsDelegate<AcademyLocalizations>`.

@@ -1,4 +1,7 @@
+import 'dart:ui' show ImageFilter;
+
 import '../../../theme/academy_theme.dart';
+import 'academy_chrome.dart';
 
 import 'package:flutter/cupertino.dart';
 
@@ -7,10 +10,19 @@ import 'package:flutter/cupertino.dart';
 /// (colour gradient only, no backdrop blur). Fills its parent; size it to the
 /// bar zone plus [extension].
 class AcademyChromeFadeMaterial extends StatelessWidget {
-  const AcademyChromeFadeMaterial({super.key, this.bottom = false});
+  const AcademyChromeFadeMaterial({
+    super.key,
+    this.bottom = false,
+    this.frostsBackdrop = false,
+    this.blurSigma = 18,
+  });
 
   /// Which edge is most opaque: the bottom one when true, otherwise the top.
   final bool bottom;
+
+  /// Also blurs the content behind the plate, dissolving with the same fade.
+  final bool frostsBackdrop;
+  final double blurSigma;
 
   /// Fade tail beyond the bar row, kept short so it reads as an edge.
   static const extension = 8.0;
@@ -24,6 +36,43 @@ class AcademyChromeFadeMaterial extends StatelessWidget {
     final base = dark ? 0.58 : 0.62;
     // A short (landscape phone) viewport would turn the plate into a heavy band.
     final density = MediaQuery.sizeOf(context).height < 500 ? base * 0.6 : base;
+    // Opaque plates would not cull the content under them, so nothing is drawn.
+    if (AcademyChromeTheme.maybeOf(context)?.reduceTransparency ?? false) {
+      return const IgnorePointer(child: SizedBox.expand());
+    }
+    if (frostsBackdrop) {
+      final fade = LinearGradient(
+        begin: bottom ? Alignment.bottomCenter : Alignment.topCenter,
+        end: bottom ? Alignment.topCenter : Alignment.bottomCenter,
+        stops: _stops,
+        colors: [
+          for (final alpha in _alphas)
+            const Color(0xFF000000).withValues(alpha: alpha),
+        ],
+      );
+      return IgnorePointer(
+        child: ClipRect(
+          child: ShaderMask(
+            blendMode: BlendMode.dstIn,
+            shaderCallback: fade.createShader,
+            child: BackdropFilter.grouped(
+              filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
+              child: ColoredBox(
+                color: material.withValues(alpha: density),
+                child: BackdropFilter.grouped(
+                  blendMode: BlendMode.srcOver,
+                  filter: ImageFilter.blur(
+                    sigmaX: blurSigma * 0.45,
+                    sigmaY: blurSigma * 0.45,
+                  ),
+                  child: const SizedBox.expand(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
     return IgnorePointer(
       child: DecoratedBox(
         decoration: BoxDecoration(

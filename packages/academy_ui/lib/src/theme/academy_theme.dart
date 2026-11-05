@@ -1,6 +1,8 @@
 import 'academy_interaction_theme.dart';
 import 'academy_icons.dart';
 import 'academy_sizes.dart';
+import 'academy_chrome_material.dart';
+import 'academy_tab_bar_theme.dart';
 import 'academy_table_theme.dart';
 import 'academy_toast_theme.dart';
 import 'academy_row_icons.dart';
@@ -12,6 +14,8 @@ import 'academy_paddings.dart';
 import 'academy_typography.dart';
 export 'academy_icons.dart';
 export 'academy_sizes.dart';
+export 'academy_chrome_material.dart';
+export 'academy_tab_bar_theme.dart';
 export 'academy_table_theme.dart';
 export 'academy_toast_theme.dart';
 export 'academy_radii.dart';
@@ -102,6 +106,8 @@ class AcademyThemeData {
     this.sizes = const AcademySizes(),
     this.toast = const AcademyToastTheme(),
     this.table = const AcademyTableTheme(),
+    this.tabBar = const AcademyTabBarTheme(),
+    this.chromeMaterial = const AcademyChromeMaterial(),
     this.switchColor,
     this.checkmarkColor,
     this.feedbackLoadingIndicator,
@@ -120,6 +126,12 @@ class AcademyThemeData {
 
   /// Look of tables and rows.
   final AcademyTableTheme table;
+
+  /// Look and placement of the tab bar.
+  final AcademyTabBarTheme tabBar;
+
+  /// Surface of chrome controls.
+  final AcademyChromeMaterial chromeMaterial;
 
   /// [AcademySwitch] track; default: the accent fill.
   final Color? switchColor;
@@ -151,6 +163,8 @@ class AcademyThemeData {
     AcademySizes? sizes,
     AcademyToastTheme? toast,
     AcademyTableTheme? table,
+    AcademyTabBarTheme? tabBar,
+    AcademyChromeMaterial? chromeMaterial,
     Color? switchColor,
     Color? checkmarkColor,
     Widget? feedbackLoadingIndicator,
@@ -168,6 +182,8 @@ class AcademyThemeData {
     sizes: sizes ?? this.sizes,
     toast: toast ?? this.toast,
     table: table ?? this.table,
+    tabBar: tabBar ?? this.tabBar,
+    chromeMaterial: chromeMaterial ?? this.chromeMaterial,
     switchColor: switchColor ?? this.switchColor,
     checkmarkColor: checkmarkColor ?? this.checkmarkColor,
     feedbackLoadingIndicator:
@@ -209,6 +225,8 @@ AcademyThemeData academyTheme(
   AcademySizes sizes = const AcademySizes(),
   AcademyToastTheme toast = const AcademyToastTheme(),
   AcademyTableTheme table = const AcademyTableTheme(),
+  AcademyTabBarTheme tabBar = const AcademyTabBarTheme(),
+  AcademyChromeMaterial chromeMaterial = const AcademyChromeMaterial(),
   Color? switchColor,
   Color? checkmarkColor,
   Widget? feedbackLoadingIndicator,
@@ -226,6 +244,8 @@ AcademyThemeData academyTheme(
   sizes: sizes,
   toast: toast,
   table: table,
+  tabBar: tabBar,
+  chromeMaterial: chromeMaterial,
   switchColor: switchColor,
   checkmarkColor: checkmarkColor,
   feedbackLoadingIndicator: feedbackLoadingIndicator,

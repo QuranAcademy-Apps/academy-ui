@@ -29,6 +29,8 @@ class AcademyApp extends StatefulWidget {
     this.sizes = const AcademySizes(),
     this.toast = const AcademyToastTheme(),
     this.table = const AcademyTableTheme(),
+    this.tabBar = const AcademyTabBarTheme(),
+    this.chromeMaterial = const AcademyChromeMaterial(),
     this.rowIconColors = const {},
     this.chromeColors = const AcademyChromeColors(),
     this.toastBottomObstruction = 0,
@@ -66,6 +68,8 @@ class AcademyApp extends StatefulWidget {
   final AcademySizes sizes;
   final AcademyToastTheme toast;
   final AcademyTableTheme table;
+  final AcademyTabBarTheme tabBar;
+  final AcademyChromeMaterial chromeMaterial;
   final Map<AcademyRowIcons, Color> rowIconColors;
   final AcademyChromeColors chromeColors;
   final double toastBottomObstruction;
@@ -142,6 +146,8 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       sizes: widget.sizes,
       toast: widget.toast,
       table: widget.table,
+      tabBar: widget.tabBar,
+      chromeMaterial: widget.chromeMaterial,
       rowIconColors: widget.rowIconColors,
       chromeColors: widget.chromeColors,
       colors: widget.colorsBuilder?.call(brightness, appearance.accent),
