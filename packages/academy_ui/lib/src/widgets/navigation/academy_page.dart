@@ -8,77 +8,122 @@ import 'package:flutter/cupertino.dart';
 
 import '../../theme/academy_theme.dart';
 
-/// Adapted from Quran AppPageScaffold: opaque navigation + explicit safe area.
+/// Adapted from Quran AppPageScaffold with overlaid chrome and explicit insets;
+/// extended from Yalla's page (2026-11-02): custom leading, bar height,
+/// subtitle, soft top fade, header background and content width.
 class AcademyPage extends StatelessWidget {
   const AcademyPage({
     super.key,
     required this.title,
     required this.child,
     this.trailing,
+    this.leading,
+    this.navigationBarHeight,
+    this.showBackButton = true,
     this.titleWidget,
+    this.subtitle,
+    this.softTopFade = false,
+    this.resizeToAvoidBottomInset = true,
+    this.backgroundColor,
+    this.headerBackgroundBuilder,
+    this.maxContentWidth = 430,
   });
   final String title;
   final Widget child;
   final Widget? trailing;
+  final Widget? leading;
+  final double? navigationBarHeight;
+  final bool showBackButton;
   final Widget? titleWidget;
+  final String? subtitle;
+  final bool softTopFade;
+  final bool resizeToAvoidBottomInset;
+  final Color? backgroundColor;
+
+  /// Use infinity for pages with photography that fills the viewport.
+  final double maxContentWidth;
+  final Widget Function(BuildContext context, Widget defaultBackground)?
+  headerBackgroundBuilder;
   @override
   Widget build(BuildContext context) {
     final top = academyChromeTopOf(context);
-    final barHeight = academyChromeHeightOf(context);
+    final barHeight =
+        navigationBarHeight ??
+        academyChromeHeightOf(context, subtitle: subtitle != null);
+    final edge = Container(
+      height:
+          top + barHeight + (softTopFade ? academyChromeContentGap : 0) + 16,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            AcademyTheme.of(context).scaffoldBackgroundColor,
+            AcademyTheme.of(context).scaffoldBackgroundColor
+                .withValues(alpha: 0),
+          ],
+          stops: softTopFade
+              ? null
+              : [(top + barHeight) / (top + barHeight + 16), 1],
+        ),
+      ),
+    );
     return CupertinoPageScaffold(
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Center(
-              child: SizedBox(
-                width: 430,
-                child: AcademyPageInsets(
-                  top: academyChromeContentTopOf(context),
-                  child: child,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: IgnorePointer(
-              child: Container(
-                height: top + barHeight + 16,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AcademyTheme.of(context).scaffoldBackgroundColor,
-                      AcademyTheme.of(context).scaffoldBackgroundColor
-                          .withValues(alpha: 0),
-                    ],
-                    stops: [(top + barHeight) / (top + barHeight + 16), 1],
+      backgroundColor: backgroundColor,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Center(
+                child: SizedBox(
+                  width: maxContentWidth,
+                  child: AcademyPageInsets(
+                    top: top + barHeight + academyChromeContentGap,
+                    child: child,
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            top: top,
-            left: 0,
-            right: 0,
-            child: AcademyChromeBar(
-              title: titleWidget == null ? title : null,
-              middle: titleWidget,
-              trailing: trailing,
-              leading: Navigator.of(context).canPop()
-                  ? AcademyChromeButton(
-                      icon: AcademySymbols.back,
-                      label: AcademyLocalizations.of(context).back,
-                      onPressed: () => Navigator.maybePop(context),
-                    )
-                  : null,
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: IgnorePointer(
+                child: headerBackgroundBuilder?.call(context, edge) ?? edge,
+              ),
             ),
-          ),
-        ],
+            Positioned(
+              top: top,
+              left: 0,
+              right: 0,
+              child: AcademyChromeBar(
+                height: barHeight,
+                title: titleWidget == null ? title : null,
+                middle: titleWidget,
+                subtitle: subtitle,
+                trailing: trailing == null
+                    ? null
+                    : Align(
+                        alignment: Alignment.topCenter,
+                        widthFactor: 1,
+                        child: trailing,
+                      ),
+                leading:
+                    leading ??
+                    (showBackButton && Navigator.of(context).canPop()
+                        ? AcademyChromeButton(
+                            icon: AcademySymbols.back,
+                            label: AcademyLocalizations.of(context).back,
+                            onPressed: () => Navigator.maybePop(context),
+                          )
+                        : null),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

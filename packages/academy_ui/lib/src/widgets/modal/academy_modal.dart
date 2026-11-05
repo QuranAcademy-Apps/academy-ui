@@ -491,3 +491,21 @@ class _AcademyModalSearchState extends State<AcademyModalSearch> {
   @override
   Widget build(BuildContext context) => widget.child;
 }
+
+/// Keeps content pinned to the bottom (actions, pickers) inside the visible
+/// part of a sheet resting below full height. The off-screen slice and the
+/// home indicator are consumed like a SafeArea. Scroll views do not need it:
+/// use [AcademyModalListView] or add [ModalSheetScrollInsets.of] to padding.
+class AcademyModalFit extends StatelessWidget {
+  const AcademyModalFit({super.key, required this.child});
+  final Widget child;
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: EdgeInsets.only(bottom: ModalSheetScrollInsets.of(context)),
+    child: MediaQuery.removePadding(
+      context: context,
+      removeBottom: true,
+      child: child,
+    ),
+  );
+}

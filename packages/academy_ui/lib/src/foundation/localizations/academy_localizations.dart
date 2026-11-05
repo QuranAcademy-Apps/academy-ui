@@ -40,6 +40,15 @@ class AcademyLocalizations {
       _text('Выбрано: $count', '$count selected', 'تم اختيار $count');
   String get close => _text('Закрыть', 'Close', 'إغلاق');
   String get back => _text('Назад', 'Back', 'رجوع');
+  String get imageLoading =>
+      _text('Загрузка изображения', 'Loading image', 'جار تحميل الصورة');
+  String get closePhotoViewer =>
+      _text('Закрыть просмотр фото', 'Close photo viewer', 'إغلاق عارض الصور');
+  String get closePhotoViewerHint => _text(
+    'Также можно смахнуть фото вниз',
+    'You can also swipe the photo down',
+    'يمكنك أيضًا سحب الصورة لأسفل',
+  );
   String get search => _text('Поиск', 'Search', 'بحث');
   String get closeSearch =>
       _text('Закрыть поиск', 'Close search', 'إغلاق البحث');
@@ -102,7 +111,7 @@ class AcademyLocalizations {
     _ => _text('Обычный', 'Standard', 'قياسي'),
   };
   String clearField(String label) =>
-      _text('Очистить $label', 'Clear $label', 'مسح $label');
+      _text('Очистить поле $label', 'Clear $label', 'مسح $label');
   String count(int completed, int total) => _text(
     '$completed из $total',
     '$completed of $total',

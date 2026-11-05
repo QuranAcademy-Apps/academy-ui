@@ -15,6 +15,7 @@ class AcademyPillButton extends StatelessWidget {
     this.onPressed,
     this.tinted = true,
     this.padding,
+    this.accent = false,
   });
   final String label;
   final IconData? icon;
@@ -25,11 +26,19 @@ class AcademyPillButton extends StatelessWidget {
 
   /// Insets of the visible content; the outer 44pt target is preserved.
   final EdgeInsetsGeometry? padding;
+
+  /// Accent tint ([AcademyColors.primaryContainer]) instead of the secondary
+  /// one, for brands whose secondary color is the call-to-action fill.
+  final bool accent;
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final p = theme.colorScheme;
-    final foreground = onPressed == null ? p.onSurfaceVariant : p.secondary;
+    final foreground = onPressed == null
+        ? p.onSurfaceVariant
+        : accent
+        ? p.onPrimaryContainer
+        : p.secondary;
     return AcademyActionSemantics(
       label: label,
       enabled: onPressed != null,
@@ -46,7 +55,11 @@ class AcademyPillButton extends StatelessWidget {
               ),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: tinted ? p.secondaryContainer : null,
+                  color: !tinted
+                      ? null
+                      : accent
+                      ? p.primaryContainer
+                      : p.secondaryContainer,
                   borderRadius: BorderRadius.circular(theme.radii.pillButton),
                 ),
                 child: Padding(

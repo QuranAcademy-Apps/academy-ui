@@ -75,7 +75,7 @@ class _ChecklistRow extends AcademyRow {
          title: item.title,
          subtitle: item.subtitle,
          onPressed: onToggle,
-         trailing: _CompletionMark(completed: item.completed),
+         trailing: AcademyCompletionMark(completed: item.completed),
        );
   final AcademyChecklistEntry _item;
   final VoidCallback _onToggle;
@@ -90,8 +90,9 @@ class _ChecklistRow extends AcademyRow {
   );
 }
 
-class _CompletionMark extends StatelessWidget {
-  const _CompletionMark({required this.completed});
+/// Round completion indicator of checklist rows.
+class AcademyCompletionMark extends StatelessWidget {
+  const AcademyCompletionMark({super.key, required this.completed});
   final bool completed;
   @override
   Widget build(BuildContext context) {
@@ -126,11 +127,28 @@ class AcademyJourneyProgress extends StatelessWidget {
     required this.title,
     required this.completed,
     required this.total,
+    this.showTitle = true,
+    this.labelStyle,
+    this.barHeight = 6,
+    this.barSpacing = AcademyTokens.inlineGap,
+    this.trackColor,
+    this.fillColor,
   }) : assert(completed >= 0),
        assert(total >= 0),
        assert(completed <= total);
   final String title;
   final int completed, total;
+
+  /// False keeps [title] for accessibility only (a section header shows it).
+  final bool showTitle;
+
+  /// Default: secondary [AcademyTypography.bodySmall].
+  final TextStyle? labelStyle;
+  final double barHeight, barSpacing;
+
+  /// Defaults: [AcademyColors.surfaceContainerHighest] and
+  /// [AcademyColors.primary].
+  final Color? trackColor, fillColor;
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
@@ -141,32 +159,36 @@ class AcademyJourneyProgress extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(title, style: theme.textTheme.titleLarge),
-          const SizedBox(height: 6),
+          if (showTitle) ...[
+            Text(title, style: theme.textTheme.titleLarge),
+            const SizedBox(height: 6),
+          ],
           Text(
             total == 0
                 ? AcademyLocalizations.of(context).emptyProgress
                 : AcademyLocalizations.of(context)
                       .completedCount(completed, total),
-            style: theme.textTheme.bodySmall.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+            style:
+                labelStyle ??
+                theme.textTheme.bodySmall.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
           ),
-          const SizedBox(height: AcademyTokens.inlineGap),
+          SizedBox(height: barSpacing),
           ClipRRect(
             borderRadius: BorderRadius.circular(
               AcademyTheme.of(context).radii.progress,
             ),
             child: SizedBox(
-              height: 6,
+              height: barHeight,
               child: ColoredBox(
-                color: theme.colorScheme.surfaceContainerHighest,
+                color: trackColor ?? theme.colorScheme.surfaceContainerHighest,
                 child: Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: FractionallySizedBox(
                     widthFactor: total == 0 ? 0 : completed / total,
                     child: ColoredBox(
-                      color: theme.colorScheme.primary,
+                      color: fillColor ?? theme.colorScheme.primary,
                       child: const SizedBox.expand(),
                     ),
                   ),

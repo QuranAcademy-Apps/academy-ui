@@ -26,12 +26,12 @@ void main() {
       );
       await tester.pumpAndSettle();
       final initial = tester.getRect(find.byType(EditableText));
-      expect(find.bySemanticsLabel('Очистить Name'), findsNothing);
+      expect(find.bySemanticsLabel('Очистить поле Name'), findsNothing);
       await tester.enterText(find.byType(CupertinoTextField), 'abc');
       await tester.pumpAndSettle();
       expect(tester.getRect(find.byType(EditableText)), initial);
-      expect(find.bySemanticsLabel('Очистить Name'), findsOneWidget);
-      await tester.tap(find.bySemanticsLabel('Очистить Name'));
+      expect(find.bySemanticsLabel('Очистить поле Name'), findsOneWidget);
+      await tester.tap(find.bySemanticsLabel('Очистить поле Name'));
       await tester.pumpAndSettle();
       expect(controller.text, isEmpty);
       expect(changes, ['abc', '']);
@@ -122,7 +122,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.bySemanticsLabel('Очистить Disabled'), findsNothing);
+      expect(find.bySemanticsLabel('Очистить поле Disabled'), findsNothing);
       expect(controller.text, 'Saved');
       final tween = tester.widget<TweenAnimationBuilder<Color?>>(
         find.byType(TweenAnimationBuilder<Color?>),

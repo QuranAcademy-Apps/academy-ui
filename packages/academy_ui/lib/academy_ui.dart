@@ -19,6 +19,8 @@ export 'src/widgets/feedback/academy_feedback.dart';
 export 'src/widgets/feedback/academy_message_view.dart';
 export 'src/widgets/switch/academy_switch.dart';
 export 'src/widgets/image/academy_image.dart';
+export 'src/widgets/image/academy_network_image.dart';
+export 'src/widgets/image/academy_photo_viewer.dart';
 export 'src/widgets/modal/academy_confirmation.dart';
 export 'src/widgets/button/academy_icon_button.dart';
 export 'src/widgets/button/academy_info_button.dart';
@@ -43,7 +45,10 @@ export 'src/widgets/toast/academy_toast.dart';
 export 'src/widgets/tooltip/academy_tips.dart';
 export 'src/widgets/journey/academy_journey_components.dart';
 export 'src/widgets/navigation/academy_page.dart';
+export 'src/widgets/navigation/academy_large_title_page.dart';
 export 'src/widgets/menu/academy_option_menu.dart';
+export 'src/widgets/menu/academy_inline_option_menu.dart';
+export 'src/widgets/table/academy_row_chevron.dart';
 export 'src/widgets/table/academy_row.dart';
 export 'src/widgets/table/academy_divider.dart';
 export 'src/foundation/layout/academy_page_insets.dart';
@@ -63,6 +68,9 @@ export 'src/widgets/modal/modal_sheet_detents.dart';
 export 'src/foundation/motion/loading_dots_label.dart';
 export 'src/foundation/motion/press_scale.dart';
 export 'src/foundation/motion/soft_fade_switcher.dart';
+export 'src/foundation/motion/soft_fade_in.dart';
+export 'src/foundation/loading/academy_skeleton.dart';
+export 'src/widgets/text/academy_linked_text.dart';
 
 export 'src/foundation/localizations/academy_localizations.dart';
 
@@ -85,6 +93,7 @@ export 'src/widgets/picker/academy_picker_fields.dart';
 export 'src/widgets/slider/academy_slider.dart';
 
 export 'src/widgets/text_field/academy_floating_text_field.dart';
+export 'src/widgets/form/academy_input_fields.dart';
 
 export 'src/theme/academy_row_icons.dart';
 export 'src/widgets/table/academy_value_row.dart';

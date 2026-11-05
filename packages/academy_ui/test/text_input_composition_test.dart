@@ -164,7 +164,7 @@ void main() {
         isTrue,
       );
       final clearButton = find.descendant(
-        of: find.bySemanticsLabel('Очистить Value'),
+        of: find.bySemanticsLabel('Очистить поле Value'),
         matching: find.byType(CupertinoButton),
       );
       expect(tester.widget<CupertinoButton>(clearButton).onPressed, isNull);

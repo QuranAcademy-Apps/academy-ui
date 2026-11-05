@@ -66,6 +66,9 @@ abstract interface class AcademyColors {
   Color get surface;
   Color get onSurface;
   Color get onSurfaceVariant;
+
+  /// Pointers such as chevrons and placeholders; defaults to [onSurfaceVariant].
+  Color get labelTertiary;
   Color get surfaceContainerHighest;
   Color get outline;
   Color get outlineVariant;
@@ -131,6 +134,7 @@ class AcademyColorsData implements AcademyColors {
     required this.surface,
     required this.onSurface,
     required this.onSurfaceVariant,
+    Color? labelTertiary,
     required this.surfaceContainerHighest,
     required this.outline,
     required this.outlineVariant,
@@ -157,6 +161,7 @@ class AcademyColorsData implements AcademyColors {
     required Map<AcademyTone, Color> toneContainers,
   }) : accentColor = accentColor ?? primary,
        menuSurface = menuSurface ?? surface,
+       labelTertiary = labelTertiary ?? onSurfaceVariant,
        accentFill = accentFill ?? primary,
        onAccentFill =
            onAccentFill ??
@@ -225,6 +230,7 @@ class AcademyColorsData implements AcademyColors {
     surface: colors.surface,
     onSurface: colors.onSurface,
     onSurfaceVariant: colors.onSurfaceVariant,
+    labelTertiary: colors.labelTertiary,
     surfaceContainerHighest: colors.surfaceContainerHighest,
     outline: colors.outline,
     outlineVariant: colors.outlineVariant,
@@ -258,6 +264,8 @@ class AcademyColorsData implements AcademyColors {
   final Color accentColor;
   @override
   final Color menuSurface;
+  @override
+  final Color labelTertiary;
   @override
   final Color actionFill;
   @override
@@ -394,6 +402,7 @@ extension AcademyColorsOverrides on AcademyColors {
     Color? surface,
     Color? onSurface,
     Color? onSurfaceVariant,
+    Color? labelTertiary,
     Color? surfaceContainerHighest,
     Color? outline,
     Color? outlineVariant,
@@ -464,6 +473,12 @@ extension AcademyColorsOverrides on AcademyColors {
     surface: surface ?? this.surface,
     onSurface: onSurface ?? this.onSurface,
     onSurfaceVariant: onSurfaceVariant ?? this.onSurfaceVariant,
+    labelTertiary:
+        labelTertiary ??
+        (onSurfaceVariant != null &&
+                this.labelTertiary == this.onSurfaceVariant
+            ? onSurfaceVariant
+            : this.labelTertiary),
     surfaceContainerHighest:
         surfaceContainerHighest ?? this.surfaceContainerHighest,
     outline: outline ?? this.outline,
@@ -564,6 +579,7 @@ enum AcademyColorRole {
   surface,
   onSurface,
   onSurfaceVariant,
+  labelTertiary,
   surfaceContainerHighest,
   outline,
   outlineVariant,
@@ -623,6 +639,7 @@ extension AcademyColorRoles on AcademyColors {
     AcademyColorRole.surface => surface,
     AcademyColorRole.onSurface => onSurface,
     AcademyColorRole.onSurfaceVariant => onSurfaceVariant,
+    AcademyColorRole.labelTertiary => labelTertiary,
     AcademyColorRole.surfaceContainerHighest => surfaceContainerHighest,
     AcademyColorRole.outline => outline,
     AcademyColorRole.outlineVariant => outlineVariant,
@@ -699,6 +716,7 @@ extension AcademyColorRoles on AcademyColors {
     AcademyColorRole.surface => copyWith(surface: color),
     AcademyColorRole.onSurface => copyWith(onSurface: color),
     AcademyColorRole.onSurfaceVariant => copyWith(onSurfaceVariant: color),
+    AcademyColorRole.labelTertiary => copyWith(labelTertiary: color),
     AcademyColorRole.surfaceContainerHighest => copyWith(
       surfaceContainerHighest: color,
     ),
