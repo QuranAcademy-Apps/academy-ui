@@ -320,6 +320,9 @@ class AcademySfImage extends StatelessWidget {
     this.weight = FontWeight.w600,
     this.foreground,
     this.background,
+    this.boxed = true,
+    this.scaleWithText = false,
+    this.mirrorInRtl = true,
   });
   final IconData icon;
   final double frameSize;
@@ -327,6 +330,11 @@ class AcademySfImage extends StatelessWidget {
   final FontWeight weight;
   final Color? foreground;
   final Color? background;
+
+  /// Lays the glyph out in a square of [symbolSize].
+  final bool boxed;
+  final bool scaleWithText;
+  final bool mirrorInRtl;
   @override
   Widget build(BuildContext context) => Container(
     width: frameSize,
@@ -340,7 +348,9 @@ class AcademySfImage extends StatelessWidget {
         fontSize: symbolSize,
         fontWeight: weight,
         color: foreground,
-        boxSize: symbolSize,
+        boxSize: boxed ? symbolSize : null,
+        scaleWithText: scaleWithText,
+        mirrorInRtl: mirrorInRtl,
       ),
     ),
   );

@@ -577,18 +577,33 @@ class AcademyChromeButton extends StatelessWidget {
     required this.icon,
     required this.label,
     this.onPressed,
+    this.onLongPress,
     this.style,
     this.blurSigma,
     this.selected,
     this.foreground,
     this.semanticsValue,
     this.semanticsExpanded,
-  });
-  final IconData icon;
+    this.semanticsSelected,
+    this.size,
+    this.symbolBuilder,
+  }) : assert(icon != null || symbolBuilder != null);
+  final IconData? icon;
+
+  /// Button extent; default: [academyChromeBarHeight].
+  final double? size;
+
+  /// Draws a non-symbol glyph, such as an image, in the resolved color.
+  final Widget Function(BuildContext context, Color color)? symbolBuilder;
+  final VoidCallback? onLongPress;
   final String label;
 
   /// Open state of the menu this button controls.
   final bool? semanticsExpanded;
+
+  /// Announced state when it differs from the look, for example a set bookmark
+  /// that keeps its plain surface; default: [selected].
+  final bool? semanticsSelected;
 
   /// Current state read after [label], for example the selected list style.
   final String? semanticsValue;
@@ -605,48 +620,81 @@ class AcademyChromeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AcademyTheme.of(context).colorScheme;
     final chrome = AcademyChromeTheme.colorsOf(context);
-    final button = CupertinoButton(
-      padding: EdgeInsets.zero,
-      minimumSize: Size.zero,
-      onPressed: onPressed,
-      child: AnimatedSwitcher(
-        duration: MediaQuery.disableAnimationsOf(context)
-            ? Duration.zero
-            : AcademyTokens.motion,
-        child: AcademySfImage(
-          icon,
+    final theme = AcademyTheme.of(context);
+    final look = theme.chromeButton;
+    final extent = size ?? academyChromeBarHeight;
+    final tint = onPressed == null
+        ? look.disabledForeground ??
+              AcademyChrome.foregroundColor(
+                context,
+                colors.onSurfaceVariant,
+                style: style,
+                minimumContrast: 3,
+              )
+        : selected == true
+        ? chrome.selectedIcon ?? colors.onPrimaryContainer
+        : AcademyChrome.foregroundColor(
+            context,
+            foreground ??
+                chrome.buttonForeground ??
+                CupertinoTheme.of(context).primaryColor,
+            style: style,
+            minimumContrast: 3,
+          );
+    final symbol =
+        symbolBuilder?.call(context, tint) ??
+        AcademySfImage(
+          icon!,
           key: ValueKey(icon),
-          foreground: onPressed == null
-              ? AcademyChrome.foregroundColor(
-                  context,
-                  colors.onSurfaceVariant,
-                  style: style,
-                  minimumContrast: 3,
-                )
-              : selected == true
-              ? chrome.selectedIcon ?? colors.onPrimaryContainer
-              : AcademyChrome.foregroundColor(
-                  context,
-                  foreground ??
-                      chrome.buttonForeground ??
-                      CupertinoTheme.of(context).primaryColor,
-                  style: style,
-                  minimumContrast: 3,
-                ),
-        ),
-      ),
-    );
+          frameSize: look.symbolFrame,
+          symbolSize: look.symbolSize,
+          weight: look.symbolWeight,
+          boxed: look.symbolBoxed,
+          scaleWithText: look.symbolScalesWithText,
+          mirrorInRtl: look.symbolMirrorsInRtl,
+          foreground: tint,
+        );
+    final actionable = onPressed != null || onLongPress != null;
+    final button = look.pressScalesSymbolOnly
+        ? Center(
+            child: PressScale(
+              enabled: actionable,
+              onTap: onPressed,
+              onLongPress: onLongPress,
+              child: SizedBox.square(
+                dimension: look.symbolFrame,
+                child: Center(child: symbol),
+              ),
+            ),
+          )
+        : CupertinoButton(
+            padding: EdgeInsets.zero,
+            minimumSize: Size.zero,
+            onPressed: onPressed,
+            onLongPress: onLongPress,
+            child: look.animatesSymbol
+                ? AnimatedSwitcher(
+                    duration: MediaQuery.disableAnimationsOf(context)
+                        ? Duration.zero
+                        : AcademyTokens.motion,
+                    child: symbol,
+                  )
+                : symbol,
+          );
     return AcademyActionSemantics(
       label: label,
       value: semanticsValue,
-      enabled: onPressed != null,
-      selected: selected,
+      enabled: actionable,
+      selected: semanticsSelected ?? selected,
       expanded: semanticsExpanded,
       child: PressScale(
-        pressedScale: AcademyTheme.of(context).interaction.chromePressedScale,
-        enabled: onPressed != null && !MediaQuery.disableAnimationsOf(context),
+        pressedScale: theme.interaction.chromePressedScale,
+        enabled:
+            actionable &&
+            !look.pressScalesSymbolOnly &&
+            !MediaQuery.disableAnimationsOf(context),
         child: SizedBox.square(
-          dimension: academyChromeBarHeight,
+          dimension: extent,
           child: selected == true
               ? DecoratedBox(
                   decoration: BoxDecoration(
@@ -668,7 +716,7 @@ class AcademyChromeButton extends StatelessWidget {
                   child: button,
                 )
               : AcademyChrome(
-                  radius: AcademyTheme.of(context).radii.chromeButton,
+                  radius: size == null ? theme.radii.chromeButton : extent / 2,
                   style: style,
                   blurSigma: blurSigma,
                   child: button,
@@ -767,26 +815,67 @@ class AcademyChromeCapsule extends StatelessWidget {
     required this.child,
     this.style,
     this.blurSigma,
+    this.padding,
+  }) : height = null;
+
+  /// A capsule for a bar: a fixed height, hugging its centered [child].
+  const AcademyChromeCapsule.bar({
+    super.key,
+    required this.child,
+    this.height = academyChromeBarHeight,
+    this.style,
+    this.blurSigma,
+    this.padding,
   });
   final Widget child;
   final AcademyChromeStyle? style;
   final double? blurSigma;
+  final double? height;
+
+  /// Default: [AcademyPaddings.chromeCapsule]; a bar capsule takes only its
+  /// sides, because the height is already fixed.
+  final EdgeInsetsGeometry? padding;
+
+  EdgeInsets _themePadding(BuildContext context) {
+    final themed = AcademyTheme.of(context).paddings.chromeCapsule;
+    return height == null
+        ? themed
+        : EdgeInsets.only(left: themed.left, right: themed.right);
+  }
+
   @override
-  Widget build(BuildContext context) => AcademyChrome(
-    style: style,
-    blurSigma: blurSigma,
-    child: Padding(
-      padding: AcademyTheme.of(context).paddings.chromeCapsule,
-      child: child,
-    ),
-  );
+  Widget build(BuildContext context) {
+    final capsule = AcademyChrome(
+      style: style,
+      blurSigma: blurSigma,
+      child: Padding(
+        padding: padding ?? _themePadding(context),
+        child: height == null
+            ? child
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Flexible(child: child)],
+              ),
+      ),
+    );
+    return height == null ? capsule : SizedBox(height: height, child: capsule);
+  }
 }
 
 class AcademyChromeAction {
-  const AcademyChromeAction(this.icon, this.label, this.onPressed);
-  final IconData icon;
+  const AcademyChromeAction(
+    this.icon,
+    this.label,
+    this.onPressed, {
+    this.symbolBuilder,
+  });
+  final IconData? icon;
   final String label;
   final VoidCallback? onPressed;
+
+  /// Draws a non-symbol glyph, such as an image, in the resolved color.
+  final Widget Function(BuildContext context, Color color)? symbolBuilder;
 }
 
 class AcademyChromeGroup extends StatelessWidget {
@@ -809,7 +898,7 @@ class AcademyChromeGroup extends StatelessWidget {
         for (var i = 0; i < actions.length; i++) ...[
           if (i > 0)
             Container(
-              width: .5,
+              width: AcademyTheme.of(context).chromeButton.groupDividerWidth,
               height: 20,
               color:
                   AcademyChromeTheme.colorsOf(context).border ??
@@ -819,6 +908,7 @@ class AcademyChromeGroup extends StatelessWidget {
             icon: actions[i].icon,
             label: actions[i].label,
             onPressed: actions[i].onPressed,
+            symbolBuilder: actions[i].symbolBuilder,
             style: AcademyChromeStyle.none,
           ),
         ],

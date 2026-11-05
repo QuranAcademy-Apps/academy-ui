@@ -1,6 +1,7 @@
 import 'academy_interaction_theme.dart';
 import 'academy_icons.dart';
 import 'academy_sizes.dart';
+import 'academy_chrome_button_theme.dart';
 import 'academy_chrome_material.dart';
 import 'academy_tab_bar_theme.dart';
 import 'academy_table_theme.dart';
@@ -14,6 +15,7 @@ import 'academy_paddings.dart';
 import 'academy_typography.dart';
 export 'academy_icons.dart';
 export 'academy_sizes.dart';
+export 'academy_chrome_button_theme.dart';
 export 'academy_chrome_material.dart';
 export 'academy_tab_bar_theme.dart';
 export 'academy_table_theme.dart';
@@ -108,6 +110,7 @@ class AcademyThemeData {
     this.table = const AcademyTableTheme(),
     this.tabBar = const AcademyTabBarTheme(),
     this.chromeMaterial = const AcademyChromeMaterial(),
+    this.chromeButton = const AcademyChromeButtonTheme(),
     this.chromeBottomInsetOf,
     this.switchColor,
     this.checkmarkColor,
@@ -137,6 +140,9 @@ class AcademyThemeData {
 
   /// Surface of chrome controls.
   final AcademyChromeMaterial chromeMaterial;
+
+  /// Look of chrome buttons, groups and title capsules.
+  final AcademyChromeButtonTheme chromeButton;
 
   /// [AcademySwitch] track; default: the accent fill.
   final Color? switchColor;
@@ -170,6 +176,7 @@ class AcademyThemeData {
     AcademyTableTheme? table,
     AcademyTabBarTheme? tabBar,
     AcademyChromeMaterial? chromeMaterial,
+    AcademyChromeButtonTheme? chromeButton,
     double Function(BuildContext context)? chromeBottomInsetOf,
     Color? switchColor,
     Color? checkmarkColor,
@@ -190,6 +197,7 @@ class AcademyThemeData {
     table: table ?? this.table,
     tabBar: tabBar ?? this.tabBar,
     chromeMaterial: chromeMaterial ?? this.chromeMaterial,
+    chromeButton: chromeButton ?? this.chromeButton,
     chromeBottomInsetOf: chromeBottomInsetOf ?? this.chromeBottomInsetOf,
     switchColor: switchColor ?? this.switchColor,
     checkmarkColor: checkmarkColor ?? this.checkmarkColor,
@@ -235,6 +243,7 @@ AcademyThemeData academyTheme(
   AcademyTabBarTheme tabBar = const AcademyTabBarTheme(),
   AcademyChromeMaterial chromeMaterial = const AcademyChromeMaterial(),
   double Function(BuildContext context)? chromeBottomInsetOf,
+  AcademyChromeButtonTheme chromeButton = const AcademyChromeButtonTheme(),
   Color? switchColor,
   Color? checkmarkColor,
   Widget? feedbackLoadingIndicator,
@@ -254,6 +263,7 @@ AcademyThemeData academyTheme(
   table: table,
   tabBar: tabBar,
   chromeMaterial: chromeMaterial,
+  chromeButton: chromeButton,
   chromeBottomInsetOf: chromeBottomInsetOf,
   switchColor: switchColor,
   checkmarkColor: checkmarkColor,
