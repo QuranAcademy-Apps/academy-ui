@@ -152,6 +152,7 @@ class _AcademySearchBarState extends State<AcademySearchBar>
         cornerRadius: widget.cornerRadius ?? theme.radii.search,
         chrome: widget.chrome,
         highlightOnFocus: false,
+        bordered: false,
         leading:
             widget.leading ??
             AcademySfIcon(

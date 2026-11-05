@@ -288,42 +288,52 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
                   16 + borderCompensation,
                   4 + verticalInset + borderCompensation,
                 ),
-                suffix:
-                    widget.suffix ??
-                    (canClear || widget.reserveClearSpace
-                        ? SizedBox.square(
-                            dimension: 44,
-                            child: IgnorePointer(
-                              ignoring: !canClear,
-                              child: ExcludeSemantics(
-                                excluding: !canClear,
-                                child: AnimatedOpacity(
-                                  opacity: canClear ? 1 : 0,
-                                  duration: duration,
-                                  child: CupertinoButton(
-                                    padding: EdgeInsets.zero,
-                                    minimumSize: const Size(44, 44),
-                                    onPressed: !canClear
-                                        ? null
-                                        : () {
-                                            _controller.clear();
-                                            widget.onChanged?.call('');
-                                            _focus.requestFocus();
-                                          },
-                                    child: AcademySfIcon(
-                                      AcademySymbols.clear,
-                                      size: 18,
-                                      color: colors.onSurfaceVariant,
-                                      semanticsLabel: AcademyLocalizations.of(
-                                        context,
-                                      ).clearField(widget.label),
+                suffix: widget.suffix != null
+                    ? ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 44,
+                          minHeight: 44,
+                        ),
+                        child: Center(
+                          widthFactor: 1,
+                          heightFactor: 1,
+                          child: widget.suffix,
+                        ),
+                      )
+                    : (canClear || widget.reserveClearSpace
+                          ? SizedBox.square(
+                              dimension: 44,
+                              child: IgnorePointer(
+                                ignoring: !canClear,
+                                child: ExcludeSemantics(
+                                  excluding: !canClear,
+                                  child: AnimatedOpacity(
+                                    opacity: canClear ? 1 : 0,
+                                    duration: duration,
+                                    child: CupertinoButton(
+                                      padding: EdgeInsets.zero,
+                                      minimumSize: const Size(44, 44),
+                                      onPressed: !canClear
+                                          ? null
+                                          : () {
+                                              _controller.clear();
+                                              widget.onChanged?.call('');
+                                              _focus.requestFocus();
+                                            },
+                                      child: AcademySfIcon(
+                                        AcademySymbols.clear,
+                                        size: 18,
+                                        color: colors.onSurfaceVariant,
+                                        semanticsLabel: AcademyLocalizations.of(
+                                          context,
+                                        ).clearField(widget.label),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )
-                        : null),
+                            )
+                          : null),
                 decoration: _fieldDecoration(
                   context,
                   enabled: widget.enabled,
@@ -403,11 +413,6 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
   }
 }
 
-Color _fieldOutline(BuildContext context) =>
-    AcademyTheme.of(context).brightness == Brightness.dark
-    ? const Color(0xFF48484A)
-    : const Color(0xFFC2C8D0);
-
 BoxDecoration _fieldDecoration(
   BuildContext context, {
   required bool enabled,
@@ -428,7 +433,7 @@ BoxDecoration _fieldDecoration(
           ? colors.primary
           : MediaQuery.highContrastOf(context)
           ? colors.onSurfaceVariant
-          : _fieldOutline(context),
+          : colors.textFieldBorder,
     ),
   );
 }

@@ -113,7 +113,8 @@ class AcademyPalette implements AcademyColors {
     textFieldDisabledBackground,
   );
   @override
-  Color get textFieldBorder => const Color(0x00000000);
+  Color get textFieldBorder =>
+      dark ? const Color(0xFF48484A) : const Color(0xFFC2C8D0);
   @override
   Color get textFieldDisabledBorder =>
       dark ? const Color(0xFF636366) : const Color(0xFFC7C7CC);

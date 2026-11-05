@@ -319,4 +319,65 @@ void main() {
     expect(picker.maximumDate, DateTime(2021));
     expect(picker.initialDateTime, DateTime(2021));
   });
+
+  testWidgets('floating input centers a small suffix in a 44pt slot', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const AcademyApp(
+        home: Center(
+          child: SizedBox(
+            width: 320,
+            child: AcademyFloatingInput(
+              label: 'Почта',
+              suffix: SizedBox.square(key: Key('icon'), dimension: 22),
+            ),
+          ),
+        ),
+      ),
+    );
+    final field = tester.getRect(find.byType(CupertinoTextField));
+    final icon = tester.getRect(find.byKey(const Key('icon')));
+    expect(field.right - icon.right, closeTo(12, .5));
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('fields are outlined and search stays borderless', (
+    tester,
+  ) async {
+    final search = TextEditingController();
+    addTearDown(search.dispose);
+    await tester.pumpWidget(
+      AcademyApp(
+        home: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const AcademyTextField(key: Key('field')),
+              AcademySearchBar(
+                key: const Key('search'),
+                controller: search,
+                chrome: false,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    Color border(String key) {
+      final input = tester.widget<CupertinoTextField>(
+        find.descendant(
+          of: find.byKey(Key(key)),
+          matching: find.byType(CupertinoTextField),
+        ),
+      );
+      return (input.decoration!.border! as Border).top.color;
+    }
+
+    final theme = tester.element(find.byKey(const Key('field')));
+    expect(border('field'), AcademyTheme.of(theme).colorScheme.textFieldBorder);
+    expect(border('field').a, greaterThan(0));
+    expect(border('search').a, 0);
+  });
 }

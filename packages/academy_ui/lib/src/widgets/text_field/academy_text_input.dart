@@ -29,6 +29,7 @@ class AcademyTextInput extends StatefulWidget {
     this.padding,
     this.chrome = false,
     this.highlightOnFocus = true,
+    this.bordered = true,
     this.backgroundColor,
     this.onCleared,
   }) : assert(cornerRadius == null || cornerRadius >= 0);
@@ -40,6 +41,9 @@ class AcademyTextInput extends StatefulWidget {
   final String? placeholder, semanticLabel;
   final Widget? leading, trailing;
   final bool enabled, readOnly, obscureText, autofocus, clearable, chrome;
+
+  /// Draws the resting outline; search fields stay borderless.
+  final bool bordered;
   final bool highlightOnFocus;
   final Color? backgroundColor;
 
@@ -171,7 +175,9 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
               ? colors.textFieldFocusBorder
               : MediaQuery.highContrastOf(context)
               ? colors.textFieldControlBorder
-              : colors.textFieldBorder,
+              : widget.bordered
+              ? colors.textFieldBorder
+              : const Color(0x00000000),
         ),
         duration: duration,
         curve: Curves.easeInOut,
@@ -252,7 +258,7 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
                             : colors.textFieldDisabledBackground),
                     borderRadius: BorderRadius.circular(radius),
                     border: Border.all(
-                      color: borderColor ?? colors.textFieldBorder,
+                      color: borderColor ?? const Color(0x00000000),
                       width: 1,
                     ),
                   ),

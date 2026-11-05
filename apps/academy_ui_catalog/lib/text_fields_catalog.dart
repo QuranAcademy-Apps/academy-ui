@@ -154,8 +154,18 @@ class _TextFieldsCatalogState extends State<TextFieldsCatalog> {
             ),
           ),
           const AcademyFloatingInput(label: 'Недоступное поле', enabled: false),
-        ],
+        ].withGaps(),
       ),
     ],
   );
+}
+
+extension on List<Widget> {
+  /// [AcademyFloatingInput] has no outer margin, unlike [AcademyField].
+  List<Widget> withGaps() => [
+    for (final (index, field) in indexed) ...[
+      if (index > 0) const SizedBox(height: 12),
+      field,
+    ],
+  ];
 }

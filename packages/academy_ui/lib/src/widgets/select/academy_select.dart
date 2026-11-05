@@ -451,6 +451,7 @@ class _SelectionPanelState<T extends Object> extends State<_SelectionPanel<T>> {
                     .colorScheme
                     .textFieldSecondaryBackground,
                 highlightOnFocus: false,
+                bordered: false,
                 leading: AcademySfIcon(
                   AcademySymbols.search,
                   size: 18,

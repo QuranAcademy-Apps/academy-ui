@@ -187,7 +187,7 @@ class AcademyColorsData implements AcademyColors {
            textFieldSecondaryForeground ?? onSurfaceVariant,
        textFieldDisabledForeground =
            textFieldDisabledForeground ?? onSurfaceVariant,
-       textFieldBorder = textFieldBorder ?? const Color(0x00000000),
+       textFieldBorder = textFieldBorder ?? outline,
        textFieldDisabledBorder = textFieldDisabledBorder ?? outline,
        textFieldFocusBorder = textFieldFocusBorder ?? primary,
        textFieldErrorForeground = textFieldErrorForeground ?? error,
@@ -475,8 +475,7 @@ extension AcademyColorsOverrides on AcademyColors {
     onSurfaceVariant: onSurfaceVariant ?? this.onSurfaceVariant,
     labelTertiary:
         labelTertiary ??
-        (onSurfaceVariant != null &&
-                this.labelTertiary == this.onSurfaceVariant
+        (onSurfaceVariant != null && this.labelTertiary == this.onSurfaceVariant
             ? onSurfaceVariant
             : this.labelTertiary),
     surfaceContainerHighest:

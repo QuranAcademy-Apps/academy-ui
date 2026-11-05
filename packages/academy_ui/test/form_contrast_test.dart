@@ -26,7 +26,10 @@ void main() {
           find.byType(CupertinoTextField),
         );
         final fill = field.decoration!.color!;
-        expect((field.decoration!.border! as Border).top.color.a, 0);
+        expect(
+          (field.decoration!.border! as Border).top.color,
+          theme.colorScheme.textFieldBorder,
+        );
         expect(
           AcademyContrast.ratio(field.placeholderStyle!.color!, fill),
           greaterThanOrEqualTo(4.5),
