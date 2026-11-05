@@ -367,15 +367,18 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
         onClose: closable ? _dismissByUser : null,
       ),
     );
+    final motion = MediaQuery.maybeDisableAnimationsOf(context) ?? false
+        ? Duration.zero
+        : _animationDuration;
     final child = IgnorePointer(
       ignoring: !_isVisible,
       child: AnimatedSlide(
         offset: _isVisible ? Offset.zero : Offset(0, top ? -0.2 : 0.2),
-        duration: _animationDuration,
+        duration: motion,
         curve: Curves.easeInOut,
         child: AnimatedOpacity(
           opacity: _isVisible ? 1 : 0,
-          duration: _animationDuration,
+          duration: motion,
           curve: Curves.easeInOut,
           child: Center(
             child: Semantics(
@@ -394,12 +397,11 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
         ),
       ),
     );
+    final mediaPadding = MediaQuery.maybePaddingOf(context) ?? EdgeInsets.zero;
     if (top) {
-      final mediaPadding =
-          MediaQuery.maybePaddingOf(context) ?? EdgeInsets.zero;
       return Positioned(
-        left: 16,
-        right: 16,
+        left: 16 + mediaPadding.left,
+        right: 16 + mediaPadding.right,
         top: mediaPadding.top + widget.top,
         child: child,
       );
@@ -408,8 +410,8 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
         theme.toast.bottomInsetOf?.call(context) ??
         academyChromeBottomOf(context);
     return Positioned(
-      left: 16,
-      right: 16,
+      left: 16 + mediaPadding.left,
+      right: 16 + mediaPadding.right,
       bottom: (widget.bottom ?? 8) + bottomInset,
       child: child,
     );

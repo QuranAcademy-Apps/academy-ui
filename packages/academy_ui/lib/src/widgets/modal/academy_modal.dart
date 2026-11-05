@@ -144,7 +144,7 @@ Future<T?> pushAcademyModalPage<T>(
     throw StateError('Open the modal with nestedNavigation: true first.');
   }
   return Navigator.of(context).push<T>(
-    CupertinoPageRoute<T>(
+    _ModalPageRoute<T>(
       builder: (_) => AcademyModalScaffold(
         title: title,
         builder: builder,
@@ -154,6 +154,14 @@ Future<T?> pushAcademyModalPage<T>(
       ),
     ),
   );
+}
+
+/// A page inside a sheet. The default barrier fills the whole navigator, so it
+/// would show as a dark rectangle in the sheet's rounded corners.
+class _ModalPageRoute<T> extends CupertinoPageRoute<T> {
+  _ModalPageRoute({required super.builder});
+  @override
+  Color? get barrierColor => null;
 }
 
 class _ModalFlowScope extends InheritedWidget {
@@ -244,7 +252,7 @@ class _ModalHostState extends State<_ModalHost> {
               onPopWithResult: (_) => _navigatorKey.currentState!.maybePop(),
               child: Navigator(
                 key: _navigatorKey,
-                onGenerateRoute: (_) => CupertinoPageRoute<void>(
+                onGenerateRoute: (_) => _ModalPageRoute<void>(
                   builder: (_) => AcademyModalScaffold(
                     title: widget.title,
                     builder: widget.builder,
@@ -306,19 +314,22 @@ class AcademyModalScaffold extends StatelessWidget {
         academyChromeHeightOf(context) +
         theme.paddings.chromeBottom.vertical +
         theme.paddings.chromeBar.vertical;
-    final header = Listener(
-      // Empty space around the header must not activate a scrolled-under row.
-      behavior: HitTestBehavior.opaque,
-      child: AcademyChromeModalHeader(
-        title: title,
-        onClose: flow == null ? null : () => flow.close(null),
-        leading: canGoBack
-            ? AcademyChromeButton(
-                icon: AcademyTheme.of(context).icons.back,
-                label: AcademyLocalizations.of(context).back,
-                onPressed: () => Navigator.of(context).maybePop(),
-              )
-            : null,
+    // Cached as its own layer: the content scrolls under a static header.
+    final header = RepaintBoundary(
+      child: Listener(
+        // Empty space around the header must not activate a scrolled-under row.
+        behavior: HitTestBehavior.opaque,
+        child: AcademyChromeModalHeader(
+          title: title,
+          onClose: flow == null ? null : () => flow.close(null),
+          leading: canGoBack
+              ? AcademyChromeButton(
+                  icon: AcademyTheme.of(context).icons.back,
+                  label: AcademyLocalizations.of(context).back,
+                  onPressed: () => Navigator.of(context).maybePop(),
+                )
+              : null,
+        ),
       ),
     );
     final content = AcademyModalContentInsets(
@@ -347,25 +358,27 @@ class AcademyModalScaffold extends StatelessWidget {
                       left: 0,
                       right: 0,
                       height: headerHeight,
-                      child: IgnorePointer(
-                        child: ExcludeSemantics(
-                          child: DecoratedBox(
-                            key: const ValueKey('academy-modal-header-fade'),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  background,
-                                  background.withValues(alpha: 0),
-                                ],
-                                stops: [
-                                  (1 - headerFadeExtent / headerHeight).clamp(
-                                    0.0,
-                                    1.0,
-                                  ),
-                                  1,
-                                ],
+                      child: RepaintBoundary(
+                        child: IgnorePointer(
+                          child: ExcludeSemantics(
+                            child: DecoratedBox(
+                              key: const ValueKey('academy-modal-header-fade'),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    background,
+                                    background.withValues(alpha: 0),
+                                  ],
+                                  stops: [
+                                    (1 - headerFadeExtent / headerHeight).clamp(
+                                      0.0,
+                                      1.0,
+                                    ),
+                                    1,
+                                  ],
+                                ),
                               ),
                             ),
                           ),

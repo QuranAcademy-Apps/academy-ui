@@ -34,9 +34,9 @@ double academyChromeContentTopOf(BuildContext context) =>
     academyChromeTopOf(context) +
     academyChromeHeightOf(context) +
     academyChromeContentGap;
-double academyChromeBottomOf(BuildContext context) {
-  final media = MediaQuery.of(context);
-  return academyEdgeInset(
-    math.max(media.padding.bottom, media.viewPadding.bottom),
-  );
-}
+double academyChromeBottomOf(BuildContext context) => academyEdgeInset(
+  math.max(
+    MediaQuery.paddingOf(context).bottom,
+    MediaQuery.viewPaddingOf(context).bottom,
+  ),
+);

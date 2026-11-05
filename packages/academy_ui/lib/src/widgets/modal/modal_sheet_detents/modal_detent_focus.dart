@@ -24,6 +24,7 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
     with WidgetsBindingObserver {
   StupidSimpleSheetController<dynamic>? _routeController;
   bool _hasFocusInSubtree = false;
+  double? _lastSnap;
 
   @override
   void initState() {
@@ -50,8 +51,10 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
 
   @override
   void didChangeMetrics() {
+    // Fires on every keyboard frame. Restarting the spring each time would also
+    // pull back a sheet the user has dragged, so only a new height moves it.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _applyDetent();
+      if (mounted) _applyDetent(onlyIfMoved: true);
     });
   }
 
@@ -67,10 +70,11 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
     }
   }
 
-  void _applyDetent() => _setRouteDetent(
+  void _applyDetent({bool onlyIfMoved = false}) => _setRouteDetent(
     _hasFocusInSubtree || widget.keepExpanded
         ? widget.focusedDetent
         : widget.restingDetent,
+    onlyIfMoved: onlyIfMoved,
   );
 
   void _handlePrimaryFocusChanged() {
@@ -101,7 +105,7 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
     _applyDetent();
   }
 
-  void _setRouteDetent(ModalSheetDetent detent) {
+  void _setRouteDetent(ModalSheetDetent detent, {required bool onlyIfMoved}) {
     final controller = _routeController;
     if (controller == null) return;
     final routeHeight = _modalSheetRouteHeight(context);
@@ -115,6 +119,9 @@ class _ModalDetentFocusState extends State<ModalDetentFocus>
             .clamp(0.0, 1.0)
             .toDouble();
     if (snap <= 0) return;
+    final last = _lastSnap ?? controller.effectiveSnappingConfig.initialSnap;
+    if (onlyIfMoved && (snap - last).abs() < 0.001) return;
+    _lastSnap = snap;
     controller.animateToRelative(snap);
   }
 

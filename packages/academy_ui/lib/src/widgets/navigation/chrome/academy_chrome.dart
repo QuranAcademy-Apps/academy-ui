@@ -967,25 +967,33 @@ class AcademyChromePage extends StatelessWidget {
             ),
           ),
         ),
-        const Positioned(top: 0, left: 0, right: 0, child: AcademyChromeFade()),
-        Positioned(
-          top: academyChromeTopOf(context),
+        // Cached as their own layers: the content scrolls under static chrome.
+        const Positioned(
+          top: 0,
           left: 0,
           right: 0,
-          child: AcademyChromeBar(
-            title: title,
-            style: style,
-            blurSigma: blurSigma,
-            actions: actions,
-            leading: Navigator.of(context).canPop()
-                ? AcademyChromeButton(
-                    icon: AcademyTheme.of(context).icons.back,
-                    label: AcademyLocalizations.of(context).back,
-                    style: style,
-                    blurSigma: blurSigma,
-                    onPressed: () => Navigator.maybePop(context),
-                  )
-                : null,
+          child: RepaintBoundary(child: AcademyChromeFade()),
+        ),
+        Positioned(
+          top: academyChromeTopOf(context),
+          left: MediaQuery.paddingOf(context).left,
+          right: MediaQuery.paddingOf(context).right,
+          child: RepaintBoundary(
+            child: AcademyChromeBar(
+              title: title,
+              style: style,
+              blurSigma: blurSigma,
+              actions: actions,
+              leading: Navigator.of(context).canPop()
+                  ? AcademyChromeButton(
+                      icon: AcademyTheme.of(context).icons.back,
+                      label: AcademyLocalizations.of(context).back,
+                      style: style,
+                      blurSigma: blurSigma,
+                      onPressed: () => Navigator.maybePop(context),
+                    )
+                  : null,
+            ),
           ),
         ),
       ],

@@ -183,7 +183,7 @@ class _AcademyPickerState<T extends Object> extends State<AcademyPicker<T>> {
                 WidgetsBinding.instance.addPostFrameCallback((_) => _sync());
                 return false;
               },
-              child: CupertinoPicker(
+              child: CupertinoPicker.builder(
                 scrollController: _controller,
                 itemExtent: (MediaQuery.textScalerOf(context).scale(18) + 20)
                     .clamp(44, double.infinity),
@@ -192,15 +192,15 @@ class _AcademyPickerState<T extends Object> extends State<AcademyPicker<T>> {
                     widget.onChanged?.call(widget.items[index]);
                   }
                 },
-                children: [
-                  for (final item in widget.items)
-                    Center(
-                      child: Text(
-                        widget.labelFor(item),
-                        style: AcademyTheme.of(context).textTheme.bodyLarge,
-                      ),
-                    ),
-                ],
+                childCount: widget.items.length,
+                itemBuilder: (context, index) => Center(
+                  child: Text(
+                    widget.labelFor(widget.items[index]),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AcademyTheme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
               ),
             ),
           ),

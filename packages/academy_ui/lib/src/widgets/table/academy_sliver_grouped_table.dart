@@ -38,6 +38,13 @@ class AcademySliverGroupedTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final corner = Radius.circular(cornerRadius ?? theme.radii.table);
+    // A separator starts where the previous row's content does. Remembering
+    // that spares building the previous row a second time just to ask it.
+    final rowStarts = <int, double>{};
+    double rowStart(BuildContext context, Widget row) =>
+        row is AcademyTableRowGeometry
+        ? (row as AcademyTableRowGeometry).separatorStart(context)
+        : theme.paddings.tableRow.left;
     return SliverMainAxisGroup(
       slivers: [
         if (header != null) SliverToBoxAdapter(child: header),
@@ -45,20 +52,16 @@ class AcademySliverGroupedTable extends StatelessWidget {
           itemCount: itemCount,
           itemBuilder: (context, index) {
             final row = itemBuilder(context, index);
+            rowStarts[index] = rowStart(context, row);
             final first = index == 0, last = index == itemCount - 1;
             final radius = BorderRadius.vertical(
               top: first ? corner : Radius.zero,
               bottom: last ? corner : Radius.zero,
             );
-            double start() {
-              if (separatorStart case final start?) return start;
-              final previous = itemBuilder(context, index - 1);
-              return previous is AcademyTableRowGeometry
-                  ? (previous as AcademyTableRowGeometry).separatorStart(
-                      context,
-                    )
-                  : theme.paddings.tableRow.left;
-            }
+            double start() =>
+                separatorStart ??
+                rowStarts[index - 1] ??
+                rowStart(context, itemBuilder(context, index - 1));
 
             return DecoratedBox(
               decoration: BoxDecoration(

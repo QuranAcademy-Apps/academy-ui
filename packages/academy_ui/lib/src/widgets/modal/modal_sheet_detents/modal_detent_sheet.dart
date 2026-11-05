@@ -61,10 +61,12 @@ final class ModalSheetDetent {
 /// The sheet lays its content out at the full route height and only
 /// *translates* down to its resting detent, so the slice below the detent is
 /// off-screen and a scrollable's last rows are otherwise unreachable. Derived
-/// from the sheet's LIVE resting fraction (`effectiveSnappingConfig.initialSnap`)
-/// so it always matches the actual detent and tracks runtime changes
-/// ([setModalSheetDetentHeight]); collapses to ~the bottom safe area at the full
-/// detent. Adds the device **top** safe area (which the full-height content
+/// from where the sheet settled, which tracks a drag and runtime changes
+/// ([setModalSheetDetentHeight]). A moving sheet has no resting position yet:
+/// its value starts near zero, which would squeeze pinned content to nothing
+/// for the whole opening, so it counts as `effectiveSnappingConfig.initialSnap`.
+/// Collapses to ~the bottom safe area at the full detent.
+/// Adds the device **top** safe area (which the full-height content
 /// occupies but [ModalSheetDetent.heightOf] subtracts from `full`) plus the
 /// device **bottom** safe area (home indicator). Safe areas are read from the
 /// physical [View] because `MediaQuery.padding` is zeroed inside the sheet.
@@ -77,12 +79,14 @@ double _modalSheetOffscreenBottomInset(
 ) {
   final routeHeight = _modalSheetRouteHeight(context);
   if (routeHeight <= 0) return MediaQuery.paddingOf(context).bottom;
-  final restingHeight =
-      ((controller.animation?.value ??
-                  controller.effectiveSnappingConfig.initialSnap) *
-              routeHeight)
-          .clamp(0.0, routeHeight)
-          .toDouble();
+  final animation = controller.animation;
+  final restingFraction =
+      animation != null && animation.status == AnimationStatus.completed
+      ? animation.value
+      : controller.effectiveSnappingConfig.initialSnap;
+  final restingHeight = (restingFraction * routeHeight)
+      .clamp(0.0, routeHeight)
+      .toDouble();
   final view = View.of(context);
   final ratio = view.devicePixelRatio;
   final topInset = ratio > 0

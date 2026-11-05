@@ -372,7 +372,7 @@ class AcademyFloatingTabBar extends StatelessWidget {
                                                         boxSize: iconFrame,
                                                         paintExtent: iconFrame,
                                                         color: i == index
-                                                            ? p.onPrimaryContainer
+                                                            ? selectedIcon
                                                             : unselectedColor,
                                                       ),
                                                     ),
@@ -636,19 +636,8 @@ class _AcademyTabScaffoldState extends State<AcademyTabScaffold> {
   Widget build(BuildContext context) {
     final index = _controller.index;
     final tabTheme = AcademyTheme.of(context).tabBar;
-    final bottom =
+    double bottomOf(BuildContext context) =>
         tabTheme.bottomInsetOf?.call(context) ?? academyChromeBottomOf(context);
-    final telegram =
-        AcademyFloatingTabBar.densityOf(context) ==
-        AcademyTabBarDensity.telegram;
-    final sideInset =
-        tabTheme.sideMargin ??
-        (telegram
-            ? (academyChromeBottomOf(context) <= 28 ? 20.0 : 12.0)
-            : 16.0);
-    final safe = tabTheme.avoidSideInsets
-        ? MediaQuery.paddingOf(context)
-        : EdgeInsets.zero;
     return Stack(
       children: [
         Positioned.fill(
@@ -665,33 +654,52 @@ class _AcademyTabScaffoldState extends State<AcademyTabScaffold> {
             ],
           ),
         ),
+        // Insets are read in these leaves: the keyboard changes them on every
+        // frame, and must not rebuild the tabs above.
         if (tabTheme.showBottomFade)
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: RepaintBoundary(
-              child: SizedBox(
-                height:
-                    bottom +
-                    AcademyFloatingTabBar.heightOf(context) +
-                    AcademyChromeFadeMaterial.extension,
-                child: const AcademyChromeFadeMaterial(bottom: true),
+          Builder(
+            builder: (context) => Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: RepaintBoundary(
+                child: SizedBox(
+                  height:
+                      bottomOf(context) +
+                      AcademyFloatingTabBar.heightOf(context) +
+                      AcademyChromeFadeMaterial.extension,
+                  child: const AcademyChromeFadeMaterial(bottom: true),
+                ),
               ),
             ),
           ),
-        Positioned(
-          left: sideInset + safe.left,
-          right: sideInset + safe.right,
-          bottom: bottom,
-          // Cached as its own layer: the list scrolls under a static bar.
-          child: RepaintBoundary(
-            child: AcademyFloatingTabBar(
-              tabs: widget.tabs,
-              index: index,
-              onChanged: (i) => _controller.index = i,
-            ),
-          ),
+        Builder(
+          builder: (context) {
+            final telegram =
+                AcademyFloatingTabBar.densityOf(context) ==
+                AcademyTabBarDensity.telegram;
+            final sideInset =
+                tabTheme.sideMargin ??
+                (telegram
+                    ? (academyChromeBottomOf(context) <= 28 ? 20.0 : 12.0)
+                    : 16.0);
+            final safe = tabTheme.avoidSideInsets
+                ? MediaQuery.paddingOf(context)
+                : EdgeInsets.zero;
+            return Positioned(
+              left: sideInset + safe.left,
+              right: sideInset + safe.right,
+              bottom: bottomOf(context),
+              // Cached as its own layer: the list scrolls under a static bar.
+              child: RepaintBoundary(
+                child: AcademyFloatingTabBar(
+                  tabs: widget.tabs,
+                  index: index,
+                  onChanged: (i) => _controller.index = i,
+                ),
+              ),
+            );
+          },
         ),
       ],
     );

@@ -90,35 +90,40 @@ class AcademyPage extends StatelessWidget {
               top: 0,
               left: 0,
               right: 0,
-              child: IgnorePointer(
-                child: headerBackgroundBuilder?.call(context, edge) ?? edge,
+              // Cached as their own layers: the content scrolls under them.
+              child: RepaintBoundary(
+                child: IgnorePointer(
+                  child: headerBackgroundBuilder?.call(context, edge) ?? edge,
+                ),
               ),
             ),
             Positioned(
               top: top,
               left: 0,
               right: 0,
-              child: AcademyChromeBar(
-                height: barHeight,
-                title: titleWidget == null ? title : null,
-                middle: titleWidget,
-                subtitle: subtitle,
-                trailing: trailing == null
-                    ? null
-                    : Align(
-                        alignment: Alignment.topCenter,
-                        widthFactor: 1,
-                        child: trailing,
-                      ),
-                leading:
-                    leading ??
-                    (showBackButton && Navigator.of(context).canPop()
-                        ? AcademyChromeButton(
-                            icon: AcademyTheme.of(context).icons.back,
-                            label: AcademyLocalizations.of(context).back,
-                            onPressed: () => Navigator.maybePop(context),
-                          )
-                        : null),
+              child: RepaintBoundary(
+                child: AcademyChromeBar(
+                  height: barHeight,
+                  title: titleWidget == null ? title : null,
+                  middle: titleWidget,
+                  subtitle: subtitle,
+                  trailing: trailing == null
+                      ? null
+                      : Align(
+                          alignment: Alignment.topCenter,
+                          widthFactor: 1,
+                          child: trailing,
+                        ),
+                  leading:
+                      leading ??
+                      (showBackButton && Navigator.of(context).canPop()
+                          ? AcademyChromeButton(
+                              icon: AcademyTheme.of(context).icons.back,
+                              label: AcademyLocalizations.of(context).back,
+                              onPressed: () => Navigator.maybePop(context),
+                            )
+                          : null),
+                ),
               ),
             ),
           ],
