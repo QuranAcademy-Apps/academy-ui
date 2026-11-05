@@ -121,7 +121,11 @@ class AcademyTableHeader extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (actionIcon != null) ...[
-                    AcademySfIcon(actionIcon!, size: 17, color: color),
+                    AcademySfIcon(
+                      actionIcon!,
+                      size: AcademyTheme.of(context).sizes.menuIcon,
+                      color: color,
+                    ),
                     const SizedBox(width: AcademyTokens.labelGap),
                   ],
                   Flexible(

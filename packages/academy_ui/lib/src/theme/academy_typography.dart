@@ -28,6 +28,15 @@ enum AcademyTextRole {
   tabLabel,
   compactTabLabel,
 
+  /// Floating label of a field; default: [bodySmall] at 12pt.
+  fieldLabel,
+
+  /// Help and error below a field; default: [bodySmall] at 12pt.
+  fieldMessage,
+
+  /// Text-only tab; default: [tabLabel] at 14pt semibold.
+  tabText,
+
   /// Label of the primary (call-to-action) [AcademyButton].
   buttonLabel,
 }
@@ -108,6 +117,19 @@ class AcademyTypography {
   }
 
   TextStyle style(AcademyTextRole role) {
+    final derived = switch (role) {
+      AcademyTextRole.fieldLabel => style(
+        AcademyTextRole.bodySmall,
+      ).copyWith(fontSize: 12, height: 1.2),
+      AcademyTextRole.fieldMessage => style(
+        AcademyTextRole.bodySmall,
+      ).copyWith(fontSize: 12),
+      AcademyTextRole.tabText => style(
+        AcademyTextRole.tabLabel,
+      ).copyWith(fontSize: 14, fontWeight: FontWeight.w600, height: 1),
+      _ => null,
+    };
+    if (derived != null) return derived.merge(settings.styles[role]);
     final (size, weight) = switch (role) {
       AcademyTextRole.bodyRow => (17.0, FontWeight.w400),
       AcademyTextRole.bodyStrong => (17.0, FontWeight.w600),
@@ -135,6 +157,9 @@ class AcademyTypography {
       AcademyTextRole.tabLabel => (11.0, FontWeight.w400),
       AcademyTextRole.compactTabLabel => (10.0, FontWeight.w600),
       AcademyTextRole.buttonLabel => (17.0, FontWeight.w600),
+      AcademyTextRole.fieldLabel ||
+      AcademyTextRole.fieldMessage ||
+      AcademyTextRole.tabText => (12.0, FontWeight.w400),
     };
     final custom = settings.styles[role];
     final resolvedSize = custom?.fontSize ?? size;
@@ -192,6 +217,9 @@ class AcademyTypography {
   TextStyle get feedbackTitle => style(AcademyTextRole.feedbackTitle);
   TextStyle get segmentLabel => style(AcademyTextRole.segmentLabel);
   TextStyle get toast => style(AcademyTextRole.toast);
+  TextStyle get fieldLabel => style(AcademyTextRole.fieldLabel);
+  TextStyle get fieldMessage => style(AcademyTextRole.fieldMessage);
+  TextStyle get tabText => style(AcademyTextRole.tabText);
   TextStyle get tabLabel => style(AcademyTextRole.tabLabel);
   TextStyle get compactTabLabel => style(AcademyTextRole.compactTabLabel);
 

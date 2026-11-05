@@ -88,7 +88,7 @@ class AcademyMenuDisplay extends StatelessWidget {
       const SizedBox(width: 8),
       AcademySfIcon(
         icon ?? AcademyTheme.of(context).icons.upDown,
-        size: 15,
+        size: AcademyTheme.of(context).sizes.indicatorIcon,
         boxSize: 20,
         color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
       ),
@@ -133,7 +133,8 @@ class AcademyMenuRow extends StatelessWidget
   double separatorStart(BuildContext context) =>
       AcademyTheme.of(context).paddings.tableRow.left +
       (icon != null
-          ? AcademyTokens.tableIconExtent + AcademyTokens.inlineGap
+          ? AcademyTheme.of(context).sizes.rowIconExtent +
+                AcademyTokens.inlineGap
           : 0);
 
   @override

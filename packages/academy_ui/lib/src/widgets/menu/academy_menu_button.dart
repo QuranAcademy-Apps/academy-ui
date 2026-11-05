@@ -35,7 +35,7 @@ class AcademyMenuButton extends StatelessWidget {
       final theme = AcademyTheme.of(context);
       final chevron = AcademySfIcon(
         AcademyTheme.of(context).icons.upDown,
-        size: 15,
+        size: AcademyTheme.of(context).sizes.indicatorIcon,
         color: AcademyChrome.foregroundColor(
           context,
           theme.colorScheme.onSurfaceVariant,

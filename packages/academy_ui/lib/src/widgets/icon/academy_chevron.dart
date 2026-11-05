@@ -9,15 +9,11 @@ import 'academy_sf_image.dart';
 /// color, optionally rotated. [AcademyChevron.right] and [AcademyChevron.left]
 /// draw Quran's heavier stroked shape, mirrored in RTL.
 class AcademyChevron extends StatelessWidget {
-  const AcademyChevron({
-    super.key,
-    this.turns = 0,
-    double size = 14,
-    this.color,
-  }) : _symbolSize = size,
-       _strokeSize = null,
-       strokeWidth = 0,
-       _pointsRight = true;
+  const AcademyChevron({super.key, this.turns = 0, double? size, this.color})
+    : _symbolSize = size,
+      _strokeSize = null,
+      strokeWidth = 0,
+      _pointsRight = true;
 
   const AcademyChevron.right({
     super.key,
@@ -44,7 +40,7 @@ class AcademyChevron extends StatelessWidget {
   /// Default: the tertiary label color.
   final Color? color;
   final double strokeWidth;
-  final double _symbolSize;
+  final double? _symbolSize;
   final Size? _strokeSize;
   final bool _pointsRight;
 
@@ -66,19 +62,20 @@ class AcademyChevron extends StatelessWidget {
         ),
       );
     }
+    final symbolSize = _symbolSize ?? AcademyTheme.of(context).sizes.chevron;
     return AnimatedRotation(
       turns: turns,
       duration: MediaQuery.disableAnimationsOf(context)
           ? Duration.zero
           : AcademyTokens.motion,
       child: SizedBox(
-        width: _symbolSize * 4 / 7,
-        height: _symbolSize,
+        width: symbolSize * 4 / 7,
+        height: symbolSize,
         child: FittedBox(
           fit: BoxFit.contain,
           child: AcademySfIcon(
             AcademyTheme.of(context).icons.forward,
-            size: _symbolSize,
+            size: symbolSize,
             color: color ?? AcademyTheme.of(context).colorScheme.labelTertiary,
           ),
         ),

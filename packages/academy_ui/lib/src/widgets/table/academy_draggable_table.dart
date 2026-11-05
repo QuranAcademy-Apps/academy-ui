@@ -54,7 +54,7 @@ class AcademyDragHandle extends StatelessWidget {
             ),
             child: AcademySfIcon(
               AcademyTheme.of(context).icons.dragHandle,
-              size: 18,
+              size: AcademyTheme.of(context).sizes.controlIcon,
               boxSize: 44,
               color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
             ),
@@ -304,7 +304,7 @@ class _DraggableRowState<T extends Object> extends State<_DraggableRow<T>> {
                 child: AcademySfIcon(
                   AcademyTheme.of(context).icons.trash,
                   color: theme.colorScheme.error,
-                  size: 20,
+                  size: AcademyTheme.of(context).sizes.deleteIcon,
                 ),
               ),
             )

@@ -114,7 +114,7 @@ class AcademyPrayerStrip extends StatelessWidget {
                 if (onPressed != null)
                   AcademySfIcon(
                     AcademyTheme.of(context).icons.forward,
-                    size: 12,
+                    size: AcademyTheme.of(context).sizes.smallIcon,
                     color: muted,
                   ),
               ],

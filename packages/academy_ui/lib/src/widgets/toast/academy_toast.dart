@@ -256,7 +256,9 @@ class _AcademyToastHostState extends State<AcademyToastHost>
                                 if (_leadingIcon != null) ...[
                                   AcademySfIcon(
                                     _leadingIcon!,
-                                    size: 18,
+                                    size: AcademyTheme.of(context)
+                                        .sizes
+                                        .controlIcon,
                                     boxSize: 18,
                                   ),
                                   const SizedBox(
@@ -281,7 +283,9 @@ class _AcademyToastHostState extends State<AcademyToastHost>
                                   ),
                                   AcademySfIcon(
                                     _trailingIcon!,
-                                    size: 18,
+                                    size: AcademyTheme.of(context)
+                                        .sizes
+                                        .controlIcon,
                                     boxSize: 18,
                                   ),
                                 ],

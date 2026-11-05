@@ -72,8 +72,8 @@ class AcademyInlineOptionMenu extends StatelessWidget
           if (icon != null) ...[
             AcademySfIcon(
               icon!,
-              size: 22,
-              boxSize: AcademyTokens.tableIconExtent,
+              size: AcademyTheme.of(context).sizes.rowIcon,
+              boxSize: AcademyTheme.of(context).sizes.rowIconExtent,
             ),
             const SizedBox(width: 12),
           ],
@@ -126,7 +126,7 @@ class AcademyInlineOptionMenu extends StatelessWidget
           const SizedBox(width: 8),
           AcademySfIcon(
             AcademyTheme.of(context).icons.down,
-            size: 15,
+            size: AcademyTheme.of(context).sizes.indicatorIcon,
             color: AcademyTheme.of(context).colorScheme.labelTertiary,
           ),
         ],

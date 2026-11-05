@@ -43,7 +43,7 @@ class AcademySettingsSquareButton extends StatelessWidget {
             child: Center(
               child: AcademySfIcon(
                 icon,
-                size: 29,
+                size: AcademyTheme.of(context).sizes.settingsIcon,
                 color: onPressed == null
                     ? AcademyTheme.of(context).colorScheme.onSurfaceVariant
                     : foreground ??

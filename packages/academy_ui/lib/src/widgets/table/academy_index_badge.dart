@@ -14,9 +14,9 @@ class AcademyIndexBadge extends StatelessWidget {
     return MediaQuery.withClampedTextScaling(
       maxScaleFactor: 1.3,
       child: Container(
-        constraints: const BoxConstraints(
-          minWidth: AcademyTokens.tableIconExtent,
-          minHeight: AcademyTokens.tableIconExtent,
+        constraints: BoxConstraints(
+          minWidth: AcademyTheme.of(context).sizes.rowIconExtent,
+          minHeight: AcademyTheme.of(context).sizes.rowIconExtent,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 4),
         alignment: Alignment.center,

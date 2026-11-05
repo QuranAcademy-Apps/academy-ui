@@ -196,7 +196,9 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                                     )
                                   : AcademySfIcon(
                                       iconFor!(item),
-                                      size: 18,
+                                      size: AcademyTheme.of(context)
+                                          .sizes
+                                          .controlIcon,
                                       color: item == value
                                           ? theme.colorScheme.onSurface
                                           : theme.colorScheme.onSurfaceVariant,

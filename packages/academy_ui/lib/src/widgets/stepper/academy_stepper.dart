@@ -98,7 +98,7 @@ class AcademyStepper extends StatelessWidget {
       child: MediaQuery.withNoTextScaling(
         child: AcademySfIcon(
           icon,
-          size: 17,
+          size: AcademyTheme.of(context).sizes.stepperIcon,
           boxSize: 17,
           color: tint.withValues(alpha: enabled ? 1 : .35),
         ),

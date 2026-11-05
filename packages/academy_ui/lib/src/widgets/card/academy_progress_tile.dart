@@ -102,7 +102,7 @@ class AcademyProgressTile extends StatelessWidget {
               done
                   ? AcademySfIcon(
                       AcademyTheme.of(context).icons.complete,
-                      size: 14,
+                      size: AcademyTheme.of(context).sizes.progressIcon,
                       color: tint,
                     )
                   : Text(

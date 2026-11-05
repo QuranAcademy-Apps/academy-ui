@@ -237,7 +237,9 @@ class _AcademyOptionResultsState<T extends Object>
                           const SizedBox(width: 8),
                           AcademySfIcon(
                             AcademyTheme.of(context).icons.checkmark,
-                            size: 16,
+                            size: AcademyTheme.of(context)
+                                .sizes
+                                .smallControlIcon,
                             color: theme.colorScheme.primary,
                           ),
                         ],

@@ -171,11 +171,7 @@ class AcademyFloatingTabBar extends StatelessWidget {
         : heightOf(context, density: density);
     final text = AcademyTheme.of(context).textTheme;
     final labelStyle = textOnly
-        ? text.tabLabel.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            height: 1,
-          )
+        ? text.tabText
         : smallLabels
         ? text.compactTabLabel
         : text.tabLabel.copyWith(height: 1);
@@ -331,7 +327,9 @@ class AcademyFloatingTabBar extends StatelessWidget {
                                                     child: Center(
                                                       child: AcademySfIcon(
                                                         tabs[i].icon,
-                                                        size: 24,
+                                                        size: AcademyTheme.of(
+                                                          context,
+                                                        ).sizes.tabIcon,
                                                         boxSize: iconFrame,
                                                         paintExtent: iconFrame,
                                                         color: i == index
@@ -370,7 +368,9 @@ class AcademyFloatingTabBar extends StatelessWidget {
                                                       dimension: iconFrame,
                                                       child: AcademySfIcon(
                                                         tabs[i].icon,
-                                                        size: 22,
+                                                        size: AcademyTheme.of(
+                                                          context,
+                                                        ).sizes.compactTabIcon,
                                                         boxSize: iconFrame,
                                                         paintExtent: compact
                                                             ? 32

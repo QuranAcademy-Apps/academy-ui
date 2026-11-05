@@ -1,5 +1,6 @@
 import 'academy_interaction_theme.dart';
 import 'academy_icons.dart';
+import 'academy_sizes.dart';
 import 'academy_row_icons.dart';
 export 'academy_interaction_theme.dart';
 import 'academy_palette.dart';
@@ -8,6 +9,7 @@ import 'academy_radii.dart';
 import 'academy_paddings.dart';
 import 'academy_typography.dart';
 export 'academy_icons.dart';
+export 'academy_sizes.dart';
 export 'academy_radii.dart';
 export 'academy_paddings.dart';
 export 'academy_typography.dart';
@@ -94,12 +96,16 @@ class AcademyThemeData {
     this.interaction = const AcademyInteractionTheme(),
     this.chromeColors = const AcademyChromeColors(),
     this.icons = const AcademyIcons(),
+    this.sizes = const AcademySizes(),
     this.rowIconColors = const {},
   }) : colorScheme = colors ?? AcademyPalette(brightness, accent);
   final AcademyInteractionTheme interaction;
 
   /// Glyphs the library draws on its own.
   final AcademyIcons icons;
+
+  /// Component sizes.
+  final AcademySizes sizes;
 
   /// Replaces the default tile color of an [AcademyRowIcons] role.
   final Map<AcademyRowIcons, Color> rowIconColors;
@@ -119,6 +125,7 @@ class AcademyThemeData {
     AcademyInteractionTheme? interaction,
     AcademyChromeColors? chromeColors,
     AcademyIcons? icons,
+    AcademySizes? sizes,
     Map<AcademyRowIcons, Color>? rowIconColors,
   }) => AcademyThemeData(
     brightness,
@@ -130,6 +137,7 @@ class AcademyThemeData {
     interaction: interaction ?? this.interaction,
     chromeColors: chromeColors ?? this.chromeColors,
     icons: icons ?? this.icons,
+    sizes: sizes ?? this.sizes,
     rowIconColors: rowIconColors ?? this.rowIconColors,
   );
   Color get scaffoldBackgroundColor => colorScheme.scaffoldBackground;
@@ -164,6 +172,7 @@ AcademyThemeData academyTheme(
   AcademyInteractionTheme interaction = const AcademyInteractionTheme(),
   AcademyChromeColors chromeColors = const AcademyChromeColors(),
   AcademyIcons icons = const AcademyIcons(),
+  AcademySizes sizes = const AcademySizes(),
   Map<AcademyRowIcons, Color> rowIconColors = const {},
 }) => AcademyThemeData(
   brightness,
@@ -175,5 +184,6 @@ AcademyThemeData academyTheme(
   interaction: interaction,
   chromeColors: chromeColors,
   icons: icons,
+  sizes: sizes,
   rowIconColors: rowIconColors,
 );

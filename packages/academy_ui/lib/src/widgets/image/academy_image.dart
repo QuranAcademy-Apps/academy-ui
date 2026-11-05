@@ -22,7 +22,7 @@ class AcademyImage extends StatelessWidget {
             children: [
               AcademySfIcon(
                 AcademyTheme.of(context).icons.photo,
-                size: 32,
+                size: AcademyTheme.of(context).sizes.placeholderIcon,
                 fontWeight: FontWeight.w400,
                 color: theme.colorScheme.onSurfaceVariant.withValues(
                   alpha: .65,

@@ -607,7 +607,7 @@ class AcademyChromeMenu extends StatelessWidget {
                     const SizedBox(width: AcademyTokens.labelGap),
                     AcademySfIcon(
                       AcademyTheme.of(context).icons.down,
-                      size: 15,
+                      size: AcademyTheme.of(context).sizes.indicatorIcon,
                     ),
                   ],
                 ),

@@ -26,6 +26,7 @@ class AcademyApp extends StatefulWidget {
     this.typography = const AcademyTypographySettings(),
     this.interaction = const AcademyInteractionTheme(),
     this.icons = const AcademyIcons(),
+    this.sizes = const AcademySizes(),
     this.rowIconColors = const {},
     this.chromeColors = const AcademyChromeColors(),
     this.toastBottomObstruction = 0,
@@ -60,6 +61,7 @@ class AcademyApp extends StatefulWidget {
 
   /// Glyphs the library draws on its own.
   final AcademyIcons icons;
+  final AcademySizes sizes;
   final Map<AcademyRowIcons, Color> rowIconColors;
   final AcademyChromeColors chromeColors;
   final double toastBottomObstruction;
@@ -133,6 +135,7 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       typography: widget.typography,
       interaction: widget.interaction,
       icons: widget.icons,
+      sizes: widget.sizes,
       rowIconColors: widget.rowIconColors,
       chromeColors: widget.chromeColors,
       colors: widget.colorsBuilder?.call(brightness, appearance.accent),

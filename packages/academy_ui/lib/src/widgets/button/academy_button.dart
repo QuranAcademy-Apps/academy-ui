@@ -35,7 +35,7 @@ class AcademyButton extends StatelessWidget {
     this.borderColor,
     this.disabledBackgroundColor,
     this.disabledForegroundColor,
-    this.minimumHeight = AcademyTokens.buttonHeight,
+    this.minimumHeight,
     this.radius,
     this.textStyle,
   });
@@ -55,7 +55,9 @@ class AcademyButton extends StatelessWidget {
   /// follows the fill unless [foregroundColor] is given.
   final Color? backgroundColor, foregroundColor, borderColor;
   final Color? disabledBackgroundColor, disabledForegroundColor;
-  final double minimumHeight;
+
+  /// Default: the theme's button height.
+  final double? minimumHeight;
 
   /// Corner radius; default: [AcademyRadii.button].
   final double? radius;
@@ -137,7 +139,10 @@ class AcademyButton extends StatelessWidget {
               color: background,
               disabledColor: background,
               borderRadius: corners,
-              minimumSize: Size(AcademyTokens.target, minimumHeight),
+              minimumSize: Size(
+                AcademyTokens.target,
+                minimumHeight ?? AcademyTheme.of(context).sizes.buttonHeight,
+              ),
               padding: theme.paddings.button,
               child: DefaultTextStyle(
                 style: labelStyle.copyWith(color: foreground),

@@ -28,7 +28,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     this.titleTrailing,
     this.onLongPress,
     this.enabled = true,
-    this.minHeight = AcademyTokens.tableRowHeight,
+    this.minHeight,
     this.horizontalPadding,
     this.verticalPadding,
     this.eyebrow,
@@ -66,7 +66,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
        subtitleWidget = null,
        titleTrailing = null,
        onLongPress = null,
-       minHeight = AcademyTokens.tableRowHeight,
+       minHeight = null,
        horizontalPadding = null,
        verticalPadding = null,
        eyebrow = null,
@@ -93,7 +93,9 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
   final Widget? leading, titleWidget, subtitleWidget, titleTrailing;
   final VoidCallback? onLongPress;
   final bool enabled;
-  final double minHeight;
+
+  /// Default: the theme's row height.
+  final double? minHeight;
   final double? verticalPadding;
   final double? horizontalPadding;
   final Widget? trailing;
@@ -139,7 +141,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
   double separatorStart(BuildContext context) =>
       (horizontalPadding ?? AcademyTheme.of(context).paddings.tableRow.left) +
       (icon != null || leading != null
-          ? (leadingExtent ?? AcademyTokens.tableIconExtent) +
+          ? (leadingExtent ?? AcademyTheme.of(context).sizes.rowIconExtent) +
                 AcademyTokens.inlineGap
           : 0);
 
@@ -162,8 +164,8 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
               (actionLabel != null ? theme.colorScheme.onSurfaceVariant : null),
         );
     Widget tile(Color fill) => Container(
-      width: AcademyTokens.tableIconExtent,
-      height: AcademyTokens.tableIconExtent,
+      width: AcademyTheme.of(context).sizes.rowIconExtent,
+      height: AcademyTheme.of(context).sizes.rowIconExtent,
       decoration: BoxDecoration(
         color: fill,
         borderRadius: BorderRadius.circular(
@@ -173,7 +175,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
       alignment: Alignment.center,
       child: AcademySfIcon(
         icon!,
-        size: 17,
+        size: AcademyTheme.of(context).sizes.rowTileIcon,
         color:
             iconForeground ??
             (tone == null || tone == AcademyTone.error
@@ -205,7 +207,10 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
             if (leadingExtent != null)
               SizedBox.square(dimension: leadingExtent, child: leading)
             else
-              SizedBox(width: AcademyTokens.tableIconExtent, child: leading),
+              SizedBox(
+                width: AcademyTheme.of(context).sizes.rowIconExtent,
+                child: leading,
+              ),
             const SizedBox(width: AcademyTokens.inlineGap),
           ] else if (icon != null) ...[
             if (leadingExtent != null)
@@ -217,7 +222,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
                       ? tile(tileColor)
                       : AcademySfIcon(
                           icon!,
-                          size: 22,
+                          size: AcademyTheme.of(context).sizes.rowIcon,
                           color: CupertinoTheme.of(context).primaryColor,
                         ),
                 ),
@@ -227,9 +232,9 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
             else
               AcademySfIcon(
                 icon!,
-                size: 22,
-                boxSize: AcademyTokens.tableIconExtent,
-                paintExtent: AcademyTokens.tableIconExtent,
+                size: AcademyTheme.of(context).sizes.rowIcon,
+                boxSize: AcademyTheme.of(context).sizes.rowIconExtent,
+                paintExtent: AcademyTheme.of(context).sizes.rowIconExtent,
                 color: CupertinoTheme.of(context).primaryColor,
               ),
             const SizedBox(width: AcademyTokens.inlineGap),
@@ -341,7 +346,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
             chevron ??
                 AcademySfIcon(
                   AcademyTheme.of(context).icons.forward,
-                  size: 16,
+                  size: AcademyTheme.of(context).sizes.rowChevron,
                   color: toneColor,
                 ),
         ],
@@ -359,14 +364,19 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
         : Semantics(selected: selected, child: merged);
     final row = onPressed == null
         ? ConstrainedBox(
-            constraints: BoxConstraints(minHeight: minHeight),
+            constraints: BoxConstraints(
+              minHeight: minHeight ?? AcademyTheme.of(context).sizes.rowHeight,
+            ),
             child: accessible,
           )
         : pressedColor != null
         ? Semantics(
             button: true,
             child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: minHeight),
+              constraints: BoxConstraints(
+                minHeight:
+                    minHeight ?? AcademyTheme.of(context).sizes.rowHeight,
+              ),
               child: CupertinoListTile(
                 padding: EdgeInsets.zero,
                 leadingSize: 0,
@@ -383,7 +393,10 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
         : CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: enabled ? onPressed : null,
-            minimumSize: Size(AcademyTokens.target, minHeight),
+            minimumSize: Size(
+              AcademyTokens.target,
+              minHeight ?? AcademyTheme.of(context).sizes.rowHeight,
+            ),
             child: accessible,
           );
     return AcademyInteractionBlocker(

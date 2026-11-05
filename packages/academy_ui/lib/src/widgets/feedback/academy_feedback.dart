@@ -109,7 +109,7 @@ class AcademyFeedback extends StatelessWidget {
                   kind == AcademyFeedbackKind.error
                       ? AcademyTheme.of(context).icons.loadError
                       : AcademyTheme.of(context).icons.empty,
-                  size: 44,
+                  size: AcademyTheme.of(context).sizes.feedbackIcon,
                   fontWeight: FontWeight.w400,
                   color: theme.colorScheme.onSurfaceVariant.withValues(
                     alpha: .65,

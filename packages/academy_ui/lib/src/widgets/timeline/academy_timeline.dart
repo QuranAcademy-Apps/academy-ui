@@ -73,7 +73,11 @@ class AcademyTimeline extends StatelessWidget {
                               items[i].state == AcademyTimelineState.completed
                               ? AcademySfIcon(
                                   AcademyTheme.of(context).icons.checkmark,
-                                  size: AcademyTokens.tableIconExtent / 2,
+                                  size:
+                                      AcademyTheme.of(context)
+                                          .sizes
+                                          .rowIconExtent /
+                                      2,
                                   color: p.onAccentFill,
                                 )
                               : items[i].state == AcademyTimelineState.current

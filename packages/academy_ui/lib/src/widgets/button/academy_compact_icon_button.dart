@@ -40,7 +40,7 @@ class AcademyCompactIconButton extends StatelessWidget {
           child: Center(
             child: AcademySfIcon(
               icon ?? AcademyTheme.of(context).icons.close,
-              size: 17,
+              size: AcademyTheme.of(context).sizes.compactIcon,
               color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),

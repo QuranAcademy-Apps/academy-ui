@@ -118,14 +118,14 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                     children: [
                       AcademySfIcon(
                         AcademyTheme.of(context).icons.checkmark,
-                        size: 17,
+                        size: AcademyTheme.of(context).sizes.menuIcon,
                         boxSize: 22,
                         color: theme.colorScheme.onSurface,
                       ),
                       const SizedBox(width: 8),
                       AcademySfIcon(
                         leadingIcon!,
-                        size: 17,
+                        size: AcademyTheme.of(context).sizes.menuIcon,
                         boxSize: 22,
                         color: iconColor,
                       ),
@@ -134,7 +134,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                 : showLeadingCheck
                 ? AcademySfIcon(
                     AcademyTheme.of(context).icons.checkmark,
-                    size: 17,
+                    size: AcademyTheme.of(context).sizes.menuIcon,
                     boxSize: 22,
                     color: theme.colorScheme.onSurface,
                   )
@@ -142,7 +142,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                 ? null
                 : AcademySfIcon(
                     leadingIcon!,
-                    size: 17,
+                    size: AcademyTheme.of(context).sizes.menuIcon,
                     boxSize: 22,
                     color: iconColor,
                   )),
@@ -156,7 +156,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                       if (trailingIcon != null)
                         AcademySfIcon(
                           trailingIcon!,
-                          size: 17,
+                          size: AcademyTheme.of(context).sizes.menuIcon,
                           boxSize: 22,
                           color: iconColor,
                         ),
@@ -165,7 +165,7 @@ class AcademyMenuItem extends StatelessWidget implements CupertinoMenuEntry {
                       if (showTrailingCheck)
                         AcademySfIcon(
                           AcademyTheme.of(context).icons.checkmark,
-                          size: 17,
+                          size: AcademyTheme.of(context).sizes.menuIcon,
                           boxSize: 22,
                           color: theme.colorScheme.onSurface,
                         ),

@@ -72,6 +72,11 @@ AcademyApp(
       .copyWith(scrim: const Color(0x66102030), menuHighlight: myHighlight),
   radii: const AcademyRadii(field: 16, textBlock: 8),
   icons: const AcademyIcons(forward: MyIcons.next, close: MyIcons.cross),
+  sizes: const AcademySizes(buttonHeight: 48, rowHeight: 56, rowIcon: 20),
+  typography: const AcademyTypographySettings(
+    fontFamily: 'MyFont',
+    styles: {AcademyTextRole.fieldLabel: TextStyle(fontSize: 13)},
+  ),
   rowIconColors: const {AcademyRowIcons.trip: Color(0xFF0A7A5C)},
   chromeColors: const AcademyChromeColors(glassFill: Color(0xFFF0EDE6)),
   home: const MyScreen(),
@@ -82,7 +87,9 @@ AcademyApp(
   фото), `AcademyChromeColors` (навигация и стекло), `rowIconColors` (плитки строк).
 - **Иконки:** `AcademyIcons` — символы, которые пакет рисует сам. Подойдёт `IconData`
   из любого шрифта. Иконки, которые приложение передаёт в виджет, тема не меняет.
-- **Формы и отступы:** `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`.
+- **Размеры:** `AcademySizes` (`sizes:` в `AcademyApp`) — высоты кнопок, полей и строк, размеры символов.
+- **Шрифты:** `AcademyTypographySettings`: семейство и стиль любой роли, включая `fieldLabel`, `fieldMessage`, `tabText`.
+- **Формы и отступы:** `AcademyRadii`, `AcademyPaddings`.
 - **Подписи:** свой `LocalizationsDelegate<AcademyLocalizations>`.
 
 Без `AcademyApp` те же значения передаются в `academyTheme(...)`.

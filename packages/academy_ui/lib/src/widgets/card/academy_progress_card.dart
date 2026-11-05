@@ -90,7 +90,7 @@ class AcademyProgressCard extends StatelessWidget {
             done
                 ? AcademySfIcon(
                     AcademyTheme.of(context).icons.complete,
-                    fontSize: 30,
+                    fontSize: AcademyTheme.of(context).sizes.progressCardIcon,
                     boxSize: 36,
                     color: tint,
                   )

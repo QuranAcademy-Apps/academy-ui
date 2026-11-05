@@ -110,6 +110,88 @@ void main() {
     );
     expect(resolved, tile);
   });
+
+  testWidgets('sizes come from the theme, a widget parameter wins', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      app(
+        academyTheme(
+          Brightness.light,
+          sizes: const AcademySizes(
+            buttonHeight: 70,
+            rowHeight: 90,
+            fieldHeight: 64,
+          ),
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AcademyButton(
+              key: const Key('button'),
+              label: 'A',
+              onPressed: () {},
+            ),
+            AcademyButton(
+              key: const Key('explicit'),
+              label: 'B',
+              minimumHeight: 60,
+              onPressed: () {},
+            ),
+            const AcademyRow(key: Key('row'), title: 'C'),
+            const SizedBox(
+              width: 300,
+              child: AcademyFloatingInput(key: Key('field'), label: 'D'),
+            ),
+          ],
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    double height(String key) => tester.getSize(find.byKey(Key(key))).height;
+    expect(height('button'), 70);
+    expect(height('explicit'), 60);
+    expect(height('row'), greaterThanOrEqualTo(90));
+    expect(height('field'), 64);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('a field label font comes from the theme', (tester) async {
+    await tester.pumpWidget(
+      app(
+        academyTheme(
+          Brightness.light,
+          typography: const AcademyTypographySettings(
+            styles: {
+              AcademyTextRole.fieldLabel: TextStyle(
+                fontFamily: 'ClientFont',
+                fontSize: 15,
+              ),
+            },
+          ),
+        ),
+        SizedBox(
+          width: 300,
+          child: AcademyPickerInput(
+            label: 'Город',
+            value: 'Мекка',
+            icon: AcademySymbols.location,
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
+    final style = tester.widget<Text>(find.text('Город')).style!;
+    expect(style.fontFamily, 'ClientFont');
+    expect(style.fontSize, 15);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  test('default derived text roles match their base role', () {
+    final text = academyTheme(Brightness.light).textTheme;
+    expect(text.fieldLabel, text.bodySmall.copyWith(fontSize: 12, height: 1.2));
+    expect(text.fieldMessage, text.bodySmall.copyWith(fontSize: 12));
+  });
 }
 
 void _noop() {}

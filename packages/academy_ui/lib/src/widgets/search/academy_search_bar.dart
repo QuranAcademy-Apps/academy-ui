@@ -157,7 +157,7 @@ class _AcademySearchBarState extends State<AcademySearchBar>
             widget.leading ??
             AcademySfIcon(
               AcademyTheme.of(context).icons.search,
-              size: 18,
+              size: AcademyTheme.of(context).sizes.controlIcon,
               color: widget.chrome
                   ? AcademyChrome.foregroundColor(
                       context,

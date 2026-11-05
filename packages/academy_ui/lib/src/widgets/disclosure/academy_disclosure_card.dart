@@ -42,7 +42,7 @@ class AcademyDisclosureCard extends StatelessWidget {
                   expanded
                       ? AcademyTheme.of(context).icons.up
                       : AcademyTheme.of(context).icons.down,
-                  size: 18,
+                  size: AcademyTheme.of(context).sizes.controlIcon,
                   boxSize: 22,
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

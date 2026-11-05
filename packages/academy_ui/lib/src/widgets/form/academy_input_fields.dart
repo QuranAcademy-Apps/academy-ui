@@ -92,7 +92,7 @@ class AcademyReadOnlyField extends AcademyRow {
                   const SizedBox(width: 12),
                   AcademySfIcon(
                     AcademyTheme.of(context).icons.readOnly,
-                    size: 16,
+                    size: AcademyTheme.of(context).sizes.smallControlIcon,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ],
@@ -134,7 +134,7 @@ class AcademyFloatingInput extends StatefulWidget {
     this.clearOnlyWhenFocused = false,
     this.allowClear = true,
     this.reserveClearSpace = true,
-    this.minimumHeight = 48,
+    this.minimumHeight,
     this.cornerRadius,
     this.focusedBorderWidth = 1,
   });
@@ -163,7 +163,10 @@ class AcademyFloatingInput extends StatefulWidget {
 
   /// Keep the usual form geometry; compact columns may reclaim the hidden icon.
   final bool reserveClearSpace;
-  final double minimumHeight, focusedBorderWidth;
+  final double focusedBorderWidth;
+
+  /// Default: the theme's field height.
+  final double? minimumHeight;
 
   /// Default: the theme's field radius.
   final double? cornerRadius;
@@ -226,10 +229,7 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
     final duration = MediaQuery.disableAnimationsOf(context)
         ? Duration.zero
         : const Duration(milliseconds: 180);
-    final labelStyle = theme.textTheme.bodySmall.copyWith(
-      fontSize: 12,
-      height: 1.2,
-    );
+    final labelStyle = theme.textTheme.fieldLabel;
     final valueStyle = (widget.valueStyle ?? theme.textTheme.bodyLarge)
         .copyWith(height: 1.2);
     final canClear =
@@ -241,7 +241,8 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
     final labelHeight =
         MediaQuery.textScalerOf(context).scale(labelStyle.fontSize ?? 13) *
         (labelStyle.height ?? 1.2);
-    final verticalInset = (widget.minimumHeight - 48) / 2;
+    final minimumHeight = widget.minimumHeight ?? theme.sizes.fieldHeight;
+    final verticalInset = (minimumHeight - 48) / 2;
     final borderWidth = _focus.hasFocus || widget.highlight
         ? widget.focusedBorderWidth
         : 1.0;
@@ -255,7 +256,7 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
           Semantics(
             label: widget.label,
             child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: widget.minimumHeight),
+              constraints: BoxConstraints(minHeight: minimumHeight),
               child: CupertinoTextField(
                 controller: _controller,
                 focusNode: _focus,
@@ -325,7 +326,9 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
                                             },
                                       child: AcademySfIcon(
                                         AcademyTheme.of(context).icons.clear,
-                                        size: 18,
+                                        size: AcademyTheme.of(context)
+                                            .sizes
+                                            .controlIcon,
                                         color: colors.onSurfaceVariant,
                                         semanticsLabel: AcademyLocalizations.of(
                                           context,
@@ -458,8 +461,7 @@ class _FieldError extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
           child: Text(
             help!,
-            style: AcademyTheme.of(context).textTheme.bodySmall.copyWith(
-              fontSize: 12,
+            style: AcademyTheme.of(context).textTheme.fieldMessage.copyWith(
               color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
@@ -478,7 +480,7 @@ class _FieldError extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 1, right: 4),
                     child: AcademySfIcon(
                       AcademyTheme.of(context).icons.error,
-                      size: 12,
+                      size: AcademyTheme.of(context).sizes.fieldMessageIcon,
                       boxSize: 14,
                       color: AcademyTheme.of(context).colorScheme.error,
                     ),
@@ -486,9 +488,8 @@ class _FieldError extends StatelessWidget {
                 Expanded(
                   child: Text(
                     error!,
-                    style: AcademyTheme.of(context).textTheme.bodySmall
+                    style: AcademyTheme.of(context).textTheme.fieldMessage
                         .copyWith(
-                          fontSize: 12,
                           color: AcademyTheme.of(context).colorScheme.error,
                         ),
                   ),
@@ -536,7 +537,7 @@ class AcademyPickerInput extends StatelessWidget {
           child: CupertinoButton(
             onPressed: onPressed,
             padding: const EdgeInsets.fromLTRB(15, 5, 15, 4),
-            minimumSize: const Size(44, 46),
+            minimumSize: Size(44, theme.sizes.fieldHeight - 2),
             child: ExcludeSemantics(
               child: Row(
                 children: [
@@ -547,9 +548,7 @@ class AcademyPickerInput extends StatelessWidget {
                         if (value != null) ...[
                           Text(
                             label,
-                            style: theme.textTheme.bodySmall.copyWith(
-                              fontSize: 12,
-                              height: 1.2,
+                            style: theme.textTheme.fieldLabel.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
                           ),
@@ -570,7 +569,7 @@ class AcademyPickerInput extends StatelessWidget {
                   const SizedBox(width: 12),
                   AcademySfIcon(
                     icon,
-                    size: 22,
+                    size: AcademyTheme.of(context).sizes.fieldIcon,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ],

@@ -54,7 +54,7 @@ class AcademyValueRow extends StatelessWidget {
                 if (readOnly) ...[
                   AcademySfIcon(
                     AcademyTheme.of(context).icons.lock,
-                    size: AcademyTokens.tableIconExtent / 2,
+                    size: AcademyTheme.of(context).sizes.rowIconExtent / 2,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                   const SizedBox(width: AcademyTokens.labelGap),

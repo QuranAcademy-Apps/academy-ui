@@ -15,7 +15,7 @@ class AcademyCheckmark extends StatelessWidget {
     child: selected
         ? AcademySfIcon(
             AcademyTheme.of(context).icons.checkmark,
-            size: 18,
+            size: AcademyTheme.of(context).sizes.checkmark,
             boxSize: 18,
             color: color ?? AcademyTheme.of(context).colorScheme.onSurface,
           )

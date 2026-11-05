@@ -62,7 +62,11 @@ class AcademyStatus extends StatelessWidget {
           : Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                AcademySfIcon(icon!, size: 13, color: color),
+                AcademySfIcon(
+                  icon!,
+                  size: AcademyTheme.of(context).sizes.statusIcon,
+                  color: color,
+                ),
                 const SizedBox(width: 4),
                 Flexible(child: labelWidget),
               ],
