@@ -50,7 +50,6 @@ abstract final class AcademyTokens {
   static const pressMotion = Duration(milliseconds: 260);
   static const buttonPressMotion = Duration(milliseconds: 100);
   static const buttonReleaseMotion = Duration(milliseconds: 100);
-  static const buttonPressedScale = 0.97;
   static const buttonMaximumShrink = 5.0;
   // Backdrop color correction, not a painted overlay or child opacity.
   static const chromeBlurToneStrength = 0.54;

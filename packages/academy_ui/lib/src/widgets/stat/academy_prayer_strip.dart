@@ -137,7 +137,7 @@ class AcademyPrayerStrip extends StatelessWidget {
       enabled: onPressed != null,
       child: PressScale(
         enabled: onPressed != null,
-        pressedScale: .98,
+        pressedScale: AcademyTheme.of(context).interaction.pressedScale,
         onTap: onPressed,
         child: ExcludeSemantics(child: card),
       ),

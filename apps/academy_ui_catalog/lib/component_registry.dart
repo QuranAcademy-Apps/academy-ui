@@ -350,7 +350,6 @@ const componentRegistry = <ComponentDescriptor>[
     ComponentCategory.feedback,
     [
       'AcademyCounterButton',
-      'AcademyPageDots',
       'AcademyProgressCard',
       'AcademyProgressTile',
       'AcademyIndexBadge',

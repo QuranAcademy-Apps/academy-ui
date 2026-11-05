@@ -24,7 +24,7 @@ class _AcademyPressEffectState extends State<AcademyPressEffect>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late final AnimationController _controller;
   late final CurvedAnimation _curve;
-  late final Animation<double> _scale;
+  late Animation<double> _scale;
   int? _pointer;
   Offset? _origin;
   bool _reducedMotion = false;
@@ -43,10 +43,6 @@ class _AcademyPressEffectState extends State<AcademyPressEffect>
       curve: Curves.easeOutQuart,
       reverseCurve: Curves.easeOutCubic,
     );
-    _scale = Tween<double>(
-      begin: 1,
-      end: AcademyTokens.buttonPressedScale,
-    ).animate(_curve);
   }
 
   void _reset() {
@@ -58,6 +54,10 @@ class _AcademyPressEffectState extends State<AcademyPressEffect>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _scale = Tween<double>(
+      begin: 1,
+      end: AcademyTheme.of(context).interaction.pressedScale,
+    ).animate(_curve);
     _reducedMotion = MediaQuery.disableAnimationsOf(context);
     if (_reducedMotion) _reset();
   }

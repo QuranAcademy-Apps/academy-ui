@@ -504,6 +504,7 @@ class AcademyChromeButton extends StatelessWidget {
       selected: selected,
       expanded: semanticsExpanded,
       child: PressScale(
+        pressedScale: AcademyTheme.of(context).interaction.chromePressedScale,
         enabled: onPressed != null && !MediaQuery.disableAnimationsOf(context),
         child: SizedBox.square(
           dimension: academyChromeBarHeight,
@@ -577,6 +578,7 @@ class AcademyChromeMenu extends StatelessWidget {
       enabled: true,
       expanded: controller.isOpen,
       child: PressScale(
+        pressedScale: AcademyTheme.of(context).interaction.chromePressedScale,
         enabled: !MediaQuery.disableAnimationsOf(context),
         child: AcademyChrome(
           radius: AcademyTheme.of(context).radii.chromeButton,

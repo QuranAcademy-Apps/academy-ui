@@ -151,7 +151,7 @@ class AcademyProgressTile extends StatelessWidget {
       enabled: onPressed != null,
       child: PressScale(
         enabled: onPressed != null,
-        pressedScale: .97,
+        pressedScale: AcademyTheme.of(context).interaction.pressedScale,
         onTap: onPressed,
         child: ExcludeSemantics(child: tile),
       ),

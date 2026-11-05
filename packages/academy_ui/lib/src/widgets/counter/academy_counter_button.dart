@@ -51,6 +51,7 @@ class AcademyCounterButton extends StatelessWidget {
       value: '${math.min(count, total)} / $total',
       enabled: onPressed != null,
       child: PressScale(
+        pressedScale: AcademyTheme.of(context).interaction.chromePressedScale,
         enabled: onPressed != null || onLongPress != null,
         onTap: onPressed,
         onLongPress: onLongPress,

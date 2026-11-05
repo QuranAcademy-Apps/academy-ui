@@ -54,7 +54,7 @@ class AcademyResumeCapsule extends StatelessWidget {
               enabled: onPressed != null,
               child: PressScale(
                 enabled: onPressed != null,
-                pressedScale: .96,
+                pressedScale: AcademyTheme.of(context).interaction.pressedScale,
                 onTap: onPressed,
                 child: ExcludeSemantics(
                   child: AcademyChromeCapsule(

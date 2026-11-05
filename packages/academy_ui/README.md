@@ -46,7 +46,7 @@ dependencies:
 | Меню и наложения | `AcademyMenuButton`, `AcademyInlineOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
 | Данные и медиа | `AcademyStat`, `AcademyStatGroup`, `AcademyTimeline`, `AcademyTimelineItem`, `AcademyImage`, `AcademySfImage`, `AcademySfIcon`, `AcademySymbols`, `AcademyChevron` |
 | Контекстная помощь | `AcademyTooltip`, `AcademyTip`, `showAcademyTips` |
-| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyPageDots`, `AcademyProgressCard`, `AcademyProgressTile`, `AcademySearchScrim` |
+| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyProgressCard`, `AcademyProgressTile`, `AcademySearchScrim` |
 | Оформление и взаимодействие | `AcademyApp`, `AcademyTheme`, `AcademyAppearanceController`, `AcademyColors`, `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`, `AcademyInteractionTheme`, `AcademyTappable`, `AcademyFocusOutline`, motion-примитивы |
 
 В каталоге три входа: «Компоненты», «Сценарии», «Оформление». Основная категория
@@ -189,6 +189,10 @@ SF Symbols задаются через `AcademySymbols` или `flutter_sficon`,
 ожидание и Reduce Motion не запускают масштабирование. Приложению не требуется
 дополнительный `PressScale` вокруг стандартной кнопки.
 
+Правило силы нажатия: кнопки, карточки и плитки сжимаются до 0.97, круглые кнопки
+навигации — до 0.9. Значения задаются в `AcademyInteractionTheme` (`pressedScale`,
+`chromePressedScale`). Прямой `PressScale` без параметра по-прежнему сжимает до 0.9.
+
 ## Модалки и клавиатура
 
 ```dart
@@ -304,9 +308,6 @@ rounded clip над списком; режимы под баром исполь�
 - `AcademyCounterButton(count:, total:, label:, onPressed:, onLongPress:)`: круглая
   chrome-кнопка счёта повторов (зикр, тасбих) с кольцом прогресса; по достижении
   `total` показывает галочку. Счёт, тактильный отклик и переход дальше — у приложения.
-- `AcademyPageDots(count:, index:, isCompleted:, onSelected:)`: точки страниц ридера
-  (порт Quran `DotStripScroller`); длинная полоса прокручивается и держит текущую
-  точку по центру, края растворяются. Кладите внутрь `AcademyChromeCapsule`.
 - `AcademyProgressCard`: непрозрачная карточка подборки с иконкой, подписью,
   кольцом прогресса (галочка при 100%) и `highlighted` для актуальной подборки.
 - `AcademyCounterView(count:, total:, onPressed:)`: полноэкранный счётчик —

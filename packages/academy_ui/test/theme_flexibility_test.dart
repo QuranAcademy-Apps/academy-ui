@@ -192,6 +192,20 @@ void main() {
     expect(text.fieldLabel, text.bodySmall.copyWith(fontSize: 12, height: 1.2));
     expect(text.fieldMessage, text.bodySmall.copyWith(fontSize: 12));
   });
+
+  test(
+    'press scales: 0.97 by default, 0.9 for navigation, both replaceable',
+    () {
+      const defaults = AcademyInteractionTheme();
+      expect(defaults.pressedScale, .97);
+      expect(defaults.chromePressedScale, .9);
+      final theme = academyTheme(
+        Brightness.light,
+        interaction: const AcademyInteractionTheme(pressedScale: .95),
+      );
+      expect(theme.interaction.pressedScale, .95);
+    },
+  );
 }
 
 void _noop() {}

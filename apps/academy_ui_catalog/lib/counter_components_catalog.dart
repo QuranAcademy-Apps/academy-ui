@@ -62,23 +62,6 @@ class _CounterComponentsDemoState extends State<CounterComponentsDemo> {
         ),
       ),
       example(
-        'Точки страниц: текущая и прочитанные',
-        AcademyChromeCapsule(
-          child: SizedBox(
-            height: AcademyPageDots.height,
-            child: AcademyPageDots(
-              count: _pages,
-              index: _page,
-              isCompleted: _done.contains,
-              onSelected: (page) => setState(() {
-                _page = page;
-                _count = _done.contains(page) ? _total : 0;
-              }),
-            ),
-          ),
-        ),
-      ),
-      example(
         'Плитки «Каждый день» (удержание — меню)',
         IntrinsicHeight(
           child: Row(

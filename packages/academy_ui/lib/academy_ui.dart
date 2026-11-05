@@ -101,7 +101,6 @@ export 'src/widgets/stat/academy_stat_group.dart';
 export 'src/widgets/stat/academy_prayer_strip.dart';
 export 'src/widgets/table/academy_disclosure_table.dart';
 export 'src/widgets/counter/academy_counter_button.dart';
-export 'src/widgets/progress/academy_page_dots.dart';
 export 'src/widgets/progress/academy_dot_strip_scroller.dart';
 export 'src/widgets/icon/academy_chevron.dart';
 export 'src/widgets/card/academy_progress_card.dart';

@@ -88,38 +88,6 @@ void main() {
     );
   });
 
-  testWidgets('page dots select pages and scroll long strips', (tester) async {
-    final selected = <int>[];
-    await tester.pumpWidget(
-      _host(
-        SizedBox(
-          width: 200,
-          child: AcademyPageDots(
-            count: 100,
-            index: 50,
-            isCompleted: (i) => i < 10,
-            onSelected: selected.add,
-            semanticsLabel: 'Зикр 51 из 100',
-          ),
-        ),
-      ),
-    );
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull);
-    expect(find.bySemanticsLabel('Зикр 51 из 100'), findsOneWidget);
-    await tester.tapAt(tester.getCenter(find.byType(AcademyPageDots)));
-    expect(selected.single, inInclusiveRange(48, 52));
-  });
-
-  testWidgets('short page dots are centered without scrolling', (tester) async {
-    await tester.pumpWidget(
-      _host(
-        const SizedBox(width: 300, child: AcademyPageDots(count: 5, index: 0)),
-      ),
-    );
-    expect(find.byType(SingleChildScrollView), findsNothing);
-  });
-
   testWidgets('progress card reports progress and completion', (tester) async {
     var taps = 0;
     await tester.pumpWidget(
