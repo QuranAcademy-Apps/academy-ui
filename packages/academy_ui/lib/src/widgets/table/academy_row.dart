@@ -498,7 +498,9 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
           );
     final Widget semantics = excludeFromSemantics
         ? ExcludeSemantics(child: row)
-        : semanticLabel != null || semanticHint != null
+        : semanticLabel != null ||
+              semanticHint != null ||
+              table.mergeRowSemantics
         ? Semantics(
             container: true,
             button: tappable,
@@ -506,7 +508,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
             label: semanticLabel,
             hint: semanticHint,
             excludeSemantics: semanticLabel != null,
-            child: row,
+            child: table.mergeRowSemantics ? MergeSemantics(child: row) : row,
           )
         : AcademyInteractionBlocker(
             enabled: enabled,

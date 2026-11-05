@@ -33,6 +33,7 @@ class AcademyTableTheme {
     this.separatorEnd,
     this.leadingHeaderReserve = 0,
     this.clipSurface = false,
+    this.mergeRowSemantics = false,
     this.press,
     this.chevronBuilder,
     this.accessoryIconColor,
@@ -72,6 +73,9 @@ class AcademyTableTheme {
 
   /// Clips row content to the rounded surface in every table.
   final bool clipSurface;
+
+  /// Announces a whole row as one screen-reader element.
+  final bool mergeRowSemantics;
 
   /// When set, tappable rows scale like this instead of fading.
   final AcademyRowPress? press;

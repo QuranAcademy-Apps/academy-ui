@@ -102,4 +102,23 @@ void main() {
     await tester.pumpAndSettle();
     expect(taps, 1);
   });
+
+  testWidgets('the theme can announce a row as one element', (tester) async {
+    final handle = tester.ensureSemantics();
+    Widget row(bool merge) => app(
+      academyTheme(
+        Brightness.light,
+        table: AcademyTableTheme(mergeRowSemantics: merge),
+      ),
+      const Center(
+        child: AcademyRow(title: 'Строка', subtitle: 'Подпись'),
+      ),
+    );
+    await tester.pumpWidget(row(true));
+    expect(find.bySemanticsLabel(RegExp('Строка\\s+Подпись')), findsOneWidget);
+    await tester.pumpWidget(row(false));
+    expect(find.bySemanticsLabel('Строка'), findsOneWidget);
+    expect(find.bySemanticsLabel('Подпись'), findsOneWidget);
+    handle.dispose();
+  });
 }
