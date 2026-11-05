@@ -282,7 +282,7 @@ class _ComponentExamplesState extends State<ComponentExamples> {
               onPressed: () => _toast('Выбрано'),
             ),
           ],
-          builder: (_, open) =>
+          builder: (_, open, _) =>
               AcademyTextButton(label: 'Открыть ленивое меню', onPressed: open),
         ),
         const AcademyChevron(),

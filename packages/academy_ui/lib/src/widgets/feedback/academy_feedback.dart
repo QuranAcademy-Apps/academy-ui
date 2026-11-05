@@ -102,6 +102,7 @@ class AcademyFeedback extends StatelessWidget {
                   padding: AcademyTheme.of(context).paddings.feedbackIcon,
                   child:
                       loadingIndicator ??
+                      theme.feedbackLoadingIndicator ??
                       const CupertinoActivityIndicator(radius: 12),
                 )
               else

@@ -99,6 +99,8 @@ class AcademyThemeData {
     this.icons = const AcademyIcons(),
     this.sizes = const AcademySizes(),
     this.toast = const AcademyToastTheme(),
+    this.checkmarkColor,
+    this.feedbackLoadingIndicator,
     this.rowIconColors = const {},
   }) : colorScheme = colors ?? AcademyPalette(brightness, accent);
   final AcademyInteractionTheme interaction;
@@ -111,6 +113,12 @@ class AcademyThemeData {
 
   /// Look and placement of [AcademyToastOverlay].
   final AcademyToastTheme toast;
+
+  /// [AcademyCheckmark] color; default: the text color.
+  final Color? checkmarkColor;
+
+  /// Loading state of [AcademyFeedback]; default: an activity indicator.
+  final Widget? feedbackLoadingIndicator;
 
   /// Replaces the default tile color of an [AcademyRowIcons] role.
   final Map<AcademyRowIcons, Color> rowIconColors;
@@ -132,6 +140,8 @@ class AcademyThemeData {
     AcademyIcons? icons,
     AcademySizes? sizes,
     AcademyToastTheme? toast,
+    Color? checkmarkColor,
+    Widget? feedbackLoadingIndicator,
     Map<AcademyRowIcons, Color>? rowIconColors,
   }) => AcademyThemeData(
     brightness,
@@ -145,6 +155,9 @@ class AcademyThemeData {
     icons: icons ?? this.icons,
     sizes: sizes ?? this.sizes,
     toast: toast ?? this.toast,
+    checkmarkColor: checkmarkColor ?? this.checkmarkColor,
+    feedbackLoadingIndicator:
+        feedbackLoadingIndicator ?? this.feedbackLoadingIndicator,
     rowIconColors: rowIconColors ?? this.rowIconColors,
   );
   Color get scaffoldBackgroundColor => colorScheme.scaffoldBackground;
@@ -181,6 +194,8 @@ AcademyThemeData academyTheme(
   AcademyIcons icons = const AcademyIcons(),
   AcademySizes sizes = const AcademySizes(),
   AcademyToastTheme toast = const AcademyToastTheme(),
+  Color? checkmarkColor,
+  Widget? feedbackLoadingIndicator,
   Map<AcademyRowIcons, Color> rowIconColors = const {},
 }) => AcademyThemeData(
   brightness,
@@ -194,5 +209,7 @@ AcademyThemeData academyTheme(
   icons: icons,
   sizes: sizes,
   toast: toast,
+  checkmarkColor: checkmarkColor,
+  feedbackLoadingIndicator: feedbackLoadingIndicator,
   rowIconColors: rowIconColors,
 );

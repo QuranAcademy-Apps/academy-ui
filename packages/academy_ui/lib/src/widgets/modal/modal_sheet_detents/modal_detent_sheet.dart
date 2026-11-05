@@ -90,12 +90,12 @@ double _modalSheetOffscreenBottomInset(
       : MediaQuery.paddingOf(context).top;
   // The keyboard covers the home indicator: only the part of the safe area
   // above it counts, as in MediaQueryData.fromView.
+  // A sheet that rises above the keyboard no longer reaches the bottom edge.
+  final keyboard = _ModalKeyboardScope.movesAboveKeyboard(context)
+      ? view.viewInsets.bottom
+      : 0.0;
   final bottomInset = ratio > 0
-      ? (view.padding.bottom - view.viewInsets.bottom).clamp(
-              0.0,
-              double.infinity,
-            ) /
-            ratio
+      ? (view.padding.bottom - keyboard).clamp(0.0, double.infinity) / ratio
       : MediaQuery.paddingOf(context).bottom;
   final offscreenGap =
       ModalSheetDetent.full.heightOf(context) - restingHeight + topInset;

@@ -62,6 +62,7 @@ export 'src/widgets/modal/academy_modal.dart';
 export 'src/foundation/surface/academy_surface_mask.dart';
 export 'src/foundation/table/academy_table_row_scope.dart';
 export 'src/widgets/modal/modal_sheet_detents.dart';
+export 'src/widgets/modal/modal_sheet_pinned_body.dart';
 export 'src/foundation/motion/loading_dots_label.dart';
 export 'src/foundation/motion/press_scale.dart';
 export 'src/foundation/motion/soft_fade_switcher.dart';

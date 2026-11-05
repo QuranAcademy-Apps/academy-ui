@@ -387,11 +387,6 @@ AcademyToastHost.show(
 
 Библиотека построена на `package:flutter/cupertino.dart`. Исключение — четыре файла, которым нужен `package:cupertino_ui`: `academy_menu.dart`, `academy_menu_anchor.dart`, `academy_menu_item.dart` и `modal_sheet_detents.dart`; остальные виджеты `CupertinoButton` берут из SDK. Приложение, которое сидит на `package:cupertino_ui`, должно дополнительно предоставить тему Cupertino из SDK (`CupertinoTheme` из `flutter/cupertino.dart`), иначе динамические цвета и `CupertinoButton`/`CupertinoSwitch` внутри академических виджетов возьмут яркость системы, а не приложения.
 
-## quran_compat
-
-`lib/quran_compat/` — UI-слой приложения Quran (модалки, тосты, chrome, GroupedTable, меню, `AppColors`/`AppTypography`), перенесённый как есть в том же дереве папок. Он построен на `package:cupertino_ui` и работает только в приложении с `cupertino_ui`; Zikro и Yalla его не используют. Дубли с основным API (модалка, тост, chrome, таблица, цвета, типографика) временно остаются и будут сведены. Строки доступности приложение подставляет через `QuranCompatStringsDelegate`.
-
-Шрифт Inter (`assets/fonts/Inter.ttf`) не объявлен в `pubspec.yaml` пакета: шрифт пакета попадает в сборку каждого приложения (+856 КБ). Приложение, которому нужен Inter, объявляет его у себя.
 
 ## Проверка и источники
 

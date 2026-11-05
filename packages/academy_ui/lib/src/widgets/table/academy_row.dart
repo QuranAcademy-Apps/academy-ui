@@ -1,3 +1,4 @@
+import '../switch/academy_switch.dart';
 import '../../theme/academy_row_icons.dart';
 import '../../foundation/interaction/academy_interaction.dart';
 import '../icon/academy_sf_image.dart';
@@ -356,7 +357,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
       onLongPress: enabled ? onLongPress : null,
       child: Opacity(opacity: enabled ? 1 : .45, child: content),
     );
-    final merged = trailing is CupertinoSwitch
+    final merged = trailing is CupertinoSwitch || trailing is AcademySwitch
         ? MergeSemantics(child: interaction)
         : interaction;
     final accessible = selected == null
@@ -404,9 +405,11 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
       label: title,
       value: subtitle,
       button: onPressed != null,
-      checked: trailing is CupertinoSwitch
-          ? (trailing as CupertinoSwitch).value
-          : null,
+      checked: switch (trailing) {
+        final CupertinoSwitch toggle => toggle.value,
+        final AcademySwitch toggle => toggle.value,
+        _ => null,
+      },
       child: row,
     );
   }

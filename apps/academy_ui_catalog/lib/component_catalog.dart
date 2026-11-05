@@ -558,7 +558,7 @@ class _ComponentReferencePageState extends State<ComponentReferencePage> {
               onPressed: action,
             ),
           ],
-          builder: (_, open) =>
+          builder: (_, open, _) =>
               AcademyTextButton(label: 'Ленивое меню', onPressed: open),
         ),
       ],

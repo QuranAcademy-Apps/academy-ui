@@ -153,7 +153,10 @@ class _ModalSheetScrollInsetScopeState
     _recompute();
   }
 
-  void _handleStatus(AnimationStatus _) => _recompute();
+  // Only a settled sheet changes the inset: a drag must not relayout the list.
+  void _handleStatus(AnimationStatus status) {
+    if (status == AnimationStatus.completed) _recompute();
+  }
 
   void _recompute() {
     if (!mounted) return;
@@ -189,9 +192,18 @@ const academyModalSheetSurfaceShape = RoundedSuperellipseBorder(
   borderRadius: BorderRadius.vertical(top: academyModalSheetTopRadius),
 );
 
+/// Lowest open detent, including through a sheet-local Navigator.
+double modalSheetMinimumExtent(BuildContext context) =>
+    _ModalSheetControllerScope.maybeOf(context)
+        ?.effectiveSnappingConfig
+        .minExtent ??
+    1;
+
 Future<T?> showAcademyModalRoute<T>({
   required BuildContext context,
   required WidgetBuilder builder,
+  RouteSettings? settings,
+  Widget Function(BuildContext context, Widget child)? wrapContent,
   Color? backgroundColor,
   Color? barrierColor,
   bool useRootNavigator = false,
@@ -230,6 +242,7 @@ Future<T?> showAcademyModalRoute<T>({
       ? sourceScaler
       : null;
   final route = _AcademySheetRoute<T>(
+    settings: settings,
     moveAboveKeyboard: moveAboveKeyboard,
     barrierColor:
         barrierColor ?? AcademyTheme.of(context).colorScheme.modalBarrier,
@@ -266,7 +279,14 @@ Future<T?> showAcademyModalRoute<T>({
             child: _ModalKeyboardScope(
               moveAboveKeyboard: moveAboveKeyboard,
               child: _ModalSheetScrollInsetScope(
-                child: RepaintBoundary(child: Builder(builder: builder)),
+                child: RepaintBoundary(
+                  child: Builder(
+                    builder: (context) {
+                      final content = builder(context);
+                      return wrapContent?.call(context, content) ?? content;
+                    },
+                  ),
+                ),
               ),
             ),
           );

@@ -148,8 +148,7 @@ Resolver визуального состояния кнопок и OptionResults
 `src/widgets/modal/modal_sheet_corner_mask.dart`). Проверка: скрипт разрешил
 относительные и `package:`-импорты во всём пакете, тестах и каталоге и не нашёл ни
 одного пользователя; `grep "package:academy_ui/src/"` по Quran, Zikro и Yalla тоже
-пуст. Публичный API — только `package:academy_ui/academy_ui.dart` (и
-`quran_compat/...` для Quran); импорт `src/` не поддерживается.
+пуст. Публичный API — только `package:academy_ui/academy_ui.dart`; импорт `src/` не поддерживается.
 
 ## Короткие и длинные таблицы
 

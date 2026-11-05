@@ -13,7 +13,6 @@ dependencies:
   cupertino_ui: ^1.0.2
   cupertino_icons: ^1.0.8
   flutter_sficon: ^1.3.0
-  super_sliver_list: ^0.4.1
   stupid_simple_sheet:
     path: third_party/stupid_simple_sheet
 dev_dependencies:
