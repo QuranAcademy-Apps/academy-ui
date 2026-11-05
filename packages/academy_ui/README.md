@@ -90,6 +90,7 @@ AcademyApp(
 - **Размеры:** `AcademySizes` (`sizes:` в `AcademyApp`) — высоты кнопок, полей и строк, размеры символов.
 - **Шрифты:** `AcademyTypographySettings`: семейство и стиль любой роли, включая `fieldLabel`, `fieldMessage`, `tabText`.
 - **Формы и отступы:** `AcademyRadii`, `AcademyPaddings`.
+- **Тосты:** `AcademyToastTheme` (`toast:`) — материал капсулы и нижний отступ `AcademyToastOverlay`.
 - **Подписи:** свой `LocalizationsDelegate<AcademyLocalizations>`.
 
 Без `AcademyApp` те же значения передаются в `academyTheme(...)`.

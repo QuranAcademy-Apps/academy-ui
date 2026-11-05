@@ -1,6 +1,7 @@
 import 'academy_interaction_theme.dart';
 import 'academy_icons.dart';
 import 'academy_sizes.dart';
+import 'academy_toast_theme.dart';
 import 'academy_row_icons.dart';
 export 'academy_interaction_theme.dart';
 import 'academy_palette.dart';
@@ -10,6 +11,7 @@ import 'academy_paddings.dart';
 import 'academy_typography.dart';
 export 'academy_icons.dart';
 export 'academy_sizes.dart';
+export 'academy_toast_theme.dart';
 export 'academy_radii.dart';
 export 'academy_paddings.dart';
 export 'academy_typography.dart';
@@ -96,6 +98,7 @@ class AcademyThemeData {
     this.chromeColors = const AcademyChromeColors(),
     this.icons = const AcademyIcons(),
     this.sizes = const AcademySizes(),
+    this.toast = const AcademyToastTheme(),
     this.rowIconColors = const {},
   }) : colorScheme = colors ?? AcademyPalette(brightness, accent);
   final AcademyInteractionTheme interaction;
@@ -105,6 +108,9 @@ class AcademyThemeData {
 
   /// Component sizes.
   final AcademySizes sizes;
+
+  /// Look and placement of [AcademyToastOverlay].
+  final AcademyToastTheme toast;
 
   /// Replaces the default tile color of an [AcademyRowIcons] role.
   final Map<AcademyRowIcons, Color> rowIconColors;
@@ -125,6 +131,7 @@ class AcademyThemeData {
     AcademyChromeColors? chromeColors,
     AcademyIcons? icons,
     AcademySizes? sizes,
+    AcademyToastTheme? toast,
     Map<AcademyRowIcons, Color>? rowIconColors,
   }) => AcademyThemeData(
     brightness,
@@ -137,6 +144,7 @@ class AcademyThemeData {
     chromeColors: chromeColors ?? this.chromeColors,
     icons: icons ?? this.icons,
     sizes: sizes ?? this.sizes,
+    toast: toast ?? this.toast,
     rowIconColors: rowIconColors ?? this.rowIconColors,
   );
   Color get scaffoldBackgroundColor => colorScheme.scaffoldBackground;
@@ -172,6 +180,7 @@ AcademyThemeData academyTheme(
   AcademyChromeColors chromeColors = const AcademyChromeColors(),
   AcademyIcons icons = const AcademyIcons(),
   AcademySizes sizes = const AcademySizes(),
+  AcademyToastTheme toast = const AcademyToastTheme(),
   Map<AcademyRowIcons, Color> rowIconColors = const {},
 }) => AcademyThemeData(
   brightness,
@@ -184,5 +193,6 @@ AcademyThemeData academyTheme(
   chromeColors: chromeColors,
   icons: icons,
   sizes: sizes,
+  toast: toast,
   rowIconColors: rowIconColors,
 );

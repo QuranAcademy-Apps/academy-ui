@@ -128,4 +128,47 @@ void main() {
     expect(toast.right, lessThanOrEqualTo(844 - 21 - 16));
     expect(find.byType(AcademyGlassMaterial), findsOneWidget);
   });
+
+  testWidgets('toast overlay follows its message and runs its action', (
+    tester,
+  ) async {
+    var acted = 0, dismissed = 0;
+    Widget app(String? message) => AcademyApp(
+      home: Center(
+        child: AcademyToastOverlay(
+          message: message,
+          position: AcademyToastPosition.bottom,
+          actionLabel: 'Вернуть',
+          onAction: () => acted++,
+          onDismissed: () => dismissed++,
+          showCloseButton: true,
+        ),
+      ),
+    );
+    await tester.pumpWidget(app('Удалено'));
+    await tester.pumpAndSettle();
+    expect(find.text('Удалено'), findsOneWidget);
+    await tester.tap(find.text('Вернуть'));
+    await tester.pumpAndSettle();
+    expect(acted, 1);
+    expect(find.text('Удалено'), findsNothing);
+    await tester.pumpWidget(app(null));
+    await tester.pumpWidget(app('Снова'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(CupertinoButton));
+    await tester.pumpAndSettle();
+    expect(dismissed, 1);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  test('the toast controller clears its value and stops after dispose', () {
+    final controller = AcademyToastController<String>();
+    controller.show('a');
+    expect(controller.value, 'a');
+    controller.hide();
+    expect(controller.value, isNull);
+    controller.dispose();
+    controller.show('b');
+    expect(controller.value, isNull);
+  });
 }

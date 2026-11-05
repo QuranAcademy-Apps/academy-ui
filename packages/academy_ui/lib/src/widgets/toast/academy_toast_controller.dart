@@ -7,8 +7,8 @@ import 'package:flutter/foundation.dart';
 /// The toast is hot, independent UI: keep it on this narrow listenable instead
 /// of a screen notifier so showing or hiding it repaints only the overlay. A
 /// newer [show] restarts the window; nothing publishes after [dispose].
-final class AppToastController<T extends Object> {
-  AppToastController({this.duration = const Duration(seconds: 3)});
+final class AcademyToastController<T extends Object> {
+  AcademyToastController({this.duration = const Duration(seconds: 3)});
 
   final Duration duration;
   final ValueNotifier<T?> _value = ValueNotifier<T?>(null);

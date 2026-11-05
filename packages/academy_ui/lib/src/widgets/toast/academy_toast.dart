@@ -8,9 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 
 import '../navigation/chrome/academy_chrome.dart';
-import '../icon/academy_sf_image.dart';
+import 'academy_toast_overlay.dart';
 
-enum AcademyToastPosition { top, bottom }
+export 'academy_toast_overlay.dart';
+export 'academy_toast_controller.dart';
 
 /// Capsule toast; holding pauses its timer, swiping toward its edge dismisses.
 class AcademyToastHost extends StatefulWidget {
@@ -250,46 +251,11 @@ class _AcademyToastHostState extends State<AcademyToastHost>
                                 : AcademyTheme.of(context)
                                       .paddings
                                       .toastWithIcons,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (_leadingIcon != null) ...[
-                                  AcademySfIcon(
-                                    _leadingIcon!,
-                                    size: AcademyTheme.of(context)
-                                        .sizes
-                                        .controlIcon,
-                                    boxSize: 18,
-                                  ),
-                                  const SizedBox(
-                                    width: AcademyTokens.inlineGap,
-                                  ),
-                                ],
-                                Flexible(
-                                  child: Text(
-                                    _message!,
-                                    textAlign:
-                                        _position == AcademyToastPosition.top
-                                        ? TextAlign.center
-                                        : TextAlign.start,
-                                    style: AcademyTheme.of(context)
-                                        .textTheme
-                                        .toast,
-                                  ),
-                                ),
-                                if (_trailingIcon != null) ...[
-                                  const SizedBox(
-                                    width: AcademyTokens.inlineGap,
-                                  ),
-                                  AcademySfIcon(
-                                    _trailingIcon!,
-                                    size: AcademyTheme.of(context)
-                                        .sizes
-                                        .controlIcon,
-                                    boxSize: 18,
-                                  ),
-                                ],
-                              ],
+                            child: AcademyToastContent(
+                              message: _message!,
+                              position: _position,
+                              icon: _leadingIcon,
+                              trailingIcon: _trailingIcon,
                             ),
                           ),
                         ),
