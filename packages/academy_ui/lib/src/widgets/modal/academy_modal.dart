@@ -5,7 +5,9 @@ import 'package:stupid_simple_sheet/stupid_simple_sheet.dart';
 
 import '../../theme/academy_theme.dart';
 import '../navigation/chrome/academy_chrome.dart';
+import '../navigation/chrome/academy_chrome_fade_material.dart';
 import '../navigation/chrome/academy_chrome_metrics.dart';
+import '../../foundation/motion/soft_fade_switcher.dart';
 import '../../foundation/surface/academy_surface_mask.dart';
 import 'modal_sheet_detents.dart';
 
@@ -298,9 +300,63 @@ class AcademyModalScaffold extends StatelessWidget {
     this.grouped = false,
     this.header = true,
     this.clipContent = true,
-  }) : assert(headerFadeExtent >= 0 && headerFadeExtent < double.infinity);
+  }) : assert(headerFadeExtent >= 0 && headerFadeExtent < double.infinity),
+       middle = null,
+       leading = null,
+       actionWidgets = null,
+       onClose = null,
+       showClose = true,
+       headerWidget = null,
+       headerHeight = academyChromeModalHeaderHeight,
+       backgroundColor = null,
+       search = null,
+       body = null;
+
+  /// Edge-to-edge content under a floating [AcademyChromeModalHeader.capsule]
+  /// over a soft edge fade. [body] receives the insets its scroll view must
+  /// apply as padding; the sheet's off-screen slice is added at a leaf with
+  /// [ModalSheetScrollInsets.of], so a detent change rebuilds only that leaf.
+  const AcademyModalScaffold.floating({
+    super.key,
+    this.title,
+    this.middle,
+    this.leading,
+    this.actionWidgets,
+    this.onClose,
+    this.showClose = true,
+    this.headerWidget,
+    this.headerHeight = academyChromeModalHeaderHeight,
+    this.backgroundColor,
+    this.search,
+    required Widget Function(BuildContext context, EdgeInsets contentInsets)
+    this.body,
+  }) : assert(headerWidget != null || title != null || middle != null),
+       builder = null,
+       headerBehavior = AcademyModalHeaderBehavior.fade,
+       headerFadeExtent = 24,
+       grouped = false,
+       header = true,
+       clipContent = false;
   final String? title;
-  final WidgetBuilder builder;
+  final WidgetBuilder? builder;
+
+  /// Replaces the title capsule of a floating header.
+  final Widget? middle;
+  final Widget? leading;
+  final List<Widget>? actionWidgets;
+  final VoidCallback? onClose;
+  final bool showClose;
+
+  /// Replaces a floating header; should be [headerHeight] tall.
+  final Widget? headerWidget;
+  final double headerHeight;
+
+  /// Default: the page background.
+  final Color? backgroundColor;
+
+  /// Non-null while a floating header shows a search field.
+  final AcademyChromeSearch? search;
+  final Widget Function(BuildContext context, EdgeInsets contentInsets)? body;
 
   /// False when the content draws its own [AcademyChromeModalHeader], for
   /// example to place local actions beside the title.
@@ -318,8 +374,84 @@ class AcademyModalScaffold extends StatelessWidget {
   /// [ModalSheetMaskedFill], as tables and surfaces already do.
   final bool clipContent;
 
+  Widget _floatingHeader() {
+    final search = this.search;
+    if (search != null) {
+      return KeyedSubtree(
+        key: const ValueKey('chrome-modal-search'),
+        child: AcademyChromeModalHeader.capsule(
+          height: headerHeight,
+          showClose: false,
+          middle: search.field(),
+        ),
+      );
+    }
+    return KeyedSubtree(
+      key: const ValueKey('chrome-modal-header'),
+      child:
+          headerWidget ??
+          AcademyChromeModalHeader.capsule(
+            title: title,
+            middle: middle,
+            leading: leading,
+            actionWidgets: actionWidgets,
+            onClose: onClose,
+            showClose: showClose,
+            height: headerHeight,
+          ),
+    );
+  }
+
+  Widget _floating(BuildContext context) => ModalSheetRoundedSurface(
+    // The rounded top comes from the static fill, with no clip over the
+    // scrolling body; opaque content masks its own fill at the corners.
+    color:
+        backgroundColor ??
+        AcademyTheme.of(context).colorScheme.scaffoldBackground,
+    child: Stack(
+      children: [
+        Positioned.fill(
+          child: body!(context, EdgeInsets.only(top: headerHeight)),
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: SizedBox(
+            height: headerHeight,
+            // Empty header space belongs to the sheet's drag gesture, not to
+            // the scroll view that extends underneath it.
+            child: Listener(
+              behavior: HitTestBehavior.opaque,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  // Only the fade is clipped: clipping the controls would cut
+                  // their shadows at the header's bottom edge.
+                  const Positioned.fill(
+                    child: RepaintBoundary(
+                      child: ClipRSuperellipse(
+                        borderRadius: BorderRadius.vertical(
+                          top: academyModalSheetTopRadius,
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: AcademyChromeFadeMaterial(),
+                      ),
+                    ),
+                  ),
+                  SoftFadeSwitcher(child: _floatingHeader()),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
+    if (body != null) return _floating(context);
     final flow = _ModalFlowScope.maybeOf(context);
     final canGoBack =
         flow?.nestedNavigation == true && Navigator.canPop(context);
@@ -353,7 +485,7 @@ class AcademyModalScaffold extends StatelessWidget {
     );
     final content = AcademyModalContentInsets(
       top: underlap ? headerHeight : 0,
-      child: Builder(builder: builder),
+      child: Builder(builder: builder!),
     );
     Widget rounded(Widget child) => ClipPath(
       // A normal clip, without saveLayer, keeps custom scroll content and the

@@ -8,6 +8,12 @@ import '../../../foundation/layout/academy_text_metrics.dart';
 // Ported from Quran's app_chrome_bar_metrics.dart and floating_chrome_insets.dart.
 const academyChromeBarHeight = AcademyTokens.target;
 const academyChromeContentGap = AcademyTokens.space;
+const academyChromeEdgeInset = 8.0;
+
+/// Space above and below the row of a capsule modal header, equal to its sides.
+const academyChromeModalHeaderVerticalInset = 14.0;
+const academyChromeModalHeaderHeight =
+    academyChromeBarHeight + 2 * academyChromeModalHeaderVerticalInset;
 double academyEdgeInset(double safe) => math.max(safe, 8);
 double academyChromeTopOf(BuildContext context) =>
     academyEdgeInset(MediaQuery.paddingOf(context).top);

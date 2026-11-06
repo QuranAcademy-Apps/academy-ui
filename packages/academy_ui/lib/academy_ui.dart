@@ -59,6 +59,8 @@ export 'src/widgets/icon/academy_sf_image.dart';
 export 'src/theme/academy_theme.dart';
 export 'src/widgets/navigation/chrome/academy_chrome.dart';
 export 'src/widgets/navigation/chrome/academy_chrome_controls.dart';
+export 'src/widgets/navigation/chrome/academy_chrome_floating_bar.dart';
+export 'src/widgets/navigation/chrome/academy_chrome_search_bar.dart';
 export 'src/widgets/navigation/chrome/academy_glass_material.dart';
 export 'src/foundation/layout/academy_text_fit.dart';
 export 'src/widgets/navigation/chrome/academy_expanding_search.dart';

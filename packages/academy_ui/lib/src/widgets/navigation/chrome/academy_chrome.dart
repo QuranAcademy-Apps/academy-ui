@@ -15,7 +15,13 @@ import '../../icon/academy_sf_image.dart';
 import '../../../theme/academy_theme.dart';
 import '../../../foundation/layout/academy_page_insets.dart';
 import '../../../foundation/motion/press_scale.dart';
+import 'academy_chrome_capsule_header_row.dart';
+import 'academy_chrome_controls.dart';
+import 'academy_chrome_floating_bar.dart';
 import 'academy_chrome_metrics.dart';
+import 'academy_chrome_search_bar.dart';
+import 'academy_tabs.dart';
+import '../../../foundation/motion/soft_fade_switcher.dart';
 import 'academy_glass_material.dart';
 
 enum AcademyChromeStyle {
@@ -681,48 +687,50 @@ class AcademyChromeButton extends StatelessWidget {
                   )
                 : symbol,
           );
+    final surface = SizedBox.square(
+      dimension: extent,
+      child: selected == true
+          ? DecoratedBox(
+              decoration: BoxDecoration(
+                color: chrome.selection ?? colors.primaryContainer,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: chrome.border ?? colors.outlineVariant,
+                  width: .5,
+                ),
+                boxShadow: [
+                  if (chrome.shadow != null)
+                    BoxShadow(
+                      color: chrome.shadow!,
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                ],
+              ),
+              child: button,
+            )
+          : AcademyChrome(
+              radius: size == null ? theme.radii.chromeButton : extent / 2,
+              style: style,
+              blurSigma: blurSigma,
+              child: button,
+            ),
+    );
     return AcademyActionSemantics(
       label: label,
       value: semanticsValue,
       enabled: actionable,
       selected: semanticsSelected ?? selected,
       expanded: semanticsExpanded,
-      child: PressScale(
-        pressedScale: theme.interaction.chromePressedScale,
-        enabled:
-            actionable &&
-            !look.pressScalesSymbolOnly &&
-            !MediaQuery.disableAnimationsOf(context),
-        child: SizedBox.square(
-          dimension: extent,
-          child: selected == true
-              ? DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: chrome.selection ?? colors.primaryContainer,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: chrome.border ?? colors.outlineVariant,
-                      width: .5,
-                    ),
-                    boxShadow: [
-                      if (chrome.shadow != null)
-                        BoxShadow(
-                          color: chrome.shadow!,
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                    ],
-                  ),
-                  child: button,
-                )
-              : AcademyChrome(
-                  radius: size == null ? theme.radii.chromeButton : extent / 2,
-                  style: style,
-                  blurSigma: blurSigma,
-                  child: button,
-                ),
-        ),
-      ),
+      // A second gesture detector around the symbol's own would compete for
+      // the same touch.
+      child: look.pressScalesSymbolOnly
+          ? surface
+          : PressScale(
+              pressedScale: theme.interaction.chromePressedScale,
+              enabled: actionable && !MediaQuery.disableAnimationsOf(context),
+              child: surface,
+            ),
     );
   }
 }
@@ -1028,6 +1036,43 @@ class AcademyChromeFade extends StatelessWidget {
   }
 }
 
+/// Search state of a floating page or sheet header. The host owns the trigger
+/// and the query; the header only renders the field.
+class AcademyChromeSearch {
+  const AcademyChromeSearch({
+    this.controller,
+    this.focusNode,
+    this.placeholder = '',
+    this.onChanged,
+    this.onClear,
+    required this.onCancel,
+    this.autofocus = true,
+    this.fieldWrapper,
+  });
+
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final String placeholder;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onClear;
+  final VoidCallback onCancel;
+  final bool autofocus;
+
+  /// Wraps the inner field, for example with a sheet detent helper.
+  final Widget Function(BuildContext context, Widget field)? fieldWrapper;
+
+  Widget field() => AcademyChromeSearchBar(
+    placeholder: placeholder,
+    controller: controller,
+    focusNode: focusNode,
+    autofocus: autofocus,
+    onChanged: onChanged,
+    onClear: onClear,
+    onCancel: onCancel,
+    fieldWrapper: fieldWrapper,
+  );
+}
+
 class AcademyChromePage extends StatelessWidget {
   const AcademyChromePage({
     super.key,
@@ -1035,60 +1080,173 @@ class AcademyChromePage extends StatelessWidget {
     this.style,
     this.blurSigma,
     this.actions = const [],
-    required this.child,
-  });
+    required Widget this.child,
+  }) : middle = null,
+       leading = null,
+       actionWidgets = null,
+       showBackButton = true,
+       backgroundColor = null,
+       resizeToAvoidBottomInset = true,
+       hasTabBar = false,
+       search = null,
+       body = null;
+
+  /// Edge-to-edge content under an [AcademyChromeFloatingBar] of capsules.
+  /// [body] receives the insets its scroll view must apply as padding.
+  const AcademyChromePage.floating({
+    super.key,
+    this.title,
+    this.middle,
+    this.leading,
+    this.actionWidgets,
+    this.showBackButton = true,
+    this.backgroundColor,
+    this.resizeToAvoidBottomInset = true,
+    this.hasTabBar = false,
+    this.search,
+    required Widget Function(BuildContext context, EdgeInsets contentInsets)
+    this.body,
+  }) : assert(title != null || middle != null),
+       style = null,
+       blurSigma = null,
+       actions = const [],
+       child = null;
   final String? title;
   final AcademyChromeStyle? style;
   final double? blurSigma;
   final List<AcademyChromeAction> actions;
-  final Widget child;
+  final Widget? child;
+
+  /// Replaces the title capsule.
+  final Widget? middle;
+
+  /// Replaces the back button.
+  final Widget? leading;
+  final List<Widget>? actionWidgets;
+  final bool showBackButton;
+
+  /// Default: the surface color.
+  final Color? backgroundColor;
+  final bool resizeToAvoidBottomInset;
+
+  /// Keeps the content clear of an [AcademyTabScaffold] bar.
+  final bool hasTabBar;
+
+  /// Non-null while the bar shows a search field instead of the title.
+  final AcademyChromeSearch? search;
+  final Widget Function(BuildContext context, EdgeInsets contentInsets)? body;
+
+  /// Gap between the last row and the bottom edge of a page without a tab bar.
+  static const pushedBottomGap = 16.0;
+
+  Widget _floatingBar(BuildContext context) {
+    final search = this.search;
+    if (search != null) {
+      return KeyedSubtree(
+        key: const ValueKey('chrome-page-search'),
+        child: AcademyChromeFloatingBar(middle: search.field()),
+      );
+    }
+    return KeyedSubtree(
+      key: const ValueKey('chrome-page-bar'),
+      child: AcademyChromeFloatingBar(
+        leading:
+            leading ??
+            (showBackButton ? const AcademyChromeBackButton() : null),
+        middle: middle ?? AcademyChromeTitleCapsule(title: title!),
+        actions: actionWidgets,
+      ),
+    );
+  }
+
+  Widget _floating(BuildContext context) {
+    final padding = MediaQuery.paddingOf(context);
+    final viewPadding = MediaQuery.viewPaddingOf(context);
+    final insets = EdgeInsets.only(
+      top:
+          academyChromeTopOf(context) +
+          academyChromeBarHeight +
+          academyChromeContentGap,
+      left: math.max(padding.left, viewPadding.left),
+      right: math.max(padding.right, viewPadding.right),
+      bottom: hasTabBar
+          ? academyEdgeInset(padding.bottom) +
+                AcademyFloatingTabBar.heightOf(context) +
+                24
+          : academyChromeBottomOf(context) + pushedBottomGap,
+    );
+    final background =
+        backgroundColor ?? AcademyTheme.of(context).colorScheme.surface;
+    return CupertinoPageScaffold(
+      backgroundColor: background,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      child: ColoredBox(
+        color: background,
+        child: Stack(
+          children: [
+            Positioned.fill(child: body!(context, insets)),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              // Crossfades when the bar swaps to or from the search field.
+              child: SoftFadeSwitcher(child: _floatingBar(context)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-    child: Stack(
-      children: [
-        Positioned.fill(
-          child: Center(
-            child: SizedBox(
-              width: 430,
-              child: AcademyPageInsets(
-                top: academyChromeContentTopOf(context),
-                child: child,
+  Widget build(BuildContext context) => body != null
+      ? _floating(context)
+      : CupertinoPageScaffold(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Center(
+                  child: SizedBox(
+                    width: 430,
+                    child: AcademyPageInsets(
+                      top: academyChromeContentTopOf(context),
+                      child: child!,
+                    ),
+                  ),
+                ),
               ),
-            ),
+              // Cached as their own layers: the content scrolls under static chrome.
+              const Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: RepaintBoundary(child: AcademyChromeFade()),
+              ),
+              Positioned(
+                top: academyChromeTopOf(context),
+                left: MediaQuery.paddingOf(context).left,
+                right: MediaQuery.paddingOf(context).right,
+                child: RepaintBoundary(
+                  child: AcademyChromeBar(
+                    title: title,
+                    style: style,
+                    blurSigma: blurSigma,
+                    actions: actions,
+                    leading: Navigator.of(context).canPop()
+                        ? AcademyChromeButton(
+                            icon: AcademyTheme.of(context).icons.back,
+                            label: AcademyLocalizations.of(context).back,
+                            style: style,
+                            blurSigma: blurSigma,
+                            onPressed: () => Navigator.maybePop(context),
+                          )
+                        : null,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        // Cached as their own layers: the content scrolls under static chrome.
-        const Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: RepaintBoundary(child: AcademyChromeFade()),
-        ),
-        Positioned(
-          top: academyChromeTopOf(context),
-          left: MediaQuery.paddingOf(context).left,
-          right: MediaQuery.paddingOf(context).right,
-          child: RepaintBoundary(
-            child: AcademyChromeBar(
-              title: title,
-              style: style,
-              blurSigma: blurSigma,
-              actions: actions,
-              leading: Navigator.of(context).canPop()
-                  ? AcademyChromeButton(
-                      icon: AcademyTheme.of(context).icons.back,
-                      label: AcademyLocalizations.of(context).back,
-                      style: style,
-                      blurSigma: blurSigma,
-                      onPressed: () => Navigator.maybePop(context),
-                    )
-                  : null,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
+        );
 }
 
 class AcademyChromeModalHeader extends StatelessWidget {
@@ -1103,8 +1261,39 @@ class AcademyChromeModalHeader extends StatelessWidget {
     this.onClose,
     this.actions = const [],
   }) : assert(!closeOnLeading || leading == null),
-       assert(trailing == null || closeOnLeading);
+       assert(trailing == null || closeOnLeading),
+       middle = null,
+       actionWidgets = null,
+       showClose = true,
+       height = null,
+       horizontalPadding = null;
+
+  /// A header of floating capsules: the title in a capsule (or [middle]) with
+  /// round controls beside it, centered in a row of a fixed [height].
+  const AcademyChromeModalHeader.capsule({
+    super.key,
+    this.title,
+    this.middle,
+    this.leading,
+    this.actionWidgets,
+    this.onClose,
+    this.showClose = true,
+    double this.height = academyChromeModalHeaderHeight,
+    double this.horizontalPadding = 14,
+  }) : assert(title != null || middle != null),
+       style = null,
+       blurSigma = null,
+       trailing = null,
+       closeOnLeading = false,
+       actions = const [];
   final String? title;
+
+  /// Replaces the title capsule.
+  final Widget? middle;
+  final List<Widget>? actionWidgets;
+  final bool showClose;
+  final double? height;
+  final double? horizontalPadding;
   final AcademyChromeStyle? style;
   final double? blurSigma;
   final Widget? leading;
@@ -1137,8 +1326,36 @@ class AcademyChromeModalHeader extends StatelessWidget {
         actionSize.height > academyChromeHeightOf(context);
   }
 
+  Widget _capsule(BuildContext context) {
+    final closeButton = showClose
+        ? AcademyChromeButton(
+            icon: AcademyTheme.of(context).icons.close,
+            label: AcademyLocalizations.of(context).close,
+            onPressed: onClose ?? () => Navigator.of(context).maybePop(),
+          )
+        : null;
+    final controls = <Widget>[...?actionWidgets, ?closeButton];
+    return SizedBox(
+      height: height,
+      // Cached as its own layer: the content scrolls under a static header.
+      child: RepaintBoundary(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding!),
+          child: AcademyChromeCapsuleHeaderRow(
+            leading: leading,
+            middle: middle ?? AcademyChromeTitleCapsule(title: title!),
+            trailing: controls.isEmpty
+                ? null
+                : Row(mainAxisSize: MainAxisSize.min, children: controls),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (height != null) return _capsule(context);
     final close = onClose ?? () => Navigator.pop(context);
     final closeLabel = AcademyLocalizations.of(context).close;
     return Padding(
