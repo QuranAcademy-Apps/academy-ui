@@ -9,7 +9,7 @@ import 'academy_sf_image.dart';
 /// color, optionally rotated. [AcademyChevron.right] and [AcademyChevron.left]
 /// draw Quran's heavier stroked shape, mirrored in RTL.
 class AcademyChevron extends StatelessWidget {
-  const AcademyChevron({super.key, this.turns = 0, double? size, this.color})
+  const AcademyChevron({super.key, this.turns, double? size, this.color})
     : _symbolSize = size,
       _strokeSize = null,
       strokeWidth = 0,
@@ -35,7 +35,9 @@ class AcademyChevron extends StatelessWidget {
        _strokeSize = size,
        _pointsRight = false;
 
-  final double turns;
+  /// Rotation in turns. Leave null for a chevron that never turns: it then
+  /// skips the implicit animation, which rows in long tables should not pay.
+  final double? turns;
 
   /// Default: the tertiary label color.
   final Color? color;
@@ -63,23 +65,26 @@ class AcademyChevron extends StatelessWidget {
       );
     }
     final symbolSize = _symbolSize ?? AcademyTheme.of(context).sizes.chevron;
+    final glyph = SizedBox(
+      width: symbolSize * 4 / 7,
+      height: symbolSize,
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: AcademySfIcon(
+          AcademyTheme.of(context).icons.forward,
+          size: symbolSize,
+          color: color ?? AcademyTheme.of(context).colorScheme.labelTertiary,
+        ),
+      ),
+    );
+    final turns = this.turns;
+    if (turns == null) return glyph;
     return AnimatedRotation(
       turns: turns,
       duration: MediaQuery.disableAnimationsOf(context)
           ? Duration.zero
           : AcademyTokens.motion,
-      child: SizedBox(
-        width: symbolSize * 4 / 7,
-        height: symbolSize,
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: AcademySfIcon(
-            AcademyTheme.of(context).icons.forward,
-            size: symbolSize,
-            color: color ?? AcademyTheme.of(context).colorScheme.labelTertiary,
-          ),
-        ),
-      ),
+      child: glyph,
     );
   }
 }
