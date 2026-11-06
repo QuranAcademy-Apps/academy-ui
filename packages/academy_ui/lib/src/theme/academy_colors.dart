@@ -615,6 +615,41 @@ abstract final class AcademyContrast {
   }
 }
 
+/// Raises text to 4.5:1 against the palette's surfaces, as with the system's
+/// Increase Contrast. Surfaces, fills and separators stay as they are: only
+/// what has to be read changes, and the hue is kept as far as contrast allows.
+AcademyColorsData academyHighContrastColors(AcademyColors colors) {
+  final surfaces = [
+    colors.surface,
+    colors.scaffoldBackground,
+    colors.surfaceContainerHighest,
+    colors.textFieldBackground,
+  ];
+  double worst(Color color) => surfaces
+      .map((surface) => AcademyContrast.ratio(color, surface))
+      .reduce((a, b) => a < b ? a : b);
+  Color text(Color color) {
+    if (worst(color) >= 4.5) return color;
+    final target = worst(CupertinoColors.black) > worst(CupertinoColors.white)
+        ? CupertinoColors.black
+        : CupertinoColors.white;
+    for (var step = 1; step <= 32; step++) {
+      final candidate = Color.lerp(color, target, step / 32)!;
+      if (worst(candidate) >= 4.5) return candidate;
+    }
+    return target;
+  }
+
+  return AcademyColorsData.from(colors).copyWith(
+    onSurface: text(colors.onSurface),
+    onSurfaceVariant: text(colors.onSurfaceVariant),
+    labelTertiary: text(colors.labelTertiary),
+    accentForeground: text(colors.accentForeground),
+    textFieldForeground: text(colors.textFieldForeground),
+    textFieldSecondaryForeground: text(colors.textFieldSecondaryForeground),
+  );
+}
+
 /// Editable semantic roles, including each status pair.
 enum AcademyColorRole {
   accentColor,

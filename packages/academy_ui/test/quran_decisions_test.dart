@@ -185,6 +185,30 @@ void main() {
       expect(before, 1);
     });
 
+    testWidgets('an ordinary tap calls onTap without scrolling', (
+      tester,
+    ) async {
+      final controller = ScrollController();
+      addTearDown(controller.dispose);
+      var tapped = 0, before = 0;
+      await tester.pumpWidget(
+        CupertinoApp(
+          home: AcademyScrollToTop(
+            controller: controller,
+            onBeforeScroll: () => before++,
+            onTap: () => tapped++,
+            child: list(controller),
+          ),
+        ),
+      );
+      controller.jumpTo(600);
+      await tester.tapAt(const Offset(200, 20));
+      await tester.pumpAndSettle();
+      expect(tapped, 1);
+      expect(before, 0);
+      expect(controller.offset, 600);
+    });
+
     testWidgets('ignores a hidden tab', (tester) async {
       final visible = ScrollController(), hidden = ScrollController();
       addTearDown(visible.dispose);
@@ -474,6 +498,57 @@ void main() {
   });
 
   group('toast', () {
+    double? edge(WidgetTester tester, {required bool top}) {
+      final positioned = tester.widget<Positioned>(
+        find
+            .ancestor(
+              of: find.byType(AnimatedSlide),
+              matching: find.byType(Positioned),
+            )
+            .first,
+      );
+      return top ? positioned.top : positioned.bottom;
+    }
+
+    Future<void> pumpToast(
+      WidgetTester tester,
+      AcademyToastPosition position, {
+      AcademyToastTheme theme = const AcademyToastTheme(),
+    }) async {
+      await tester.pumpWidget(
+        AcademyApp(
+          toast: theme,
+          home: AcademyToastOverlay(message: 'Saved', position: position),
+        ),
+      );
+      await tester.pump();
+    }
+
+    testWidgets('a bottom toast rises above the keyboard', (tester) async {
+      phone(tester);
+      tester.view.padding = const FakeViewPadding(bottom: 34);
+      tester.view.viewPadding = const FakeViewPadding(bottom: 34);
+      await pumpToast(tester, AcademyToastPosition.bottom);
+      expect(edge(tester, top: false), 8 + 34);
+
+      tester.view.padding = FakeViewPadding.zero;
+      tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+      await tester.pump();
+      // The keyboard covers the home indicator, so that does not add up.
+      expect(edge(tester, top: false), 8 + 300);
+    });
+
+    testWidgets('so does one with a custom bottom inset', (tester) async {
+      phone(tester);
+      tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+      await pumpToast(
+        tester,
+        AcademyToastPosition.bottom,
+        theme: AcademyToastTheme(bottomInsetOf: (_) => 50),
+      );
+      expect(edge(tester, top: false), 8 + 300);
+    });
+
     testWidgets('topInsetOf places a top toast below the bar', (tester) async {
       phone(tester);
       tester.view.padding = const FakeViewPadding(top: 59);
@@ -496,6 +571,221 @@ void main() {
             .first,
       );
       expect(positioned.top, 59 + 44 + 8);
+    });
+  });
+
+  group('high contrast', () {
+    AcademyColorsData faint(Brightness brightness, Color accent) {
+      final base = AcademyColorsData.from(AcademyPalette(brightness, accent));
+      return base.copyWith(
+        onSurface: const Color(0xFF999999),
+        onSurfaceVariant: const Color(0xFFBBBBBB),
+        labelTertiary: const Color(0xFFCCCCCC),
+      );
+    }
+
+    Future<AcademyColors> colorsOf(WidgetTester tester) async {
+      late AcademyColors seen;
+      await tester.pumpWidget(
+        AcademyApp(
+          colorsBuilder: faint,
+          home: Builder(
+            builder: (context) {
+              seen = AcademyTheme.of(context).colorScheme;
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+      return seen;
+    }
+
+    testWidgets('the system setting raises text, not surfaces', (tester) async {
+      final base = await colorsOf(tester);
+      tester.platformDispatcher.accessibilityFeaturesTestValue =
+          const FakeAccessibilityFeatures(highContrast: true);
+      addTearDown(
+        tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+      );
+      await tester.pump();
+      final raised = await colorsOf(tester);
+      for (final surface in [raised.surface, raised.scaffoldBackground]) {
+        for (final text in [
+          raised.onSurface,
+          raised.onSurfaceVariant,
+          raised.labelTertiary,
+        ]) {
+          expect(
+            AcademyContrast.ratio(text, surface),
+            greaterThanOrEqualTo(4.5),
+          );
+        }
+      }
+      expect(raised.surface, base.surface);
+      expect(raised.outline, base.outline);
+      expect(raised.outlineVariant, base.outlineVariant);
+    });
+
+    testWidgets('colors are untouched without it', (tester) async {
+      final colors = await colorsOf(tester);
+      expect(colors.onSurface, const Color(0xFF999999));
+      expect(colors.onSurfaceVariant, const Color(0xFFBBBBBB));
+    });
+
+    testWidgets('a change of the setting reaches a running app', (
+      tester,
+    ) async {
+      final before = await colorsOf(tester);
+      tester.platformDispatcher.accessibilityFeaturesTestValue =
+          const FakeAccessibilityFeatures(highContrast: true);
+      addTearDown(
+        tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+      );
+      await tester.pump();
+      final context = tester.element(find.byType(SizedBox).first);
+      expect(
+        AcademyTheme.of(context).colorScheme.onSurface,
+        isNot(before.onSurface),
+      );
+    });
+
+    test('the default palette keeps what is already readable', () {
+      final palette = AcademyPalette(Brightness.light, const Color(0xFF007AFF));
+      expect(academyHighContrastColors(palette).onSurface, palette.onSurface);
+    });
+  });
+
+  group('routes', () {
+    testWidgets('AcademyPageRoute has no barrier; instantPush only skips in', (
+      tester,
+    ) async {
+      final route = AcademyPageRoute<void>(builder: (_) => const SizedBox());
+      expect(route.barrierColor, isNull);
+      expect(route.transitionDuration, isNot(Duration.zero));
+      final instant = AcademyPageRoute<void>(
+        instantPush: true,
+        builder: (_) => const SizedBox(),
+      );
+      expect(instant.transitionDuration, Duration.zero);
+      expect(instant.reverseTransitionDuration, isNot(Duration.zero));
+    });
+
+    Future<void> pushFade(WidgetTester tester, {bool still = false}) async {
+      if (still) {
+        tester.platformDispatcher.accessibilityFeaturesTestValue =
+            const FakeAccessibilityFeatures(disableAnimations: true);
+        addTearDown(
+          tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+        );
+      }
+      final navigator = GlobalKey<NavigatorState>();
+      await tester.pumpWidget(
+        AcademyApp(navigatorKey: navigator, home: const Text('below')),
+      );
+      navigator.currentState!.push(
+        AcademyFadeRoute<void>(builder: (_) => const Text('above')),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+
+    double opacityOf(WidgetTester tester) => tester
+        .widget<FadeTransition>(
+          find
+              .ancestor(
+                of: find.text('above'),
+                matching: find.byType(FadeTransition),
+              )
+              .first,
+        )
+        .opacity
+        .value;
+
+    testWidgets('AcademyFadeRoute fades in over the page', (tester) async {
+      await pushFade(tester);
+      expect(opacityOf(tester), inExclusiveRange(0, 1));
+      expect(find.text('below'), findsOneWidget);
+      expect(
+        find.ancestor(
+          of: find.text('above'),
+          matching: find.byType(SlideTransition),
+        ),
+        findsWidgets,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('below'), findsOneWidget);
+    });
+
+    testWidgets('under Reduce Motion it only fades', (tester) async {
+      await pushFade(tester, still: true);
+      expect(
+        find.ancestor(
+          of: find.text('above'),
+          matching: find.byType(SlideTransition),
+        ),
+        findsNothing,
+      );
+      await tester.pumpAndSettle();
+    });
+  });
+
+  group('AcademyTimeField', () {
+    Future<List<AcademyTime?>> open(
+      WidgetTester tester, {
+      required bool commitOnDismiss,
+    }) async {
+      phone(tester);
+      final changes = <AcademyTime?>[];
+      await tester.pumpWidget(
+        AcademyApp(
+          home: Center(
+            child: AcademyTimeField(
+              label: 'Time',
+              value: const AcademyTime(9, 0),
+              commitOnDismiss: commitOnDismiss,
+              onChanged: changes.add,
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.byType(AcademyTimeField));
+      await tester.pumpAndSettle();
+      return changes;
+    }
+
+    Future<void> scrollWheel(WidgetTester tester) async {
+      await tester.drag(
+        find.byType(CupertinoDatePicker),
+        const Offset(0, -80),
+        warnIfMissed: false,
+      );
+      await tester.pumpAndSettle();
+    }
+
+    Future<void> dismiss(WidgetTester tester) async {
+      Navigator.of(tester.element(find.byType(CupertinoDatePicker))).pop();
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('commitOnDismiss keeps a scrolled time', (tester) async {
+      final changes = await open(tester, commitOnDismiss: true);
+      await scrollWheel(tester);
+      await dismiss(tester);
+      expect(changes, hasLength(1));
+      expect(changes.single, isNot(const AcademyTime(9, 0)));
+    });
+
+    testWidgets('an untouched wheel commits nothing', (tester) async {
+      final changes = await open(tester, commitOnDismiss: true);
+      await dismiss(tester);
+      expect(changes, isEmpty);
+    });
+
+    testWidgets('by default dismissing discards it', (tester) async {
+      final changes = await open(tester, commitOnDismiss: false);
+      await scrollWheel(tester);
+      await dismiss(tester);
+      expect(changes, isEmpty);
     });
   });
 

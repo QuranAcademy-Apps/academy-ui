@@ -14,6 +14,7 @@ class AcademyScrollToTop extends StatefulWidget {
     required this.controller,
     required this.child,
     this.onBeforeScroll,
+    this.onTap,
     this.enabled = true,
   });
 
@@ -22,6 +23,9 @@ class AcademyScrollToTop extends StatefulWidget {
 
   /// Cancels work that the return animation would fight with.
   final VoidCallback? onBeforeScroll;
+
+  /// An ordinary tap on the content, which does not scroll.
+  final VoidCallback? onTap;
   final bool enabled;
 
   @override
@@ -91,6 +95,12 @@ class _AcademyScrollToTopState extends State<AcademyScrollToTop>
   Widget build(BuildContext context) => MetaData(
     key: _surfaceKey,
     behavior: HitTestBehavior.translucent,
-    child: widget.child,
+    child: widget.onTap == null
+        ? widget.child
+        : GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: widget.onTap,
+            child: widget.child,
+          ),
   );
 }

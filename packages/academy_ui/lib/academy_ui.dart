@@ -53,6 +53,7 @@ export 'src/foundation/layout/academy_android_insets.dart';
 export 'src/foundation/layout/academy_page_insets.dart';
 export 'src/foundation/layout/academy_stable_top_inset.dart';
 export 'src/foundation/navigation/academy_deferred_route_init.dart';
+export 'src/foundation/navigation/academy_routes.dart';
 export 'src/foundation/scroll/academy_scroll_behavior.dart';
 export 'src/foundation/scroll/academy_scroll_to_top.dart';
 export 'src/widgets/icon/academy_sf_image.dart';

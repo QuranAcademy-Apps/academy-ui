@@ -128,6 +128,8 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
   @override
   void didChangePlatformBrightness() => _changed();
   @override
+  void didChangeAccessibilityFeatures() => _changed();
+  @override
   void didUpdateWidget(AcademyApp oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.appearance != widget.appearance) {
@@ -154,6 +156,12 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       AcademyAppearanceMode.system =>
         WidgetsBinding.instance.platformDispatcher.platformBrightness,
     };
+    final custom = widget.colorsBuilder?.call(brightness, appearance.accent);
+    final highContrast = WidgetsBinding
+        .instance
+        .platformDispatcher
+        .accessibilityFeatures
+        .highContrast;
     final theme = academyTheme(
       brightness,
       accent: appearance.accent,
@@ -175,7 +183,11 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       inlineInfoColor: widget.inlineInfoColor,
       rowIconColors: widget.rowIconColors,
       chromeColors: widget.chromeColors,
-      colors: widget.colorsBuilder?.call(brightness, appearance.accent),
+      colors: highContrast
+          ? academyHighContrastColors(
+              custom ?? AcademyPalette(brightness, appearance.accent),
+            )
+          : custom,
     );
     return CupertinoApp(
       title: widget.title,

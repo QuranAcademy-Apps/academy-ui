@@ -49,10 +49,15 @@ class AcademyTimeField extends StatelessWidget {
     this.help,
     this.validator,
     this.onSaved,
+    this.commitOnDismiss = false,
   });
   final String label;
   final String? help;
   final AcademyTime? value;
+
+  /// Keeps a time the user scrolled to when the sheet is swiped away, where
+  /// that loses nothing. Off where a choice needs confirming.
+  final bool commitOnDismiss;
   final ValueChanged<AcademyTime?>? onChanged;
   final FormFieldValidator<AcademyTime>? validator;
   final FormFieldSetter<AcademyTime>? onSaved;
@@ -76,6 +81,7 @@ class AcademyTimeField extends StatelessWidget {
             ? null
             : () async {
                 var draft = value ?? const AcademyTime(12, 0);
+                var scrolled = false;
                 final result = await showAcademyModal<AcademyTime>(
                   context,
                   title: label,
@@ -95,8 +101,10 @@ class AcademyTimeField extends StatelessWidget {
                             draft.hour,
                             draft.minute,
                           ),
-                          onDateTimeChanged: (date) =>
-                              draft = AcademyTime(date.hour, date.minute),
+                          onDateTimeChanged: (date) {
+                            draft = AcademyTime(date.hour, date.minute);
+                            scrolled = true;
+                          },
                         ),
                       ),
                       CupertinoButton(
@@ -106,7 +114,9 @@ class AcademyTimeField extends StatelessWidget {
                     ],
                   ),
                 );
-                if (field.mounted && result != null) change(result);
+                final chosen =
+                    result ?? (commitOnDismiss && scrolled ? draft : null);
+                if (field.mounted && chosen != null) change(chosen);
               },
       ),
     );

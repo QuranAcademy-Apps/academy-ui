@@ -1,4 +1,5 @@
 import '../../foundation/localizations/academy_localizations.dart';
+import '../../foundation/navigation/academy_routes.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:stupid_simple_sheet/stupid_simple_sheet.dart';
@@ -148,7 +149,7 @@ Future<T?> pushAcademyModalPage<T>(
     throw StateError('Open the modal with nestedNavigation: true first.');
   }
   return Navigator.of(context).push<T>(
-    _ModalPageRoute<T>(
+    AcademyPageRoute<T>(
       builder: (_) => AcademyModalScaffold(
         title: title,
         builder: builder,
@@ -159,14 +160,6 @@ Future<T?> pushAcademyModalPage<T>(
       ),
     ),
   );
-}
-
-/// A page inside a sheet. The default barrier fills the whole navigator, so it
-/// would show as a dark rectangle in the sheet's rounded corners.
-class _ModalPageRoute<T> extends CupertinoPageRoute<T> {
-  _ModalPageRoute({required super.builder});
-  @override
-  Color? get barrierColor => null;
 }
 
 class _ModalFlowScope extends InheritedWidget {
@@ -263,7 +256,7 @@ class _ModalHostState extends State<_ModalHost> {
               onPopWithResult: (_) => _navigatorKey.currentState!.maybePop(),
               child: Navigator(
                 key: _navigatorKey,
-                onGenerateRoute: (_) => _ModalPageRoute<void>(
+                onGenerateRoute: (_) => AcademyPageRoute<void>(
                   builder: (_) => AcademyModalScaffold(
                     title: widget.title,
                     builder: widget.builder,

@@ -1,4 +1,5 @@
 import 'dart:async' show unawaited;
+import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/semantics.dart';
@@ -411,10 +412,12 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
     final bottomInset =
         theme.toast.bottomInsetOf?.call(context) ??
         academyChromeBottomOf(context);
+    // The keyboard covers the bottom inset, so the larger one counts.
+    final keyboard = MediaQuery.maybeViewInsetsOf(context)?.bottom ?? 0;
     return Positioned(
       left: 16 + mediaPadding.left,
       right: 16 + mediaPadding.right,
-      bottom: (widget.bottom ?? 8) + bottomInset,
+      bottom: (widget.bottom ?? 8) + math.max(bottomInset, keyboard),
       child: child,
     );
   }
