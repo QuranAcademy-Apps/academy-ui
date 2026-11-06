@@ -35,6 +35,8 @@ class AcademyApp extends StatefulWidget {
     this.scrollBehavior = const AcademyScrollBehavior(),
     this.chromeButton = const AcademyChromeButtonTheme(),
     this.segmented = const AcademySegmentedTheme(),
+    this.button = const AcademyButtonTheme(),
+    this.surfaceContinuousCorners = true,
     this.inlineInfoColor,
     this.rowIconColors = const {},
     this.chromeColors = const AcademyChromeColors(),
@@ -84,6 +86,8 @@ class AcademyApp extends StatefulWidget {
   final AcademyChromeMaterial chromeMaterial;
   final AcademyChromeButtonTheme chromeButton;
   final AcademySegmentedTheme segmented;
+  final AcademyButtonTheme button;
+  final bool surfaceContinuousCorners;
   final Color? inlineInfoColor;
   final Map<AcademyRowIcons, Color> rowIconColors;
   final AcademyChromeColors chromeColors;
@@ -166,6 +170,8 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       chromeBottomInsetOf: widget.chromeBottomInsetOf,
       chromeButton: widget.chromeButton,
       segmented: widget.segmented,
+      button: widget.button,
+      surfaceContinuousCorners: widget.surfaceContinuousCorners,
       inlineInfoColor: widget.inlineInfoColor,
       rowIconColors: widget.rowIconColors,
       chromeColors: widget.chromeColors,

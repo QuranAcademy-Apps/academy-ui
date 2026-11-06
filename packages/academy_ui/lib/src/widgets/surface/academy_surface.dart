@@ -9,7 +9,7 @@ class AcademySurface extends StatelessWidget {
     required this.child,
     this.padding,
     this.radius,
-    this.continuousCorners = true,
+    this.continuousCorners,
   });
   final Widget child;
 
@@ -20,8 +20,8 @@ class AcademySurface extends StatelessWidget {
   final double? radius;
 
   /// Superellipse corners; false draws circular ones (for example to match
-  /// grouped tables).
-  final bool continuousCorners;
+  /// grouped tables). Default: [AcademyThemeData.surfaceContinuousCorners].
+  final bool? continuousCorners;
   @override
   Widget build(BuildContext context) {
     final content = Padding(
@@ -38,7 +38,8 @@ class AcademySurface extends StatelessWidget {
     }
     final color = AcademyTheme.of(context).colorScheme.surface;
     return DecoratedBox(
-      decoration: continuousCorners
+      decoration:
+          continuousCorners ?? AcademyTheme.of(context).surfaceContinuousCorners
           ? ShapeDecoration(
               color: color,
               shape: RoundedSuperellipseBorder(

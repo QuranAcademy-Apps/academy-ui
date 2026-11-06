@@ -98,16 +98,20 @@ class AcademyButton extends StatelessWidget {
               foregroundColor ??
                   (backgroundColor == null
                       ? state.foreground
-                      : AcademyContrast.foreground(
-                          p.onActionFill,
-                          backgroundColor!,
-                        )),
+                      : theme.button.foregroundForFill?.call(
+                              backgroundColor!,
+                            ) ??
+                            AcademyContrast.foreground(
+                              p.onActionFill,
+                              backgroundColor!,
+                            )),
           };
     final border = disabled
         ? disabledBackgroundColor ?? state.border
         : borderColor ??
               switch (resolved) {
-                AcademyButtonStyle.neutral => p.chromeBorder,
+                AcademyButtonStyle.neutral =>
+                  theme.button.neutralBorder ?? p.chromeBorder,
                 AcademyButtonStyle.plain => const Color(0x00000000),
                 AcademyButtonStyle.tinted => state.border,
                 AcademyButtonStyle.primary => background,
@@ -191,7 +195,10 @@ class AcademyTextButton extends StatelessWidget {
     final painter = TextPainter(
       text: TextSpan(
         text: label,
-        style: textStyle ?? theme.textTheme.labelLarge,
+        style:
+            textStyle ??
+            theme.button.textButtonStyle ??
+            theme.textTheme.labelLarge,
       ),
       textDirection: Directionality.of(context),
       textScaler: MediaQuery.textScalerOf(context),
@@ -216,11 +223,15 @@ class AcademyTextButton extends StatelessWidget {
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: (textStyle ?? theme.textTheme.labelLarge).copyWith(
-            color: onPressed == null
-                ? theme.colorScheme.onSurfaceVariant
-                : theme.colorScheme.accentForeground,
-          ),
+          style:
+              (textStyle ??
+                      theme.button.textButtonStyle ??
+                      theme.textTheme.labelLarge)
+                  .copyWith(
+                    color: onPressed == null
+                        ? theme.colorScheme.onSurfaceVariant
+                        : theme.colorScheme.accentForeground,
+                  ),
         ),
       ),
     );

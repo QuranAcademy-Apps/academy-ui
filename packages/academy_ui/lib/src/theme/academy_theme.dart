@@ -1,6 +1,7 @@
 import 'academy_interaction_theme.dart';
 import 'academy_icons.dart';
 import 'academy_sizes.dart';
+import 'academy_button_theme.dart';
 import 'academy_chrome_button_theme.dart';
 import 'academy_chrome_material.dart';
 import 'academy_segmented_theme.dart';
@@ -16,6 +17,7 @@ import 'academy_paddings.dart';
 import 'academy_typography.dart';
 export 'academy_icons.dart';
 export 'academy_sizes.dart';
+export 'academy_button_theme.dart';
 export 'academy_chrome_button_theme.dart';
 export 'academy_chrome_material.dart';
 export 'academy_segmented_theme.dart';
@@ -114,6 +116,8 @@ class AcademyThemeData {
     this.chromeMaterial = const AcademyChromeMaterial(),
     this.chromeButton = const AcademyChromeButtonTheme(),
     this.segmented = const AcademySegmentedTheme(),
+    this.button = const AcademyButtonTheme(),
+    this.surfaceContinuousCorners = true,
     this.inlineInfoColor,
     this.chromeBottomInsetOf,
     this.switchColor,
@@ -150,6 +154,12 @@ class AcademyThemeData {
 
   /// Look of the fitted segmented control.
   final AcademySegmentedTheme segmented;
+
+  /// Look of buttons.
+  final AcademyButtonTheme button;
+
+  /// Superellipse corners on [AcademySurface]; false draws circular ones.
+  final bool surfaceContinuousCorners;
 
   /// [AcademyInfoButton.inline] symbol; default: the accent.
   final Color? inlineInfoColor;
@@ -188,6 +198,8 @@ class AcademyThemeData {
     AcademyChromeMaterial? chromeMaterial,
     AcademyChromeButtonTheme? chromeButton,
     AcademySegmentedTheme? segmented,
+    AcademyButtonTheme? button,
+    bool? surfaceContinuousCorners,
     Color? inlineInfoColor,
     double Function(BuildContext context)? chromeBottomInsetOf,
     Color? switchColor,
@@ -211,6 +223,9 @@ class AcademyThemeData {
     chromeMaterial: chromeMaterial ?? this.chromeMaterial,
     chromeButton: chromeButton ?? this.chromeButton,
     segmented: segmented ?? this.segmented,
+    button: button ?? this.button,
+    surfaceContinuousCorners:
+        surfaceContinuousCorners ?? this.surfaceContinuousCorners,
     inlineInfoColor: inlineInfoColor ?? this.inlineInfoColor,
     chromeBottomInsetOf: chromeBottomInsetOf ?? this.chromeBottomInsetOf,
     switchColor: switchColor ?? this.switchColor,
@@ -259,6 +274,8 @@ AcademyThemeData academyTheme(
   double Function(BuildContext context)? chromeBottomInsetOf,
   AcademyChromeButtonTheme chromeButton = const AcademyChromeButtonTheme(),
   AcademySegmentedTheme segmented = const AcademySegmentedTheme(),
+  AcademyButtonTheme button = const AcademyButtonTheme(),
+  bool surfaceContinuousCorners = true,
   Color? inlineInfoColor,
   Color? switchColor,
   Color? checkmarkColor,
@@ -281,6 +298,8 @@ AcademyThemeData academyTheme(
   chromeMaterial: chromeMaterial,
   chromeButton: chromeButton,
   segmented: segmented,
+  button: button,
+  surfaceContinuousCorners: surfaceContinuousCorners,
   inlineInfoColor: inlineInfoColor,
   chromeBottomInsetOf: chromeBottomInsetOf,
   switchColor: switchColor,
