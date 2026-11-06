@@ -377,7 +377,7 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
             : widget.icon == null
             ? 20
             : 16,
-        end: widget.actionLabel != null ? 4 : 20,
+        end: widget.actionLabel != null && widget.onAction != null ? 4 : 20,
       ),
       child: AcademyToastContent(
         message: message,

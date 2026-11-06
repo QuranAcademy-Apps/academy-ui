@@ -51,6 +51,34 @@ void main() {
     handle.dispose();
   });
 
+  testWidgets('a label without an action leaves the normal end inset', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      academyHost(
+        const AcademyToastOverlay(
+          message: 'Сохранено',
+          position: AcademyToastPosition.top,
+          actionLabel: 'Вернуть',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Вернуть'), findsNothing);
+    final padding = tester.widget<Padding>(
+      find
+          .ancestor(
+            of: find.byType(AcademyToastContent),
+            matching: find.byType(Padding),
+          )
+          .first,
+    );
+    expect(
+      padding.padding.resolve(TextDirection.ltr),
+      const EdgeInsets.only(left: 20, right: 20),
+    );
+  });
+
   testWidgets('a plain toast keeps its height', (tester) async {
     await tester.pumpWidget(overlay('Сохранено'));
     await tester.pumpAndSettle();

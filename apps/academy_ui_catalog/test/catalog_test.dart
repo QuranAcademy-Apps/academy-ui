@@ -1,10 +1,27 @@
 import 'package:academy_ui/academy_ui.dart';
 import 'package:academy_ui_catalog/main.dart';
 import 'package:academy_ui_catalog/catalog_pages.dart';
+import 'package:academy_ui_catalog/counter_components_catalog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  testWidgets('the counter page opens without layout errors', (tester) async {
+    final appearance = AcademyAppearanceController();
+    addTearDown(appearance.dispose);
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(CatalogApp(appearance: appearance));
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.tap(find.widgetWithText(AcademyRow, 'Счётчики и страницы'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(tester.takeException(), isNull);
+    expect(find.byType(CounterComponentsDemo), findsOneWidget);
+    expect(find.byType(AcademyCounterButton), findsWidgets);
+  });
+
   testWidgets('all component sections open in the standalone catalogue', (
     tester,
   ) async {

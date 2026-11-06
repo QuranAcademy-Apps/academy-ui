@@ -53,27 +53,48 @@ void main() {
     expect(builds, 3);
   });
 
-  testWidgets('dropping on the lower half of the next row swaps them', (
-    tester,
-  ) async {
+  testWidgets('a row dropped on the next row takes its place', (tester) async {
     await tester.pumpWidget(table());
-    await dragFirstRow(tester, 1.3);
+    await dragFirstRow(tester, 1);
     expect((moves, destination), (1, 1));
   });
 
-  testWidgets('dropping on the upper half of the next row changes nothing', (
-    tester,
-  ) async {
+  testWidgets('a row dropped on the last row takes its place', (tester) async {
     await tester.pumpWidget(table());
-    await dragFirstRow(tester, .7);
-    expect(moves, 0);
+    await dragFirstRow(tester, 2);
+    expect((moves, destination), (1, 2));
   });
 
-  testWidgets('dropping on the lower half of the last row moves to the end', (
-    tester,
-  ) async {
-    await tester.pumpWidget(table());
-    await dragFirstRow(tester, 2.3);
-    expect((moves, destination), (1, 2));
+  testWidgets('a tall row swaps with a shorter neighbor', (tester) async {
+    await tester.pumpWidget(
+      academyHost(
+        SizedBox(
+          width: 320,
+          child: AcademyDraggableTableSection<String>(
+            sectionId: 'section',
+            items: const ['tall', 'short'],
+            itemId: (item) => item,
+            onMove: (source, section, to) {
+              moves++;
+              destination = to;
+            },
+            rowBuilder: (context, item, accessory) => AcademyRow(
+              title: item,
+              minHeight: item == 'tall' ? 120 : 52,
+              trailing: accessory,
+            ),
+          ),
+        ),
+      ),
+    );
+    final handle = tester.getCenter(find.byType(AcademyDragHandle).first);
+    final short = tester.getCenter(find.byType(AcademyRow).last);
+    final gesture = await tester.startGesture(handle);
+    await tester.pump();
+    await gesture.moveTo(short);
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+    expect((moves, destination), (1, 1));
   });
 }

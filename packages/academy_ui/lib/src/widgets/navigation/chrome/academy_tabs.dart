@@ -203,12 +203,14 @@ class AcademyFloatingTabBar extends StatelessWidget {
         : standard
         ? tabTheme.iconBoxSize
         : 30.0;
+    final labelDirection = Directionality.of(context);
+    final labelScaler = MediaQuery.textScalerOf(context);
     // Measured only by the layouts that size tabs to their labels.
     late final naturalWidths = tabs.map((tab) {
       final painter = TextPainter(
         text: TextSpan(text: tab.label, style: labelStyle),
-        textDirection: Directionality.of(context),
-        textScaler: MediaQuery.textScalerOf(context),
+        textDirection: labelDirection,
+        textScaler: labelScaler,
         maxLines: 1,
       )..layout();
       final width =

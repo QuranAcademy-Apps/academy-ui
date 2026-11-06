@@ -151,9 +151,9 @@ class AcademyDraggableTableSection<T extends Object> extends StatelessWidget {
     };
   }
 
-  /// [slot] is the place before this target. A row also stands for the place
-  /// after it: which one depends on the half the dragged row is over, so a row
-  /// can be dropped on its neighbor to swap with it.
+  /// [slot] is the place before this target. Dropped on a row of its own section,
+  /// a row takes that row's place, whatever their heights. From another section
+  /// it goes before or after the row, by the side the preview is on.
   Widget _target(
     BuildContext context,
     int slot,
@@ -173,24 +173,18 @@ class AcademyDraggableTableSection<T extends Object> extends StatelessWidget {
           return;
         }
         final source = details.data;
-        var place = slot;
-        if (isRow) {
-          final box = targetContext.findRenderObject()! as RenderBox;
-          // The preview has the row's height and its top is the drag offset.
-          if (details.offset.dy > box.localToGlobal(Offset.zero).dy) {
-            place = slot + 1;
-          }
-        }
-        final sameSection = source.sectionId == sectionId;
-        if (sameSection &&
-            (place == source.index || place == source.index + 1)) {
+        if (source.sectionId == sectionId) {
+          onMove(
+            source,
+            sectionId,
+            !isRow && slot > source.index ? slot - 1 : slot,
+          );
           return;
         }
-        onMove(
-          source,
-          sectionId,
-          sameSection && place > source.index ? place - 1 : place,
-        );
+        final box = targetContext.findRenderObject()! as RenderBox;
+        final after =
+            isRow && details.offset.dy > box.localToGlobal(Offset.zero).dy;
+        onMove(source, sectionId, after ? slot + 1 : slot);
       },
       builder: (context, candidates, _) => Stack(
         children: [
