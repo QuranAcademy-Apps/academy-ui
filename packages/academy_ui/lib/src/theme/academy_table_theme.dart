@@ -37,6 +37,10 @@ class AcademyTableTheme {
     this.press,
     this.chevronBuilder,
     this.accessoryIconColor,
+    this.leadingExtent,
+    this.pressedColor,
+    this.navigationChevron,
+    this.sectionLayout = const AcademyTableSectionLayout(),
   });
 
   /// Section titles in capitals.
@@ -86,4 +90,54 @@ class AcademyTableTheme {
 
   /// Draws the disclosure chevron; [turns] rotates it.
   final Widget Function(BuildContext context, double turns)? chevronBuilder;
+
+  /// Leading column width of a row; default: the row icon width.
+  final double? leadingExtent;
+
+  /// Row fill while pressed.
+  final Color? pressedColor;
+
+  /// Chevron of a navigation row; default: [chevronBuilder], then a symbol.
+  final Widget? navigationChevron;
+
+  /// Spacing of the themed grouped tables.
+  final AcademyTableSectionLayout sectionLayout;
+}
+
+/// Spacing of [AcademyGroupedTable.themed] and [AcademySliverGroupedTable.themed]:
+/// headings own the space above a section.
+@immutable
+class AcademyTableSectionLayout {
+  const AcademyTableSectionLayout({
+    this.sideInset = 16,
+    this.headerTop = 24,
+    this.headerBottom = 8,
+    this.fixedHeaderTop = false,
+    this.bodyVertical = 4,
+    this.footerTop = 8,
+    this.footerBottom = 16,
+    this.fixedFooterBottom = false,
+    this.spacingBetweenSections,
+  });
+
+  /// Side inset of headings and footers.
+  final double sideInset;
+  final double headerTop;
+
+  /// Space under a heading without a subtitle.
+  final double headerBottom;
+
+  /// Ignores a table's own header top, keeping [headerTop].
+  final bool fixedHeaderTop;
+
+  /// Space inside the surface above the first and below the last row.
+  final double bodyVertical;
+  final double footerTop;
+  final double footerBottom;
+
+  /// Ignores a table's own footer bottom, keeping [footerBottom].
+  final bool fixedFooterBottom;
+
+  /// Space above a later section whose heading has no trailing control.
+  final double? spacingBetweenSections;
 }

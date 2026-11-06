@@ -20,7 +20,37 @@ class AcademySliverGroupedTable extends StatelessWidget {
     this.separatorStart,
     this.separatorEnd,
     this.insetCustomRows = false,
-  });
+  }) : themed = false,
+       title = null,
+       subtitle = null,
+       headerStyle = null,
+       firstHeaderTop = null,
+       headerTop = null,
+       headerBottom = null;
+
+  /// Heading, spacing and separators follow
+  /// [AcademyTableTheme.sectionLayout], like [AcademyGroupedTable.themed].
+  const AcademySliverGroupedTable.themed({
+    super.key,
+    required this.itemCount,
+    required this.itemBuilder,
+    this.title,
+    this.subtitle,
+    this.headerStyle,
+    this.firstHeaderTop,
+    this.headerTop,
+    this.headerBottom,
+    this.cornerRadius,
+    this.separatorStart,
+  }) : themed = true,
+       header = null,
+       edgePadding = 0,
+       separatorEnd = null,
+       insetCustomRows = true;
+  final bool themed;
+  final String? title, subtitle;
+  final TextStyle? headerStyle;
+  final double? firstHeaderTop, headerTop, headerBottom;
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
 
@@ -35,8 +65,39 @@ class AcademySliverGroupedTable extends StatelessWidget {
   final double? separatorStart, separatorEnd;
   final bool insetCustomRows;
 
+  Widget _themed(BuildContext context) {
+    final table = AcademyTheme.of(context).table;
+    final layout = table.sectionLayout;
+    final top = layout.fixedHeaderTop
+        ? layout.headerTop
+        : headerTop ?? layout.headerTop;
+    return AcademySliverGroupedTable(
+      itemCount: itemCount,
+      itemBuilder: itemBuilder,
+      header: title == null
+          ? null
+          : AcademyTableHeader(
+              title: title!,
+              subtitle: subtitle,
+              style: headerStyle,
+              padding: EdgeInsets.fromLTRB(
+                layout.sideInset,
+                firstHeaderTop ?? top,
+                layout.sideInset,
+                subtitle != null ? 0 : headerBottom ?? layout.headerBottom,
+              ),
+            ),
+      cornerRadius: cornerRadius,
+      edgePadding: layout.bodyVertical,
+      separatorStart: separatorStart,
+      separatorEnd: table.separatorEnd,
+      insetCustomRows: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (themed) return _themed(context);
     final theme = AcademyTheme.of(context);
     final corner = Radius.circular(cornerRadius ?? theme.radii.table);
     final inModal = ModalSheetSurfaceScope.isInModalSheet(context);

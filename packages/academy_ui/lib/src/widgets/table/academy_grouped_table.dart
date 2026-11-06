@@ -46,6 +46,38 @@ class AcademyTableSection {
   /// See [AcademyTableBody].
   final double? separatorStart, separatorEnd;
   final bool insetCustomRows, clip;
+
+  AcademyTableSection _laidOut({
+    required TextStyle? headerStyle,
+    required EdgeInsetsGeometry headerPadding,
+    required double? spacingBefore,
+    required double? cornerRadius,
+    required EdgeInsetsGeometry bodyPadding,
+    required double? separatorStart,
+    required double? separatorEnd,
+    required EdgeInsetsGeometry footerPadding,
+  }) => AcademyTableSection(
+    title: title,
+    footer: footer,
+    rows: rows,
+    header: header,
+    headerTrailing: headerTrailing,
+    footerWidget: footerWidget,
+    headerStyle: this.headerStyle ?? headerStyle,
+    footerStyle: footerStyle,
+    cornerRadius: this.cornerRadius ?? cornerRadius,
+    showSeparators: showSeparators,
+    separatorBuilder: separatorBuilder,
+    subtitle: subtitle,
+    spacingBefore: spacingBefore,
+    headerPadding: headerPadding,
+    bodyPadding: bodyPadding,
+    footerPadding: footerPadding,
+    separatorStart: this.separatorStart ?? separatorStart,
+    separatorEnd: this.separatorEnd ?? separatorEnd,
+    insetCustomRows: true,
+    clip: true,
+  );
 }
 
 /// Inline by default; scrolling ownership may instead be delegated to the table.
@@ -62,7 +94,44 @@ class AcademyGroupedTable extends StatelessWidget {
     this.animated = false,
     this.lazyRows = false,
     this.alignFirstSection = true,
-  });
+  }) : themed = false,
+       firstHeaderTop = null,
+       headerTop = null,
+       headerBottom = null,
+       footerBottom = null,
+       headerStyle = null,
+       cornerRadius = null,
+       separatorStart = null;
+
+  /// Spacing, corners and separators come from
+  /// [AcademyTableTheme.sectionLayout]; the named values adjust this table.
+  const AcademyGroupedTable.themed({
+    super.key,
+    required this.sections,
+    this.firstHeaderTop,
+    this.headerTop,
+    this.headerBottom,
+    this.footerBottom,
+    this.headerStyle,
+    this.cornerRadius,
+    this.separatorStart,
+  }) : themed = true,
+       padding = null,
+       sectionSpacing = 0,
+       scrollable = false,
+       controller = null,
+       physics = null,
+       hideEmptySections = false,
+       animated = false,
+       lazyRows = false,
+       alignFirstSection = false;
+  final bool themed;
+
+  /// Header top of the first section.
+  final double? firstHeaderTop;
+  final double? headerTop, headerBottom, footerBottom;
+  final TextStyle? headerStyle;
+  final double? cornerRadius, separatorStart;
   final List<AcademyTableSection> sections;
   final EdgeInsetsGeometry? padding;
   final double sectionSpacing;
@@ -139,8 +208,57 @@ class AcademyGroupedTable extends StatelessWidget {
     );
   }
 
+  Widget _themed(BuildContext context) {
+    final table = AcademyTheme.of(context).table;
+    final layout = table.sectionLayout;
+    final top = layout.fixedHeaderTop
+        ? layout.headerTop
+        : headerTop ?? layout.headerTop;
+    final footer = layout.fixedFooterBottom
+        ? layout.footerBottom
+        : footerBottom ?? layout.footerBottom;
+    return AcademyGroupedTable(
+      padding: EdgeInsets.zero,
+      sectionSpacing: 0,
+      hideEmptySections: false,
+      alignFirstSection: false,
+      sections: [
+        for (var i = 0; i < sections.length; i++)
+          sections[i]._laidOut(
+            headerStyle: headerStyle,
+            headerPadding: EdgeInsets.fromLTRB(
+              layout.sideInset,
+              i == 0 ? firstHeaderTop ?? top : top,
+              layout.sideInset,
+              sections[i].subtitle != null
+                  ? 0
+                  : headerBottom ?? layout.headerBottom,
+            ),
+            spacingBefore:
+                sections[i].spacingBefore ??
+                (i > 0 && layout.spacingBetweenSections != null
+                    ? (sections[i].headerTrailing == null
+                          ? layout.spacingBetweenSections
+                          : 0)
+                    : null),
+            cornerRadius: cornerRadius,
+            bodyPadding: EdgeInsets.symmetric(vertical: layout.bodyVertical),
+            separatorStart: separatorStart,
+            separatorEnd: table.separatorEnd,
+            footerPadding: EdgeInsets.fromLTRB(
+              layout.sideInset,
+              layout.footerTop,
+              layout.sideInset,
+              footer,
+            ),
+          ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (themed) return _themed(context);
     final visible = sections
         .where((section) => !hideEmptySections || section.rows.isNotEmpty)
         .toList();

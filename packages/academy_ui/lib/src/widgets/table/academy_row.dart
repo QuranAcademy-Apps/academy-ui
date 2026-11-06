@@ -188,7 +188,9 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     if (!theme.table.separatorFollowsLeading) return start;
     return start +
         (icon != null || leading != null
-            ? (leadingExtent ?? theme.sizes.rowIconExtent) +
+            ? (leadingExtent ??
+                      theme.table.leadingExtent ??
+                      theme.sizes.rowIconExtent) +
                   (leadingGap ?? theme.table.leadingGap)
             : 0);
   }
@@ -205,6 +207,8 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
         ? toneColor
         : iconBackgroundColor ?? iconColorRole?.colorOf(context);
     final table = theme.table;
+    final leadingExtent = this.leadingExtent ?? table.leadingExtent;
+    final pressedColor = this.pressedColor ?? table.pressedColor;
     final gap = leadingGap ?? table.leadingGap;
     final textVertical = verticalPadding ?? theme.paddings.tableRow.top;
     final stretchTrailing =
@@ -409,6 +413,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
             actionLabel == null &&
             (showChevron ?? table.showChevron))
           chevron ??
+              table.navigationChevron ??
               table.chevronBuilder?.call(context, 0) ??
               AcademySfIcon(
                 AcademyTheme.of(context).icons.forward,
