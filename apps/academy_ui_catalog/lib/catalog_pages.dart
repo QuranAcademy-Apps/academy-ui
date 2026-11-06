@@ -1,3 +1,4 @@
+import 'counter_components_catalog.dart';
 import 'profile_components_catalog.dart';
 import 'advanced_components_catalog.dart';
 import 'text_fields_catalog.dart';
@@ -73,6 +74,17 @@ class CatalogIndex extends StatelessWidget {
                 ),
               ),
             ),
+            AcademyRow(
+              title: 'Счётчики и страницы',
+              icon: AcademySymbols.complete,
+              onPressed: () => Navigator.of(context).push(
+                CupertinoPageRoute<void>(
+                  builder: (context) => catalogPage(context, 'Счётчики', const [
+                    CounterComponentsDemo(),
+                  ]),
+                ),
+              ),
+            ),
             for (final entry in const {
               AdvancedCatalogSection.forms: 'Формы, поиск и выбор',
               AdvancedCatalogSection.dates: 'Календари и выбор значений',
@@ -121,7 +133,7 @@ class ComponentExamples extends StatefulWidget {
 class _ComponentExamplesState extends State<ComponentExamples> {
   final _search = TextEditingController();
   final _tipTarget = GlobalKey();
-  int _count = 3, _step = 1;
+  int _count = 3, _step = 1, _sliding = 0, _fitted = 0;
   bool _enabled = true, _selected = false;
   final _completed = <String>{};
   @override
@@ -353,6 +365,59 @@ class _ComponentExamplesState extends State<ComponentExamples> {
           ],
         ),
         const SizedBox(height: 24),
+        example(
+          'Степпер с расширенной зоной нажатия',
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: AcademyStepper(
+              wide: true,
+              value: _count,
+              onChanged: (i) => setState(() => _count = i),
+            ),
+          ),
+        ),
+        example(
+          'Степпер на действиях',
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: AcademyStepper.actions(
+              onDecrease: _count > 0 ? () => setState(() => _count--) : null,
+              onIncrease: _count < 10 ? () => setState(() => _count++) : null,
+            ),
+          ),
+        ),
+        example(
+          'Скользящие сегменты',
+          AcademySlidingSegments<int>(
+            items: const [0, 1, 2],
+            selection: _sliding,
+            onSelectionChanged: (i) => setState(() => _sliding = i),
+            backgroundColor: AcademyTheme.of(context)
+                .colorScheme
+                .segmentBackground,
+            selectedBackgroundColor: AcademyTheme.of(context)
+                .colorScheme
+                .segmentSelected,
+            foregroundColor: AcademyTheme.of(context).colorScheme.onSurface,
+            selectedForegroundColor: AcademyTheme.of(context)
+                .colorScheme
+                .onSurface,
+            contentBuilder: (item, color) => Text(
+              const ['День', 'Неделя', 'Месяц'][item],
+              style: TextStyle(color: color),
+            ),
+          ),
+        ),
+        example(
+          'Сегменты по размеру темы',
+          AcademySegmentedControl<int>.fitted(
+            items: const [0, 1],
+            value: _fitted,
+            labelFor: (i) => const ['Текст', 'Перевод'][i],
+            onChanged: (i) => setState(() => _fitted = i),
+            width: double.infinity,
+          ),
+        ),
         AcademyChecklist(
           title: 'Проверка компонентов',
           items: [

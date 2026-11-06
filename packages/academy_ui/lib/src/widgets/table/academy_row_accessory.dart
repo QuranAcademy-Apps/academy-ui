@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../foundation/interaction/academy_interaction.dart';
 import '../../foundation/localizations/academy_localizations.dart';
 import '../../theme/academy_theme.dart';
 import '../icon/academy_accessories.dart';
@@ -40,9 +41,19 @@ class AcademyRowTrailingText extends StatelessWidget {
 
   /// Adds the row's chevron after the text.
   final bool disclosure;
+
+  /// The look of the text: [style], else the table theme's trailing style.
+  static TextStyle styleOf(BuildContext context, TextStyle? style) {
+    final theme = AcademyTheme.of(context);
+    return style ??
+        theme.table.rowTrailingStyle ??
+        theme.textTheme.bodyRow.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final theme = AcademyTheme.of(context);
     if (disclosure) {
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -60,12 +71,7 @@ class AcademyRowTrailingText extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.end,
-        style:
-            style ??
-            theme.table.rowTrailingStyle ??
-            theme.textTheme.bodyRow.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+        style: styleOf(context, style),
       ),
     );
   }
@@ -81,7 +87,9 @@ class AcademyRowDisclosure extends StatelessWidget {
       AcademyChevron(turns: turns);
 }
 
-/// A fixed box for an accessory symbol, optionally tappable.
+/// A fixed box for an accessory symbol, optionally tappable. A tappable one
+/// keeps the symbol where the box puts it, at the row's end, and grows the touch
+/// target around it toward the text.
 class AcademyRowAccessoryButton extends StatelessWidget {
   const AcademyRowAccessoryButton({
     super.key,
@@ -104,7 +112,8 @@ class AcademyRowAccessoryButton extends StatelessWidget {
     if (onPressed == null) return content;
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      minimumSize: Size.zero,
+      minimumSize: const Size(AcademyTokens.target, AcademyTokens.target),
+      alignment: AlignmentDirectional.centerEnd,
       onPressed: onPressed,
       child: Semantics(
         button: true,
@@ -200,6 +209,20 @@ class AcademyRowAccessory extends StatelessWidget {
   /// The row gives this accessory its full height and no end padding.
   bool get stretches => _kind == _Kind.dragHandle;
 
+  /// The value of a switch accessory, which the row announces as its own state.
+  bool? get toggleValue => value;
+
+  /// A lone switch reads as one element with the row. A switch beside another
+  /// button stays separate.
+  bool get mergesIntoRow => _kind == _Kind.toggle;
+
+  /// Carries a 44pt touch target, which the row fits in without growing.
+  bool get hasTallTarget =>
+      _kind == _Kind.toggleWithButton || _kind == _Kind.menu;
+
+  /// The current value of a menu, which moves under the title at large text.
+  bool get movesUnderTitle => _kind == _Kind.menu;
+
   @override
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
@@ -216,6 +239,7 @@ class AcademyRowAccessory extends StatelessWidget {
             AcademyRowAccessoryButton(
               onPressed: enabled ? onButtonPressed : null,
               size: const Size(36, 36),
+              semanticLabel: AcademyLocalizations.of(context).more,
               child: AcademySfIcon(
                 theme.icons.more,
                 fontSize: theme.sizes.menuIcon,
@@ -237,34 +261,36 @@ class AcademyRowAccessory extends StatelessWidget {
           consumeOutsideTaps: true,
           useRootOverlay: useRootOverlay,
           menuChildren: itemBuilder!(context),
-          builder: (context, controller, _) => GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: enabled
-                ? () =>
-                      controller.isOpen ? controller.close() : controller.open()
-                : null,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title!,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: CupertinoTheme.of(context).textTheme.textStyle
-                      .copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 0,
-                      ),
+          builder: (context, controller, _) => AcademyActionSemantics(
+            label: title!,
+            enabled: enabled,
+            expanded: controller.isOpen,
+            child: CupertinoButton(
+              padding: EdgeInsets.zero,
+              minimumSize: const Size(
+                AcademyTokens.target,
+                AcademyTokens.target,
+              ),
+              onPressed: enabled
+                  ? () => controller.isOpen
+                        ? controller.close()
+                        : controller.open()
+                  : null,
+              child: ExcludeSemantics(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Capped and ellipsized, so a long value cannot overflow.
+                    AcademyRowTrailingText(title!),
+                    const SizedBox(width: 8),
+                    Icon(
+                      theme.icons.upDown,
+                      size: theme.sizes.indicatorIcon,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                Icon(
-                  theme.icons.upDown,
-                  size: theme.sizes.indicatorIcon,
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ],
+              ),
             ),
           ),
         );

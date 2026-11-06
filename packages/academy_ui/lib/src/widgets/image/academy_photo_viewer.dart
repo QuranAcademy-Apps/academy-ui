@@ -274,8 +274,12 @@ class _AcademyPhotoViewerState extends State<AcademyPhotoViewer>
                 ),
               ),
             ),
-            Positioned(
-              right: MediaQuery.paddingOf(context).right + 16,
+            PositionedDirectional(
+              end:
+                  (Directionality.of(context) == TextDirection.rtl
+                      ? MediaQuery.paddingOf(context).left
+                      : MediaQuery.paddingOf(context).right) +
+                  16,
               top: MediaQuery.paddingOf(context).top + 8,
               child: Opacity(
                 key: const ValueKey('photo-viewer-chrome'),

@@ -38,7 +38,7 @@ class AcademyInlineOptionMenu extends StatelessWidget
 
   @override
   double separatorStart(BuildContext context) =>
-      icon != null ? 16 + 30 + 12 : 16;
+      academyRowSeparatorStart(context, hasLeading: icon != null);
 
   @override
   Widget build(BuildContext context) => AcademyMenuAnchor(

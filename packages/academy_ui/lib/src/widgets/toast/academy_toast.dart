@@ -187,10 +187,14 @@ class _AcademyToastHostState extends State<AcademyToastHost>
               ? MediaQuery.paddingOf(context).top + 8
               : null,
           bottom: _position == AcademyToastPosition.bottom
-              ? MediaQuery.viewInsetsOf(context).bottom +
-                    math.max(
-                      MediaQuery.paddingOf(context).bottom,
-                      widget.bottomObstruction,
+              // The keyboard covers the safe area and the obstruction, so the
+              // largest of them counts.
+              ? math.max(
+                      MediaQuery.viewInsetsOf(context).bottom,
+                      math.max(
+                        MediaQuery.paddingOf(context).bottom,
+                        widget.bottomObstruction,
+                      ),
                     ) +
                     8
               : null,

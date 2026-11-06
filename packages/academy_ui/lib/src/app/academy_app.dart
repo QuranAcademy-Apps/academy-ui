@@ -38,11 +38,15 @@ class AcademyApp extends StatefulWidget {
     this.button = const AcademyButtonTheme(),
     this.surfaceContinuousCorners = true,
     this.inlineInfoColor,
+    this.switchColor,
+    this.checkmarkColor,
+    this.feedbackLoadingIndicator,
+    this.reduceTransparency = false,
     this.rowIconColors = const {},
     this.chromeColors = const AcademyChromeColors(),
     this.toastBottomObstruction = 0,
     double? chromeBlurToneStrength,
-    double? chromeBlurTintOpacity,
+    @Deprecated('Use chromeBlurToneStrength.') double? chromeBlurTintOpacity,
     this.localizationsDelegates,
     this.supportedLocales = AcademyLocalizations.supportedLocales,
     this.locale = const Locale('ru'),
@@ -89,12 +93,27 @@ class AcademyApp extends StatefulWidget {
   final AcademyButtonTheme button;
   final bool surfaceContinuousCorners;
   final Color? inlineInfoColor;
+
+  /// See [AcademyThemeData.switchColor].
+  final Color? switchColor;
+
+  /// See [AcademyThemeData.checkmarkColor].
+  final Color? checkmarkColor;
+
+  /// See [AcademyThemeData.feedbackLoadingIndicator].
+  final Widget? feedbackLoadingIndicator;
+
+  /// Draws navigation chrome without blur. Flutter does not report the system's
+  /// Reduce Transparency setting, so the app passes it, for example from a
+  /// platform channel.
+  final bool reduceTransparency;
   final Map<AcademyRowIcons, Color> rowIconColors;
   final AcademyChromeColors chromeColors;
   final double toastBottomObstruction;
   final double chromeBlurToneStrength;
 
   /// Compatibility alias: controls the filtered backdrop, not overlay opacity.
+  @Deprecated('Use chromeBlurToneStrength.')
   double get chromeBlurTintOpacity => chromeBlurToneStrength;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final Iterable<Locale> supportedLocales;
@@ -181,6 +200,9 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
       button: widget.button,
       surfaceContinuousCorners: widget.surfaceContinuousCorners,
       inlineInfoColor: widget.inlineInfoColor,
+      switchColor: widget.switchColor,
+      checkmarkColor: widget.checkmarkColor,
+      feedbackLoadingIndicator: widget.feedbackLoadingIndicator,
       rowIconColors: widget.rowIconColors,
       chromeColors: widget.chromeColors,
       colors: highContrast
@@ -210,6 +232,7 @@ class _AcademyAppState extends State<AcademyApp> with WidgetsBindingObserver {
           blurSigma: appearance.blurSigma,
           blurToneStrength: widget.chromeBlurToneStrength,
           tabBarDensity: appearance.tabBarDensity,
+          reduceTransparency: widget.reduceTransparency,
           child: AcademyToastHost(
             bottomObstruction: widget.toastBottomObstruction,
             child: child!,

@@ -61,10 +61,18 @@ class AcademyStepper extends StatelessWidget {
       );
     }
     final tint = AcademyTheme.of(context).colorScheme.onSurface;
+    if (wide) {
+      return AcademyActionStepper(
+        color: tint,
+        semanticValue: '$value',
+        onDecrease: value > min ? () => onChanged(value - 1) : null,
+        onIncrease: value < max ? () => onChanged(value + 1) : null,
+      );
+    }
     Widget hit(bool increase) {
       final enabled = increase ? value < max : value > min;
       return SizedBox(
-        width: wide ? (increase ? 47 : 65) : 48,
+        width: 48,
         child: Semantics(
           label: increase
               ? AcademyLocalizations.of(context).increase
@@ -104,7 +112,6 @@ class AcademyStepper extends StatelessWidget {
         ),
       ),
     );
-    if (wide) return _wide(context, tint, hit, glyph);
     return SizedBox(
       width: 96,
       height: 44,
@@ -147,56 +154,4 @@ class AcademyStepper extends StatelessWidget {
       ),
     );
   }
-
-  Widget _wide(
-    BuildContext context,
-    Color tint,
-    Widget Function(bool) hit,
-    Widget Function(IconData, bool) glyph,
-  ) => SizedBox(
-    width: 112,
-    height: 44,
-    child: Stack(
-      alignment: Alignment.centerLeft,
-      children: [
-        Positioned(
-          left: 18,
-          child: Container(
-            width: 94,
-            height: 32,
-            decoration: BoxDecoration(
-              color: tint.withValues(alpha: .12),
-              borderRadius: BorderRadius.circular(
-                AcademyTheme.of(context).radii.stepper,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          left: 64.5,
-          child: Container(
-            width: 1,
-            height: 18,
-            color: tint.withValues(alpha: .3),
-          ),
-        ),
-        Positioned.fill(
-          child: Row(
-            textDirection: TextDirection.ltr,
-            children: [hit(false), hit(true)],
-          ),
-        ),
-        Positioned(
-          left: 33,
-          top: 13.5,
-          child: glyph(AcademyTheme.of(context).icons.minus, value > min),
-        ),
-        Positioned(
-          left: 80,
-          top: 13.5,
-          child: glyph(AcademyTheme.of(context).icons.plus, value < max),
-        ),
-      ],
-    ),
-  );
 }

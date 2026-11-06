@@ -151,37 +151,60 @@ class AcademyDraggableTableSection<T extends Object> extends StatelessWidget {
     };
   }
 
+  /// [slot] is the place before this target. A row also stands for the place
+  /// after it: which one depends on the half the dragged row is over, so a row
+  /// can be dropped on its neighbor to swap with it.
   Widget _target(
     BuildContext context,
     int slot,
-    Widget child,
-  ) => DragTarget<AcademyTableDragData<T>>(
-    onWillAcceptWithDetails: (details) =>
-        enabled &&
-        !editing &&
-        (accepts?.call(details.data) ?? true) &&
-        !(details.data.sectionId == sectionId &&
-            (slot == details.data.index || slot == details.data.index + 1)),
-    onAcceptWithDetails: (details) {
-      if (!enabled || editing || !(accepts?.call(details.data) ?? true)) return;
-      final source = details.data;
-      final destination = source.sectionId == sectionId && slot > source.index
-          ? slot - 1
-          : slot;
-      onMove(source, sectionId, destination);
-    },
-    builder: (context, candidates, _) => Stack(
-      children: [
-        child,
-        if (candidates.isNotEmpty)
-          Positioned.fill(
-            child: IgnorePointer(
-              child: ColoredBox(
-                color: AcademyTheme.of(context).colorScheme.menuHighlight,
+    Widget child, {
+    bool isRow = false,
+  }) => Builder(
+    builder: (targetContext) => DragTarget<AcademyTableDragData<T>>(
+      onWillAcceptWithDetails: (details) =>
+          enabled &&
+          !editing &&
+          (accepts?.call(details.data) ?? true) &&
+          !(details.data.sectionId == sectionId &&
+              (slot == details.data.index ||
+                  (!isRow && slot == details.data.index + 1))),
+      onAcceptWithDetails: (details) {
+        if (!enabled || editing || !(accepts?.call(details.data) ?? true)) {
+          return;
+        }
+        final source = details.data;
+        var place = slot;
+        if (isRow) {
+          final box = targetContext.findRenderObject()! as RenderBox;
+          // The preview has the row's height and its top is the drag offset.
+          if (details.offset.dy > box.localToGlobal(Offset.zero).dy) {
+            place = slot + 1;
+          }
+        }
+        final sameSection = source.sectionId == sectionId;
+        if (sameSection &&
+            (place == source.index || place == source.index + 1)) {
+          return;
+        }
+        onMove(
+          source,
+          sectionId,
+          sameSection && place > source.index ? place - 1 : place,
+        );
+      },
+      builder: (context, candidates, _) => Stack(
+        children: [
+          child,
+          if (candidates.isNotEmpty)
+            Positioned.fill(
+              child: IgnorePointer(
+                child: ColoredBox(
+                  color: AcademyTheme.of(context).colorScheme.menuHighlight,
+                ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     ),
   );
 
@@ -237,6 +260,7 @@ class AcademyDraggableTableSection<T extends Object> extends StatelessWidget {
                   rowBuilder: rowBuilder,
                   feedbackWidth: feedbackWidth,
                 ),
+                isRow: true,
               ),
             ],
             if (items.isNotEmpty)
@@ -332,10 +356,13 @@ class _DraggableRowState<T extends Object> extends State<_DraggableRow<T>> {
                     child: AcademyTableBody(
                       showSeparators: false,
                       rows: [
-                        widget.rowBuilder(
-                          context,
-                          widget.data.item,
-                          const AcademyDragHandle(),
+                        // Built only while dragging, not for every row at rest.
+                        Builder(
+                          builder: (_) => widget.rowBuilder(
+                            context,
+                            widget.data.item,
+                            const AcademyDragHandle(),
+                          ),
                         ),
                       ],
                     ),

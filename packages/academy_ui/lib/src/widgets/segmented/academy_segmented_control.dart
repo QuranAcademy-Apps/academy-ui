@@ -24,6 +24,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     this.cornerRadius,
     this.selectionCornerRadius,
     this.height,
+    this.minimumHeight,
     this.backgroundColor,
     this.selectedColor,
     this.textColor,
@@ -53,6 +54,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
        cornerRadius = null,
        selectionCornerRadius = null,
        height = null,
+       minimumHeight = null,
        selectionBorderColor = null,
        selectionShadowColor = null,
        assert(items.length > 0),
@@ -71,6 +73,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
        width = null,
        style = AcademySegmentStyle.compact,
        height = null,
+       minimumHeight = null,
        backgroundColor = null,
        selectedColor = null,
        textColor = null,
@@ -93,6 +96,10 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
   /// 32 pt high inside a 44 pt interaction box.
   final double? height;
 
+  /// Least visual height; it grows with the text and keeps the 44 pt interaction
+  /// box. Ignored with [height].
+  final double? minimumHeight;
+
   /// Overrides of the track, thumb and label colors, and of the thumb's hairline
   /// border and shadow, for hosts whose palette differs from the theme roles.
   final Color? backgroundColor,
@@ -108,7 +115,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
       value: value,
       labelFor: labelFor,
       onChanged: onChanged,
-      height: look.height,
+      minimumHeight: look.height,
       cornerRadius: look.cornerRadius,
       selectionCornerRadius: look.selectionCornerRadius,
       backgroundColor: backgroundColor,
@@ -129,7 +136,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
       constraints: BoxConstraints(minWidth: minWidth, minHeight: look.height),
       child: preferred == null
           ? control
-          : SizedBox(width: preferred, height: look.height, child: control),
+          : SizedBox(width: preferred, child: control),
     );
   }
 
@@ -143,7 +150,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     final height =
         exact ??
         math.max(
-          pill ? 32.0 : 31.0,
+          minimumHeight ?? (pill ? 32.0 : 31.0),
           iconFor == null
               ? academyTextLineHeight(context, theme.textTheme.segmentLabel) +
                     12
@@ -288,6 +295,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
 }
 
 /// Compatibility name for existing clients; both styles use the shared control.
+@Deprecated('Use AcademySegmentedControl.compact.')
 class AcademyCompactSegment<T extends Object>
     extends AcademySegmentedControl<T> {
   const AcademyCompactSegment({

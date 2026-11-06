@@ -131,11 +131,7 @@ class AcademyMenuRow extends StatelessWidget
       );
   @override
   double separatorStart(BuildContext context) =>
-      AcademyTheme.of(context).paddings.tableRow.left +
-      (icon != null
-          ? AcademyTheme.of(context).sizes.rowIconExtent +
-                AcademyTokens.inlineGap
-          : 0);
+      academyRowSeparatorStart(context, hasLeading: icon != null);
 
   @override
   Widget build(BuildContext context) {

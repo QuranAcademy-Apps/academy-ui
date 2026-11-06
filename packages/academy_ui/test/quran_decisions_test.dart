@@ -7,46 +7,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/academy_test_host.dart';
+
 // Solutions the Quran app reached over its history, moved into academy_ui
 // (2026-11-06). Behavior of existing screens stays the same unless they opt in.
 
 void main() {
-  void phone(WidgetTester tester, {Size size = const Size(390, 844)}) {
-    tester.view.physicalSize = size;
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.reset);
-  }
-
-  Future<void> openSheet(
-    WidgetTester tester, {
-    required WidgetBuilder builder,
-    bool nestedNavigation = false,
-    bool initiallyExpanded = false,
-    AcademyModalHeaderBehavior headerBehavior =
-        AcademyModalHeaderBehavior.separate,
-    bool clipContent = true,
-  }) async {
-    await tester.pumpWidget(
-      AcademyApp(
-        home: Builder(
-          builder: (context) => CupertinoButton(
-            onPressed: () => showAcademyModal<void>(
-              context,
-              title: 'Sheet',
-              nestedNavigation: nestedNavigation,
-              initiallyExpanded: initiallyExpanded,
-              headerBehavior: headerBehavior,
-              clipContent: clipContent,
-              builder: builder,
-            ),
-            child: const Text('open'),
-          ),
-        ),
-      ),
-    );
-    await tester.tap(find.text('open'));
-  }
-
   group('AcademyDeferredRouteInit', () {
     testWidgets('waits for the entry transition of a page route', (
       tester,
@@ -832,17 +798,6 @@ void main() {
           reason: 'build $i of $insets',
         );
       }
-    });
-
-    testWidgets('a settled sheet ignores a metrics change at the same height', (
-      tester,
-    ) async {
-      phone(tester);
-      await openSheet(tester, builder: (_) => const SizedBox.expand());
-      await tester.pumpAndSettle();
-      tester.view.systemGestureInsets = const FakeViewPadding(bottom: 20);
-      await tester.pump();
-      expect(tester.binding.transientCallbackCount, 0);
     });
 
     testWidgets('minimumBottom lifts pinned content off a flat edge only', (

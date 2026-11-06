@@ -1,12 +1,17 @@
 // Ported from quran_flutter AppSegmentedControl.
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
+
+import '../../theme/academy_theme.dart';
 
 const academySlidingSegmentsDuration = Duration(milliseconds: 250);
 const academySlidingSegmentsCurve = Curves.easeOutCubic;
 
 /// Full-width sliding selector: the selected segment (optionally wider than
 /// the others) glides to its slot. Colors are explicit; [contentBuilder] draws
-/// each segment in the foreground color it is given.
+/// each segment in the foreground color it is given. The control stays [height]
+/// tall inside a 44 pt interaction box.
 class AcademySlidingSegments<T extends Object> extends StatelessWidget {
   const AcademySlidingSegments({
     super.key,
@@ -67,24 +72,28 @@ class AcademySlidingSegments<T extends Object> extends StatelessWidget {
         final otherWidth = items.length > 1
             ? (availableWidth - activeWidth) / (items.length - 1)
             : 0.0;
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(_controlCornerRadius),
-          child: SizedBox(
-            height: height,
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.circular(_controlCornerRadius),
-                  ),
-                  child: const SizedBox.expand(),
-                ),
-                if (items.isNotEmpty)
-                  Positioned.fill(
-                    child: Stack(
-                      children: [
+        return SizedBox(
+          height: math.max(height, AcademyTokens.target),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(_controlCornerRadius),
+                child: SizedBox(
+                  height: height,
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: backgroundColor,
+                          borderRadius: BorderRadius.circular(
+                            _controlCornerRadius,
+                          ),
+                        ),
+                        child: const SizedBox.expand(),
+                      ),
+                      if (items.isNotEmpty)
                         AnimatedPositionedDirectional(
                           duration: duration,
                           curve: academySlidingSegmentsCurve,
@@ -110,53 +119,59 @@ class AcademySlidingSegments<T extends Object> extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: _horizontalInset,
-                  ),
-                  child: Row(
-                    children: [
-                      for (final item in items) ...[
-                        if (item != items.first)
-                          const SizedBox(width: _spacing),
-                        TweenAnimationBuilder<double>(
-                          tween: Tween(
-                            end:
-                                (item == selection ? activeWidth : otherWidth) /
-                                availableWidth,
-                          ),
-                          duration: duration,
-                          curve: academySlidingSegmentsCurve,
-                          builder: (context, value, child) => Expanded(
-                            flex: (value * 1000000).round(),
-                            child: child!,
-                          ),
-                          child: CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size.zero,
-                            onPressed: () {
-                              if (item == selection) {
-                                return;
-                              }
-                              onSelectionChanged(item);
-                            },
-                            child: contentBuilder(
-                              item,
-                              item == selection
-                                  ? selectedForegroundColor
-                                  : foregroundColor,
-                            ),
-                          ),
-                        ),
-                      ],
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _horizontalInset,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (final item in items) ...[
+                      if (item != items.first) const SizedBox(width: _spacing),
+                      TweenAnimationBuilder<double>(
+                        tween: Tween(
+                          end:
+                              (item == selection ? activeWidth : otherWidth) /
+                              availableWidth,
+                        ),
+                        duration: duration,
+                        curve: academySlidingSegmentsCurve,
+                        builder: (context, value, child) => Expanded(
+                          flex: (value * 1000000).round(),
+                          child: child!,
+                        ),
+                        child: MergeSemantics(
+                          child: Semantics(
+                            button: true,
+                            selected: item == selection,
+                            child: CupertinoButton(
+                              padding: EdgeInsets.zero,
+                              minimumSize: Size.zero,
+                              onPressed: () {
+                                if (item == selection) {
+                                  return;
+                                }
+                                onSelectionChanged(item);
+                              },
+                              child: contentBuilder(
+                                item,
+                                item == selection
+                                    ? selectedForegroundColor
+                                    : foregroundColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       },

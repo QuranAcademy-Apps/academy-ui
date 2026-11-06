@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../foundation/surface/academy_surface_mask.dart';
-import '../../foundation/table/academy_table_row_scope.dart';
 import '../../theme/academy_theme.dart';
 import 'academy_table.dart';
+import 'academy_table_row_slot.dart';
 
 /// A grouped section whose rows are built lazily in the enclosing scroll view,
 /// for long histories. Short forms and settings use [AcademyGroupedTable].
@@ -16,7 +16,7 @@ class AcademySliverGroupedTable extends StatelessWidget {
     required this.itemBuilder,
     this.header,
     this.cornerRadius,
-    this.edgePadding = 0,
+    this.edgePadding,
     this.separatorStart,
     this.separatorEnd,
     this.insetCustomRows = false,
@@ -58,8 +58,9 @@ class AcademySliverGroupedTable extends StatelessWidget {
   final Widget? header;
   final double? cornerRadius;
 
-  /// Space above the first and below the last row, inside the surface.
-  final double edgePadding;
+  /// Space above the first and below the last row, inside the surface. Default:
+  /// the theme's table body padding.
+  final double? edgePadding;
 
   /// See [AcademyTableBody].
   final double? separatorStart, separatorEnd;
@@ -98,16 +99,11 @@ class AcademySliverGroupedTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (themed) return _themed(context);
-    final theme = AcademyTheme.of(context);
-    final corner = Radius.circular(cornerRadius ?? theme.radii.table);
     final inModal = ModalSheetSurfaceScope.isInModalSheet(context);
     // A separator starts where the previous row's content does. Remembering
     // that spares building the previous row a second time just to ask it.
     final rowStarts = <int, double>{};
-    double rowStart(BuildContext context, Widget row) =>
-        row is AcademyTableRowGeometry
-        ? (row as AcademyTableRowGeometry).separatorStart(context)
-        : theme.paddings.tableRow.left;
+    final padding = edgePadding;
     return SliverMainAxisGroup(
       slivers: [
         if (header != null) SliverToBoxAdapter(child: header),
@@ -116,55 +112,29 @@ class AcademySliverGroupedTable extends StatelessWidget {
           addRepaintBoundaries: !inModal,
           itemBuilder: (context, index) {
             final row = itemBuilder(context, index);
-            rowStarts[index] = rowStart(context, row);
-            final first = index == 0, last = index == itemCount - 1;
-            final radius = BorderRadius.vertical(
-              top: first ? corner : Radius.zero,
-              bottom: last ? corner : Radius.zero,
-            );
-            double start() =>
-                separatorStart ??
-                rowStarts[index - 1] ??
-                rowStart(context, itemBuilder(context, index - 1));
-
-            final content = Padding(
-              padding: EdgeInsets.only(
-                top: first ? edgePadding : 0,
-                bottom: last ? edgePadding : 0,
-              ),
-              child: Column(
-                children: [
-                  if (!first)
-                    AcademyTableSeparator(start: start(), end: separatorEnd),
-                  if (insetCustomRows && row is! AcademyTableRowGeometry)
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: theme.paddings.tableRow.left,
-                      ),
-                      // Custom content keeps its own width, centered.
-                      child: Center(heightFactor: 1, child: row),
-                    )
-                  else
-                    AcademyTableRowScope(child: row),
-                ],
-              ),
-            );
-            // A rounded clip over scrolling rows renders them offscreen on
-            // every frame, and the mask of a sheet's corners repaints: cache
-            // the glyphs apart from it.
-            if (inModal) {
-              return ModalSheetMaskedFill(
-                color: theme.colorScheme.surface,
-                borderRadius: radius,
-                child: RepaintBoundary(child: content),
-              );
-            }
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                borderRadius: radius,
-              ),
-              child: ClipRRect(borderRadius: radius, child: content),
+            rowStarts[index] = academyTableRowStart(context, row);
+            final first = index == 0;
+            return AcademyTableListRow(
+              row: row,
+              first: first,
+              last: index == itemCount - 1,
+              cornerRadius: cornerRadius,
+              padding: padding == null
+                  ? null
+                  : EdgeInsets.symmetric(vertical: padding),
+              insetCustomRows: insetCustomRows,
+              separatorBefore: first
+                  ? null
+                  : AcademyTableSeparator(
+                      start:
+                          separatorStart ??
+                          rowStarts[index - 1] ??
+                          academyTableRowStart(
+                            context,
+                            itemBuilder(context, index - 1),
+                          ),
+                      end: separatorEnd,
+                    ),
             );
           },
         ),

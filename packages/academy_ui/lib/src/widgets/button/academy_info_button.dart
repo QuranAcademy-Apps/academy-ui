@@ -32,9 +32,12 @@ class AcademyInfoButton extends StatelessWidget {
       button: true,
       excludeSemantics: true,
       onTap: onPressed,
+      // The line of text sets the height, so the target can only grow along it:
+      // toward the free space after the symbol.
       child: CupertinoButton(
         padding: const EdgeInsets.all(2),
-        minimumSize: Size.zero,
+        minimumSize: const Size(AcademyTokens.target, 0),
+        alignment: AlignmentDirectional.centerStart,
         onPressed: onPressed,
         child: AcademySfIcon(
           AcademyTheme.of(context).icons.info,

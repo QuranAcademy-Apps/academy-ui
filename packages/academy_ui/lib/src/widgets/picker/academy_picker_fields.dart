@@ -165,11 +165,11 @@ class _AcademyPickerState<T extends Object> extends State<AcademyPicker<T>> {
   }
 
   void _sync() {
-    if (mounted &&
-        _controller.hasClients &&
-        _controller.selectedItem != _index) {
-      _controller.jumpToItem(_index);
-    }
+    if (!mounted || !_controller.hasClients) return;
+    // A rebuild during a drag must not snap the wheel back: the end of the
+    // scroll syncs it to whatever value the owner settled on.
+    if (_controller.position.isScrollingNotifier.value) return;
+    if (_controller.selectedItem != _index) _controller.jumpToItem(_index);
   }
 
   @override

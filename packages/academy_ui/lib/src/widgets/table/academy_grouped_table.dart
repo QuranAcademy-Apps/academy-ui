@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 import 'academy_table.dart';
+import 'academy_table_row_slot.dart';
 import '../../theme/academy_theme.dart';
 import '../../foundation/surface/academy_surface_mask.dart';
-import '../../foundation/table/academy_table_row_scope.dart';
 
 class AcademyTableSection {
   const AcademyTableSection({
@@ -47,6 +47,8 @@ class AcademyTableSection {
   final double? separatorStart, separatorEnd;
   final bool insetCustomRows, clip;
 
+  /// Explicit values of this section win; the layout fills in the rest. A themed
+  /// table always insets custom rows and clips them to the surface.
   AcademyTableSection _laidOut({
     required TextStyle? headerStyle,
     required EdgeInsetsGeometry headerPadding,
@@ -70,9 +72,9 @@ class AcademyTableSection {
     separatorBuilder: separatorBuilder,
     subtitle: subtitle,
     spacingBefore: spacingBefore,
-    headerPadding: headerPadding,
-    bodyPadding: bodyPadding,
-    footerPadding: footerPadding,
+    headerPadding: this.headerPadding ?? headerPadding,
+    bodyPadding: this.bodyPadding ?? bodyPadding,
+    footerPadding: this.footerPadding ?? footerPadding,
     separatorStart: this.separatorStart ?? separatorStart,
     separatorEnd: this.separatorEnd ?? separatorEnd,
     insetCustomRows: true,
@@ -115,13 +117,13 @@ class AcademyGroupedTable extends StatelessWidget {
     this.headerStyle,
     this.cornerRadius,
     this.separatorStart,
+    this.hideEmptySections = true,
   }) : themed = true,
        padding = null,
        sectionSpacing = 0,
        scrollable = false,
        controller = null,
        physics = null,
-       hideEmptySections = false,
        animated = false,
        lazyRows = false,
        alignFirstSection = false;
@@ -141,7 +143,9 @@ class AcademyGroupedTable extends StatelessWidget {
   /// fades in. Give rows stable keys. Ignored with [lazyRows].
   final bool animated;
 
-  /// Builds only the rows in view, for long lists. Needs [scrollable].
+  /// Builds only the rows in view, for long lists. Needs [scrollable]. Sections
+  /// keep their separators, spacing and padding; rows are always clipped to the
+  /// surface, since each paints its own part of it.
   final bool lazyRows;
 
   /// Applies the table theme's [AcademyTableTheme.leadingHeaderReserve] above a
@@ -170,6 +174,9 @@ class AcademyGroupedTable extends StatelessWidget {
     for (var s = 0; s < visible.length; s++) {
       final section = visible[s];
       if (s > 0) items.add((_) => SizedBox(height: sectionSpacing));
+      if (section.spacingBefore case final spacing?) {
+        items.add((_) => SizedBox(height: spacing));
+      }
       if (section.header != null || section.title != null) {
         items.add(
           (_) =>
@@ -184,7 +191,7 @@ class AcademyGroupedTable extends StatelessWidget {
         );
       }
       for (var r = 0; r < section.rows.length; r++) {
-        items.add((context) => _LazyRow(section: section, index: r));
+        items.add((context) => _lazyRow(context, section, r));
       }
       if (section.footerWidget != null || section.footer != null) {
         items.add(
@@ -208,6 +215,32 @@ class AcademyGroupedTable extends StatelessWidget {
     );
   }
 
+  Widget _lazyRow(
+    BuildContext context,
+    AcademyTableSection section,
+    int index,
+  ) {
+    final row = section.rows[index];
+    final last = index == section.rows.length - 1;
+    return AcademyTableListRow(
+      row: row,
+      first: index == 0,
+      last: last,
+      cornerRadius: section.cornerRadius,
+      padding: section.bodyPadding,
+      insetCustomRows: section.insetCustomRows,
+      separatorAfter: last || !section.showSeparators
+          ? null
+          : section.separatorBuilder?.call(context, index) ??
+                AcademyTableSeparator(
+                  start:
+                      section.separatorStart ??
+                      academyTableRowStart(context, row),
+                  end: section.separatorEnd,
+                ),
+    );
+  }
+
   Widget _themed(BuildContext context) {
     final table = AcademyTheme.of(context).table;
     final layout = table.sectionLayout;
@@ -217,27 +250,30 @@ class AcademyGroupedTable extends StatelessWidget {
     final footer = layout.fixedFooterBottom
         ? layout.footerBottom
         : footerBottom ?? layout.footerBottom;
+    final visible = sections
+        .where((section) => !hideEmptySections || section.rows.isNotEmpty)
+        .toList();
     return AcademyGroupedTable(
       padding: EdgeInsets.zero,
       sectionSpacing: 0,
       hideEmptySections: false,
       alignFirstSection: false,
       sections: [
-        for (var i = 0; i < sections.length; i++)
-          sections[i]._laidOut(
+        for (var i = 0; i < visible.length; i++)
+          visible[i]._laidOut(
             headerStyle: headerStyle,
             headerPadding: EdgeInsets.fromLTRB(
               layout.sideInset,
               i == 0 ? firstHeaderTop ?? top : top,
               layout.sideInset,
-              sections[i].subtitle != null
+              visible[i].subtitle != null
                   ? 0
                   : headerBottom ?? layout.headerBottom,
             ),
             spacingBefore:
-                sections[i].spacingBefore ??
+                visible[i].spacingBefore ??
                 (i > 0 && layout.spacingBetweenSections != null
-                    ? (sections[i].headerTrailing == null
+                    ? (visible[i].headerTrailing == null
                           ? layout.spacingBetweenSections
                           : 0)
                     : null),
@@ -289,50 +325,6 @@ class AcademyGroupedTable extends StatelessWidget {
           ],
         ],
       ),
-    );
-  }
-}
-
-/// One row as its own list item, with the section's corners on its ends.
-class _LazyRow extends StatelessWidget {
-  const _LazyRow({required this.section, required this.index});
-  final AcademyTableSection section;
-  final int index;
-  @override
-  Widget build(BuildContext context) {
-    final theme = AcademyTheme.of(context);
-    final first = index == 0, last = index == section.rows.length - 1;
-    final r = Radius.circular(section.cornerRadius ?? theme.radii.table);
-    final radius = BorderRadius.vertical(
-      top: first ? r : Radius.zero,
-      bottom: last ? r : Radius.zero,
-    );
-    final row = section.rows[index];
-    final content = Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        AcademyTableRowScope(child: row),
-        if (!last)
-          AcademyTableSeparator(
-            start:
-                section.separatorStart ??
-                (row is AcademyTableRowGeometry
-                    ? (row as AcademyTableRowGeometry).separatorStart(context)
-                    : theme.paddings.tableRow.left),
-            end: section.separatorEnd,
-          ),
-      ],
-    );
-    if (ModalSheetSurfaceScope.isInModalSheet(context)) {
-      return ModalSheetMaskedFill(
-        color: theme.colorScheme.surface,
-        borderRadius: radius,
-        child: RepaintBoundary(child: content),
-      );
-    }
-    return ClipRRect(
-      borderRadius: radius,
-      child: ColoredBox(color: theme.colorScheme.surface, child: content),
     );
   }
 }

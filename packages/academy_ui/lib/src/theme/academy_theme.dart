@@ -69,6 +69,7 @@ abstract final class AcademyTokens {
   static const chromeBlurToneStrength = 0.54;
   static const chromeBlurSaturation = 1.25;
   // Compatibility name: now controls backdrop tone correction.
+  @Deprecated('Use chromeBlurToneStrength.')
   static const chromeBlurTintOpacity = chromeBlurToneStrength;
   static const layoutMotion = Duration(milliseconds: 280);
   static const toastMotion = Duration(milliseconds: 300);

@@ -3,6 +3,7 @@ import '../../foundation/motion/press_scale.dart';
 import 'academy_row_accessory.dart';
 import '../../theme/academy_row_icons.dart';
 import '../../foundation/interaction/academy_interaction.dart';
+import '../icon/academy_chevron.dart';
 import '../icon/academy_sf_image.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -181,19 +182,15 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
   /// fading the content.
   final Color? pressedColor;
   @override
-  double separatorStart(BuildContext context) {
-    if (separatorInset case final inset?) return inset;
-    final theme = AcademyTheme.of(context);
-    final start = horizontalPadding ?? theme.paddings.tableRow.left;
-    if (!theme.table.separatorFollowsLeading) return start;
-    return start +
-        (icon != null || leading != null
-            ? (leadingExtent ??
-                      theme.table.leadingExtent ??
-                      theme.sizes.rowIconExtent) +
-                  (leadingGap ?? theme.table.leadingGap)
-            : 0);
-  }
+  double separatorStart(BuildContext context) =>
+      separatorInset ??
+      academyRowSeparatorStart(
+        context,
+        hasLeading: icon != null || leading != null,
+        start: horizontalPadding,
+        leadingExtent: leadingExtent,
+        leadingGap: leadingGap,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -214,14 +211,39 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     final stretchTrailing =
         trailing is AcademyRowAccessory &&
         (trailing as AcademyRowAccessory).stretches;
+    // A theme's title style sets the look; the tone still colors it, so a
+    // destructive row stays red.
+    final titleColor =
+        toneColor ??
+        (actionLabel != null ? theme.colorScheme.onSurfaceVariant : null);
+    final baseTitleStyle = table.rowTitleStyle ?? theme.textTheme.bodyRow;
     final titleStyle =
         this.titleStyle ??
-        table.rowTitleStyle ??
-        theme.textTheme.bodyRow.copyWith(
-          color:
-              toneColor ??
-              (actionLabel != null ? theme.colorScheme.onSurfaceVariant : null),
-        );
+        (titleColor == null
+            ? baseTitleStyle
+            : baseTitleStyle.copyWith(color: titleColor));
+    // At large text a value cannot share a line with the title without breaking
+    // its words, so it moves under the title, as in a native value cell.
+    final largeText =
+        MediaQuery.textScalerOf(context).scale(1) >=
+        AcademyTokens.adaptiveTextScale;
+    final trailingTextMoves = largeText && trailingText != null;
+    final trailingMoves =
+        largeText &&
+        switch (trailing) {
+          final AcademyRowTrailingText text => !text.disclosure,
+          final AcademyRowAccessory accessory => accessory.movesUnderTitle,
+          _ => false,
+        };
+    final tallTrailing =
+        !trailingMoves &&
+        switch (trailing) {
+          final AcademyRowAccessoryButton button => button.onPressed != null,
+          final AcademyRowAccessory accessory => accessory.hasTallTarget,
+          _ => false,
+        };
+    // A tall touch target fits beside the text instead of growing the row.
+    final paddingAroundText = table.paddingAroundText || tallTrailing;
     Widget tile(Color fill) => Container(
       width: AcademyTheme.of(context).sizes.rowIconExtent,
       height: AcademyTheme.of(context).sizes.rowIconExtent,
@@ -245,7 +267,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
                   )),
       ),
     );
-    Widget aroundText(Widget child) => table.paddingAroundText
+    Widget aroundText(Widget child) => paddingAroundText
         ? Padding(
             padding: EdgeInsets.symmetric(vertical: textVertical),
             child: child,
@@ -396,29 +418,66 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
                       child: detail,
                     ),
                   ),
+                if (trailingTextMoves)
+                  Padding(
+                    padding: const EdgeInsets.only(top: AcademyTokens.labelGap),
+                    child: Text(
+                      trailingText!,
+                      style: AcademyRowTrailingText.styleOf(
+                        context,
+                        trailingTextStyle,
+                      ),
+                    ),
+                  ),
+                if (trailingMoves)
+                  Padding(
+                    padding: const EdgeInsets.only(top: AcademyTokens.labelGap),
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: switch (trailing) {
+                        final AcademyRowTrailingText text => Text(
+                          text.text,
+                          style: AcademyRowTrailingText.styleOf(
+                            context,
+                            text.style,
+                          ),
+                        ),
+                        _ => AcademyRowEnabledScope(
+                          enabled: enabled,
+                          child: trailing!,
+                        ),
+                      },
+                    ),
+                  ),
               ],
             ),
           ),
         ),
-        if (trailingText != null) ...[
+        if (trailingText != null && !trailingTextMoves) ...[
           const SizedBox(width: AcademyTokens.inlineGap),
           aroundText(
             AcademyRowTrailingText(trailingText!, style: trailingTextStyle),
           ),
         ],
         if (trailing != null) ...[
-          SizedBox(width: trailingSpacing ?? table.trailingSpacing),
-          AcademyRowEnabledScope(enabled: enabled, child: trailing!),
+          if (!trailingMoves) ...[
+            SizedBox(width: trailingSpacing ?? table.trailingSpacing),
+            AcademyRowEnabledScope(enabled: enabled, child: trailing!),
+          ],
         ] else if (onPressed != null &&
             actionLabel == null &&
             (showChevron ?? table.showChevron))
           chevron ??
               table.navigationChevron ??
               table.chevronBuilder?.call(context, 0) ??
-              AcademySfIcon(
-                AcademyTheme.of(context).icons.forward,
-                size: AcademyTheme.of(context).sizes.rowChevron,
-                color: toneColor,
+              Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: AcademyTokens.labelGap,
+                ),
+                child: AcademyChevron(
+                  size: theme.sizes.rowChevron,
+                  color: toneColor,
+                ),
               ),
       ],
     );
@@ -430,9 +489,9 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
     final content = Padding(
       padding: EdgeInsetsDirectional.fromSTEB(
         horizontalPadding ?? AcademyTableRowScope.of(context),
-        table.paddingAroundText ? 0 : textVertical,
+        paddingAroundText ? 0 : textVertical,
         stretchTrailing ? 0 : endInset,
-        table.paddingAroundText
+        paddingAroundText
             ? 0
             : verticalPadding ?? theme.paddings.tableRow.bottom,
       ),
@@ -442,12 +501,20 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
       onLongPress: enabled ? onLongPress : null,
       child: Opacity(opacity: enabled ? 1 : .45, child: content),
     );
-    final merged = trailing is CupertinoSwitch || trailing is AcademySwitch
-        ? MergeSemantics(child: interaction)
-        : interaction;
-    final accessible = selected == null
-        ? merged
-        : Semantics(selected: selected, child: merged);
+    final merges = switch (trailing) {
+      CupertinoSwitch() || AcademySwitch() => true,
+      final AcademyRowAccessory accessory => accessory.mergesIntoRow,
+      _ => false,
+    };
+    // Every way of drawing the row announces the same state.
+    Widget announced(Widget child) {
+      final merged = merges ? MergeSemantics(child: child) : child;
+      return selected == null
+          ? merged
+          : Semantics(selected: selected, child: merged);
+    }
+
+    final accessible = announced(interaction);
     final tappable = enabled && (onPressed != null || onLongPress != null);
     final row = table.press != null && tappable
         ? ConstrainedBox(
@@ -461,7 +528,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
               pressDuration: table.press!.duration,
               releaseDuration: table.press!.duration,
               pressDelay: table.press!.delay,
-              child: content,
+              child: announced(content),
             ),
           )
         : onPressed == null
@@ -523,6 +590,7 @@ class AcademyRow extends StatelessWidget implements AcademyTableRowGeometry {
             checked: switch (trailing) {
               final CupertinoSwitch toggle => toggle.value,
               final AcademySwitch toggle => toggle.value,
+              final AcademyRowAccessory accessory => accessory.toggleValue,
               _ => null,
             },
             child: row,

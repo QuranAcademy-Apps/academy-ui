@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../foundation/form/academy_field_style.dart';
+import '../../foundation/form/academy_owned_editing.dart';
 import '../../foundation/localizations/academy_localizations.dart';
 import '../icon/academy_sf_image.dart';
 import '../../theme/academy_theme.dart';
@@ -58,39 +60,35 @@ class AcademyTextInput extends StatefulWidget {
   State<AcademyTextInput> createState() => _AcademyTextInputState();
 }
 
-class _AcademyTextInputState extends State<AcademyTextInput> {
-  TextEditingController? _ownedController;
-  FocusNode? _ownedFocus;
-  TextEditingController get _controller =>
-      widget.controller ?? (_ownedController ??= TextEditingController());
-  FocusNode get _focus => widget.focusNode ?? (_ownedFocus ??= FocusNode());
+class _AcademyTextInputState extends State<AcademyTextInput>
+    with
+        AcademyOwnedFocus<AcademyTextInput>,
+        AcademyOwnedController<AcademyTextInput> {
+  TextEditingController get _controller => controller;
+  FocusNode get _focus => focus;
+
+  @override
+  FocusNode? suppliedFocusNode(AcademyTextInput widget) => widget.focusNode;
+  @override
+  TextEditingController? suppliedController(AcademyTextInput widget) =>
+      widget.controller;
+  @override
+  void onFocusChanged() => setState(() {});
+  @override
+  void onTextChanged() => setState(() {});
 
   @override
   void initState() {
     super.initState();
-    _focus.addListener(_changed);
-    _controller.addListener(_changed);
+    attachFocus();
+    attachController();
   }
-
-  void _changed() => setState(() {});
 
   @override
   void didUpdateWidget(AcademyTextInput oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.controller != widget.controller) {
-      final previous = oldWidget.controller ?? _ownedController!;
-      final value = previous.value;
-      previous.removeListener(_changed);
-      _ownedController?.dispose();
-      _ownedController = widget.controller == null
-          ? TextEditingController.fromValue(value)
-          : null;
-      _controller.addListener(_changed);
-    }
-    if (oldWidget.focusNode != widget.focusNode) {
-      (oldWidget.focusNode ?? _ownedFocus!).removeListener(_changed);
-      _focus.addListener(_changed);
-    }
+    updateController(oldWidget);
+    updateFocus(oldWidget);
   }
 
   void _clear() {
@@ -102,10 +100,8 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
 
   @override
   void dispose() {
-    _focus.removeListener(_changed);
-    _controller.removeListener(_changed);
-    _ownedController?.dispose();
-    _ownedFocus?.dispose();
+    disposeFocus();
+    disposeController();
     super.dispose();
   }
 
@@ -163,21 +159,12 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
       label: widget.semanticLabel,
       child: TweenAnimationBuilder<Color?>(
         tween: ColorTween(
-          end: !widget.enabled
-              ? (MediaQuery.highContrastOf(context)
-                    ? AcademyContrast.foreground(
-                        colors.textFieldDisabledBorder,
-                        colors.textFieldDisabledBackground,
-                        minimum: 3,
-                      )
-                    : colors.textFieldDisabledBorder)
-              : widget.highlightOnFocus && _focus.hasFocus
-              ? colors.textFieldFocusBorder
-              : MediaQuery.highContrastOf(context)
-              ? colors.textFieldControlBorder
-              : widget.bordered
-              ? colors.textFieldBorder
-              : const Color(0x00000000),
+          end: academyFieldBorderColor(
+            context,
+            enabled: widget.enabled,
+            focused: widget.highlightOnFocus && _focus.hasFocus,
+            bordered: widget.bordered,
+          ),
         ),
         duration: duration,
         curve: Curves.easeInOut,
@@ -190,10 +177,9 @@ class _AcademyTextInputState extends State<AcademyTextInput> {
             obscureText: widget.obscureText,
             autofocus: widget.autofocus,
             onChanged: widget.onChanged,
-            onSubmitted: (value) {
-              _focus.unfocus();
-              widget.onSubmitted?.call(value);
-            },
+            // The text input action decides where focus goes: «next» moves on,
+            // «done» closes the keyboard.
+            onSubmitted: widget.onSubmitted,
             keyboardType: widget.keyboardType,
             textInputAction: widget.textInputAction,
             cursorColor: colors.accentForeground,

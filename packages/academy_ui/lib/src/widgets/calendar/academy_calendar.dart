@@ -77,13 +77,21 @@ class _AcademyRangeCalendarState extends State<AcademyRangeCalendar> {
   @override
   void didUpdateWidget(AcademyRangeCalendar oldWidget) {
     super.didUpdateWidget(oldWidget);
+    final start = _start;
+    // Bounds and an inline predicate change identity on any parent rebuild, so
+    // they end the gesture only when the chosen start stops being selectable.
     if (oldWidget.value != widget.value ||
-        oldWidget.firstDate != widget.firstDate ||
-        oldWidget.lastDate != widget.lastDate ||
-        oldWidget.selectableDayPredicate != widget.selectableDayPredicate ||
-        widget.onChanged == null) {
+        widget.onChanged == null ||
+        start != null && !_selectable(start)) {
       _start = null;
     }
+  }
+
+  bool _selectable(DateTime day) {
+    final first = widget.firstDate, last = widget.lastDate;
+    return (first == null || !day.isBefore(academyDateOnly(first))) &&
+        (last == null || !day.isAfter(academyDateOnly(last))) &&
+        (widget.selectableDayPredicate?.call(day) ?? true);
   }
 
   @override

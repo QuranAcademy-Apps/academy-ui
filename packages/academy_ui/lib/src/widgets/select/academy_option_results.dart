@@ -27,6 +27,9 @@ class AcademyOptionResults<T extends Object> extends StatefulWidget {
   });
   final String query;
   final List<AcademySelectOption<T>> options;
+
+  /// Runs for each new query. Replacing it alone does not reload: give the
+  /// widget a new key when the data source itself changes.
   final AcademyOptionLoader<T>? loader;
   final Set<T> selected;
   final ValueChanged<AcademySelectOption<T>> onSelected;
@@ -52,11 +55,13 @@ class _AcademyOptionResultsState<T extends Object>
   @override
   void didUpdateWidget(covariant AcademyOptionResults<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.query != widget.query ||
-        oldWidget.loader != widget.loader ||
-        oldWidget.options != widget.options) {
-      _load();
-    }
+    // An inline loader is a new closure on every parent rebuild, so its identity
+    // says nothing: reload for a new query, or when a loader comes or goes.
+    final queryChanged = oldWidget.query != widget.query;
+    final sourceChanged = (oldWidget.loader == null) != (widget.loader == null);
+    final optionsChanged =
+        widget.loader == null && oldWidget.options != widget.options;
+    if (queryChanged || sourceChanged || optionsChanged) _load();
   }
 
   void _load({bool immediate = false}) {

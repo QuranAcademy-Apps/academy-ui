@@ -2,7 +2,6 @@
 import '../../theme/academy_theme.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 
 /// Узкая полоса точек у правого края с быстрым скроллом по вертикальному драгу.
 ///
@@ -98,7 +97,7 @@ class _AcademyDotStripScrollerState extends State<AcademyDotStripScroller> {
     if (_lastStep == step) return;
     _lastStep = step;
     widget.onProgress(maxIndex == 0 ? 0.0 : step / maxIndex);
-    HapticFeedback.selectionClick();
+    AcademyTheme.of(context).interaction.selectionClick();
   }
 
   Widget _buildDots(double height) {

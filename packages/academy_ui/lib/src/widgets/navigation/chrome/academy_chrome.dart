@@ -467,11 +467,12 @@ class AcademyChrome extends StatelessWidget {
     if (appearance?.reduceTransparency ?? false) {
       return _reduced(context, material);
     }
+    final highContrast = MediaQuery.highContrastOf(context);
     if (style == AcademyChromeStyle.gradient &&
-        material.borderGradient != null) {
+        material.borderGradient != null &&
+        !highContrast) {
       return _stroked(context, material);
     }
-    final highContrast = MediaQuery.highContrastOf(context);
     if (style == AcademyChromeStyle.glass && !highContrast) {
       return AcademyGlassMaterial(
         radius: radius ?? AcademyTheme.of(context).radii.chrome,

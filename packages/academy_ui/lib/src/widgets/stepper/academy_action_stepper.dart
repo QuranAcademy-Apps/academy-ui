@@ -1,11 +1,17 @@
 // Ported from quran_flutter AppStepper.
+import '../../foundation/interaction/academy_interaction.dart';
+import '../../foundation/localizations/academy_localizations.dart';
 import '../../theme/academy_theme.dart';
+import '../icon/academy_sf_image.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 
-/// 94 x 32 minus/plus pill. A null callback dims its half; [color] tints the
-/// track, divider and symbols.
+/// 94 x 32 minus/plus pill in a 112 x 44 hit area. A null callback dims its
+/// half; [color] tints the track, divider and symbols.
+///
+/// The pill sits at the end of its box unless [centered], and the larger minus
+/// or plus target reaches toward the row's text. Inside the pill the symbols
+/// read minus-left / plus-right in both directions.
 class AcademyActionStepper extends StatelessWidget {
   const AcademyActionStepper({
     super.key,
@@ -13,6 +19,7 @@ class AcademyActionStepper extends StatelessWidget {
     required this.onIncrease,
     required this.color,
     this.centered = false,
+    this.semanticValue,
   });
 
   final Color color;
@@ -28,11 +35,37 @@ class AcademyActionStepper extends StatelessWidget {
   final VoidCallback? onIncrease;
   final bool centered;
 
+  /// Read by accessibility on both halves, for example the current value.
+  final String? semanticValue;
+
   @override
   Widget build(BuildContext context) {
-    final frameLeft = (_hitWidth - _frameWidth) / (centered ? 2 : 1);
+    final theme = AcademyTheme.of(context);
+    final strings = AcademyLocalizations.of(context);
+    final rtl = Directionality.of(context) == TextDirection.rtl;
+    final slack = _hitWidth - _frameWidth;
+    final frameLeft = centered
+        ? slack / 2
+        : rtl
+        ? 0.0
+        : slack;
     final minusIconLeft = frameLeft + ((_frameWidth / 2) - _iconSize) / 2;
     final plusIconLeft = minusIconLeft + _frameWidth / 2;
+
+    Widget icon(IconData symbol, bool enabled, double left) => Positioned(
+      left: left,
+      top: _iconTop,
+      child: IgnorePointer(
+        child: MediaQuery.withNoTextScaling(
+          child: AcademySfIcon(
+            symbol,
+            size: theme.sizes.stepperIcon,
+            boxSize: _iconSize,
+            color: enabled ? color : color.withValues(alpha: 0.35),
+          ),
+        ),
+      ),
+    );
 
     return SizedBox(
       width: _hitWidth,
@@ -48,9 +81,7 @@ class AcademyActionStepper extends StatelessWidget {
               height: _frameHeight,
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(
-                  AcademyTheme.of(context).radii.stepper,
-                ),
+                borderRadius: BorderRadius.circular(theme.radii.stepper),
               ),
             ),
           ),
@@ -65,36 +96,30 @@ class AcademyActionStepper extends StatelessWidget {
           Positioned.fill(
             child: Row(
               // The symbols are positioned minus-left / plus-right in both
-              // directions, so the hit areas must not mirror under RTL.
+              // directions, so the hit areas must not mirror under RTL. The
+              // split follows the divider, not the middle of the box.
               textDirection: TextDirection.ltr,
               children: [
-                Expanded(
-                  child: _AcademyActionStepperHit(onPressed: onDecrease),
+                SizedBox(
+                  width: frameLeft + _frameWidth / 2,
+                  child: _AcademyActionStepperHit(
+                    label: strings.decrease,
+                    value: semanticValue,
+                    onPressed: onDecrease,
+                  ),
                 ),
                 Expanded(
-                  child: _AcademyActionStepperHit(onPressed: onIncrease),
+                  child: _AcademyActionStepperHit(
+                    label: strings.increase,
+                    value: semanticValue,
+                    onPressed: onIncrease,
+                  ),
                 ),
               ],
             ),
           ),
-          Positioned(
-            left: minusIconLeft,
-            top: _iconTop,
-            child: _AcademyActionStepperIcon(
-              icon: AcademyTheme.of(context).icons.minus,
-              isEnabled: onDecrease != null,
-              color: color,
-            ),
-          ),
-          Positioned(
-            left: plusIconLeft,
-            top: _iconTop,
-            child: _AcademyActionStepperIcon(
-              icon: AcademyTheme.of(context).icons.plus,
-              isEnabled: onIncrease != null,
-              color: color,
-            ),
-          ),
+          icon(theme.icons.minus, onDecrease != null, minusIconLeft),
+          icon(theme.icons.plus, onIncrease != null, plusIconLeft),
         ],
       ),
     );
@@ -102,46 +127,33 @@ class AcademyActionStepper extends StatelessWidget {
 }
 
 class _AcademyActionStepperHit extends StatelessWidget {
-  const _AcademyActionStepperHit({required this.onPressed});
+  const _AcademyActionStepperHit({
+    required this.label,
+    required this.onPressed,
+    this.value,
+  });
 
+  final String label;
+  final String? value;
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final isEnabled = onPressed != null;
-
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      minimumSize: Size.zero,
-      onPressed: isEnabled
-          ? () {
-              HapticFeedback.selectionClick();
-              onPressed?.call();
-            }
-          : null,
-      child: const SizedBox.expand(),
-    );
-  }
-}
-
-class _AcademyActionStepperIcon extends StatelessWidget {
-  const _AcademyActionStepperIcon({
-    required this.icon,
-    required this.isEnabled,
-    required this.color,
-  });
-
-  final Color color;
-  final IconData icon;
-  final bool isEnabled;
-
-  @override
-  Widget build(BuildContext context) {
-    return IgnorePointer(
-      child: Icon(
-        icon,
-        size: AcademyActionStepper._iconSize,
-        color: isEnabled ? color : color.withValues(alpha: 0.35),
+    final onPressed = this.onPressed;
+    return AcademyActionSemantics(
+      label: label,
+      value: value,
+      enabled: onPressed != null,
+      child: CupertinoButton(
+        padding: EdgeInsets.zero,
+        minimumSize: Size.zero,
+        onPressed: onPressed == null
+            ? null
+            : () {
+                AcademyTheme.of(context).interaction.selectionClick();
+                onPressed();
+              },
+        child: const SizedBox.expand(),
       ),
     );
   }

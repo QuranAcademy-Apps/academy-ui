@@ -12,7 +12,7 @@ class AcademySizes {
     this.rowIcon = 22.0,
     this.rowIconExtent = 30.0,
     this.rowTileIcon = 17.0,
-    this.rowChevron = 16.0,
+    this.rowChevron = 14.0,
     this.chevron = 14.0,
     this.checkmark = 18.0,
     this.fieldIcon = 22.0,

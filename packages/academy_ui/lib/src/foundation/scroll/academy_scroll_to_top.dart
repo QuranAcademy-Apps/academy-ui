@@ -82,6 +82,11 @@ class _AcademyScrollToTopState extends State<AcademyScrollToTop>
     if (!hit.path.any((entry) => identical(entry.target, surface))) return;
 
     widget.onBeforeScroll?.call();
+    final media = context.getInheritedWidgetOfExactType<MediaQuery>()?.data;
+    if (media?.disableAnimations ?? false) {
+      widget.controller.jumpTo(widget.controller.position.minScrollExtent);
+      return;
+    }
     unawaited(
       widget.controller.animateTo(
         widget.controller.position.minScrollExtent,

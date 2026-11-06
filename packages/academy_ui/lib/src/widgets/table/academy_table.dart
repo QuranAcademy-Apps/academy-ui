@@ -5,8 +5,7 @@ import '../icon/academy_sf_image.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'academy_grouped_table.dart';
-import 'academy_row.dart';
-import '../../foundation/table/academy_table_row_scope.dart';
+import 'academy_table_row_slot.dart';
 import '../../theme/academy_theme.dart';
 import '../../foundation/surface/academy_surface_mask.dart';
 
@@ -292,10 +291,10 @@ class AcademyTableBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final inModal = ModalSheetSurfaceScope.isInModalSheet(context);
     Widget rowOf(Widget row) {
-      final faded = animated ? _FadeInRow(key: row.key, child: row) : row;
+      final faded = animated ? _FadeInRow(child: row) : row;
       // A modal fill repaints while scrolling: cache the glyphs apart from it,
       // unless the row paints a fill of its own.
-      return inModal && !(row is AcademyRow && row.paintsOwnBackground)
+      return inModal && academyTableRowCachesGlyphs(row)
           ? RepaintBoundary(child: faded)
           : faded;
     }
@@ -311,19 +310,16 @@ class AcademyTableBody extends StatelessWidget {
               separatorBuilder?.call(context, i - 1) ??
                   AcademyTableSeparator(
                     start:
-                        separatorStart ?? _separatorStart(context, rows[i - 1]),
+                        separatorStart ??
+                        academyTableRowStart(context, rows[i - 1]),
                     end: separatorEnd,
                   ),
-            if (insetCustomRows && rows[i] is! AcademyTableRowGeometry)
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AcademyTheme.of(context).paddings.tableRow.left,
-                ),
-                // Custom content keeps its own width, centered.
-                child: Center(heightFactor: 1, child: rowOf(rows[i])),
-              )
-            else
-              AcademyTableRowScope(child: rowOf(rows[i])),
+            academyTableRowSlot(
+              context,
+              rows[i],
+              insetCustomRows: insetCustomRows,
+              content: rowOf(rows[i]),
+            ),
           ],
         ],
       ),
@@ -367,17 +363,11 @@ class AcademyTableBody extends StatelessWidget {
       child: clip ? ClipRRect(borderRadius: radius, child: content) : content,
     );
   }
-
-  double _separatorStart(BuildContext context, Widget row) {
-    return row is AcademyTableRowGeometry
-        ? (row as AcademyTableRowGeometry).separatorStart(context)
-        : AcademyTheme.of(context).paddings.tableRow.left;
-  }
 }
 
 /// Fades a row in once, when first mounted.
 class _FadeInRow extends StatefulWidget {
-  const _FadeInRow({super.key, required this.child});
+  const _FadeInRow({required this.child});
   final Widget child;
   @override
   State<_FadeInRow> createState() => _FadeInRowState();

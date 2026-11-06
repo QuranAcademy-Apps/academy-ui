@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
+import '../../foundation/form/academy_field_style.dart';
 import '../../foundation/form/academy_form_field.dart';
 import '../../foundation/interaction/academy_tappable.dart';
 import '../../foundation/localizations/academy_localizations.dart';
@@ -308,22 +309,10 @@ class _SelectControlState<T extends Object> extends State<_SelectControl<T>> {
       builder: (context, states) => Container(
         padding: theme.paddings.field,
         decoration: BoxDecoration(
-          color: widget.enabled
-              ? theme.colorScheme.textFieldBackground
-              : theme.colorScheme.textFieldDisabledBackground,
+          color: academyFieldFillColor(context, enabled: widget.enabled),
           borderRadius: BorderRadius.circular(theme.radii.field),
           border: Border.all(
-            color: MediaQuery.highContrastOf(context)
-                ? AcademyContrast.foreground(
-                    theme.colorScheme.textFieldDisabledBorder,
-                    widget.enabled
-                        ? theme.colorScheme.textFieldBackground
-                        : theme.colorScheme.textFieldDisabledBackground,
-                    minimum: 3,
-                  )
-                : !widget.enabled
-                ? theme.colorScheme.textFieldDisabledBorder
-                : theme.colorScheme.textFieldBorder,
+            color: academyFieldBorderColor(context, enabled: widget.enabled),
           ),
         ),
         child: Row(

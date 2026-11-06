@@ -49,10 +49,8 @@ dependencies:
 | Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyProgressCard`, `AcademyProgressTile`, `AcademySearchScrim` |
 | Оформление и взаимодействие | `AcademyApp`, `AcademyTheme`, `AcademyAppearanceController`, `AcademyColors`, `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`, `AcademyInteractionTheme`, `AcademyTappable`, `AcademyFocusOutline`, motion-примитивы |
 
-В каталоге три входа: «Компоненты», «Сценарии», «Оформление». Основная категория
-определяет назначение; профиль, поездки и Quran — связанные сценарии. Поиск
-работает по русскому названию и имени API. Одна карточка семейства содержит
-назначение, связанные компоненты, применимые состояния и примеры.
+В каталоге четыре вкладки: «Каталог», «Quran», «Модалки», «Оформление». Вкладка
+«Каталог» открывает разделы с примерами; профиль и поездки — отдельный раздел.
 
 [Руководство выбора, уровни API, все роли типографики и совместимость](../../docs/design-system-reference.md).
 Исторические отчёты находятся в `docs/reviews`; они не заменяют актуальные контракты.

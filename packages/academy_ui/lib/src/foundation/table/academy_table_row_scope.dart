@@ -10,6 +10,25 @@ abstract interface class AcademyTableRowGeometry {
   double separatorStart(BuildContext context);
 }
 
+/// Where a row's separator starts: at its leading edge, or past its leading
+/// content when the table theme has separators follow it.
+double academyRowSeparatorStart(
+  BuildContext context, {
+  required bool hasLeading,
+  double? start,
+  double? leadingExtent,
+  double? leadingGap,
+}) {
+  final theme = AcademyTheme.of(context);
+  final inset = start ?? theme.paddings.tableRow.left;
+  if (!hasLeading || !theme.table.separatorFollowsLeading) return inset;
+  return inset +
+      (leadingExtent ??
+          theme.table.leadingExtent ??
+          theme.sizes.rowIconExtent) +
+      (leadingGap ?? theme.table.leadingGap);
+}
+
 /// Supplies the separator inset for an arbitrary composed row.
 class AcademyTableRowLayout extends StatelessWidget
     implements AcademyTableRowGeometry {

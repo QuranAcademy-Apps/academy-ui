@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
+import '../../foundation/form/academy_owned_editing.dart';
 import '../../foundation/overlay/academy_popover.dart';
 import '../select/academy_option_results.dart';
 import '../select/academy_select_option.dart';
@@ -44,31 +45,41 @@ class AcademyAutocomplete<T extends Object> extends StatefulWidget {
 }
 
 class _AcademyAutocompleteState<T extends Object>
-    extends State<AcademyAutocomplete<T>> {
+    extends State<AcademyAutocomplete<T>>
+    with
+        AcademyOwnedFocus<AcademyAutocomplete<T>>,
+        AcademyOwnedController<AcademyAutocomplete<T>> {
   final _popover = AcademyPopoverController();
   final _inputKey = GlobalKey();
   final _resultsFocus = FocusScopeNode();
-  TextEditingController? _ownedController;
-  FocusNode? _ownedFocus;
-  TextEditingController get _controller =>
-      widget.controller ?? (_ownedController ??= TextEditingController());
-  FocusNode get _focus => widget.focusNode ?? (_ownedFocus ??= FocusNode());
+  TextEditingController get _controller => controller;
+  FocusNode get _focus => focus;
   bool _committing = false;
+
+  @override
+  FocusNode? suppliedFocusNode(AcademyAutocomplete<T> widget) =>
+      widget.focusNode;
+  @override
+  TextEditingController? suppliedController(AcademyAutocomplete<T> widget) =>
+      widget.controller;
+
   @override
   void initState() {
     super.initState();
-    _controller.addListener(_changed);
-    _focus.addListener(_focusChanged);
-    _resultsFocus.addListener(_focusChanged);
+    attachController();
+    attachFocus();
+    _resultsFocus.addListener(onFocusChanged);
   }
 
-  void _changed() {
+  @override
+  void onTextChanged() {
     if (!mounted) return;
     setState(() {});
     if (!_committing && widget.enabled && _focus.hasFocus) _popover.show();
   }
 
-  void _focusChanged() {
+  @override
+  void onFocusChanged() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       if (!widget.enabled || (!_focus.hasFocus && !_resultsFocus.hasFocus)) {
@@ -82,20 +93,8 @@ class _AcademyAutocompleteState<T extends Object>
   @override
   void didUpdateWidget(covariant AcademyAutocomplete<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.controller != widget.controller) {
-      final previous = oldWidget.controller ?? _ownedController!;
-      final value = previous.value;
-      previous.removeListener(_changed);
-      _ownedController?.dispose();
-      _ownedController = widget.controller == null
-          ? TextEditingController.fromValue(value)
-          : null;
-      _controller.addListener(_changed);
-    }
-    if (oldWidget.focusNode != widget.focusNode) {
-      (oldWidget.focusNode ?? _ownedFocus!).removeListener(_focusChanged);
-      _focus.addListener(_focusChanged);
-    }
+    updateController(oldWidget);
+    updateFocus(oldWidget);
     if (!widget.enabled) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) _popover.hide();
@@ -121,10 +120,8 @@ class _AcademyAutocompleteState<T extends Object>
 
   @override
   void dispose() {
-    _controller.removeListener(_changed);
-    _focus.removeListener(_focusChanged);
-    _ownedController?.dispose();
-    _ownedFocus?.dispose();
+    disposeController();
+    disposeFocus();
     _resultsFocus.dispose();
     _popover.dispose();
     super.dispose();

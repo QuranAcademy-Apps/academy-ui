@@ -1,4 +1,5 @@
 import '../text_field/academy_text_input.dart';
+import '../../foundation/form/academy_owned_editing.dart';
 import '../../foundation/localizations/academy_localizations.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -52,9 +53,13 @@ class AcademySearchBar extends StatefulWidget {
 }
 
 class _AcademySearchBarState extends State<AcademySearchBar>
-    with SingleTickerProviderStateMixin {
-  FocusNode? _ownedFocus;
-  FocusNode get _focus => widget.focusNode ?? (_ownedFocus ??= FocusNode());
+    with SingleTickerProviderStateMixin, AcademyOwnedFocus<AcademySearchBar> {
+  FocusNode get _focus => focus;
+
+  @override
+  FocusNode? suppliedFocusNode(AcademySearchBar widget) => widget.focusNode;
+  @override
+  void onFocusChanged() => _changed();
   late final AnimationController _closeAnimation;
   late final Animation<double> _closeProgress;
 
@@ -71,16 +76,13 @@ class _AcademySearchBarState extends State<AcademySearchBar>
       curve: Curves.easeOutCubic,
       reverseCurve: Curves.easeInCubic,
     );
-    _focus.addListener(_changed);
+    attachFocus();
   }
 
   @override
   void didUpdateWidget(AcademySearchBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.focusNode != widget.focusNode) {
-      (oldWidget.focusNode ?? _ownedFocus!).removeListener(_changed);
-      _focus.addListener(_changed);
-    }
+    updateFocus(oldWidget);
     if (oldWidget.focusNode != widget.focusNode ||
         oldWidget.onCancel != widget.onCancel ||
         oldWidget.enabled != widget.enabled) {
@@ -110,8 +112,7 @@ class _AcademySearchBarState extends State<AcademySearchBar>
     _closeAnimation
       ..removeStatusListener(_closeAnimationStatusChanged)
       ..dispose();
-    _focus.removeListener(_changed);
-    _ownedFocus?.dispose();
+    disposeFocus();
     super.dispose();
   }
 

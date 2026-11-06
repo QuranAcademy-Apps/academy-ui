@@ -3,6 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
+import '../../foundation/form/academy_field_style.dart';
+import '../../foundation/form/academy_owned_editing.dart';
 import '../../foundation/localizations/academy_localizations.dart';
 import '../../foundation/table/academy_table_row_scope.dart';
 import '../../theme/academy_theme.dart';
@@ -175,46 +177,42 @@ class AcademyFloatingInput extends StatefulWidget {
   State<AcademyFloatingInput> createState() => _AcademyFloatingInputState();
 }
 
-class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
-  late FocusNode _focus = widget.focusNode ?? FocusNode();
-  TextEditingController? _ownedController;
-  TextEditingController get _controller =>
-      widget.controller ?? (_ownedController ??= TextEditingController());
-  void _refresh() => setState(() {});
+class _AcademyFloatingInputState extends State<AcademyFloatingInput>
+    with
+        AcademyOwnedFocus<AcademyFloatingInput>,
+        AcademyOwnedController<AcademyFloatingInput> {
+  FocusNode get _focus => focus;
+  TextEditingController get _controller => controller;
+
+  @override
+  FocusNode? suppliedFocusNode(AcademyFloatingInput widget) => widget.focusNode;
+  @override
+  TextEditingController? suppliedController(AcademyFloatingInput widget) =>
+      widget.controller;
+  @override
+  void onFocusChanged() => setState(() {});
+  @override
+  void onTextChanged() => setState(() {});
 
   @override
   void initState() {
     super.initState();
-    _focus.addListener(_refresh);
-    _controller.addListener(_refresh);
+    attachFocus();
+    attachController();
   }
 
   @override
   void didUpdateWidget(covariant AcademyFloatingInput oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.controller != widget.controller) {
-      (oldWidget.controller ?? _ownedController)?.removeListener(_refresh);
-      if (widget.controller != null) {
-        _ownedController?.dispose();
-        _ownedController = null;
-      }
-      _controller.addListener(_refresh);
-    }
-    if (oldWidget.focusNode != widget.focusNode) {
-      _focus.removeListener(_refresh);
-      if (oldWidget.focusNode == null) _focus.dispose();
-      _focus = widget.focusNode ?? FocusNode();
-      _focus.addListener(_refresh);
-    }
+    updateController(oldWidget);
+    updateFocus(oldWidget);
     if (!widget.enabled) _focus.unfocus();
   }
 
   @override
   void dispose() {
-    _controller.removeListener(_refresh);
-    _ownedController?.dispose();
-    _focus.removeListener(_refresh);
-    if (widget.focusNode == null) _focus.dispose();
+    disposeController();
+    disposeFocus();
     super.dispose();
   }
 
@@ -277,10 +275,9 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
                 autocorrect: false,
                 enableSuggestions: false,
                 cursorColor: colors.primary,
-                onSubmitted: (value) {
-                  _focus.unfocus();
-                  widget.onSubmitted?.call(value);
-                },
+                // The text input action decides where focus goes: «next» moves
+                // on, «done» closes the keyboard.
+                onSubmitted: widget.onSubmitted,
                 style: valueStyle.copyWith(
                   color: widget.enabled
                       ? colors.onSurface
@@ -356,7 +353,7 @@ class _AcademyFloatingInputState extends State<AcademyFloatingInput> {
               child: IgnorePointer(
                 child: ExcludeSemantics(
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: EdgeInsetsDirectional.fromSTEB(
                       17,
                       8 + labelHeight + verticalInset,
                       61,
@@ -427,21 +424,19 @@ BoxDecoration _fieldDecoration(
   double? cornerRadius,
   double borderWidth = 1,
 }) {
-  final colors = AcademyTheme.of(context).colorScheme;
   return BoxDecoration(
-    color: enabled ? colors.surface : colors.surfaceContainerHighest,
+    color: academyFieldFillColor(context, enabled: enabled),
     borderRadius: BorderRadius.circular(
       cornerRadius ?? AcademyTheme.of(context).radii.field,
     ),
     border: Border.all(
       width: borderWidth,
-      color: error != null
-          ? colors.error
-          : focused
-          ? colors.primary
-          : MediaQuery.highContrastOf(context)
-          ? colors.onSurfaceVariant
-          : colors.textFieldBorder,
+      color: academyFieldBorderColor(
+        context,
+        enabled: enabled,
+        focused: focused,
+        invalid: error != null,
+      ),
     ),
   );
 }
@@ -477,7 +472,7 @@ class _FieldError extends StatelessWidget {
               children: [
                 if (error!.isNotEmpty)
                   Padding(
-                    padding: const EdgeInsets.only(top: 1, right: 4),
+                    padding: const EdgeInsetsDirectional.only(top: 1, end: 4),
                     child: AcademySfIcon(
                       AcademyTheme.of(context).icons.error,
                       size: AcademyTheme.of(context).sizes.fieldMessageIcon,

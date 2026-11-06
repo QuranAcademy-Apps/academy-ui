@@ -155,7 +155,7 @@ void main() {
     await tester.pumpWidget(app(null));
     await tester.pumpWidget(app('Снова'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byType(CupertinoButton));
+    await tester.tap(find.bySemanticsLabel('Закрыть'));
     await tester.pumpAndSettle();
     expect(dismissed, 1);
     await tester.pumpWidget(const SizedBox());

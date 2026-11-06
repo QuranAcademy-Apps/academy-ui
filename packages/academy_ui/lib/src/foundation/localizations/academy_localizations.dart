@@ -56,6 +56,7 @@ class AcademyLocalizations {
   String get increase => _text('Увеличить', 'Increase', 'زيادة');
   String get decrease => _text('Уменьшить', 'Decrease', 'تقليل');
   String get information => _text('Информация', 'Information', 'معلومات');
+  String get more => _text('Ещё', 'More', 'المزيد');
   String get inputPlaceholder =>
       _text('Введите значение', 'Enter a value', 'أدخل قيمة');
   String get retry => _text('Повторить', 'Retry', 'إعادة المحاولة');

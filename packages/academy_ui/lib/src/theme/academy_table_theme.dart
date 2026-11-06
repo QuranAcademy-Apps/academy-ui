@@ -113,7 +113,7 @@ class AcademyTableSectionLayout {
     this.headerTop = 24,
     this.headerBottom = 8,
     this.fixedHeaderTop = false,
-    this.bodyVertical = 4,
+    this.bodyVertical = 0,
     this.footerTop = 8,
     this.footerBottom = 16,
     this.fixedFooterBottom = false,

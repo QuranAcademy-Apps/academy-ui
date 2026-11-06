@@ -2,6 +2,8 @@ import 'package:academy_ui/academy_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/academy_test_host.dart';
+
 // Decisions the Quran app reached over its history that academy_ui had lost or
 // never had (compared 2026-11-06):
 // - a sheet's scroll inset uses the resting detent while the sheet moves;
@@ -12,36 +14,6 @@ import 'package:flutter_test/flutter_test.dart';
 // - chrome and toasts stay clear of a landscape notch.
 
 void main() {
-  void phone(WidgetTester tester, {Size size = const Size(390, 844)}) {
-    tester.view.physicalSize = size;
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.reset);
-  }
-
-  Future<void> openSheet(
-    WidgetTester tester, {
-    required WidgetBuilder builder,
-    bool nestedNavigation = false,
-  }) async {
-    await tester.pumpWidget(
-      AcademyApp(
-        home: Builder(
-          builder: (context) => CupertinoButton(
-            onPressed: () => showAcademyModal<void>(
-              context,
-              title: 'Sheet',
-              initialDetent: ModalSheetDetent.medium,
-              nestedNavigation: nestedNavigation,
-              builder: builder,
-            ),
-            child: const Text('open'),
-          ),
-        ),
-      ),
-    );
-    await tester.tap(find.text('open'));
-  }
-
   RenderObject boundaryOf(WidgetTester tester, Finder finder) {
     RenderObject render = tester.renderObject(finder);
     while (!render.isRepaintBoundary) {
@@ -127,7 +99,11 @@ void main() {
       tester,
     ) async {
       phone(tester);
-      await openSheet(tester, builder: (_) => const SizedBox.expand());
+      await openSheet(
+        tester,
+        initialDetent: ModalSheetDetent.medium,
+        builder: (_) => const SizedBox.expand(),
+      );
       await tester.pumpAndSettle();
       tester.view.systemGestureInsets = const FakeViewPadding(bottom: 20);
       await tester.pump();
@@ -139,7 +115,11 @@ void main() {
     ) async {
       phone(tester);
       const key = ValueKey('content');
-      await openSheet(tester, builder: (_) => const SizedBox.expand(key: key));
+      await openSheet(
+        tester,
+        initialDetent: ModalSheetDetent.medium,
+        builder: (_) => const SizedBox.expand(key: key),
+      );
       await tester.pumpAndSettle();
       expect(
         boundaryOf(tester, find.byType(AcademyChromeModalHeader)),

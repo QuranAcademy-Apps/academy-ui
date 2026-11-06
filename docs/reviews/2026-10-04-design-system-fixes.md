@@ -59,7 +59,7 @@ Release-сборка macOS прошла. Для команды использо�
 - [Руководство библиотеки](../../packages/academy_ui/README.md).
 - [Архитектура дизайн системы](../design-system-architecture.md).
 - [Назначение компонентов, текстовые роли и совместимость](../design-system-reference.md).
-- [Реестр каталога](../../apps/academy_ui_catalog/lib/component_registry.dart).
+- Реестр каталога (`component_registry.dart`): удалён, см. поправку ниже.
 - [Проверки независимых настроек и состояний кнопок](../../packages/academy_ui/test/button_state_regression_test.dart).
 - [Контракт геометрии строк](../../packages/academy_ui/test/table_row_geometry_test.dart).
 - [Композиция поиска](../../packages/academy_ui/test/expanding_search_composition_test.dart).
@@ -78,3 +78,11 @@ Release-сборка macOS прошла. Для команды использо�
 Все 21 переход проверены из главного списка. 32 теста каталога проходят,
 анализатор без замечаний. Обновлены снимки светлой и темной темы; новая навигация
 просмотрена на iPhone 17 Pro в симуляторе после hot restart.
+
+## Поправка от 6 ноября 2026 года
+
+Навигация и реестр из DS04 и DS13 позже отменены: каталог вернулся к четырём
+вкладкам. Неподключённые `component_catalog.dart`, `catalog_workspace.dart`,
+`component_registry.dart` и `catalog_settings.dart` удалены по решению владельца;
+их последняя версия есть в коммите `f94c887`. Строки выше про реестр и его
+проверки описывают состояние на 4 октября.

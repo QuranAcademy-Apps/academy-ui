@@ -3,8 +3,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/services.dart';
 
+import '../../foundation/interaction/academy_interaction.dart';
+import '../../foundation/localizations/academy_localizations.dart';
 import '../../theme/academy_theme.dart';
 import '../icon/academy_sf_image.dart';
 import '../navigation/chrome/academy_chrome.dart';
@@ -27,11 +28,16 @@ class AcademyToastContent extends StatelessWidget {
     this.actionIcon,
     this.onAction,
     this.onClose,
+    this.messageVerticalPadding = 0,
   });
 
   final String message;
   final AcademyToastPosition position;
   final IconData? icon, trailingIcon;
+
+  /// Space above and below the message. A capsule with buttons has no vertical
+  /// padding of its own, so their 44pt targets reach its edges.
+  final double messageVerticalPadding;
 
   /// Accessibility name of the action; drawn as text unless [actionIcon] is set.
   final String? actionLabel;
@@ -51,28 +57,36 @@ class AcademyToastContent extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (onClose != null) ...[
-          // Same 24pt round control as the player's close.
-          CupertinoButton(
-            minimumSize: const Size(24, 24),
-            padding: EdgeInsets.zero,
-            onPressed: onClose,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: accent.withValues(alpha: 0.12),
-                border: Border.all(color: accent.withValues(alpha: 0.4)),
+        if (onClose != null)
+          // Same 24pt round symbol as the player's close, in a 44pt target that
+          // takes up the 10pt gaps around it.
+          AcademyActionSemantics(
+            label: AcademyLocalizations.of(context).close,
+            enabled: true,
+            child: CupertinoButton(
+              minimumSize: const Size(
+                AcademyTokens.target,
+                AcademyTokens.target,
               ),
-              child: AcademySfImage(
-                theme.icons.close,
-                frameSize: 24,
-                symbolSize: 12,
-                foreground: accent,
+              padding: EdgeInsets.zero,
+              onPressed: onClose,
+              child: ExcludeSemantics(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: accent.withValues(alpha: 0.12),
+                    border: Border.all(color: accent.withValues(alpha: 0.4)),
+                  ),
+                  child: AcademySfImage(
+                    theme.icons.close,
+                    frameSize: 24,
+                    symbolSize: 12,
+                    foreground: accent,
+                  ),
+                ),
               ),
             ),
           ),
-          const SizedBox(width: 10),
-        ],
         if (icon != null) ...[
           AcademySfIcon(
             icon!,
@@ -83,44 +97,48 @@ class AcademyToastContent extends StatelessWidget {
           const SizedBox(width: AcademyTokens.inlineGap),
         ],
         Flexible(
-          child: Text(
-            message,
-            textAlign: position == AcademyToastPosition.top
-                ? TextAlign.center
-                : TextAlign.start,
-            style: style,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: messageVerticalPadding),
+            child: Text(
+              message,
+              textAlign: position == AcademyToastPosition.top
+                  ? TextAlign.center
+                  : TextAlign.start,
+              style: style,
+            ),
           ),
         ),
-        if (actionLabel != null && onAction != null) ...[
-          const SizedBox(width: AcademyTokens.inlineGap),
-          Semantics(
-            button: true,
-            label: actionLabel,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: onAction,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: ExcludeSemantics(
-                  child: actionIcon != null
-                      ? AcademySfImage(
-                          actionIcon!,
-                          frameSize: 24,
-                          symbolSize: 18,
-                          foreground: accent,
-                        )
-                      : Text(
-                          actionLabel!,
-                          style: style.copyWith(
-                            color: accent,
-                            fontWeight: FontWeight.w700,
-                          ),
+        if (actionLabel != null && onAction != null)
+          AcademyActionSemantics(
+            label: actionLabel!,
+            enabled: true,
+            child: CupertinoButton(
+              minimumSize: const Size(
+                AcademyTokens.target,
+                AcademyTokens.target,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AcademyTokens.inlineGap,
+              ),
+              onPressed: onAction,
+              child: ExcludeSemantics(
+                child: actionIcon != null
+                    ? AcademySfImage(
+                        actionIcon!,
+                        frameSize: 24,
+                        symbolSize: 18,
+                        foreground: accent,
+                      )
+                    : Text(
+                        actionLabel!,
+                        style: style.copyWith(
+                          color: accent,
+                          fontWeight: FontWeight.w700,
                         ),
-                ),
+                      ),
               ),
             ),
           ),
-        ],
         if (trailingIcon != null) ...[
           const SizedBox(width: AcademyTokens.inlineGap),
           AcademySfIcon(trailingIcon!, size: iconSize, boxSize: 18),
@@ -221,6 +239,8 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
     final epoch = ++_messageEpoch;
     final nextMessage = widget.message;
     if (nextMessage == null) {
+      // The same text shown again later is a new toast, worth announcing.
+      _announcedMessage = null;
       if (_message == null) return;
       _isVisible = false;
       final outgoingMessage = _message;
@@ -302,6 +322,7 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
   void _dismissToast() {
     ++_messageEpoch;
     _message = null;
+    _announcedMessage = null;
     _isVisible = false;
     _removeOverlayEntry();
   }
@@ -321,7 +342,7 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
     if (_announcedMessage == message) return;
     _announcedMessage = message;
     if (widget.position == AcademyToastPosition.top) {
-      HapticFeedback.selectionClick();
+      AcademyTheme.of(context).interaction.selectionClick();
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -348,19 +369,20 @@ class _AcademyToastOverlayState extends State<AcademyToastOverlay> {
     final top = widget.position == AcademyToastPosition.top;
     final closable = widget.showCloseButton;
     final content = Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(
-        closable
-            ? 10
+      // Vertical space belongs to the message: the 44pt targets of the close
+      // and action buttons fill the capsule's height instead.
+      padding: EdgeInsetsDirectional.only(
+        start: closable
+            ? 0
             : widget.icon == null
             ? 20
             : 16,
-        closable ? 10 : 12,
-        widget.actionLabel != null ? 16 : 20,
-        closable ? 10 : 12,
+        end: widget.actionLabel != null ? 4 : 20,
       ),
       child: AcademyToastContent(
         message: message,
         position: widget.position,
+        messageVerticalPadding: closable ? 10 : 12,
         icon: widget.icon,
         actionLabel: widget.actionLabel,
         actionIcon: widget.actionIcon,

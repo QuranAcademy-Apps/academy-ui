@@ -24,11 +24,18 @@ class AcademyIndexBadge extends StatelessWidget {
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(theme.radii.rowIcon),
         ),
-        child: Text(
-          '$index',
-          style: theme.textTheme.bodyStrong.copyWith(
-            fontSize: index > 99 ? 13 : 15,
-            fontFeatures: const [FontFeature.tabularFigures()],
+        // A row's leading column is narrower than three digits: the number
+        // shrinks to fit rather than breaking onto a second line.
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            '$index',
+            maxLines: 1,
+            softWrap: false,
+            style: theme.textTheme.bodyStrong.copyWith(
+              fontSize: index > 99 ? 13 : 15,
+              fontFeatures: const [FontFeature.tabularFigures()],
+            ),
           ),
         ),
       ),

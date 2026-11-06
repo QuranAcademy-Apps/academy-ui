@@ -13,7 +13,7 @@
 - `flutter_sficon`, `cupertino_ui`, `cupertino_icons` and other resolved packages
   remain external dependencies under their own licenses.
 
-Academy adaptations: shared palette/chrome, Inter package font name, opaque
+Academy adaptations: shared palette/chrome, opaque
 content, blur default 20, keyboard-owned route offset, metrics-based geometry,
 settled detent scroll insets, live theme propagation and shared nested modal API.
 Donor application files were not modified.

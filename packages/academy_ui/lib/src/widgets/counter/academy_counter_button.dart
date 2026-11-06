@@ -49,7 +49,8 @@ class AcademyCounterButton extends StatelessWidget {
     return AcademyActionSemantics(
       label: label,
       value: '${math.min(count, total)} / $total',
-      enabled: onPressed != null,
+      // A completed counter may only take a long press, which resets it.
+      enabled: onPressed != null || onLongPress != null,
       child: PressScale(
         pressedScale: AcademyTheme.of(context).interaction.chromePressedScale,
         enabled: onPressed != null || onLongPress != null,
