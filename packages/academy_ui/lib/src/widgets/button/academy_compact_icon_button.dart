@@ -21,31 +21,38 @@ class AcademyCompactIconButton extends StatelessWidget {
   final String? label;
   final VoidCallback? onPressed;
   @override
-  Widget build(BuildContext context) => AcademyActionSemantics(
-    label: label ?? AcademyLocalizations.of(context).close,
-    enabled: onPressed != null,
-    child: AcademyPressEffect(
-      enabled: onPressed != null,
-      child: CupertinoButton(
-        padding: EdgeInsets.zero,
-        minimumSize: const Size(AcademyTokens.target, AcademyTokens.target),
-        onPressed: onPressed,
-        child: Container(
-          width: 28,
-          height: 28,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AcademyTheme.of(context).colorScheme.segmentBackground,
-          ),
-          child: Center(
-            child: AcademySfIcon(
-              icon ?? AcademyTheme.of(context).icons.close,
-              size: AcademyTheme.of(context).sizes.compactIcon,
-              color: AcademyTheme.of(context).colorScheme.onSurfaceVariant,
-            ),
+  Widget build(BuildContext context) {
+    final theme = AcademyTheme.of(context);
+    final look = theme.chromeButton;
+    final button = CupertinoButton(
+      padding: EdgeInsets.zero,
+      minimumSize: Size(look.compactTarget, look.compactTarget),
+      onPressed: onPressed,
+      child: Container(
+        width: 28,
+        height: 28,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: theme.colorScheme.segmentBackground,
+        ),
+        child: Center(
+          child: AcademySfIcon(
+            icon ?? theme.icons.close,
+            size: theme.sizes.compactIcon,
+            fontWeight: look.compactWeight,
+            scaleWithText: look.symbolScalesWithText,
+            mirrorInRtl: look.symbolMirrorsInRtl,
+            color: look.compactForeground ?? theme.colorScheme.onSurfaceVariant,
           ),
         ),
       ),
-    ),
-  );
+    );
+    return AcademyActionSemantics(
+      label: label ?? AcademyLocalizations.of(context).close,
+      enabled: onPressed != null,
+      child: look.compactPressEffect
+          ? AcademyPressEffect(enabled: onPressed != null, child: button)
+          : button,
+    );
+  }
 }

@@ -39,7 +39,10 @@ class AcademyInfoButton extends StatelessWidget {
         child: AcademySfIcon(
           AcademyTheme.of(context).icons.info,
           fontSize: iconSize,
-          color: color ?? AcademyTheme.of(context).colorScheme.accentForeground,
+          color:
+              color ??
+              AcademyTheme.of(context).inlineInfoColor ??
+              AcademyTheme.of(context).colorScheme.accentForeground,
           scaleWithText: true,
         ),
       ),

@@ -20,6 +20,10 @@ class AcademyChromeButtonTheme {
     this.titleStyle,
     this.compactTitleStyle,
     this.subtitleStyle,
+    this.compactTarget = 44,
+    this.compactForeground,
+    this.compactWeight,
+    this.compactPressEffect = true,
   });
 
   /// Square that centers the symbol; also the tap area when pressing scales
@@ -55,4 +59,14 @@ class AcademyChromeButtonTheme {
 
   /// Default: [AcademyTextTheme.bodySmall].
   final TextStyle? subtitleStyle;
+
+  /// Hit area of [AcademyCompactIconButton]; it also takes this much layout.
+  final double compactTarget;
+
+  /// Default: a secondary text color.
+  final Color? compactForeground;
+  final FontWeight? compactWeight;
+
+  /// Dims the button under the finger.
+  final bool compactPressEffect;
 }

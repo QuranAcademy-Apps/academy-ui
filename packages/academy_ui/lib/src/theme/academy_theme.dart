@@ -3,6 +3,7 @@ import 'academy_icons.dart';
 import 'academy_sizes.dart';
 import 'academy_chrome_button_theme.dart';
 import 'academy_chrome_material.dart';
+import 'academy_segmented_theme.dart';
 import 'academy_tab_bar_theme.dart';
 import 'academy_table_theme.dart';
 import 'academy_toast_theme.dart';
@@ -17,6 +18,7 @@ export 'academy_icons.dart';
 export 'academy_sizes.dart';
 export 'academy_chrome_button_theme.dart';
 export 'academy_chrome_material.dart';
+export 'academy_segmented_theme.dart';
 export 'academy_tab_bar_theme.dart';
 export 'academy_table_theme.dart';
 export 'academy_toast_theme.dart';
@@ -111,6 +113,8 @@ class AcademyThemeData {
     this.tabBar = const AcademyTabBarTheme(),
     this.chromeMaterial = const AcademyChromeMaterial(),
     this.chromeButton = const AcademyChromeButtonTheme(),
+    this.segmented = const AcademySegmentedTheme(),
+    this.inlineInfoColor,
     this.chromeBottomInsetOf,
     this.switchColor,
     this.checkmarkColor,
@@ -143,6 +147,12 @@ class AcademyThemeData {
 
   /// Look of chrome buttons, groups and title capsules.
   final AcademyChromeButtonTheme chromeButton;
+
+  /// Look of the fitted segmented control.
+  final AcademySegmentedTheme segmented;
+
+  /// [AcademyInfoButton.inline] symbol; default: the accent.
+  final Color? inlineInfoColor;
 
   /// [AcademySwitch] track; default: the accent fill.
   final Color? switchColor;
@@ -177,6 +187,8 @@ class AcademyThemeData {
     AcademyTabBarTheme? tabBar,
     AcademyChromeMaterial? chromeMaterial,
     AcademyChromeButtonTheme? chromeButton,
+    AcademySegmentedTheme? segmented,
+    Color? inlineInfoColor,
     double Function(BuildContext context)? chromeBottomInsetOf,
     Color? switchColor,
     Color? checkmarkColor,
@@ -198,6 +210,8 @@ class AcademyThemeData {
     tabBar: tabBar ?? this.tabBar,
     chromeMaterial: chromeMaterial ?? this.chromeMaterial,
     chromeButton: chromeButton ?? this.chromeButton,
+    segmented: segmented ?? this.segmented,
+    inlineInfoColor: inlineInfoColor ?? this.inlineInfoColor,
     chromeBottomInsetOf: chromeBottomInsetOf ?? this.chromeBottomInsetOf,
     switchColor: switchColor ?? this.switchColor,
     checkmarkColor: checkmarkColor ?? this.checkmarkColor,
@@ -244,6 +258,8 @@ AcademyThemeData academyTheme(
   AcademyChromeMaterial chromeMaterial = const AcademyChromeMaterial(),
   double Function(BuildContext context)? chromeBottomInsetOf,
   AcademyChromeButtonTheme chromeButton = const AcademyChromeButtonTheme(),
+  AcademySegmentedTheme segmented = const AcademySegmentedTheme(),
+  Color? inlineInfoColor,
   Color? switchColor,
   Color? checkmarkColor,
   Widget? feedbackLoadingIndicator,
@@ -264,6 +280,8 @@ AcademyThemeData academyTheme(
   tabBar: tabBar,
   chromeMaterial: chromeMaterial,
   chromeButton: chromeButton,
+  segmented: segmented,
+  inlineInfoColor: inlineInfoColor,
   chromeBottomInsetOf: chromeBottomInsetOf,
   switchColor: switchColor,
   checkmarkColor: checkmarkColor,

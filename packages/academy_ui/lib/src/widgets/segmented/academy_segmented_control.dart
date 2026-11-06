@@ -29,9 +29,34 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     this.textColor,
     this.selectionBorderColor,
     this.selectionShadowColor,
-  }) : assert(items.length > 0),
+  }) : fitted = false,
+       width = null,
+       assert(items.length > 0),
        assert(cornerRadius == null || cornerRadius >= 0),
        assert(selectionCornerRadius == null || selectionCornerRadius >= 0);
+
+  /// A text selector sized by [AcademySegmentedTheme]. A finite [width] sizes
+  /// it, null gives the minimum and infinity fills the parent.
+  const AcademySegmentedControl.fitted({
+    super.key,
+    required this.items,
+    required this.value,
+    required this.labelFor,
+    required this.onChanged,
+    this.width,
+    this.backgroundColor,
+    this.selectedColor,
+    this.textColor,
+  }) : fitted = true,
+       iconFor = null,
+       style = AcademySegmentStyle.pill,
+       cornerRadius = null,
+       selectionCornerRadius = null,
+       height = null,
+       selectionBorderColor = null,
+       selectionShadowColor = null,
+       assert(items.length > 0),
+       assert(width == null || width > 0);
 
   const AcademySegmentedControl.compact({
     super.key,
@@ -42,7 +67,9 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     this.iconFor,
     this.cornerRadius,
     this.selectionCornerRadius,
-  }) : style = AcademySegmentStyle.compact,
+  }) : fitted = false,
+       width = null,
+       style = AcademySegmentStyle.compact,
        height = null,
        backgroundColor = null,
        selectedColor = null,
@@ -52,6 +79,8 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
        assert(items.length > 0),
        assert(cornerRadius == null || cornerRadius >= 0),
        assert(selectionCornerRadius == null || selectionCornerRadius >= 0);
+  final bool fitted;
+  final double? width;
   final List<T> items;
   final T value;
   final String Function(T) labelFor;
@@ -71,8 +100,42 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
       textColor,
       selectionBorderColor,
       selectionShadowColor;
+  Widget _fitted(BuildContext context) {
+    final look = AcademyTheme.of(context).segmented;
+    final minWidth = look.minSegmentWidth * items.length;
+    final control = AcademySegmentedControl<T>(
+      items: items,
+      value: value,
+      labelFor: labelFor,
+      onChanged: onChanged,
+      height: look.height,
+      cornerRadius: look.cornerRadius,
+      selectionCornerRadius: look.selectionCornerRadius,
+      backgroundColor: backgroundColor,
+      selectedColor: selectedColor,
+      textColor: textColor ?? look.textColor,
+      selectionBorderColor: look.selectionBorderColor,
+      selectionShadowColor: look.selectionShadowColor,
+    );
+    final requested = width;
+    // Infinity fills the parent, which the control does by itself; an infinite
+    // SizedBox would break layout inside sheets.
+    final preferred = requested == null
+        ? minWidth
+        : requested.isFinite
+        ? math.max(requested, minWidth)
+        : null;
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: minWidth, minHeight: look.height),
+      child: preferred == null
+          ? control
+          : SizedBox(width: preferred, height: look.height, child: control),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (fitted) return _fitted(context);
     final theme = AcademyTheme.of(context);
     final selected = items.indexOf(value).clamp(0, items.length - 1);
     final pill = style == AcademySegmentStyle.pill;

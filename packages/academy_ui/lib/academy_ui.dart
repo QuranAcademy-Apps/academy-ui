@@ -56,6 +56,7 @@ export 'src/foundation/navigation/academy_deferred_route_init.dart';
 export 'src/foundation/scroll/academy_scroll_behavior.dart';
 export 'src/foundation/scroll/academy_scroll_to_top.dart';
 export 'src/widgets/icon/academy_sf_image.dart';
+export 'src/widgets/icon/academy_symbol_names.dart';
 export 'src/theme/academy_theme.dart';
 export 'src/widgets/navigation/chrome/academy_chrome.dart';
 export 'src/widgets/navigation/chrome/academy_chrome_controls.dart';

@@ -91,6 +91,7 @@ AcademyApp(
 - **Шрифты:** `AcademyTypographySettings`: семейство и стиль любой роли, включая `fieldLabel`, `fieldMessage`, `tabText`.
 - **Формы и отступы:** `AcademyRadii`, `AcademyPaddings`.
 - **Каркасы с плавающей панелью:** `AcademyChromePage.floating`, `AcademyModalScaffold.floating`, `AcademyChromeModalHeader.capsule`, `AcademyChromeFloatingBar`, `AcademyChromeSearchBar`; поиск в шапке задаёт `AcademyChromeSearch`.
+- **Символы и мелкие элементы:** `AcademySfIcon.scaled`, `AcademySfImage.plain`, `AcademyIconButton.plain`, `academySymbolNamed` (символ по имени SF Symbols); `AcademySegmentedTheme` (`segmented:`) и `AcademySegmentedControl.fitted`; `inlineInfoColor`.
 - **Кнопки панели:** `AcademyChromeButtonTheme` (`chromeButton:`) — символ, реакция на нажатие, разделитель группы, значок «назад», стили заголовка капсулы. Компоненты: `AcademyChromeButton`, `AcademyChromeGroup`, `AcademyChromeBackButton`, `AcademyChromeCircle`, `AcademyChromeCapsule.bar`, `AcademyChromeTitleCapsule`.
 - **Панель и таб-бар:** `AcademyChromeMaterial` (`chromeMaterial:`) — заливка, обводка, тень и вид при уменьшенной прозрачности; `AcademyChromeColors` — цвета; `AcademyTabBarTheme` (`tabBar:`) — вид и положение таб-бара. Выбранной вкладкой снаружи управляет `AcademyTabController`.
 - **Таблицы:** `AcademyTableTheme` (`table:`) — заголовки и стили строк, шеврон, отступы, отклик нажатия, разделители. У `AcademyRow` те же настройки есть параметрами; концевые элементы строк — `AcademyRowAccessory`, `AcademyRowDisclosure`, `AcademyRowTrailingText`.

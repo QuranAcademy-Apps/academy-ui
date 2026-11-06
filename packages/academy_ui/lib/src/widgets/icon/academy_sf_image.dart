@@ -23,6 +23,23 @@ class AcademySfIcon extends StatelessWidget {
     this.mirrorInRtl = true,
   });
 
+  /// A symbol that behaves like text: it follows the text scale and leaves
+  /// right-to-left glyphs to the font.
+  const AcademySfIcon.scaled(
+    this.icon, {
+    super.key,
+    this.fontSize,
+    this.size,
+    this.boxSize,
+    this.paintExtent,
+    this.fontWeight,
+    this.color,
+    this.shadows,
+    this.textDirection,
+    this.semanticsLabel,
+  }) : scaleWithText = true,
+       mirrorInRtl = false;
+
   final IconData icon;
   final double? fontSize;
   final double? size;
@@ -324,6 +341,20 @@ class AcademySfImage extends StatelessWidget {
     this.scaleWithText = false,
     this.mirrorInRtl = true,
   });
+
+  /// A bold symbol centered in a frame, without a fixed box of its own. It
+  /// follows the text scale and leaves right-to-left glyphs to the font.
+  const AcademySfImage.plain(
+    this.icon, {
+    super.key,
+    this.frameSize = 30,
+    this.symbolSize = 15,
+    this.weight = FontWeight.w700,
+    this.foreground,
+    this.background,
+  }) : boxed = false,
+       scaleWithText = true,
+       mirrorInRtl = false;
   final IconData icon;
   final double frameSize;
   final double symbolSize;
