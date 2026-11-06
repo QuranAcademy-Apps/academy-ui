@@ -53,7 +53,7 @@ void main() {
   });
 
   group('AcademyOptionResults', () {
-    testWidgets('an inline loader reloads for a new query, not for a rebuild', (
+    testWidgets('a new query shows loading, a rebuild refreshes in place', (
       tester,
     ) async {
       var calls = 0;
@@ -89,16 +89,96 @@ void main() {
       rebuild(() {});
       await tester.pump();
       expect(find.byType(CupertinoActivityIndicator), findsNothing);
+      expect(find.text('Result '), findsOneWidget);
       await tester.pump(const Duration(milliseconds: 250));
-      expect(calls, 1);
+      await tester.pump();
+      expect(calls, 2);
       expect(find.text('Result '), findsOneWidget);
 
       rebuild(() => query = 'x');
       await tester.pump();
+      expect(find.byType(CupertinoActivityIndicator), findsOneWidget);
       await tester.pump(const Duration(milliseconds: 250));
       await tester.pump();
-      expect(calls, 2);
+      expect(calls, 3);
       expect(find.text('Result x'), findsOneWidget);
+    });
+
+    testWidgets('a stable loader does not run again on a rebuild', (
+      tester,
+    ) async {
+      var calls = 0;
+      List<AcademySelectOption<String>> load(String q) {
+        calls++;
+        return [AcademySelectOption(value: q, label: 'Result')];
+      }
+
+      late StateSetter rebuild;
+      await tester.pumpWidget(
+        academyHost(
+          StatefulBuilder(
+            builder: (context, setState) {
+              rebuild = setState;
+              return SizedBox(
+                width: 320,
+                height: 300,
+                child: AcademyOptionResults<String>(
+                  query: '',
+                  options: const [],
+                  onSelected: (_) {},
+                  loader: load,
+                ),
+              );
+            },
+          ),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 250));
+      await tester.pump();
+      rebuild(() {});
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 250));
+      await tester.pump();
+      expect(calls, 1);
+    });
+
+    testWidgets('a loader over a new filter replaces the stale results', (
+      tester,
+    ) async {
+      var category = 'a';
+      late StateSetter rebuild;
+      await tester.pumpWidget(
+        academyHost(
+          StatefulBuilder(
+            builder: (context, setState) {
+              rebuild = setState;
+              final current = category;
+              return SizedBox(
+                width: 320,
+                height: 300,
+                child: AcademyOptionResults<String>(
+                  query: '',
+                  options: const [],
+                  onSelected: (_) {},
+                  loader: (_) => [
+                    AcademySelectOption(value: current, label: current),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 250));
+      await tester.pump();
+      expect(find.text('a'), findsOneWidget);
+
+      rebuild(() => category = 'b');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 250));
+      await tester.pump();
+      expect(find.text('a'), findsNothing);
+      expect(find.text('b'), findsOneWidget);
     });
   });
 

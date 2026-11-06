@@ -28,8 +28,9 @@ class AcademyOptionResults<T extends Object> extends StatefulWidget {
   final String query;
   final List<AcademySelectOption<T>> options;
 
-  /// Runs for each new query. Replacing it alone does not reload: give the
-  /// widget a new key when the data source itself changes.
+  /// Runs for each new query with a loading state. A replaced loader refreshes
+  /// the results in place, so a closure over a new filter never leaves them
+  /// stale; keep the same function to avoid that request on every rebuild.
   final AcademyOptionLoader<T>? loader;
   final Set<T> selected;
   final ValueChanged<AcademySelectOption<T>> onSelected;
@@ -55,19 +56,23 @@ class _AcademyOptionResultsState<T extends Object>
   @override
   void didUpdateWidget(covariant AcademyOptionResults<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // An inline loader is a new closure on every parent rebuild, so its identity
-    // says nothing: reload for a new query, or when a loader comes or goes.
     final queryChanged = oldWidget.query != widget.query;
     final sourceChanged = (oldWidget.loader == null) != (widget.loader == null);
     final optionsChanged =
         widget.loader == null && oldWidget.options != widget.options;
-    if (queryChanged || sourceChanged || optionsChanged) _load();
+    if (queryChanged || sourceChanged || optionsChanged) {
+      _load();
+    } else if (oldWidget.loader != widget.loader) {
+      // An inline loader is a new closure on every parent rebuild, and one over
+      // a new filter looks the same: refresh without clearing what is on screen.
+      _load(refresh: true);
+    }
   }
 
-  void _load({bool immediate = false}) {
+  void _load({bool immediate = false, bool refresh = false}) {
     _timer?.cancel();
     final request = ++_request;
-    _error = false;
+    if (!refresh) _error = false;
     final loader = widget.loader;
     if (loader == null) {
       final query = widget.query.trim().toLowerCase();
@@ -81,8 +86,10 @@ class _AcademyOptionResultsState<T extends Object>
       _loading = false;
       return;
     }
-    _loading = true;
-    _options = [];
+    if (!refresh) {
+      _loading = true;
+      _options = [];
+    }
     final query = widget.query;
     Future<void> run() async {
       try {
@@ -91,6 +98,7 @@ class _AcademyOptionResultsState<T extends Object>
         setState(() {
           _options = options;
           _loading = false;
+          _error = false;
         });
       } catch (_) {
         if (!mounted || request != _request) return;

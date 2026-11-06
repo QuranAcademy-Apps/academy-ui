@@ -299,6 +299,12 @@ class AcademyTableBody extends StatelessWidget {
           : faded;
     }
 
+    // One column cannot hold two children with the same key.
+    final seenKeys = <Key>{};
+    final repeatedKeys = <Key>{
+      for (final row in rows)
+        if (row.key case final key? when !seenKeys.add(key)) key,
+    };
     final column = Padding(
       padding: padding ?? AcademyTheme.of(context).paddings.tableBody,
       child: Column(
@@ -319,6 +325,7 @@ class AcademyTableBody extends StatelessWidget {
               rows[i],
               insetCustomRows: insetCustomRows,
               content: rowOf(rows[i]),
+              keyed: !repeatedKeys.contains(rows[i].key),
             ),
           ],
         ],

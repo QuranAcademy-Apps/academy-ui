@@ -78,6 +78,31 @@ void main() {
     expect(find.byType(_Probe), findsOneWidget);
   });
 
+  testWidgets('rows repeating a key still build, others keep their state', (
+    tester,
+  ) async {
+    Widget rows(List<String> names) => academyHost(
+      SizedBox(
+        width: 320,
+        child: AcademyTableBody(
+          rows: [
+            const _Probe('same 1', key: ValueKey('same')),
+            const _Probe('same 2', key: ValueKey('same')),
+            for (final name in names) _Probe(name, key: ValueKey(name)),
+          ],
+        ),
+      ),
+    );
+    await tester.pumpWidget(rows(['a', 'b']));
+    expect(tester.takeException(), isNull);
+    expect(find.text('same 1'), findsOneWidget);
+    expect(find.text('same 2'), findsOneWidget);
+    _created.clear();
+    await tester.pumpWidget(rows(['b', 'a']));
+    expect(tester.takeException(), isNull);
+    expect(_created, isEmpty);
+  });
+
   testWidgets('a row may carry a global key in an animated table', (
     tester,
   ) async {

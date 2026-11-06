@@ -21,12 +21,14 @@ bool academyTableRowCachesGlyphs(Widget row) =>
 
 /// One row of a table: custom content is inset and centered, a row gets the
 /// row scope. The row's key moves up here, where the column of rows can see it:
-/// a row reordered or inserted among others then keeps its state.
+/// a row reordered or inserted among others then keeps its state. Without
+/// [keyed], for a key its section repeats, the row stays matched by position.
 Widget academyTableRowSlot(
   BuildContext context,
   Widget row, {
   required bool insetCustomRows,
   Widget? content,
+  bool keyed = true,
 }) {
   final child = content ?? row;
   final Widget slot = insetCustomRows && row is! AcademyTableRowGeometry
@@ -41,7 +43,7 @@ Widget academyTableRowSlot(
   final key = row.key;
   // A global key already finds its row wherever it moves, and may not be used
   // twice in the tree.
-  return key == null || key is GlobalKey
+  return !keyed || key == null || key is GlobalKey
       ? slot
       // Wrapped, so looking the row up by its own key still finds only the row.
       : KeyedSubtree(key: ValueKey<Key>(key), child: slot);
