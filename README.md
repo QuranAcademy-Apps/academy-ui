@@ -11,4 +11,4 @@
 Git remote: `git@github.com:QuranAcademy-Apps/academy-ui.git`.
 
 Библиотека находится в `packages/academy_ui`, демо — в `apps/academy_ui_catalog`.
-Другие приложения подключают библиотеку через Git, указывая `path: packages/academy_ui` и закрепляя проверенный commit или tag. Демо использует локальную зависимость на ту же библиотеку.
+Другие приложения подключают библиотеку через Git, указывая `path: packages/academy_ui` и закрепляя тег версии, например `academy_ui-v0.2.0`: [правила версий и обновления](packages/academy_ui/README.md#версии-и-обновление), [история версий](packages/academy_ui/CHANGELOG.md). Демо использует локальную зависимость на ту же библиотеку.
