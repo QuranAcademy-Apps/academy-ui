@@ -19,3 +19,6 @@ export 'src/prayer/prayer_tables_repository.dart';
 export 'src/prayer/prayer_times_service.dart';
 export 'src/storage/key_value_store.dart';
 export 'src/storage/persisted_json.dart';
+export 'src/transcription/arabic_transcriber.dart';
+export 'src/transcription/scheme_rules.dart' show nonBreakingHyphen;
+export 'src/transcription/transcription_scheme.dart';
