@@ -1,0 +1,2072 @@
+{
+ "абакан": {
+  "name": "Абакан",
+  "original": {
+   "name": "sajda.com (метод: Абакан)",
+   "url": "https://sajda.com/ru/prayer-times/russia/khakasiya-republic-abakan/1512236",
+   "sha256": "85f0cabb26cf4102b88573ced26a1ae6df0282c0c959789af2aac002a1fd1257"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "азов": {
+  "name": "Азов",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-azov/580054",
+   "sha256": "392eeed980217601d3e30f04ad587f689e9c3b0569776aaff438768c4df9e46e"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "александров": {
+  "name": "Александров",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/vladimir-oblast-aleksandrov/583350",
+   "sha256": "85c60759a966fc633a182eda1dd4463419b1e5ec6deb7d41a0b530f87ae09be6"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "анапа": {
+  "name": "Анапа",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-anapa/582182",
+   "sha256": "b5741d03d5aef7b5e46d81f92d72e6420a26b4de42c3b6c4901843c72df93355"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ангарск": {
+  "name": "Ангарск",
+  "original": {
+   "name": "sajda.com (метод: Ангарск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/irkutsk-oblast-angarsk/2027667",
+   "sha256": "ae4c6488b557fc32a77503595607a12f9a024e45e1a8348c0b7913a7e776ba00"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "апшеронск": {
+  "name": "Апшеронск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-apsheronsk/581313",
+   "sha256": "86d689ef07d051543c44c45d763d4123d0e21d5b756edf34b85d5d1b148f3b4c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "арзамас": {
+  "name": "Арзамас",
+  "original": {
+   "name": "sajda.com (метод: Арзамас)",
+   "url": "https://sajda.com/ru/prayer-times/russia/nizhny-novgorod-oblast-arzamas/580724",
+   "sha256": "e4f771f8ec4525c719712f011021d9e432f48b077bd2c2f8ee85584e6cbbf7dc"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "армавир": {
+  "name": "Армавир",
+  "original": {
+   "name": "sajda.com (метод: Армавир)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-armavir/580922",
+   "sha256": "f99e3af42fb29455e38701b1e123566f9f54ca5f4c97460d3221f71e4a2cdc5d"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "артем": {
+  "name": "Артем",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/primorye-artem/2027456",
+   "sha256": "8fdf19250af2d3fc76db77c3539afc579555cb295db4ef82f8c78879cb51fad9"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "архангельск": {
+  "name": "Архангельск",
+  "original": {
+   "name": "sajda.com (метод: Архангельск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/arkhangelskaya-arkhangel-sk/581049",
+   "sha256": "7e87bf36fedee8d1d92e2d41b3ef5cb4ea62de50952489716df2a62378510eb4"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "атаманово": {
+  "name": "Атаманово",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnoyarsk-krai-atamanovo/1511271",
+   "sha256": "8d10894bebb94b2bc401d6496786f476f38aa8e9caa10978a8535c26a9394e82"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ачинск": {
+  "name": "Ачинск",
+  "original": {
+   "name": "sajda.com (метод: Ачинск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnoyarsk-krai-achinsk/1512165",
+   "sha256": "6b76ebb1e620f17d512ec14855c8cc04ec1680a407b13009ff0ed99cb844cf61"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "балаково": {
+  "name": "Балаково",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/saratov-oblast-balakovo/579492",
+   "sha256": "bd1660e7ef9322fef7b2f8df31e6c36104c13778931af79d4b3b3c0cd63c0164"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "балашов": {
+  "name": "Балашов",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/saratov-oblast-balashov/579460",
+   "sha256": "cecbccbdde3c39faa28f54e6e92e1a996332fcfc46dc1beeaede33bd84aab9c0"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "барнаул": {
+  "name": "Барнаул",
+  "original": {
+   "name": "sajda.com (метод: Барнаул)",
+   "url": "https://sajda.com/ru/prayer-times/russia/altai-krai-barnaul/1510853",
+   "sha256": "28e1456bea53fbfd8ae689d86e0eddad9d49525c90fd4346db9da05f2f236775"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "батайск": {
+  "name": "Батайск",
+  "original": {
+   "name": "sajda.com (метод: Ростов-на-Дону)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-bataysk/578740",
+   "sha256": "54d34864156e286f71656cfd6614ac98a056b450eeff8e7d0b9ce025e7e073ef"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "белгород": {
+  "name": "Белгород",
+  "original": {
+   "name": "sajda.com (метод: Белгород)",
+   "url": "https://sajda.com/ru/prayer-times/russia/belgorod-oblast-belgorod/578072",
+   "sha256": "4a91ecbe685884f147e423425c385bdb7e7cb17812a22d3a03452dbca26731b9"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "белебей": {
+  "name": "Белебей",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/bashkortostan-republic-belebey/578120",
+   "sha256": "a1db6ee7e846d55604dd6ec0012ef30e2aefe83351ccdafb65315e8dee2bd116"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "белово": {
+  "name": "Белово",
+  "original": {
+   "name": "sajda.com (метод: Белово)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kuzbass-belovo/1510469",
+   "sha256": "4d99a2fbf594ffe22d243034d80d7100e1e83caec2563ef02ba045142110f0c4"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "белорецк": {
+  "name": "Белорецк",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/bashkortostan-republic-beloretsk/577881",
+   "sha256": "b3d1b4ea3ea631b5a07769251005b179e93ca81df1a6ea8fb159793fbc08589c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "белореченск": {
+  "name": "Белореченск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-belorechensk/577893",
+   "sha256": "7f809cba26f24b882e32979e300506548514b0f2e2d7e9b9c7fb30ef801362d3"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "бердск": {
+  "name": "Бердск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/novosibirsk-oblast-berdsk/1510350",
+   "sha256": "60b6210b268f157d511461ca0b220c5960d60eaece553ad0e25f6b416b246b66"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "березники": {
+  "name": "Березники",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-berezniki/577206",
+   "sha256": "d4fa0d3df850081664d9135407e45674624e9765b7f3ae7b683892098dadbf0f"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "бийск": {
+  "name": "Бийск",
+  "original": {
+   "name": "sajda.com (метод: Бийск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/altai-krai-biysk/1510018",
+   "sha256": "25b4626b959730bf97471d237af0fe46fa1c59404caf26d90127d30708da8bb6"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "благовещенск": {
+  "name": "Благовещенск",
+  "original": {
+   "name": "sajda.com (метод: Благовещенск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/amur-oblast-blagoveshchensk/2026609",
+   "sha256": "5afb753c30f55a9e5121dbcae4f7a26f15ceb74ad82c487c43ccf2d4580aa8cf"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "бор": {
+  "name": "Бор",
+  "original": {
+   "name": "sajda.com (метод: Нижний Новгород)",
+   "url": "https://sajda.com/ru/prayer-times/russia/nizhny-novgorod-oblast-bor/572665",
+   "sha256": "9278822ed809e52d77945122493200f3721dfcee8b497b2550aedfedd56a14bd"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "борисоглебск": {
+  "name": "Борисоглебск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/voronezh-oblast-borisoglebsk/572525",
+   "sha256": "1ebe7dd9853fd36738c872ac7102fc6ce93bc0a982af547e7fc9b5be356cd145"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "братск": {
+  "name": "Братск",
+  "original": {
+   "name": "sajda.com (метод: Братск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/irkutsk-oblast-bratsk/2051523",
+   "sha256": "03a59edd82c80d6295866318c7558b8416628e19ae36436fb13e5a5e2d505436"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "брянск": {
+  "name": "Брянск",
+  "original": {
+   "name": "sajda.com (метод: Брянск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/bryansk-oblast-bryansk/571476",
+   "sha256": "6ce445987975169050f1f4408942a35f7d226f5f5bb3a3e58fa192b63ba9e289"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "буденновск": {
+  "name": "Буденновск",
+  "original": {
+   "name": "sajda.com (метод: Буденновск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-budyonnovsk/571306",
+   "sha256": "493897bd57aadc4da97d03e2a050997e030fc5bd7048a5ab6eba1c3f4af38dcc"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "бузулук": {
+  "name": "Бузулук",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/orenburg-oblast-buzuluk/570427",
+   "sha256": "a9b2a5c89ca02de8ae7f6cb393c52cc570b4001a20cfdd6224749e610bf36dc2"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "великие луки": {
+  "name": "Великие Луки",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/pskov-oblast-velikiye-luki/476077",
+   "sha256": "a4585e577230889b81752d443d6394b0ee7d2a2c214fb24bbe0f33104983c059"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "великий новгород": {
+  "name": "Великий Новгород",
+  "original": {
+   "name": "sajda.com (метод: Великий Новгород)",
+   "url": "https://sajda.com/ru/prayer-times/russia/novgorod-oblast-velikiy-novgorod/519336",
+   "sha256": "04020c811a2d9624d29859685d338a615087ab0131f97b5081b5960786ecb9aa"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "владивосток": {
+  "name": "Владивосток",
+  "original": {
+   "name": "sajda.com (метод: Владивосток)",
+   "url": "https://sajda.com/ru/prayer-times/russia/primorye-vladivostok/2013348",
+   "sha256": "b2d786d4b83dad6410c98dd4919606c39a5e4e31fa854b01adc66f4ef90c8628"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "владикавказ": {
+  "name": "Владикавказ",
+  "original": {
+   "name": "sajda.com (метод: Владикавказ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/north-ossetia-alania-vladikavkaz/473249",
+   "sha256": "9bde10635dda0e904ed2b55962da8e39638521f72521dbd197ad53e5d5c26db1"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "владимир": {
+  "name": "Владимир",
+  "original": {
+   "name": "sajda.com (метод: Владимир)",
+   "url": "https://sajda.com/ru/prayer-times/russia/vladimir-oblast-vladimir/473247",
+   "sha256": "a238f76b4e9406d493cea905505cc698df59be1619954749d41a7f65f5b78d42"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "волгоград": {
+  "name": "Волгоград",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "8a03a687a69c27443e6c2c09c0893efaa363dc540de3659ed1a0f4b2c1ead9a5"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "волгодонск": {
+  "name": "Волгодонск",
+  "original": {
+   "name": "sajda.com (метод: Волгодонск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-volgodonsk/472761",
+   "sha256": "5cc17324d3b9af4015bfb044e574b30f6974e242f9b18149c6b5abfdcf7db4b0"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "волжский": {
+  "name": "Волжский",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/samara-oblast-volzhskiy/472229",
+   "sha256": "c12c62a0aa1f245e3a1747fdd7fd09571f03de31c91f6f8b4d3e3db1b75b4c4d"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "вологда": {
+  "name": "Вологда",
+  "original": {
+   "name": "sajda.com (метод: Вологда)",
+   "url": "https://sajda.com/ru/prayer-times/russia/vologda-oblast-vologda/472459",
+   "sha256": "311a22771a2825890d1f276919d0039c98a62353a8d33d354fd22da7d95e5dd8"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "воронеж": {
+  "name": "Воронеж",
+  "original": {
+   "name": "sajda.com (метод: Воронеж)",
+   "url": "https://sajda.com/ru/prayer-times/russia/voronezh-oblast-voronezh/472045",
+   "sha256": "dc6d12ea9c3243be20304b2ff1deb8ed2c09ad629730b08964c73fd582dd83d2"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "воскресенск": {
+  "name": "Воскресенск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-voskresensk/471656",
+   "sha256": "f9ab4c80fff22b4dbba81efd3c056e593cf7cb4210eb077d026c122a5fe5b043"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "воткинск": {
+  "name": "Воткинск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/udmurtiya-republic-votkinsk/471430",
+   "sha256": "e780081c6a02c10c29033d3238de23c7a12ebb3f9585e31d135217b3400fc727"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "георгиевск": {
+  "name": "Георгиевск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-georgiyevsk/561627",
+   "sha256": "46e34c17a96e6c88023c2421ec48ce9233a4c5862fc53d67129126d92ae6c466"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "глазов": {
+  "name": "Глазов",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/udmurtiya-republic-glazov/561347",
+   "sha256": "586fb1433cb7836f7209756d064468d45c9123172ac1d2d988bf20d037ed31e5"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "голубой залив": {
+  "name": "Голубой Залив",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/novosibirsk-oblast-goluboy-zaliv/6284048",
+   "sha256": "4b3bb8d52e80a8909411c613afdb4966b0e9f6ea385458032fda04555e89d175"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "греково-тимофеевка": {
+  "name": "Греково-Тимофеевка",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-grekovo-timofeyevka/558934",
+   "sha256": "da24809afb7b786cf9da8b3bf07d2a6ad1e1b04d3b0f2915b82ba30b4a9e139c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "дзержинск": {
+  "name": "Дзержинск",
+  "original": {
+   "name": "sajda.com (метод: Дзержинск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/nizhny-novgorod-oblast-dzerzhinsk/563708",
+   "sha256": "e0926ecf64f4a47700083e422941fcf3338b0111f82334d339fac201f91f4112"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "димитровград": {
+  "name": "Димитровград",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/ulyanovsk-dimitrovgrad/566199",
+   "sha256": "e021a9a88dfe79105407bfa285c28db638fcb6351eff86b1ac676863ff239b7f"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "дунай": {
+  "name": "Дунай",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/primorye-dunay/2024800",
+   "sha256": "a1f1dae1b0c4bf0234f66d55ae49dcb66948ce97ab75be0973d3367bf10ba3c0"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "дёма": {
+  "name": "Дёма",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-dema/566696",
+   "sha256": "dfac8312f1c9d1fce7901ef2228be4f03f3920894f6451f65ec7984ca2236099"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "егорьевск": {
+  "name": "Егорьевск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-yegor-yevsk/468250",
+   "sha256": "48ce76098f124f0a9c57ecabc97ef34c43e03833f9b16ae1acdb9c802e18628b"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ейск": {
+  "name": "Ейск",
+  "original": {
+   "name": "sajda.com (метод: Ейск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-yeysk/466885",
+   "sha256": "40d3191b4b31bebad5f48169381a818efe6c3a20a8db5a634be5aa73a92d3f4e"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "екатеринбург": {
+  "name": "Екатеринбург",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "2b27c8de47e182719234326a4b6a06818232ce0799d560ad5f54f12f19ad58d6"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "елец": {
+  "name": "Елец",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/lipetsk-oblast-yelets/467978",
+   "sha256": "8a59304bd1ebfcb5e7758b2f4fe77f1f5022aaca88dea133e0e09c77c9fba606"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ессентуки": {
+  "name": "Ессентуки",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-yessentuki/466990",
+   "sha256": "dfc427dcbe20bd953077c93ef5b7ad9b84ffc4185249480419904b103d2d8bdd"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "железногорск": {
+  "name": "Железногорск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kursk-oblast-zheleznogorsk/463343",
+   "sha256": "fe746b8cf5a48968c20ab355bde259025ae3ac33eb2ae1bf1e5cc9de95289863"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "жилкино": {
+  "name": "Жилкино",
+  "original": {
+   "name": "sajda.com (метод: Иркутск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/irkutsk-oblast-zhilkino/2056837",
+   "sha256": "dbbafcaa4c8b96325546f1ac53451828f276b966e728161568944f1596b232a6"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "жуковский": {
+  "name": "Жуковский",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-zhukovsky/462755",
+   "sha256": "9efbf0db76156f759e7461a8d4feab77dc984629c961c0129caf2a4ca843098d"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "заречный": {
+  "name": "Заречный",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/penza-oblast-zarechnyy/464625",
+   "sha256": "f44e9d23d9699428d1399d335d151d8b397da4f22b8f8dbd1857e6724c4d457f"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "зеленоград": {
+  "name": "Зеленоград",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-zelenograd/463829",
+   "sha256": "83e03aa98bf5e20dce90cb04032c07686e29c4fed7251a241ee96e8f5c892e17"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "зеленодольск (sakhalin)": {
+  "name": "Зеленодольск (sakhalin)",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/sakhalin-oblast-zelenodol-sk/2119358",
+   "sha256": "f4cbdf799cda37f7ffd1907349fde341b8ea714aeb9c61ca4ae19d784ea9b9e0"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "златоуст": {
+  "name": "Златоуст",
+  "original": {
+   "name": "sajda.com (метод: Златоуст)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chelyabinsk-zlatoust/462444",
+   "sha256": "b0c352cc55cee55f58a7edfa603eafe070610b745893b513887ead0c574bd5ad"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "иваново": {
+  "name": "Иваново",
+  "original": {
+   "name": "sajda.com (метод: Иваново)",
+   "url": "https://sajda.com/ru/prayer-times/russia/ivanovo-oblast-ivanovo/555312",
+   "sha256": "067152dd57f6b68304a4febef63a36d6a3944fb6ecf1e5e1836f7d99041365fe"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "ивантеевка": {
+  "name": "Ивантеевка",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-ivanteyevka/555111",
+   "sha256": "0b291d23626f87e152fdae60622aafdacd2f54f84f9cecccf36326da0a51607f"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "изобильный": {
+  "name": "Изобильный",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-izobil-nyy/554770",
+   "sha256": "49383d5ea1c6886c4b994350b3b1e19a8da2bcdc6c9fe3ad5c2487fd8dd7aac9"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "иркутск": {
+  "name": "Иркутск",
+  "original": {
+   "name": "sajda.com (метод: Иркутск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/irkutsk-oblast-irkutsk/2023469",
+   "sha256": "dbbafcaa4c8b96325546f1ac53451828f276b966e728161568944f1596b232a6"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "ишим": {
+  "name": "Ишим",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tyumen-oblast-ishim/1505453",
+   "sha256": "70ede00efdf59678a91100875fc8096951f48b45671010afff824886429bc468"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "калининград": {
+  "name": "Калининград",
+  "original": {
+   "name": "sajda.com (метод: Калининград)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kaliningrad-oblast-kaliningrad/554234",
+   "sha256": "fbc3d023d3d2d76e9cd1aae980d80b4c0bc108a7b0480575113a0da6f67ce2ee"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "калуга": {
+  "name": "Калуга",
+  "original": {
+   "name": "sajda.com (метод: Калуга)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kaluga-oblast-kaluga/553915",
+   "sha256": "8d853446b9fc371e2209a5163972632c69f7d8ce2e24fe6dd66ba19aeeecaf4f"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "каменск-уральский": {
+  "name": "Каменск-Уральский",
+  "original": {
+   "name": "sajda.com (метод: Каменск-Уральский)",
+   "url": "https://sajda.com/ru/prayer-times/russia/sverdlovsk-oblast-kamensk-ural-skiy/1504826",
+   "sha256": "e30d15dbe8952b5f346b5ec005ceadb4488fe51c12bd30f22de3b61b0526c371"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "каменск-шахтинский": {
+  "name": "Каменск-Шахтинский",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-kamensk-shakhtinsky/553399",
+   "sha256": "86344ed374d50b82d6b16d94bb24433e0383c35edacc19e2256953e58a4cbb83"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "камышин": {
+  "name": "Камышин",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/volgograd-oblast-kamyshin/553287",
+   "sha256": "d80c5ecabbe1fcffff537c4dbda5cd2297abcb087084ef5b1da990ecbe57bbbc"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "кемерово": {
+  "name": "Кемерово",
+  "original": {
+   "name": "sajda.com (метод: Кемерово)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kuzbass-kemerovo/1503901",
+   "sha256": "bdfb951ab731e93c41599a6c9b6cfdc492106aafaf3275ba351d3d052ebee1cf"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "кислино": {
+  "name": "Кислино",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/oryol-oblast-kislino/548130",
+   "sha256": "9ea9b7cf68857fc49216dc2a3313f285f86d2383ade521fa6c8d2b1c7d3e47c3"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "кисловодск": {
+  "name": "Кисловодск",
+  "original": {
+   "name": "sajda.com (метод: Кисловодск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-kislovodsk/548114",
+   "sha256": "61bb126331fe62fbf633496d044cc36c5da568480aa6289bb6802f95290fabad"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "клин": {
+  "name": "Клин",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-klin/547523",
+   "sha256": "4bb80bdf2e69cfe38803ba41a8c4d13d2b9757e68e3bfff19a8113216b3f62cc"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ковров": {
+  "name": "Ковров",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/vladimir-oblast-kovrov/543460",
+   "sha256": "2e17747c26433c569fb0a3280264689528f0f02316e30304d2c0f186278017c1"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "коломна": {
+  "name": "Коломна",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-kolomna/546230",
+   "sha256": "258de0b811d9179802f51bf6de8e81ad2ac478a7c1c8156adc31e90885cddbcc"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "колпино": {
+  "name": "Колпино",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/st-petersburg-kolpino/546105",
+   "sha256": "e8e75d45430857d9b23eb717e54c21bdfcc86ba4e694f8bd5e20a05a06148c25"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "комсомольск-на-амуре": {
+  "name": "Комсомольск-на-Амуре",
+  "original": {
+   "name": "sajda.com (метод: Комсомольск-на-Амуре)",
+   "url": "https://sajda.com/ru/prayer-times/russia/khabarovsk-komsomolsk-on-amur/2021851",
+   "sha256": "c373e4e3ab56e907574aac6d4083b6b5a5fc0de17b8bce500654fbfd2834b6b8"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "кондратово": {
+  "name": "Кондратово",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-kondratovo/829032",
+   "sha256": "46e9efe766293df9e6be027b789e54116b13211ac3e5c6e8f49bd8a2e7e560ae"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "копейск": {
+  "name": "Копейск",
+  "original": {
+   "name": "sajda.com (метод: None)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chelyabinsk-kopeysk/1502603",
+   "sha256": "960f7b60a9526857d0144a6f34ab4f465cf5655fcea6134ce3e9127eb03943d5"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "кострома": {
+  "name": "Кострома",
+  "original": {
+   "name": "sajda.com (метод: Кострома)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kostroma-oblast-kostroma/543878",
+   "sha256": "254d64b5807c3ed20d104029488508c8a9e3630db4699b6708411bd0297968c0"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "краснодар": {
+  "name": "Краснодар",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "24a5195693d7e22eee8e200b6cb6656ec1150a748676973c6efde314cb31f912"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "красноярск": {
+  "name": "Красноярск",
+  "original": {
+   "name": "sajda.com (метод: Красноярск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnoyarsk-krai-krasnoyarsk/1502026",
+   "sha256": "0fed2c9a60a9f56878938ab57fc8c2f108af72a717e84d56f248c7de3210e824"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "кропоткин": {
+  "name": "Кропоткин",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-kropotkin/540761",
+   "sha256": "17e080c89e536a23b76ad5731243aca154d831beced5646b9a1fb28097d5bdea"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "крымск": {
+  "name": "Крымск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-krymsk/540251",
+   "sha256": "2be4c9143baf7cc8c70c2325a857ddb1d707fb151eef79da6e664ddb62ad458c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "кузнецк": {
+  "name": "Кузнецк",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/penza-oblast-kuznetsk/537737",
+   "sha256": "d84fc02d657575e7c7f793f1c133bc3866630b3380d1ca8176e8f7755658e9de"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "култаево": {
+  "name": "Култаево",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-kultayevo/539369",
+   "sha256": "5084a2639aa4beff253fbe823855c2f6e7a34393e8dd9a67bf541c9f280ed306"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "кунгур": {
+  "name": "Кунгур",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-kungur/539147",
+   "sha256": "2c048d6eccfd6005145d75ace34801a43d1a3d0f93f2558d78fe9ef7e4350716"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "курск": {
+  "name": "Курск",
+  "original": {
+   "name": "sajda.com (метод: Курск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kursk-oblast-kursk/538560",
+   "sha256": "2321189ce157b0c543d31b9ea10bf80c0d63a265c03205d547fca8be237c6bfd"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "кызыл": {
+  "name": "Кызыл",
+  "original": {
+   "name": "sajda.com (метод: Кызыл)",
+   "url": "https://sajda.com/ru/prayer-times/russia/republic-of-tyva-kyzyl/1500973",
+   "sha256": "8f29ffb7ecb9773e71180372155f50f7accbf7fe7b0093a498266bf0d729296a"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "лабинск": {
+  "name": "Лабинск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-labinsk/537281",
+   "sha256": "eeba8427816cd8090cce24e311cd83131312fdf066067c4996c338328b8ddcf1"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "лада": {
+  "name": "Лада",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/saratov-oblast-lada/537263",
+   "sha256": "1d545c1624fe6cf7de954ac99307ba93bbb02b748e1beb2c6f5498735ac9adc8"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ленинский": {
+  "name": "Ленинский",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tula-oblast-leninskiy/536111",
+   "sha256": "8fbe19d84476d2c876edab8b77654289d4672226a01d8659386191f4f0b9c386"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ливны": {
+  "name": "Ливны",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/oryol-oblast-livny/534701",
+   "sha256": "0d859fc270773d553109135c79b7703efc52ce752e60d81004fb8b1fdee8f90e"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "липецк": {
+  "name": "Липецк",
+  "original": {
+   "name": "sajda.com (метод: Липецк)",
+   "url": "https://sajda.com/ru/prayer-times/russia/lipetsk-oblast-lipetsk/535121",
+   "sha256": "cdc9792462fec73995cb0859e174016b0a395bdf817c772cfe8d05b422f0a4e8"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "лобаново": {
+  "name": "Лобаново",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-lobanovo/534639",
+   "sha256": "c54ab117e82629b5be9d1e4697ecfb69dc570a64f247a2519243b52956d477db"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "лобня": {
+  "name": "Лобня",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-lobnya/534595",
+   "sha256": "c623c272cfcb28a5008c17c63ee6a6388aba113129a8a4d126d7159b2b02c846"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "лысьва": {
+  "name": "Лысьва",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-lysva/532674",
+   "sha256": "2b6cca533c6f3cfd18e2ad64e203fec69da70cf3163f454fd03a55ba93b5fd10"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "магадан": {
+  "name": "Магадан",
+  "original": {
+   "name": "sajda.com (метод: Магадан)",
+   "url": "https://sajda.com/ru/prayer-times/russia/magadan-oblast-magadan/2123628",
+   "sha256": "2ffe02524f18b41eaef5520f74809f6be2407cdd0573df3dfce739020853bcf4"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "магнитогорск": {
+  "name": "Магнитогорск",
+  "original": {
+   "name": "sajda.com (метод: Магнитогорск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chelyabinsk-magnitogorsk/532288",
+   "sha256": "c65aab7f059e9256fc9d2fd5f63cff670ba3b6e279a428e53fba1c0b3f7496b2"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "майкоп": {
+  "name": "Майкоп",
+  "original": {
+   "name": "sajda.com (метод: Майкоп)",
+   "url": "https://sajda.com/ru/prayer-times/russia/adygeya-republic-maykop/528293",
+   "sha256": "7c2b5b0fe5c4ad5e4cb7612b15e04568e877c719c637b30e6762eaef64fb7fd9"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "междуреченск": {
+  "name": "Междуреченск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kuzbass-mezhdurechensk/1498920",
+   "sha256": "72c2c6b9ddcc114a66f75ea1fb1cafd534148b65b57be3b570bfe2f050c935a9"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "миасс": {
+  "name": "Миасс",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chelyabinsk-miass/1498894",
+   "sha256": "567685a2c0a043a40aa33703b401a0cdcd40cc0258456e2ec211bed88436f58e"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "минеральные воды": {
+  "name": "Минеральные Воды",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-mineralnye-vody/526480",
+   "sha256": "938a3bc59125fdd66ea42fe2587dfe97da183c8dbc70e4c3791331857d3063b4"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "минусинск": {
+  "name": "Минусинск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnoyarsk-krai-minusinsk/1498693",
+   "sha256": "20f2895bc5ec0ecdcc0924054d5d9a6ed7341793c8e10e5ee462389707ae7e08"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "михайловск": {
+  "name": "Михайловск",
+  "original": {
+   "name": "sajda.com (метод: Ставрополь)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-mikhaylovsk/493702",
+   "sha256": "1857998cb16e45c4acc59aee2d61e53beca4bd07e80a654afd28675e0b57b486"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "мичуринск": {
+  "name": "Мичуринск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tambov-oblast-michurinsk/527191",
+   "sha256": "0483b35ffb4815f288372e421164d123d6668bd948f920cf3f09edcb8d717bf6"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "москва": {
+  "name": "Москва",
+  "original": {
+   "name": "sajda.com (метод: Москва; сверено с umma.ru ДУМ РФ, ±1–2 мин)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow/524901",
+   "sha256": "8ac9e544797c6b233cadd5f477565c3d889709a263d8c15768508c89d81e13fa"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "мурманск": {
+  "name": "Мурманск",
+  "original": {
+   "name": "sajda.com (метод: Мурманск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/murmansk/524305",
+   "sha256": "3f4a425c19c711e18e49a82495b226c9667c01c038da140b135fedf835c6f0ff"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "муром": {
+  "name": "Муром",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/vladimir-oblast-murom/524294",
+   "sha256": "f97431a285e19fcd4973e50f1a954233697db56a9a7adfaac9e1c559cd67ca9e"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "находка": {
+  "name": "Находка",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/primorye-nakhodka/2019528",
+   "sha256": "6d49778408dc8648a771308c758e9aa1a098f5bf92da7b328228236d66b17b03"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "невинномысск": {
+  "name": "Невинномысск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-nevinnomyssk/522377",
+   "sha256": "9e335e08a8ca23b5ec0cf4d4d79aea69e8329f692ffafaac9d6c09430169ef19"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "нефтекамск": {
+  "name": "Нефтекамск",
+  "original": {
+   "name": "sajda.com (метод: Нефтекамск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/bashkortostan-republic-neftekamsk/522942",
+   "sha256": "b7ed111bfb4e4a3d505ca26ca1f5d7f580d4159d540fee67616ee970da6846bd"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "нефтеюганск": {
+  "name": "Нефтеюганск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/khanty-mansia-nefteyugansk/1497917",
+   "sha256": "569bbcb6c4d53cd215c4686238bea0d378e18168caa5ffb4dc6ba76b621aaf71"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "нижневартовск": {
+  "name": "Нижневартовск",
+  "original": {
+   "name": "sajda.com (метод: Нижневартовск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/khanty-mansia-nizhnevartovsk/1497543",
+   "sha256": "94a5d1d30342d342a4de84eddc9a694e4f653c6b1333b51f62e89e9d6e85e3a2"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "нижний тагил": {
+  "name": "Нижний Тагил",
+  "original": {
+   "name": "sajda.com (метод: Нижний Тагил)",
+   "url": "https://sajda.com/ru/prayer-times/russia/sverdlovsk-oblast-nizhny-tagil/520494",
+   "sha256": "7da908a7f3396dd499073c90ac9076c18de0a2c1c6126e48df5787bb8e5f6f1f"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "новокузнецк": {
+  "name": "Новокузнецк",
+  "original": {
+   "name": "sajda.com (метод: Новокузнецк)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kuzbass-novokuznetsk/1496990",
+   "sha256": "87f24834fa940c1e701fab61c8dbbe26edee796cef8d66edd0593acf0b5b601e"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "новомосковск": {
+  "name": "Новомосковск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tula-oblast-novomoskovsk/518557",
+   "sha256": "95bbc58a82ff49bb4edc825995ea58809ecac829c2963f478099c96b3d8fb7a2"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "новороссийск": {
+  "name": "Новороссийск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-novorossiysk/518255",
+   "sha256": "dd42780f649b40b225ac236cbad865a716285b9de360aaf6841cbcc7d127a5c8"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "новосибирск": {
+  "name": "Новосибирск",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "ca55dd7a8672c304feccd81cf5807e45465a1f1c036f9e21552d49154de0cead"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "новотроицк": {
+  "name": "Новотроицк",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/orenburg-oblast-novotroitsk/517836",
+   "sha256": "e8547cff56720c776f3c513454af66b0499ca54ae55ddb121f7899a966a54a50"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "новочебоксарск": {
+  "name": "Новочебоксарск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chuvash-republic-novocheboksarsk/518976",
+   "sha256": "32eab551c2582bc13532fa64ec4c788eb39f3c2bd0d98308abb5a7f6c13a29c6"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "новочеркасск": {
+  "name": "Новочеркасск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-novocherkassk/518970",
+   "sha256": "9951f020ee3dbaebdbdb8471864fb3562e9ec59a072bef990638403ddc47c582"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "новый уренгой": {
+  "name": "Новый Уренгой",
+  "original": {
+   "name": "sajda.com (метод: Новый Уренгой)",
+   "url": "https://sajda.com/ru/prayer-times/russia/yamalo-nenets-novyy-urengoy/1496511",
+   "sha256": "762f3a5b74af1f72fa30c21ab01c4341973478d47a35df106242cdca55bf8138"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "ногинск": {
+  "name": "Ногинск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-noginsk/520068",
+   "sha256": "4238e92935e3141bf43b3adb7f5a3a20081cbb51a8e6b443d0344e6f950e1906"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ноябрьск": {
+  "name": "Ноябрьск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/yamalo-nenets-noyabrsk/1496503",
+   "sha256": "6f841ce51e488421b1bce27bf27ffdb77614ce8868e0dcffe94fc08aaec7daf5"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "обнинск": {
+  "name": "Обнинск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kaluga-oblast-obninsk/516436",
+   "sha256": "bc372370033d02b7a9e83ee4870eb76d992196475a51821befbc336f676573f7"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "одинцово": {
+  "name": "Одинцово",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-odintsovo/516215",
+   "sha256": "a0d85affba4a451ca1957c6aca97965ebbcccf02cc4c45886514a68e4d4a2e53"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "озёрск": {
+  "name": "Озёрск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chelyabinsk-ozersk/1538634",
+   "sha256": "801f4ff7e2d1afc2b2b52baadedc370c8cedcc70726e9520494771dbd3e45b20"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "октябрьский": {
+  "name": "Октябрьский",
+  "original": {
+   "name": "sajda.com (метод: Чебоксары)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chuvash-republic-oktjabrski/6198442",
+   "sha256": "5cf04cca6bcdb0364986bc9bfdf29f08fc9df64cf3a01c2d913877b21eb25ea2"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "омск": {
+  "name": "Омск",
+  "original": {
+   "name": "sajda.com (метод: Омск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/omsk-oblast-omsk/1496153",
+   "sha256": "fcc9398de1720c26747ce7edcadcd3330e6c51e839be03bc7816419966dd3979"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "орехово-зуево": {
+  "name": "Орехово-Зуево",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-orekhovo-zuyevo/515024",
+   "sha256": "d4785346f0ee3a0050814596c49bb54881ff26febba7b64b827ee8d8b1b5038f"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "орск": {
+  "name": "Орск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/orenburg-oblast-orsk/514734",
+   "sha256": "c11c1ee49af4ab31113ba6475e4db44ea3204442300d0de0a53a009d601aef26"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "орёл": {
+  "name": "Орёл",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/oryol-oblast-orel/515012",
+   "sha256": "ad5d5d6d3288de33dddd9ddbd5aee3c4e2c1bcc1b821976ce3895a87173923da"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "павлово": {
+  "name": "Павлово",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/nizhny-novgorod-oblast-pavlovo/827329",
+   "sha256": "b3cd9d392d30ff7eeebb52dfd5ec2e87702bcfffbc6cb795a16943b5be582546"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "первоуральск": {
+  "name": "Первоуральск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/sverdlovsk-oblast-pervouralsk/510808",
+   "sha256": "b8930cd31e82aa70ba3ffce2c9689a0c144abe22019fa0637c6526cc2f323d1a"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "петрозаводск": {
+  "name": "Петрозаводск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/karelia-petrozavodsk/509820",
+   "sha256": "4559addcda19e24414d9524eef158682d9c17ed65e694d25639cc468d99c8ed3"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "подольск": {
+  "name": "Подольск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-podolsk/508101",
+   "sha256": "cd5c7e7138c73b6da8840abc80835f575e185b9d99ebcb4e696df1f2c6bb2c91"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "псков": {
+  "name": "Псков",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/pskov-oblast-pskov/504341",
+   "sha256": "e28c97293a0b1ee6b8c6ed8e3890a4172183000acbf59cc6138e343d13d15aab"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "пушкин": {
+  "name": "Пушкин",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/st-petersburg-pushkin/504003",
+   "sha256": "9386a04a65d7ca520711337bed16ae10b0dea0a540d3d5b1a0aef9335a28465e"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "пятигорск": {
+  "name": "Пятигорск",
+  "original": {
+   "name": "sajda.com (метод: Пятигорск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/stavropol-kray-pyatigorsk/503550",
+   "sha256": "427c5f4418520e40f5c94882256e6aa85a41138397c4236a519a7f95503539b2"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "раменское": {
+  "name": "Раменское",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-ramenskoye/502965",
+   "sha256": "11266c162c3f986e0ce92ae663c4d5302353ef2377b0adb028392d34677be87c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "россошь": {
+  "name": "Россошь",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/voronezh-oblast-rossosh/501215",
+   "sha256": "011a7017eb9546fea0c9fca4ad98a199ce9b9caaefbd89d1a7e24eb5f7dd5f03"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ростов-на-дону": {
+  "name": "Ростов-на-Дону",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "3b31deb589e8fc099682fa3820da94d55e06ebfff7c23efe9933a15fafeaf110"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "рубцовск": {
+  "name": "Рубцовск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/altai-krai-rubtsovsk/1493467",
+   "sha256": "bde3c7d8960e0ad7c3410d99983719f981871d2eb825a82fb15b746ec292c879"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "рязань": {
+  "name": "Рязань",
+  "original": {
+   "name": "sajda.com (метод: Рязань)",
+   "url": "https://sajda.com/ru/prayer-times/russia/ryazan-oblast-ryazan/500096",
+   "sha256": "860b3c396d0e1565557074fb53838e80427be63563a25f473e7f5ecc99af7ee4"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "салават": {
+  "name": "Салават",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/bashkortostan-republic-salavat/499292",
+   "sha256": "a11355addfff2aedea05890e3a8ec71e1cdf34bb7d1cf000f8656ecca12de1fc"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "сальск": {
+  "name": "Сальск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-sal-sk/499161",
+   "sha256": "bf517dcfaea00947b5cb109c140816e959bde984e5b61837b1e888048369f50c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "самара": {
+  "name": "Самара",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "a5b3a73018fe727890de87496f613e2c84c1c92b5bd6139d0a18b916c4019bc9"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "саранск": {
+  "name": "Саранск",
+  "original": {
+   "name": "sajda.com (метод: Саранск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/mordoviya-republic-saransk/498698",
+   "sha256": "5d3fccf002ac8b24a20f7bcff1917d71f40188b38a4b0b6cb371929b8e584401"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "сарапул": {
+  "name": "Сарапул",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/udmurtiya-republic-sarapul/498687",
+   "sha256": "a643f102cfa9d0ffa18ef7369ccc177a277d661e98e2b707e988ba578589a6f0"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "саров": {
+  "name": "Саров",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/nizhny-novgorod-oblast-sarov/498525",
+   "sha256": "249756142a09d9829eedd2a465c803e6e0353ee7f7697dd4e1b5a86b392c7cde"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "сафоново": {
+  "name": "Сафоново",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/smolensk-oblast-safonovo/499453",
+   "sha256": "2afe1d1d2894dd431cc10b12599fef283db582e2f4a9663610242d89ebfe8110"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "северодвинск": {
+  "name": "Северодвинск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/arkhangelskaya-severodvinsk/496285",
+   "sha256": "a1d16425682e03a074df9933ecf1e0f87c126fe27f309da257328653074f57b2"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "северск": {
+  "name": "Северск",
+  "original": {
+   "name": "sajda.com (метод: Томск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tomsk-oblast-seversk/1538637",
+   "sha256": "c948625b06910ca94957e7697e31d41834a69a4b2003d7d3de0e006487159d77"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "сергиев посад": {
+  "name": "Сергиев Посад",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-sergiyev-posad/496638",
+   "sha256": "af7aa5b5fd7e266c2bd8f754720bed5b79196da3a22dddebf3fc8d82be14c645"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "серов": {
+  "name": "Серов",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/sverdlovsk-oblast-serov/1492663",
+   "sha256": "84c236598fe73fa7ba164c9b16a1f58c6121beef941c8fd1c3d6b780e5b3fd53"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "серпухов": {
+  "name": "Серпухов",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-serpukhov/496527",
+   "sha256": "3106436761bb65ef543508d89a225c8182a03db500d0f25005a5a9075d1f0243"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "сириус": {
+  "name": "Сириус",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-sirius/12750459",
+   "sha256": "cacb595a2e3585199d69ab518bf5f82445a0c9e308a728ab3d5f2cd504e6636f"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "славянск-на-кубани": {
+  "name": "Славянск-на-Кубани",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-slavyansk-na-kubani/492094",
+   "sha256": "e931d1a362f6dc29f883e8c7cad5f93b5a6156d6651a96027804f6cc4d963d3e"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "смоленск": {
+  "name": "Смоленск",
+  "original": {
+   "name": "sajda.com (метод: Смоленск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/smolensk-oblast-smolensk/491687",
+   "sha256": "94c4793cd908ed7ccc7838375dbbb30c873a615ac520f399e444fb450d1b3337"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "сочи": {
+  "name": "Сочи",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "c6fdac92f52f9cb6fdb64e515e87fbfd12e82b0e310fb2fb7c2728d47739474d"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "ставрополь": {
+  "name": "Ставрополь",
+  "original": {
+   "name": "govzalla.com",
+   "url": "https://govzalla.com/ламазан-хенаш-время-молитв",
+   "sha256": "b6ae847ae7892dab5ceb25d5225f667f20ac35b8523a0b28d1ce6e48aa5d609a"
+  },
+  "dataKind": "unverified",
+  "basis": "origin of times not established"
+ },
+ "старый город": {
+  "name": "Старый Город",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kursk-oblast-staryy-gorod/487989",
+   "sha256": "b225c79d7f7ccfcb46a88d7c9eb4438c6aa57a0c2504196212ab467f331c6b96"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "старый оскол": {
+  "name": "Старый Оскол",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/belgorod-oblast-staryy-oskol/487928",
+   "sha256": "d450dcf57df6950eb7caa410a282955c8124a624540b29aa888952776ebec058"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "стерлитамак": {
+  "name": "Стерлитамак",
+  "original": {
+   "name": "sajda.com (метод: Стерлитамак)",
+   "url": "https://sajda.com/ru/prayer-times/russia/bashkortostan-republic-sterlitamak/487495",
+   "sha256": "1fc32fba9a73dc10169a22b7f951b90fc88bd52df4c6e7fd27155ac54f27037c"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "сызрань": {
+  "name": "Сызрань",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/samara-oblast-syzran/484972",
+   "sha256": "70d2fb92b58739048e5d2d3c71d890496cedf44691fd8e58b80ee1c6ab0d8cb0"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "сыктывкар": {
+  "name": "Сыктывкар",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/komi-syktyvkar/485239",
+   "sha256": "366f68a85e68e1c6295ea1314f034e11cc931bba55cceaa0496beda929de3466"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "сылва": {
+  "name": "Сылва",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/perm-krai-sylva/485230",
+   "sha256": "dbd024b56dda5abae6ed4d39b8dae8aff1a412495ed45703b93e8014aa17ce0b"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "таганрог": {
+  "name": "Таганрог",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-taganrog/484907",
+   "sha256": "c4731a923f25d21896d50c2f8e182f2843f674ccd9dfe3bbf5dc0961dd53223b"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "тамбов": {
+  "name": "Тамбов",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tambov-oblast-tambov/484646",
+   "sha256": "af231666847cc5141d62d2b6a4458b4f28fbeb5c72abd99820b04ab005271886"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "тверь": {
+  "name": "Тверь",
+  "original": {
+   "name": "sajda.com (метод: Тверь)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tver-oblast-tver/480060",
+   "sha256": "3803947e0e9e0852faa00fd3763acba21ee1e55cc5486c2bd2fdf838dfc33dd9"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "тихорецк": {
+  "name": "Тихорецк",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-tikhoretsk/483029",
+   "sha256": "bc03da4cf785fac411908f59ff4f227bbe00b93514936b78405e32c5619d7f0e"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "тобольск": {
+  "name": "Тобольск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tyumen-oblast-tobolsk/1489530",
+   "sha256": "b90ff1fc7f035e3f0c02043792501984f39eff73a3e7cfa07e771268c15968f6"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "тольятти": {
+  "name": "Тольятти",
+  "original": {
+   "name": "sajda.com (метод: Тольятти)",
+   "url": "https://sajda.com/ru/prayer-times/russia/samara-oblast-tolyatti/482283",
+   "sha256": "e391cfcee76f1af7c0931eaadd76e7f4d96a490eb9c6708a8b70503f891429e4"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "томск": {
+  "name": "Томск",
+  "original": {
+   "name": "sajda.com (метод: Томск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tomsk-oblast-tomsk/1489425",
+   "sha256": "c948625b06910ca94957e7697e31d41834a69a4b2003d7d3de0e006487159d77"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "трудовое": {
+  "name": "Трудовое",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/primorye-trudovoye/2015051",
+   "sha256": "e472174e59faa423a57a8af5b755ff5aa8b86644d1373f742ea8bfcf759d8059"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "туапсе": {
+  "name": "Туапсе",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/krasnodar-krai-tuapse/480716",
+   "sha256": "f5d08385cbe61569c0316dcc453677d0d29fa7bd8157abb18b3f6015f727a5e7"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "туймазы": {
+  "name": "Туймазы",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/bashkortostan-republic-tuymazy/480089",
+   "sha256": "aa19d53fc09f9ddac2aa71c4a338f1a16aab37c57999b4dc7b78697ed0025a64"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "тула": {
+  "name": "Тула",
+  "original": {
+   "name": "sajda.com (метод: Тула)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tula-oblast-tula/480562",
+   "sha256": "95cb09c8dfe05b244ae5ebf880e497e1f3f65325be6abf1ab55815a50647b3a3"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "тюмень": {
+  "name": "Тюмень",
+  "original": {
+   "name": "sajda.com (метод: Тюмень)",
+   "url": "https://sajda.com/ru/prayer-times/russia/tyumen-oblast-tyumen/1488754",
+   "sha256": "99bfea99c807f131623ff05a7b3062d50320180c8d431e0350bef54063307828"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "улан-удэ": {
+  "name": "Улан-Удэ",
+  "original": {
+   "name": "sajda.com (метод: Улан-Удэ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/buryatiya-republic-ulan-ude/2014407",
+   "sha256": "0bd1e3c39055b0682cea2a599b113cd9df4cdbe577a35fd5dca0d6d3dae47b8c"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "урус-мартан": {
+  "name": "Урус-Мартан",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/chechnya-urus-martan/478581",
+   "sha256": "c29f1b636c8ab75b42e0b32aa04de73dcbd24316a752f4c95b354a3aed9cfe3c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "усолье-сибирское": {
+  "name": "Усолье-Сибирское",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/irkutsk-oblast-usol-ye-sibirskoye/2014022",
+   "sha256": "2976e925727c84d24c6e54cfd4eb4068234ba1607be934eae0a3c0102c5eabd0"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "уссурийск": {
+  "name": "Уссурийск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/primorye-ussuriysk/2014006",
+   "sha256": "0b00dd11efda232a428c4ac787337ed0e382a19d1f91f33b445860a6948a6928"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "фосфоритный": {
+  "name": "Фосфоритный",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-fosforitnyy/562445",
+   "sha256": "188393bcd1f02945a032828f0fe36586f8708ec68572f40d50f9e08abb10fb2c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "фрязино": {
+  "name": "Фрязино",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-fryazino/562319",
+   "sha256": "358da8aa4a7fbbc219468d59ee3cc7fd6d1fe3fee804ad6f5ccfbffdc8b280f4"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "ханты-мансийск": {
+  "name": "Ханты-Мансийск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/khanty-mansia-khanty-mansiysk/1503772",
+   "sha256": "a62341520674291339c61ad8a35457dab0d0470e0b20c709f8a4bbf5e435a9c5"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "чапаевск": {
+  "name": "Чапаевск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/samara-oblast-chapayevsk/569955",
+   "sha256": "cabea59137f0ab06e6699028d6ee329940598a850364fa5325ab2505a941dc84"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "череповец": {
+  "name": "Череповец",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/vologda-oblast-cherepovets/569223",
+   "sha256": "709cc98ffeba91a0242cd69927a3094bc49de6e8923244ec3226f2aca2743861"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "черкесск": {
+  "name": "Черкесск",
+  "original": {
+   "name": "sajda.com (метод: Черкесск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/karachayevo-cherkesiya-republic-cherkessk/569154",
+   "sha256": "ad06e8cdfcb1b43011e502f95680c5d66eaea0bb9dde823578eda81d2643661e"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "черногорск": {
+  "name": "Черногорск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/khakasiya-republic-chernogorsk/1508054",
+   "sha256": "0403c6f7ded2b3aec55a951edc557d590f731fa3041c199be54087054e602491"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "чита": {
+  "name": "Чита",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/zabaykalskiy-transbaikal-kray-chita/2025339",
+   "sha256": "1336dc2840f037e9119f27678a514aee02de7075b6b5916b966ec40feb381fd4"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "шадринск": {
+  "name": "Шадринск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kurgan-oblast-shadrinsk/1492517",
+   "sha256": "fd5e6fe33c4ba00e19b6797a7b741eb9bc68291afc17deb3acca8c36ad92e1c7"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "шахты": {
+  "name": "Шахты",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/rostov-shakhty/496015",
+   "sha256": "087f18d110f7155ad3d0561758cfc909a48bcc8c6ad9578c93305a28d359642b"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "шелепино": {
+  "name": "Шелепино",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-shelepino/495028",
+   "sha256": "afc78385ef9622f8a7b9eb5edc20f0e4758b4be3b7d3040d22db21d5aba72fca"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "электросталь": {
+  "name": "Электросталь",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/moscow-oblast-elektrostal/563523",
+   "sha256": "23432ba26e5778b2dacace5f176473cb2f97f9b25cfa6652ea96d0747ea6208c"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "элиста": {
+  "name": "Элиста",
+  "original": {
+   "name": "sajda.com (метод: Элиста)",
+   "url": "https://sajda.com/ru/prayer-times/russia/kalmykiya-republic-elista/563514",
+   "sha256": "888382b52004664807fd5d416f875359bec77c3cb79a7c87eac36e770f760695"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "энгельс": {
+  "name": "Энгельс",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/saratov-oblast-engels/563464",
+   "sha256": "8b3c6dc4fe2820979e644891fbe75267ff1b380d17fd8ae28594440599feafc8"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "югорск": {
+  "name": "Югорск",
+  "original": {
+   "name": "sajda.com (метод: ДУМ РФ)",
+   "url": "https://sajda.com/ru/prayer-times/russia/khanty-mansia-yugorsk/1502725",
+   "sha256": "86830a8a8409becd610e78fe220ce05d8007ea85a925c48e61ae0a2447f5a7e6"
+  },
+  "dataKind": "calculated",
+  "basis": "generic-DUM-RF"
+ },
+ "южно-сахалинск": {
+  "name": "Южно-Сахалинск",
+  "original": {
+   "name": "sajda.com (метод: Южно-Сахалинск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/sakhalin-oblast-yuzhno-sakhalinsk/2119441",
+   "sha256": "c0227a7e61b9ae6c6fd38a4f4ce80825f340a1a82516177822266ca97911a5d9"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "южный": {
+  "name": "Южный",
+  "original": {
+   "name": "sajda.com (метод: Барнаул)",
+   "url": "https://sajda.com/ru/prayer-times/russia/altai-krai-yuzhnyy/1485627",
+   "sha256": "28e1456bea53fbfd8ae689d86e0eddad9d49525c90fd4346db9da05f2f236775"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "якутск": {
+  "name": "Якутск",
+  "original": {
+   "name": "sajda.com (метод: Якутск)",
+   "url": "https://sajda.com/ru/prayer-times/russia/sakha-yakutsk/2013159",
+   "sha256": "3b3e3e2154705400b061474fe373a857473347054def9547b9de2752e5a99eef"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ },
+ "ярославль": {
+  "name": "Ярославль",
+  "original": {
+   "name": "sajda.com (метод: Ярославль)",
+   "url": "https://sajda.com/ru/prayer-times/russia/yaroslavl-oblast-yaroslavl/468902",
+   "sha256": "101494baa4a7073498e73b0fc05c299d7b9976f536a9192ab97a427ddcd1c7ba"
+  },
+  "dataKind": "calculated",
+  "basis": "local-method"
+ }
+}

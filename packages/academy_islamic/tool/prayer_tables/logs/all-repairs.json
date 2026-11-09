@@ -1,0 +1,2071 @@
+[
+ {
+  "city": "Агул",
+  "prayer": "Asr",
+  "date": "2026-10-25",
+  "was": "13:33",
+  "now": "14:33",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Агул",
+  "prayer": "Asr",
+  "date": "2026-10-26",
+  "was": "13:32",
+  "now": "14:32",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Агул",
+  "prayer": "Asr",
+  "date": "2026-10-27",
+  "was": "13:31",
+  "now": "14:31",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Агул",
+  "prayer": "Asr",
+  "date": "2026-10-28",
+  "was": "13:30",
+  "now": "14:30",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Агул",
+  "prayer": "Asr",
+  "date": "2026-10-29",
+  "was": "13:29",
+  "now": "14:29",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Агул",
+  "prayer": "Asr",
+  "date": "2026-10-30",
+  "was": "13:28",
+  "now": "14:28",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Агул",
+  "prayer": "Asr",
+  "date": "2026-10-31",
+  "was": "13:26",
+  "now": "14:26",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Fajr",
+  "date": "2026-09-17",
+  "was": "03:00",
+  "now": "04:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Fajr",
+  "date": "2026-09-18",
+  "was": "03:02",
+  "now": "04:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Fajr",
+  "date": "2026-09-19",
+  "was": "03:03",
+  "now": "04:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Fajr",
+  "date": "2026-09-20",
+  "was": "03:04",
+  "now": "04:04",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Fajr",
+  "date": "2026-09-21",
+  "was": "03:05",
+  "now": "04:05",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-15",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-16",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-17",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-18",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-19",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-20",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-21",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-22",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-23",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-24",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-25",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-26",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-27",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-03-28",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-08",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-09",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-10",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-11",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-12",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-13",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-14",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-15",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-16",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-17",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-18",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-19",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-20",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-21",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-22",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-23",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-24",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-25",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-26",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-27",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-28",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-29",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-30",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ахты",
+  "prayer": "Dhuhr",
+  "date": "2026-07-31",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Ботлих",
+  "prayer": "Isha",
+  "date": "2026-05-19",
+  "was": "20:21",
+  "now": "20:52",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Fajr",
+  "date": "2026-02-18",
+  "was": "05:22",
+  "now": "05:12",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Asr",
+  "date": "2026-01-19",
+  "was": "14:37",
+  "now": "14:28",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Asr",
+  "date": "2026-01-20",
+  "was": "14:39",
+  "now": "14:29",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Isha",
+  "date": "2026-03-01",
+  "was": "19:58",
+  "now": "18:58",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Isha",
+  "date": "2026-03-02",
+  "was": "19:59",
+  "now": "18:59",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Isha",
+  "date": "2026-04-11",
+  "was": "19:41",
+  "now": "19:50",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-04-01",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-04-02",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-04-03",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-04-04",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-04-05",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-04-06",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-01",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-02",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-03",
+  "was": "11:01",
+  "now": "12:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-04",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-05",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-06",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-07",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-08",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-09",
+  "was": "11:02",
+  "now": "12:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-10",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-11",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-12",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-13",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-14",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-15",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-16",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-17",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-18",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-07-19",
+  "was": "11:03",
+  "now": "12:03",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Dhuhr",
+  "date": "2026-08-24",
+  "was": "12:50",
+  "now": "12:00",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Maghrib",
+  "date": "2026-11-21",
+  "was": "16:39",
+  "now": "16:30",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Гумбет",
+  "prayer": "Dhuhr",
+  "date": "2026-06-25",
+  "was": "12:20",
+  "now": "12:02",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Даг-Огни",
+  "prayer": "Maghrib",
+  "date": "2026-07-21",
+  "was": "19:32",
+  "now": "19:22",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Дербент",
+  "prayer": "Maghrib",
+  "date": "2026-04-14",
+  "was": "18:13",
+  "now": "18:31",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Дылым",
+  "prayer": "Fajr",
+  "date": "2026-07-01",
+  "was": "01:06",
+  "now": "02:06",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Дылым",
+  "prayer": "Fajr",
+  "date": "2026-07-02",
+  "was": "01:07",
+  "now": "02:07",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Дылым",
+  "prayer": "Fajr",
+  "date": "2026-07-31",
+  "was": "02:41",
+  "now": "02:50",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Дылым",
+  "prayer": "Maghrib",
+  "date": "2026-03-12",
+  "was": "17:00",
+  "now": "18:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Избербаш",
+  "prayer": "Sunrise",
+  "date": "2026-12-04",
+  "was": "07:59",
+  "now": "06:59",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Каспийск",
+  "prayer": "Sunrise",
+  "date": "2026-02-03",
+  "was": "08:00",
+  "now": "07:00",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Каспийск",
+  "prayer": "Dhuhr",
+  "date": "2026-07-24",
+  "was": "12:10",
+  "now": "12:01",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Кизилюрт",
+  "prayer": "Asr",
+  "date": "2026-01-20",
+  "was": "14:39",
+  "now": "14:29",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Леваши",
+  "prayer": "Maghrib",
+  "date": "2026-09-01",
+  "was": "18:20",
+  "now": "18:30",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Махачкала",
+  "prayer": "Fajr",
+  "date": "2026-04-01",
+  "was": "03:37",
+  "now": "03:57",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Махачкала",
+  "prayer": "Fajr",
+  "date": "2026-11-27",
+  "was": "05:29",
+  "now": "05:19",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-16",
+  "was": "07:00",
+  "now": "05:00",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-17",
+  "was": "07:01",
+  "now": "05:01",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-18",
+  "was": "07:03",
+  "now": "05:03",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-19",
+  "was": "07:04",
+  "now": "05:04",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-20",
+  "was": "07:05",
+  "now": "05:05",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-21",
+  "was": "07:06",
+  "now": "05:06",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-22",
+  "was": "07:07",
+  "now": "05:07",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-23",
+  "was": "07:08",
+  "now": "05:08",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-24",
+  "was": "07:09",
+  "now": "05:09",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-25",
+  "was": "07:10",
+  "now": "05:10",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-26",
+  "was": "07:11",
+  "now": "05:11",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-27",
+  "was": "07:12",
+  "now": "05:12",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-28",
+  "was": "07:13",
+  "now": "05:13",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-29",
+  "was": "07:14",
+  "now": "05:14",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-30",
+  "was": "07:15",
+  "now": "05:15",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Sunrise",
+  "date": "2026-08-31",
+  "was": "07:16",
+  "now": "05:16",
+  "kind": "block shift -120 min"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Isha",
+  "date": "2026-12-23",
+  "was": "17:15",
+  "now": "17:50",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-01",
+  "was": "07:26",
+  "now": "06:26",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-02",
+  "was": "07:27",
+  "now": "06:27",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-03",
+  "was": "07:29",
+  "now": "06:29",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-04",
+  "was": "07:30",
+  "now": "06:30",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-05",
+  "was": "07:31",
+  "now": "06:31",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-06",
+  "was": "07:32",
+  "now": "06:32",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-07",
+  "was": "07:34",
+  "now": "06:34",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-08",
+  "was": "07:35",
+  "now": "06:35",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-09",
+  "was": "07:36",
+  "now": "06:36",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-10",
+  "was": "07:37",
+  "now": "06:37",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-11",
+  "was": "07:39",
+  "now": "06:39",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-12",
+  "was": "07:40",
+  "now": "06:40",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-13",
+  "was": "07:41",
+  "now": "06:41",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-14",
+  "was": "07:42",
+  "now": "06:42",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-15",
+  "was": "07:44",
+  "now": "06:44",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-16",
+  "was": "07:45",
+  "now": "06:45",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-17",
+  "was": "07:46",
+  "now": "06:46",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-18",
+  "was": "07:47",
+  "now": "06:47",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-19",
+  "was": "07:49",
+  "now": "06:49",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-20",
+  "was": "07:50",
+  "now": "06:50",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-21",
+  "was": "07:51",
+  "now": "06:51",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-22",
+  "was": "07:52",
+  "now": "06:52",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-23",
+  "was": "07:54",
+  "now": "06:54",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-24",
+  "was": "07:55",
+  "now": "06:55",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-25",
+  "was": "07:56",
+  "now": "06:56",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-26",
+  "was": "07:57",
+  "now": "06:57",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-27",
+  "was": "07:58",
+  "now": "06:58",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-28",
+  "was": "07:59",
+  "now": "06:59",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-29",
+  "was": "08:00",
+  "now": "07:00",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Sunrise",
+  "date": "2026-11-30",
+  "was": "08:02",
+  "now": "07:02",
+  "kind": "block shift -60 min"
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Dhuhr",
+  "date": "2026-06-10",
+  "was": "11:00",
+  "now": "12:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Чарода",
+  "prayer": "Fajr",
+  "date": "2026-04-06",
+  "was": "03:42",
+  "now": "03:52",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Чарода",
+  "prayer": "Maghrib",
+  "date": "2026-01-24",
+  "was": "16:01",
+  "now": "17:01",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Чарода",
+  "prayer": "Maghrib",
+  "date": "2026-01-25",
+  "was": "16:02",
+  "now": "17:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Чарода",
+  "prayer": "Maghrib",
+  "date": "2026-09-18",
+  "was": "17:02",
+  "now": "18:02",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Чарода",
+  "prayer": "Maghrib",
+  "date": "2026-09-19",
+  "was": "17:00",
+  "now": "18:00",
+  "kind": "block shift +60 min"
+ },
+ {
+  "city": "Шамилькала",
+  "prayer": "Fajr",
+  "date": "2026-06-23",
+  "was": "02:59",
+  "now": "02:08",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Южно-Сухокумск",
+  "prayer": "Fajr",
+  "date": "2026-03-06",
+  "was": "04:42",
+  "now": "04:52",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Южно-Сухокумск",
+  "prayer": "Fajr",
+  "date": "2026-03-07",
+  "was": "04:40",
+  "now": "04:50",
+  "kind": "outlier interpolated"
+ },
+ {
+  "city": "Нижний Новгород",
+  "prayer": "Dhuhr",
+  "date": "2026-02-28",
+  "was": "13:30",
+  "now": "12:30",
+  "kind": "source typo",
+  "note": "PDF prints 13:30 on 28 Feb; every other day is 12:30"
+ },
+ {
+  "city": "Назрань",
+  "prayer": "Asr",
+  "date": "2026-11-01",
+  "was": "14:30",
+  "now": "14:35",
+  "kind": "outlier interpolated",
+  "note": "source image prints 14:30; neighbours 14:36 / 14:34"
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Fajr",
+  "date": "2026-01-31",
+  "was": "05:31",
+  "now": "05:36",
+  "kind": "outlier interpolated",
+  "note": "neighbours 05:36 / 05:35"
+ },
+ {
+  "city": "Ахвах",
+  "prayer": "Fajr",
+  "date": "2026-03-05",
+  "was": "04:43",
+  "now": "04:53",
+  "kind": "outlier interpolated",
+  "note": "series 04:54 (03-04) .. 04:48 (03-08)"
+ },
+ {
+  "city": "Ахвах",
+  "prayer": "Fajr",
+  "date": "2026-03-06",
+  "was": "04:46",
+  "now": "04:51",
+  "kind": "outlier interpolated",
+  "note": "series 04:54 (03-04) .. 04:48 (03-08)"
+ },
+ {
+  "city": "Ахвах",
+  "prayer": "Fajr",
+  "date": "2026-03-07",
+  "was": "04:49",
+  "now": "04:50",
+  "kind": "outlier interpolated",
+  "note": "series 04:54 (03-04) .. 04:48 (03-08)"
+ },
+ {
+  "city": "Ахвах",
+  "prayer": "Fajr",
+  "date": "2026-03-06",
+  "was": "04:51",
+  "now": "04:50",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Ахвах",
+  "prayer": "Fajr",
+  "date": "2026-03-07",
+  "was": "04:50",
+  "now": "04:49",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Asr",
+  "date": "2026-01-19",
+  "was": "14:28",
+  "now": "14:27",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Буйнакск",
+  "prayer": "Isha",
+  "date": "2026-04-11",
+  "was": "19:50",
+  "now": "19:51",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Цумада",
+  "prayer": "Fajr",
+  "date": "2026-08-27",
+  "was": "03:33",
+  "now": "03:37",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Гергебиль",
+  "prayer": "Maghrib",
+  "date": "2026-11-21",
+  "was": "16:30",
+  "now": "16:29",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-01",
+  "was": "12:07",
+  "now": "12:10",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-02",
+  "was": "12:07",
+  "now": "12:10",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-02",
+  "was": "17:48",
+  "now": "17:49",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-03",
+  "was": "12:07",
+  "now": "12:10",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-03",
+  "was": "17:49",
+  "now": "17:50",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-04",
+  "was": "12:06",
+  "now": "12:10",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-04",
+  "was": "17:50",
+  "now": "17:51",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-05",
+  "was": "12:06",
+  "now": "12:10",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-05",
+  "was": "17:52",
+  "now": "17:53",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-06",
+  "was": "12:06",
+  "now": "12:09",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-06",
+  "was": "17:53",
+  "now": "17:54",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-07",
+  "was": "12:06",
+  "now": "12:09",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-07",
+  "was": "17:54",
+  "now": "17:55",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-08",
+  "was": "12:06",
+  "now": "12:09",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-08",
+  "was": "17:55",
+  "now": "17:56",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-09",
+  "was": "12:05",
+  "now": "12:09",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-09",
+  "was": "17:56",
+  "now": "17:57",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-10",
+  "was": "12:05",
+  "now": "12:08",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-10",
+  "was": "17:58",
+  "now": "17:59",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-11",
+  "was": "12:05",
+  "now": "12:08",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-11",
+  "was": "17:59",
+  "now": "18:00",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-12",
+  "was": "12:04",
+  "now": "12:08",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-12",
+  "was": "18:00",
+  "now": "18:01",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-13",
+  "was": "12:04",
+  "now": "12:08",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-13",
+  "was": "18:01",
+  "now": "18:02",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-14",
+  "was": "12:04",
+  "now": "12:07",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-14",
+  "was": "18:02",
+  "now": "18:03",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-15",
+  "was": "12:04",
+  "now": "12:07",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-15",
+  "was": "18:03",
+  "now": "18:04",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-16",
+  "was": "12:03",
+  "now": "12:07",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-16",
+  "was": "18:05",
+  "now": "18:06",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-17",
+  "was": "12:03",
+  "now": "12:06",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-17",
+  "was": "18:06",
+  "now": "18:07",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-18",
+  "was": "12:03",
+  "now": "12:06",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-18",
+  "was": "18:07",
+  "now": "18:08",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-19",
+  "was": "12:03",
+  "now": "12:06",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-19",
+  "was": "18:08",
+  "now": "18:09",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-20",
+  "was": "12:02",
+  "now": "12:06",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-20",
+  "was": "18:09",
+  "now": "18:10",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-21",
+  "was": "12:02",
+  "now": "12:05",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-21",
+  "was": "18:10",
+  "now": "18:11",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-22",
+  "was": "12:02",
+  "now": "12:05",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-22",
+  "was": "18:12",
+  "now": "18:13",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-23",
+  "was": "12:01",
+  "now": "12:05",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-23",
+  "was": "18:13",
+  "now": "18:14",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-24",
+  "was": "12:01",
+  "now": "12:04",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-24",
+  "was": "18:14",
+  "now": "18:15",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-25",
+  "was": "12:01",
+  "now": "12:04",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-25",
+  "was": "18:15",
+  "now": "18:16",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-26",
+  "was": "12:00",
+  "now": "12:04",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-26",
+  "was": "18:16",
+  "now": "18:17",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-27",
+  "was": "12:00",
+  "now": "12:04",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-27",
+  "was": "18:17",
+  "now": "18:18",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-28",
+  "was": "12:00",
+  "now": "12:03",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-28",
+  "was": "18:18",
+  "now": "18:19",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-29",
+  "was": "12:00",
+  "now": "12:03",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-29",
+  "was": "18:20",
+  "now": "18:21",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-30",
+  "was": "11:59",
+  "now": "12:03",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-30",
+  "was": "18:21",
+  "now": "18:22",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-03-31",
+  "was": "11:59",
+  "now": "12:03",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-03-31",
+  "was": "18:22",
+  "now": "18:23",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Dhuhr",
+  "date": "2026-04-01",
+  "was": "11:59",
+  "now": "12:02",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Хунзах",
+  "prayer": "Maghrib",
+  "date": "2026-04-01",
+  "was": "18:23",
+  "now": "18:25",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Дылым",
+  "prayer": "Isha",
+  "date": "2026-01-29",
+  "was": "18:26",
+  "now": "18:23",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Шамилькала",
+  "prayer": "Fajr",
+  "date": "2026-06-23",
+  "was": "02:08",
+  "now": "02:07",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Шамилькала",
+  "prayer": "Maghrib",
+  "date": "2026-10-22",
+  "was": "17:08",
+  "now": "17:06",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Чарода",
+  "prayer": "Fajr",
+  "date": "2026-02-28",
+  "was": "04:55",
+  "now": "04:58",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Чарода",
+  "prayer": "Maghrib",
+  "date": "2026-03-15",
+  "was": "18:00",
+  "now": "18:03",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Fajr",
+  "date": "2026-01-31",
+  "was": "05:36",
+  "now": "05:35",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Тлярата",
+  "prayer": "Isha",
+  "date": "2026-12-23",
+  "was": "17:50",
+  "now": "17:51",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Унцукуль",
+  "prayer": "Maghrib",
+  "date": "2026-10-01",
+  "was": "17:36",
+  "now": "17:37",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Унцукуль",
+  "prayer": "Maghrib",
+  "date": "2026-10-02",
+  "was": "17:37",
+  "now": "17:36",
+  "kind": "taken from islamdag.ru (Muftiyat RD)",
+  "note": ""
+ },
+ {
+  "city": "Назрань (+Магас, Карабулак, Малгобек, Сунжа)",
+  "prayer": "Isha",
+  "date": "2026-12-08",
+  "was": "08:02",
+  "now": "18:02",
+  "kind": "source typo",
+  "note": "Ingushetia calendar image prints 08-02"
+ },
+ {
+  "city": "Грозный",
+  "prayer": "Sunrise",
+  "date": "2026-03-16",
+  "was": "06:05",
+  "now": "06:04",
+  "kind": "aligned to sajda.com (method \"Грозный\"), 362/365 days identical",
+  "note": ""
+ },
+ {
+  "city": "Грозный",
+  "prayer": "Sunrise",
+  "date": "2026-06-12",
+  "was": "04:10",
+  "now": "04:11",
+  "kind": "aligned to sajda.com (method \"Грозный\"), 362/365 days identical",
+  "note": ""
+ },
+ {
+  "city": "Грозный",
+  "prayer": "Fajr",
+  "date": "2026-11-20",
+  "was": "05:39",
+  "now": "05:38",
+  "kind": "aligned to sajda.com (method \"Грозный\"), 362/365 days identical",
+  "note": ""
+ },
+ {
+  "city": "Москва",
+  "prayer": "all",
+  "date": "2026-01-01..12-31",
+  "was": "govzalla.com",
+  "now": "sajda.com (Москва)",
+  "kind": "source replaced",
+  "note": "govzalla differed from umma.ru by up to 14 min (Isha)"
+ },
+ {
+  "city": "Уфа",
+  "prayer": "all",
+  "date": "2026-01-01..2026-06-15",
+  "was": "missing",
+  "now": "sajda.com (Уфа)",
+  "kind": "range added",
+  "note": "sajda Ufa matched our ЦДУМ transcription on all 199 overlapping days"
+ },
+ {
+  "city": "Южно-Сахалинск",
+  "prayer": "-",
+  "date": "-",
+  "was": "Asia/Yakutsk",
+  "now": "Asia/Sakhalin",
+  "kind": "time zone fixed",
+  "note": "zone map prefix error (sakha vs sakhalin); table is in UTC+11"
+ },
+ {
+  "city": "Зеленодольск (sakhalin)",
+  "prayer": "-",
+  "date": "-",
+  "was": "Asia/Yakutsk",
+  "now": "Asia/Sakhalin",
+  "kind": "time zone fixed",
+  "note": "zone map prefix error (sakha vs sakhalin); table is in UTC+11"
+ },
+ {
+  "city": "Белово",
+  "prayer": "all",
+  "date": "2026-01-01..12-31",
+  "was": "-60 min",
+  "now": "+60 min",
+  "kind": "block shift +60 min",
+  "note": "calculated table one hour earlier than Kemerovo (same longitude, UTC+7)"
+ }
+]

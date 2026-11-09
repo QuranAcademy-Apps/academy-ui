@@ -1,0 +1,22 @@
+name: academy_islamic
+description: Prayer times and the azkar and dua corpus shared by QuranAcademy apps.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: ^3.13.2
+  flutter: '>=3.47.2'
+dependencies:
+  flutter:
+    sdk: flutter
+  adhan_dart: ^2.0.1
+  geolocator: ^14.1.2
+  shared_preferences: ^2.5.5
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+flutter:
+  assets:
+    - assets/azkar/
+    - assets/prayer_tables/
+    - assets/prayer_tables/cities/
