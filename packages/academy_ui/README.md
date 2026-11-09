@@ -78,15 +78,20 @@ dependencies:
 
 | Основная категория | Канонические компоненты |
 | --- | --- |
-| Действия | `AcademyButton`, `AcademyTextButton`, `AcademyIconButton`, `AcademyInfoButton`, `AcademyCompactIconButton`, `AcademySettingsSquareButton`, `AcademyActionButton`, `AcademyPillButton` |
+| Действия | `AcademyButton`, `AcademyTextButton`, `AcademyIconButton`, `AcademyInfoButton`, `AcademyCompactIconButton`, `AcademyActionButton`, `AcademyPillButton` |
 | Ввод и выбор | `AcademyTextField`, `AcademyField`, `AcademyFloatingInput`, `AcademyTextFormField`, `AcademySelect`, `AcademyMultiSelect`, `AcademyAutocomplete`, `AcademySearchBar`, `AcademyExpandingSearch`, `AcademyCalendar`, `AcademyRangeCalendar`, `AcademyLineCalendar`, `AcademyDateField`, `AcademyTimeField`, `AcademyPicker`, `AcademySlider`, `AcademyStepper`, `AcademySegmentedControl`, `AcademyCheckmark` |
-| Таблицы и контейнеры | `AcademyGroupedTable`, `AcademyTableSection`, `AcademyTableHeader`, `AcademyTableBody`, `AcademyTableFooter`, `AcademyTableBadge`, `AcademyTableSeparator`, `AcademyTableSectionView`, `AcademyRow`, `AcademyValueRow`, `AcademyDivider`, `AcademyDraggableTableSection`, `AcademyDragHandle`, `AcademySurface`, `AcademyDisclosureCard` |
+| Таблицы и контейнеры | `AcademyGroupedTable`, `AcademyTableSection`, `AcademyTableHeader`, `AcademyTableBody`, `AcademyTableFooter`, `AcademyTableBadge`, `AcademyTableSeparator`, `AcademyTableSectionView`, `AcademyRow`, `AcademyValueRow`, `AcademyDivider`, `AcademyDraggableTableSection`, `AcademyDragHandle`, `AcademySurface` |
 | Навигация | `AcademyPage`, `AcademyChrome`, `AcademyChromeBar`, `AcademyChromeButton`, `AcademyChromeGroup`, `AcademyChromeCapsule`, `AcademyChromePage`, `AcademyChromeModalHeader`, `AcademyChromeFade`, `AcademyFloatingTabBar`, `AcademyTabScaffold` |
 | Меню и наложения | `AcademyMenuButton`, `AcademyInlineOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
 | Данные и медиа | `AcademyStat`, `AcademyStatGroup`, `AcademyTimeline`, `AcademyTimelineItem`, `AcademyImage`, `AcademySfImage`, `AcademySfIcon`, `AcademySymbols`, `AcademyChevron` |
 | Контекстная помощь | `AcademyTooltip`, `AcademyTip`, `showAcademyTips` |
-| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademyJourneyProgress`, `AcademyChecklist`, `AcademyGuideStep`, `AcademyCounterButton`, `AcademyProgressCard`, `AcademyProgressTile`, `AcademySearchScrim` |
+| Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademySearchScrim` |
 | Оформление и взаимодействие | `AcademyApp`, `AcademyTheme`, `AcademyAppearanceController`, `AcademyColors`, `AcademyRadii`, `AcademyPaddings`, `AcademyTypographySettings`, `AcademyInteractionTheme`, `AcademyTappable`, `AcademyFocusOutline`, motion-примитивы |
+
+Компоненты Quran и азкаров (времена намаза, счётчики, карточки подборок, номер суры и
+другие) не входят в пакет с версии 0.4.0. Их код и тесты лежат в каталоге:
+[apps/academy_ui_catalog/lib/product](../../apps/academy_ui_catalog/lib/product).
+Приложению, которому они нужны, достаточно скопировать нужные файлы к себе.
 
 В каталоге четыре вкладки: «Каталог», «Quran», «Модалки», «Оформление». Вкладка
 «Каталог» открывает разделы с примерами; профиль и поездки — отдельный раздел.
@@ -129,7 +134,7 @@ AcademyApp(
 - **Формы и отступы:** `AcademyRadii`, `AcademyPaddings`.
 - **Каркасы с плавающей панелью:** `AcademyChromePage.floating`, `AcademyModalScaffold.floating`, `AcademyChromeModalHeader.capsule`, `AcademyChromeFloatingBar`, `AcademyChromeSearchBar`; поиск в шапке задаёт `AcademyChromeSearch`.
 - **Символы и мелкие элементы:** `AcademySfIcon.scaled`, `AcademySfImage.plain`, `AcademyIconButton.plain`, `academySymbolNamed` (символ по имени SF Symbols); `AcademySegmentedTheme` (`segmented:`) и `AcademySegmentedControl.fitted`; `inlineInfoColor`.
-- **Кнопки панели:** `AcademyChromeButtonTheme` (`chromeButton:`) — символ, реакция на нажатие, разделитель группы, значок «назад», стили заголовка капсулы. Компоненты: `AcademyChromeButton`, `AcademyChromeGroup`, `AcademyChromeBackButton`, `AcademyChromeCircle`, `AcademyChromeCapsule.bar`, `AcademyChromeTitleCapsule`.
+- **Кнопки панели:** `AcademyChromeButtonTheme` (`chromeButton:`) — символ, реакция на нажатие, разделитель группы, значок «назад», стили заголовка капсулы. Компоненты: `AcademyChromeButton`, `AcademyChromeGroup`, `AcademyChromeBackButton`, `AcademyChromeCapsule.bar`, `AcademyChromeTitleCapsule`.
 - **Панель и таб-бар:** `AcademyChromeMaterial` (`chromeMaterial:`) — заливка, обводка, тень и вид при уменьшенной прозрачности; `AcademyChromeColors` — цвета; `AcademyTabBarTheme` (`tabBar:`) — вид и положение таб-бара. Выбранной вкладкой снаружи управляет `AcademyTabController`.
 - **Таблицы:** `AcademyTableTheme` (`table:`) — заголовки и стили строк, шеврон, отступы, отклик нажатия, разделители. У `AcademyRow` те же настройки есть параметрами; концевые элементы строк — `AcademyRowAccessory`, `AcademyRowDisclosure`, `AcademyRowTrailingText`.
 - **Тосты:** `AcademyToastTheme` (`toast:`) — материал капсулы и нижний отступ `AcademyToastOverlay`.
@@ -176,11 +181,8 @@ foreground, к которому фильтры не применяются. Ко
 диапазон к белому/чёрному. В стандарте сохраняется 46% диапазона движущегося
 фона с усиленной насыщенностью. `surfaceOpacity` умножает силу коррекции для
 blur; для остальных стилей продолжает управлять альфой заливки.
-Старые имена `chromeBlurTintOpacity` / `blurTintOpacity` сохранены как алиасы
-силы коррекции; они больше не означают альфу цветного слоя. Новый параметр
-имеет приоритет, если переданы оба. `blurBackgroundOf` возвращает цвет
-равномерного фона после фильтров; старый `blurTintOf` возвращает прозрачный
-цвет, поскольку слоя больше нет.
+`blurBackgroundOf` возвращает цвет равномерного фона после фильтров.
+Цветного слоя поверх blur нет.
 
 `chromeSurface` задаёт обычные непрозрачные стили навигации и запасную заливку
 при повышенном системном контрасте. В High Contrast фильтр отключается и
@@ -364,7 +366,6 @@ rounded clip над списком; режимы под баром исполь�
 ## Компактные контролы и меню
 
 - Объединённые кнопки с разделителем: `AcademyChromeGroup(actions: [...])`.
-- Раскрывающийся список: `AcademyDisclosureCard(expanded: ..., onToggle: ..., child: ...)`.
   Состояние хранит приложение; свернутое содержимое не принимает фокус.
 - Pull-down меню: `AcademyMenuAnchor` + `AcademyMenuItem`. У строки есть
   `leadingIcon`, `trailingIcon`, независимый `checked`, `subtitle`, `destructive`;
@@ -377,26 +378,7 @@ rounded clip над списком; режимы под баром исполь�
   выбранный пункт и callbacks принадлежат приложению, RTL и Reduce Motion учтены.
   `AcademySegmentedControl.compact` выбирает компактный вариант. `cornerRadius`
   и `selectionCornerRadius` задают скругления контейнера и выбранного сегмента.
-  `AcademyCompactSegment` остаётся совместимым именем той же реализации.
 - `AcademyCompactIconButton`: визуальный кружок 28 с областью нажатия 44.
-  `AcademySettingsSquareButton`: кнопка быстрых настроек 68×68; поддерживает
-  отдельный цвет и long press. Для соседнего поля темы у `AcademyMenuButton`
-  задайте `minimumHeight: 68, expand: true`.
-- `AcademyCounterButton(count:, total:, label:, onPressed:, onLongPress:)`: круглая
-  chrome-кнопка счёта повторов (зикр, тасбих) с кольцом прогресса; по достижении
-  `total` показывает галочку. Счёт, тактильный отклик и переход дальше — у приложения.
-- `AcademyProgressCard`: непрозрачная карточка подборки с иконкой, подписью,
-  кольцом прогресса (галочка при 100%) и `highlighted` для актуальной подборки.
-- `AcademyCounterView(count:, total:, onPressed:)`: полноэкранный счётчик —
-  вся область нажимается, большое кольцо; для длинных счётов (33, 100).
-- `AcademyTextBlock(label:, text:, onCard:)`: блок перевода как в списке Quran
-  (скруглённая подложка, жирная подпись, межстрочный 1.32).
-- `AcademyProgressTile`: компактная плитка сетки «Каждый день» (иконка, название,
-  «5/17», тонкая полоса прогресса, `highlighted` — рамка как у последней
-  прочитанной суры в Quran). Долгое нажатие — оберните в
-  `AcademyMenuAnchor(enableLongPressToOpen: true)`.
-- `AcademyIndexBadge(n)`: номер строки в скруглённом квадрате (список сур) для
-  `AcademyRow.leading`.
 - `AcademyChromeMenuButton(label:, items:)`: круглая chrome-кнопка «…» с
   pull-down меню из `AcademyMenuItem` / `AcademyMenuSeparator`.
 - `AcademySearchScrim(active:, results:, onDismiss:)`: состояние поиска iOS —
@@ -583,9 +565,9 @@ The handle also opens a keyboard-accessible menu and exposes screen-reader actio
 
 ### Changes following the September 2026 design-system review
 
-`AcademyApp` supports Russian, English and Arabic built-in wording and native Cupertino localization. Set `locale: Locale('en')` or `Locale('ar')`, or `locale: null` to follow the device; the compatibility default is Russian. An Arabic locale automatically uses RTL. Without `AcademyApp`, register `AcademyLocalizations.delegate`, the global Cupertino/Widgets delegates, and `AcademyLocalizations.supportedLocales` on your app. A custom `LocalizationsDelegate<AcademyLocalizations>` listed first can override wording by returning a subclass. Content titles and descriptions remain client-owned. Enum appearance labels use `labelFor(context)`; the old `label` getter retains Russian wording.
+`AcademyApp` supports Russian, English and Arabic built-in wording and native Cupertino localization. Set `locale: Locale('en')` or `Locale('ar')`, or `locale: null` to follow the device; the default is Russian. An Arabic locale automatically uses RTL. Without `AcademyApp`, register `AcademyLocalizations.delegate`, the global Cupertino/Widgets delegates, and `AcademyLocalizations.supportedLocales` on your app. A custom `LocalizationsDelegate<AcademyLocalizations>` listed first can override wording by returning a subclass. Content titles and descriptions remain client-owned. Enum appearance labels use `labelFor(context)`.
 
-**Pages, fields and accessories (November 2026, from Yalla).** Moved from Yalla: `AcademyPage` (leading, subtitle, `softTopFade`, `maxContentWidth`, `headerBackgroundBuilder`), `AcademyLargeTitlePage`, inline fields `AcademyFloatingInput`, `AcademyReadOnlyField`, `AcademyPickerInput`, `AcademyDateInput`, `AcademyInlineOptionMenu` (value beside the label), `AcademyContentSkeleton`/`AcademySkeletonBlock`/`AcademySkeletonText`, `SoftFadeIn`/`SliverSoftFadeIn` and `AcademyLinkedText`. New options: `AcademyStepper(wide: true)` (112×44), `AcademyCheckmark.color`, `AcademySurface` padding/radius/`continuousCorners`, `AcademyStatus` icon/colours/`compact`, `AcademyFeedback.loadingIndicator`, `AcademyPillButton.accent`, `AcademyJourneyProgress` `showTitle` and bar styling, and the `labelTertiary` colour role (default: `onSurfaceVariant`). Contracts: `test/yalla_ported_components_test.dart`.
+**Pages, fields and accessories (November 2026, from Yalla).** Moved from Yalla: `AcademyPage` (leading, subtitle, `softTopFade`, `maxContentWidth`, `headerBackgroundBuilder`), `AcademyLargeTitlePage`, inline fields `AcademyFloatingInput`, `AcademyReadOnlyField`, `AcademyPickerInput`, `AcademyDateInput`, `AcademyInlineOptionMenu` (value beside the label), `AcademyContentSkeleton`/`AcademySkeletonBlock`/`AcademySkeletonText`, `SoftFadeIn`/`SliverSoftFadeIn` and `AcademyLinkedText`. New options: `AcademyStepper(wide: true)` (112×44), `AcademyCheckmark.color`, `AcademySurface` padding/radius/`continuousCorners`, `AcademyStatus` icon/colours/`compact`, `AcademyFeedback.loadingIndicator`, `AcademyPillButton.accent`, and the `labelTertiary` colour role (default: `onSurfaceVariant`). Contracts: `test/yalla_ported_components_test.dart`.
 
 **Photo viewer and network image (November 2026, from Yalla).** `AcademyNetworkImage` shows plain HTTPS media with a skeleton while loading, a soft fade-in and the caller's `fallback` for invalid URLs and errors; pass `provider:` to plug in a disk cache (for example `CachedNetworkImageProvider`) — the package itself adds no cache dependency. `showAcademyPhotoViewer` opens a full-screen pager with pinch zoom up to 5× and swipe-down dismissal; image builders read `AcademyPhotoDecodeScope` (tiers from `academyPhotoDecodeWidth`) to decode for the viewport and ask for more detail after zooming. Contracts: `test/photo_viewer_network_image_test.dart`.
 
@@ -597,13 +579,13 @@ The handle also opens a keyboard-accessible menu and exposes screen-reader actio
 
 **Buttons (from Yalla, November 2026).** `AcademyColors.actionFill`/`onActionFill` colour the primary call to action; they follow `accentFill` unless a client sets them, so a brand can use a companion CTA colour (Yalla: yellow) while switches and selection keep the accent. `AcademyButtonStyle.neutral` is a raised `surfaceContainerHighest` button with `onSurface` text and the `chromeBorder`; `plain` uses `surface` without a border. `AcademyButton` also accepts `content`, explicit fills (`backgroundColor`, `foregroundColor`, `borderColor`, disabled colours), `minimumHeight`, `radius` and `textStyle`. The primary label uses `AcademyTextRole.buttonLabel`, which follows `labelLarge` until a client styles it. Each button is its own accessibility element (`container: true`). `AcademyTextButton(textStyle:)` changes the label and its `measure`.
 
-`AcademyButton(style: AcademyButtonStyle.tinted)` uses `secondaryContainer` for its fill and `secondary` for text/border. `secondary: true` remains a compatibility alias. `onSecondary` describes text on a solid `secondary` surface. Selected tabs use the new `onPrimaryContainer` foreground role; custom implementations of `AcademyColors` must provide it. `AcademyColorsData` can derive it from primary/container colors or accept an explicit override. Default small-text pairs meet 4.5:1 contrast across all six catalog accents in light/dark themes; clients own contrast for explicit color overrides.
+`AcademyButton(style: AcademyButtonStyle.tinted)` uses `secondaryContainer` for its fill and `secondary` for text/border. `onSecondary` describes text on a solid `secondary` surface. Selected tabs use the new `onPrimaryContainer` foreground role; custom implementations of `AcademyColors` must provide it. `AcademyColorsData` can derive it from primary/container colors or accept an explicit override. Default small-text pairs meet 4.5:1 contrast across all six catalog accents in light/dark themes; clients own contrast for explicit color overrides.
 
 `AcademyTokens.target` is the 44px Cupertino minimum, `largeTarget` is 48px, and `buttonHeight` is 52px. Shared control/field radii, table insets, spacing and motion durations are consumed by the primitives. Compact segments scroll horizontally when they cannot preserve 44px targets. SF symbols retain their own size under text scaling; navigation back/forward glyphs swap in RTL. Ordinary action buttons share the Flutter SDK Cupertino implementation and preserve a single named focus/action node.
 
 Segment tracks and compact utility buttons share the opaque `segmentBackground` role (`#E1E3E7` light / `#3A3A3C` dark). Selected segments use `segmentSelected` (white / `#636366`). These control fills are independent of page/card surfaces, accent and Chrome style; changing `surface` must not redefine them. Client themes can override both roles explicitly. `test/compact_control_colors_test.dart` protects the default fills and their use during live theme/state changes.
 
-`AcademyGuideStep` accepts `onDone` and `readOnly`. A completed step invokes `onDone ?? onNext`; with neither callback it omits the completion button. `readOnly: true` omits navigation actions. `AcademySearchBar(chrome: true)` follows the navigation background, border and blur style. Its default content variant stays opaque. Use `AcademyExpandingSearch` when search must expand from a navigation icon.
+`AcademySearchBar(chrome: true)` follows the navigation background, border and blur style. Its default content variant stays opaque. Use `AcademyExpandingSearch` when search must expand from a navigation icon.
 
 `test/design_system_regression_test.dart` verifies the review fixes, including pointer/keyboard/semantic disabled behavior, icon scaling/direction, narrow headers, color roles/contrast, action semantics, constrained segments, Reduced Motion, accessible moves, localization overrides and completion actions. The dated diagnostics in `docs/reviews` preserve the original defects and are historical evidence, not the current regression suite.
 
@@ -672,8 +654,7 @@ AcademyApp(
 и `Yalla/yalla-app/lib/shared/design_system`: отдельные палитры и типографика,
 общая тема над Navigator, значения по умолчанию плюс переопределения клиента.
 
-Скругление `AcademyRadii.table` общее для таблиц, `AcademySurface` и
-`AcademyDisclosureCard`, включая блоки внутри модальных окон. `surface` и
+Скругление `AcademyRadii.table` общее для таблиц и `AcademySurface`, включая блоки внутри модальных окон. `surface` и
 `disclosure` сохранены как совместимые имена того же значения, а не отдельные
 настройки. Если при создании заданы несколько имён, приоритет у `table`.
 

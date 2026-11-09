@@ -37,9 +37,6 @@ enum AcademyChromeStyle {
 
   static const panelStyles = [flat, gradient, blur, glass];
 
-  /// Legacy Russian label. Prefer [labelFor] for localized UI.
-  String get label =>
-      const AcademyLocalizations(Locale('ru')).chromeStyle(name);
   String labelFor(BuildContext context) =>
       AcademyLocalizations.of(context).chromeStyle(name);
 }
@@ -152,28 +149,18 @@ class AcademyChromeTheme extends InheritedTheme {
     required super.child,
     this.blurSigma = 20,
     double? blurToneStrength,
-    double? blurTintOpacity,
     this.tabBarDensity = AcademyTabBarDensity.standard,
     this.colors,
     this.reduceTransparency = false,
   }) : blurToneStrength =
-           blurToneStrength ??
-           blurTintOpacity ??
-           AcademyTokens.chromeBlurToneStrength,
+           blurToneStrength ?? AcademyTokens.chromeBlurToneStrength,
        assert(
          blurToneStrength == null ||
              blurToneStrength >= 0 && blurToneStrength <= 1,
-       ),
-       assert(
-         blurTintOpacity == null ||
-             blurTintOpacity >= 0 && blurTintOpacity <= 1,
        );
   final AcademyChromeStyle style;
   final double blurSigma;
   final double blurToneStrength;
-
-  /// Compatibility alias for backdrop tone correction; no overlay is painted.
-  double get blurTintOpacity => blurToneStrength;
   final AcademyTabBarDensity tabBarDensity;
 
   /// Overrides [AcademyThemeData.chromeColors] below this theme.
@@ -216,21 +203,15 @@ class AcademyChrome extends StatelessWidget {
     this.surfaceOpacity = 1,
     this.style,
     this.blurSigma,
-    double? blurToneStrength,
-    double? blurTintOpacity,
+    this.blurToneStrength,
     this.showShadow = true,
     this.shadows,
     this.borderWidth,
     this.frostsBackdrop = false,
-  }) : blurToneStrength = blurToneStrength ?? blurTintOpacity,
-       assert(surfaceOpacity >= 0 && surfaceOpacity <= 1),
+  }) : assert(surfaceOpacity >= 0 && surfaceOpacity <= 1),
        assert(
          blurToneStrength == null ||
              blurToneStrength >= 0 && blurToneStrength <= 1,
-       ),
-       assert(
-         blurTintOpacity == null ||
-             blurTintOpacity >= 0 && blurTintOpacity <= 1,
        );
   final Widget child;
   final double? radius;
@@ -251,9 +232,6 @@ class AcademyChrome extends StatelessWidget {
   /// Blurs live content behind the surface. Under reduced transparency the
   /// surface goes away, so that content shows through.
   final bool frostsBackdrop;
-
-  /// Compatibility alias for backdrop tone correction.
-  double? get blurTintOpacity => blurToneStrength;
 
   static double _toneStrengthOf(
     BuildContext context, {
@@ -303,15 +281,6 @@ class AcademyChrome extends StatelessWidget {
       blue: channel(backdrop.b),
     );
   }
-
-  /// Compatibility helper. Normal blur has no overlay; high contrast uses fill.
-  static Color blurTintOf(
-    BuildContext context, {
-    double surfaceOpacity = 1,
-    double? blurTintOpacity,
-  }) =>
-      AcademyTheme.of(context).colorScheme.chromeSurface
-          .withValues(alpha: MediaQuery.highContrastOf(context) ? 1 : 0);
 
   static ImageFilter _backdropFilter(
     BuildContext context,

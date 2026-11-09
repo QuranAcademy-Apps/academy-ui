@@ -77,4 +77,39 @@ void main() {
     expect(controller.text, 'still owned');
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('field grows from the toggle toward the leading edge', (
+    tester,
+  ) async {
+    final controller = TextEditingController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      AcademyApp(
+        home: Center(
+          child: SizedBox(
+            width: 320,
+            child: AcademyExpandingSearch(
+              controller: controller,
+              resting: const SizedBox(height: 44),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final button = find.bySemanticsLabel('Открыть поиск');
+    final toggleLeft = tester.getTopLeft(button).dx;
+    await tester.tap(button);
+    await tester.pump();
+    await tester.pump(AcademyTokens.selectionMotion ~/ 2);
+    // The visible reveal is the SizeTransition box, not the clipped child.
+    final field = find.byType(SizeTransition);
+    final rect = tester.getRect(field);
+    // Mid-animation the field is partial, anchored to the toggle on the right.
+    expect(rect.width, lessThan(320 - 44));
+    expect(rect.right, lessThanOrEqualTo(toggleLeft));
+    expect(rect.right, greaterThan(toggleLeft - 12));
+    await tester.pumpAndSettle();
+    expect(tester.getRect(field).left, lessThan(rect.left));
+  });
 }

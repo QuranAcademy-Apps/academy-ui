@@ -107,7 +107,9 @@ class AcademyExpandingSearchState extends State<AcademyExpandingSearch>
       children: [
         Expanded(
           child: Stack(
-            alignment: AlignmentDirectional.centerStart,
+            // The field is anchored to the toggle and grows toward the
+            // leading edge; the resting content keeps its own start alignment.
+            alignment: AlignmentDirectional.centerEnd,
             children: [
               if (widget.resting != null)
                 IgnorePointer(
@@ -117,7 +119,10 @@ class AcademyExpandingSearchState extends State<AcademyExpandingSearch>
                     child: AnimatedOpacity(
                       opacity: _open ? 0 : 1,
                       duration: duration,
-                      child: widget.resting!,
+                      child: Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: widget.resting!,
+                      ),
                     ),
                   ),
                 ),

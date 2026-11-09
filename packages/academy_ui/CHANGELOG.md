@@ -3,6 +3,44 @@
 Правила версий и порядок выпуска: [README](README.md#версии-и-обновление).
 Новая запись идёт первой; заголовок — номер версии из `pubspec.yaml`.
 
+## 0.4.0
+
+### Что поменять в приложении
+
+Из пакета убраны компоненты Quran и азкаров. Их код и тесты переехали в
+каталог: `apps/academy_ui_catalog/lib/product`. Приложению, которое их
+использует, нужно скопировать нужные файлы к себе (импорт
+`package:academy_ui/academy_ui.dart` остаётся прежним) и убрать их из импортов пакета.
+
+- `AcademyPrayerStrip`, `AcademyPrayerTime`, `AcademyResumeCapsule`.
+- `AcademyCounterButton`, `AcademyCounterView`.
+- `AcademyProgressCard`, `AcademyProgressTile`.
+- `AcademyDotStripScroller`, `AcademyIndexBadge`, `AcademyTextBlock`.
+- `AcademyDisclosureCard`, `AcademySettingsSquareButton`.
+- `AcademyChecklist`, `AcademyChecklistEntry`, `AcademyCompletionMark`,
+  `AcademyJourneyProgress`, `AcademyGuideStep`.
+
+Новые публичные типы, нужные скопированному коду: `AcademyActionSemantics`
+и `AcademyPressEffect`.
+
+## 0.3.0
+
+### Что поменять в приложении
+
+- Удалены устаревшие имена. Замены:
+  - `AcademyApp(chromeBlurTintOpacity:)`, `AcademyChrome(blurTintOpacity:)`,
+    `AcademyChromeTheme(blurTintOpacity:)` и `AcademyTokens.chromeBlurTintOpacity`
+    → `chromeBlurToneStrength` / `blurToneStrength`.
+  - `AcademyChrome.blurTintOf` удалён: слоя поверх blur нет.
+  - `AcademyCompactSegment` → `AcademySegmentedControl` (параметры те же).
+  - `AcademyButton(secondary: true)` → `AcademyButton(style: AcademyButtonStyle.tinted)`.
+  - `AcademyChromeStyle.label` → `labelFor(context)`.
+- Удалены `AcademyChromeCircle`, `AcademyMenuCheckmark`, `ModalSheetPinnedBody`
+  и `modalSheetInsetForFraction`: ими никто не пользовался.
+- Из публичного API убраны внутренние `RenderModalSheetMaskedFill`,
+  `ModalSheetSurfaceScope`, `AcademyTableRowGeometry`, `AcademyTableRowLayout`
+  и `AcademyTopInsetMemory`.
+
 ## 0.2.0
 
 ### Что поменять в приложении

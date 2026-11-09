@@ -22,14 +22,13 @@ UIKit-эталон описаны в [APPLE_HIG.md](frontend/APPLE_HIG.md). Эт
 | Числа | Stepper — дискретное значение, Slider — диапазон; это ввод, а не индикаторы прогресса |
 | Небольшой набор | SegmentedControl; компактный вариант — `AcademySegmentedControl.compact` |
 | День или диапазон | Calendar / RangeCalendar; LineCalendar — лента; DateField / TimeField — trigger с подтверждением; Picker — колесо |
-| Короткие настройки | GroupedTable / TableBody / Row / ValueRow; Surface для произвольного контента; DisclosureCard для раскрытия |
+| Короткие настройки | GroupedTable / TableBody / Row / ValueRow; Surface для произвольного контента |
 | Переходы | Page, Chrome, таббар; меню команды остаётся в «Меню и наложения» |
 | Команды | MenuButton — готовая кнопка, MenuAnchor — собственный trigger, LazyMenu — данные при открытии; MenuRow — композиция строки |
 | Отдельная задача | Modal / Sheet / Confirmation; вложенный Navigator и typed result принадлежат потоку |
 | Панель у элемента | Popover с фокусом/закрытием; Tooltip для пояснения, Tips для последовательности помощи — группа «Подсказки» |
 | Данные | StatGroup — метаданные, Timeline — события. Эти компоненты не зависят от поездок |
 | Обратная связь | Status — метка, Feedback — состояние области с retry, Toast — временное сообщение, RingProgress — доля |
-| Задачи и шаги | JourneyProgress отдельно от Checklist; GuideStep — управляемый шаг |
 | Медиа | Image с fallback, SfImage/SfIcon, Symbols; InfoButton находится в действиях |
 
 Профиль/поездки, Quran, формы с загрузкой, дата/настройки, меню в таблице,

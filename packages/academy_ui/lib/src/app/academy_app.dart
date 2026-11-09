@@ -46,21 +46,14 @@ class AcademyApp extends StatefulWidget {
     this.chromeColors = const AcademyChromeColors(),
     this.toastBottomObstruction = 0,
     double? chromeBlurToneStrength,
-    @Deprecated('Use chromeBlurToneStrength.') double? chromeBlurTintOpacity,
     this.localizationsDelegates,
     this.supportedLocales = AcademyLocalizations.supportedLocales,
     this.locale = const Locale('ru'),
   }) : chromeBlurToneStrength =
-           chromeBlurToneStrength ??
-           chromeBlurTintOpacity ??
-           AcademyTokens.chromeBlurToneStrength,
+           chromeBlurToneStrength ?? AcademyTokens.chromeBlurToneStrength,
        assert(
          chromeBlurToneStrength == null ||
              chromeBlurToneStrength >= 0 && chromeBlurToneStrength <= 1,
-       ),
-       assert(
-         chromeBlurTintOpacity == null ||
-             chromeBlurTintOpacity >= 0 && chromeBlurTintOpacity <= 1,
        );
   final Widget home;
   final AcademyAppearanceController? appearance;
@@ -111,10 +104,6 @@ class AcademyApp extends StatefulWidget {
   final AcademyChromeColors chromeColors;
   final double toastBottomObstruction;
   final double chromeBlurToneStrength;
-
-  /// Compatibility alias: controls the filtered backdrop, not overlay opacity.
-  @Deprecated('Use chromeBlurToneStrength.')
-  double get chromeBlurTintOpacity => chromeBlurToneStrength;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final Iterable<Locale> supportedLocales;
 

@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../foundation/interaction/academy_interaction.dart';
-import '../../foundation/motion/press_scale.dart';
-import '../../theme/academy_theme.dart';
-import '../icon/academy_sf_image.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 /// Compact grid tile of a routine (morning adhkar, …): tinted icon, centered
 /// title, optional «5/17» caption and thin progress line. `highlighted` draws the

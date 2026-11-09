@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../theme/academy_theme.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 /// Quran list-reader translation block: rounded tinted panel with an optional
 /// bold label (translator / «Транслитерация») above the text.

@@ -28,7 +28,7 @@ void main() {
       const options = [
         AcademySelectOption(value: 'ru', label: 'Русский', group: 'Языки'),
         AcademySelectOption(value: 'en', label: 'English', group: 'Языки'),
-          AcademySelectOption(value: 'ar', label: 'Арабский', group: 'Языки'),
+        AcademySelectOption(value: 'ar', label: 'Арабский', group: 'Языки'),
         AcademySelectOption(value: 'soon', label: 'Скоро', enabled: false),
       ];
       await tester.pumpWidget(

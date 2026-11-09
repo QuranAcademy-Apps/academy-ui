@@ -1,4 +1,5 @@
 import 'package:academy_ui/academy_ui.dart';
+import 'package:academy_ui_catalog/product/product.dart';
 import 'package:academy_ui_catalog/main.dart';
 import 'package:academy_ui_catalog/catalog_pages.dart';
 import 'package:academy_ui_catalog/counter_components_catalog.dart';

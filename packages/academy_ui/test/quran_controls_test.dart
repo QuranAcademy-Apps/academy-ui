@@ -4,51 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('disclosure is controlled and does not inherit blur', (
-    tester,
-  ) async {
-    var expanded = false;
-    final appearance = AcademyAppearanceController(
-      initial: const AcademyAppearance(chromeStyle: AcademyChromeStyle.blur),
-    );
-    await appearance.ready;
-    addTearDown(appearance.dispose);
-    await tester.pumpWidget(
-      AcademyApp(
-        appearance: appearance,
-        home: StatefulBuilder(
-          builder: (context, setState) => Center(
-            child: SizedBox(
-              width: 300,
-              child: AcademyDisclosureCard(
-                title: 'Список',
-                expanded: expanded,
-                onToggle: () => setState(() => expanded = !expanded),
-                child: const SizedBox(height: 150, child: Text('Содержимое')),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-    await tester.pumpAndSettle();
-    final collapsed = tester.getSize(find.byType(AcademyDisclosureCard)).height;
-    await tester.tap(find.text('Список'));
-    await tester.pumpAndSettle();
-    expect(expanded, isTrue);
-    expect(
-      tester.getSize(find.byType(AcademyDisclosureCard)).height,
-      greaterThan(collapsed + 100),
-    );
-    expect(find.byType(BackdropFilter), findsNothing);
-    await tester.tap(find.text('Список'));
-    await tester.pumpAndSettle();
-    expect(
-      tester.getSize(find.byType(AcademyDisclosureCard)).height,
-      closeTo(collapsed, .1),
-    );
-  });
-
   testWidgets(
     'menu combines left/right icons and checkmark and closes after choice',
     (tester) async {
@@ -125,7 +80,7 @@ void main() {
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Center(
-                child: AcademyCompactSegment<int>(
+                child: AcademySegmentedControl<int>(
                   items: const [0, 1, 2],
                   value: value,
                   labelFor: (i) => ['Первый', 'Второй', 'Третий'][i],
@@ -148,7 +103,7 @@ void main() {
     expect(calls, 1);
     expect(value, 1);
     expect(tester.takeException(), isNull);
-    final control = tester.getRect(find.byType(AcademyCompactSegment<int>));
+    final control = tester.getRect(find.byType(AcademySegmentedControl<int>));
     expect(control.width, 320);
     expect(control.height, greaterThanOrEqualTo(44));
   });

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:academy_ui/academy_ui.dart';
+import 'package:academy_ui/src/foundation/layout/academy_stable_top_inset.dart'
+    show AcademyTopInsetMemory;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';

@@ -75,7 +75,7 @@ class AcademySizes {
   /// Lock, option check and select indicator.
   final double smallControlIcon;
 
-  /// Select chip close and prayer strip arrow.
+  /// Select chip close arrow.
   final double smallIcon;
 
   /// Drag table delete symbol.
@@ -117,7 +117,7 @@ class AcademySizes {
   /// [AcademyCompactIconButton] symbol.
   final double compactIcon;
 
-  /// [AcademySettingsSquareButton] symbol.
+  /// Symbol of a square utility button.
   final double settingsIcon;
 
   AcademySizes copyWith({

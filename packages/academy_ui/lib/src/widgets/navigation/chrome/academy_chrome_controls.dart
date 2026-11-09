@@ -44,33 +44,6 @@ class AcademyChromeBackButton extends StatelessWidget {
   }
 }
 
-/// Round chrome surface for a control that is not a plain symbol button.
-class AcademyChromeCircle extends StatelessWidget {
-  const AcademyChromeCircle({
-    super.key,
-    required this.child,
-    this.size = academyChromeBarHeight,
-    this.style,
-    this.blurSigma,
-  });
-
-  final Widget child;
-  final double size;
-  final AcademyChromeStyle? style;
-  final double? blurSigma;
-
-  @override
-  Widget build(BuildContext context) => SizedBox.square(
-    dimension: size,
-    child: AcademyChrome(
-      radius: size / 2,
-      style: style,
-      blurSigma: blurSigma,
-      child: Center(child: child),
-    ),
-  );
-}
-
 /// Capsule with a centered title and an optional subtitle.
 class AcademyChromeTitleCapsule extends StatelessWidget {
   const AcademyChromeTitleCapsule({

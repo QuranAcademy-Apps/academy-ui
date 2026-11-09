@@ -1,13 +1,7 @@
-import '../../foundation/localizations/academy_localizations.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 import 'package:flutter/cupertino.dart';
 
-import '../button/academy_button.dart';
-import '../surface/academy_surface.dart';
-import '../table/academy_grouped_table.dart';
-import '../table/academy_row.dart';
-import '../icon/academy_sf_image.dart';
-import '../../theme/academy_theme.dart';
 
 class AcademyChecklistEntry {
   const AcademyChecklistEntry({

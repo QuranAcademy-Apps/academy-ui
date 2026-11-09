@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../foundation/interaction/academy_interaction.dart';
+import 'package:academy_ui/academy_ui.dart';
 
-import '../icon/academy_sf_image.dart';
-import '../../theme/academy_theme.dart';
-import '../../foundation/surface/academy_surface_mask.dart';
 
 /// Quran TajweedDisclosureCard, with app-owned expansion and opaque fill.
 class AcademyDisclosureCard extends StatelessWidget {

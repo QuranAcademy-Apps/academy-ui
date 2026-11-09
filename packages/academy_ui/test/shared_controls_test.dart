@@ -122,56 +122,6 @@ void main() {
     });
   });
 
-  group('AcademyDotStripScroller', () {
-    testWidgets('a vertical drag reports quantized progress in 0..1', (
-      tester,
-    ) async {
-      final reported = <double>[];
-      await tester.pumpWidget(
-        _app(
-          SizedBox(
-            width: AcademyDotStripScroller.stripWidth,
-            height: 300,
-            child: AcademyDotStripScroller(steps: 20, onProgress: reported.add),
-          ),
-        ),
-      );
-      await tester.drag(
-        find.byType(AcademyDotStripScroller),
-        const Offset(0, 240),
-      );
-      expect(reported, isNotEmpty);
-      expect(reported.every((v) => v >= 0 && v <= 1), isTrue);
-      for (var i = 1; i < reported.length; i++) {
-        expect(
-          reported[i],
-          isNot(reported[i - 1]),
-          reason: 'only a step change is reported',
-        );
-      }
-      expect(reported.last, greaterThan(reported.first));
-    });
-
-    testWidgets('the gesture zone can be wider than the visible strip', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        _app(
-          SizedBox(
-            width: 80,
-            height: 200,
-            child: AcademyDotStripScroller(
-              steps: 10,
-              gestureWidth: 80,
-              onProgress: (_) {},
-            ),
-          ),
-        ),
-      );
-      expect(tester.getSize(find.byType(AcademyDotStripScroller)).width, 80);
-    });
-  });
-
   group('AcademyChevron', () {
     double flip(WidgetTester tester) => tester
         .widget<Transform>(

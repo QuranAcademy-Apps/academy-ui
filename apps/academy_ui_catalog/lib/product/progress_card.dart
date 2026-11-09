@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../foundation/interaction/academy_interaction.dart';
-import '../../foundation/motion/press_scale.dart';
-import '../../theme/academy_theme.dart';
-import '../icon/academy_sf_image.dart';
-import '../progress/academy_ring_progress.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 /// Opaque card for a collection with daily progress (for example morning
 /// adhkar): tinted icon, title, subtitle and a ring that turns into a check.

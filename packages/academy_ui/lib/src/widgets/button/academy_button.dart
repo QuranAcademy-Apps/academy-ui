@@ -27,7 +27,6 @@ class AcademyButton extends StatelessWidget {
     required this.label,
     this.onPressed,
     this.pending = false,
-    this.secondary = false,
     this.style,
     this.content,
     this.backgroundColor,
@@ -42,9 +41,7 @@ class AcademyButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
   final bool pending;
-  final bool secondary;
 
-  /// [secondary] remains a compatibility alias for the tinted style.
   final AcademyButtonStyle? style;
 
   /// Visual composition in place of the label text; [label] still names the
@@ -70,9 +67,7 @@ class AcademyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = AcademyTheme.of(context);
     final p = theme.colorScheme;
-    final resolved =
-        style ??
-        (secondary ? AcademyButtonStyle.tinted : AcademyButtonStyle.primary);
+    final resolved = style ?? AcademyButtonStyle.primary;
     final state = AcademyButtonVisualState(
       colors: p,
       onPressed: onPressed,

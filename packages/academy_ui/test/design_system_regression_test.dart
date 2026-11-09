@@ -330,11 +330,6 @@ void main() {
                   label: 'Compact',
                   onPressed: enabled ? () => calls++ : null,
                 ),
-                AcademySettingsSquareButton(
-                  label: 'Settings',
-                  icon: AcademySymbols.gear,
-                  onPressed: enabled ? () => calls++ : null,
-                ),
                 AcademyChromeButton(
                   label: 'Chrome',
                   icon: AcademySymbols.gear,
@@ -352,8 +347,8 @@ void main() {
         final buttons = nodes(tester)
             .where((n) => n.getSemanticsData().flagsCollection.isButton)
             .toList();
-        expect(buttons.length, 4);
-        for (final label in ['Compact', 'Settings', 'Chrome', 'Icon']) {
+        expect(buttons.length, 3);
+        for (final label in ['Compact', 'Chrome', 'Icon']) {
           final node = buttons.singleWhere(
             (n) => n.getSemanticsData().label == label,
           );
@@ -366,7 +361,7 @@ void main() {
             await tester.pumpAndSettle();
           }
         }
-        expect(calls, enabled ? 4 : 0);
+        expect(calls, enabled ? 3 : 0);
       },
     );
   }
@@ -379,7 +374,7 @@ void main() {
         host(
           SizedBox(
             width: 160,
-            child: AcademyCompactSegment<int>(
+            child: AcademySegmentedControl<int>(
               items: const [0, 1, 2, 3],
               value: 0,
               labelFor: (i) => '$i',
@@ -586,14 +581,6 @@ void main() {
                 children: [
                   AcademySearchBar(controller: controller),
                   AcademyCompactIconButton(onPressed: () {}),
-                  AcademyGuideStep(
-                    title: 'Title',
-                    description: 'Description',
-                    step: 1,
-                    total: 1,
-                    completed: true,
-                    onNext: () {},
-                  ),
                 ],
               );
             },
@@ -608,7 +595,6 @@ void main() {
             .placeholder,
         strings.search,
       );
-      expect(find.text(strings.done), findsOneWidget);
       expect(
         nodes(tester)
             .where((n) => n.getSemanticsData().label == strings.close)
@@ -638,72 +624,11 @@ void main() {
     );
   });
 
-  testWidgets(
-    'completed guide uses onDone, falls back to onNext, and omits read-only CTA',
-    (tester) async {
-      var next = 0, done = 0;
-      Future<void> pump({bool readOnly = false, VoidCallback? onDone}) =>
-          tester.pumpWidget(
-            host(
-              SizedBox(
-                width: 280,
-                child: AcademyGuideStep(
-                  title: 'Title',
-                  description: 'Description',
-                  step: 1,
-                  total: 1,
-                  completed: true,
-                  readOnly: readOnly,
-                  onNext: () => next++,
-                  onDone: onDone,
-                ),
-              ),
-            ),
-          );
-      await pump(onDone: () => done++);
-      await tester.tap(find.text('Готово'));
-      expect(done, 1);
-      expect(next, 0);
-      await pump();
-      await tester.tap(find.text('Готово'));
-      expect(next, 1);
-      await pump(readOnly: true);
-      expect(find.byType(AcademyButton), findsNothing);
-    },
-  );
-
   test('large typography resolves Display family', () {
     const typography = AcademyTypography(Color(0xFF000000));
     expect(typography.bodyLarge.fontFamily, 'CupertinoSystemText');
     expect(typography.headlineMedium.fontFamily, 'CupertinoSystemDisplay');
     expect(typography.displaySmall.fontFamily, 'CupertinoSystemDisplay');
-  });
-
-  testSemantics('settings keeps tap and long press in one native action node', (
-    tester,
-  ) async {
-    var taps = 0, holds = 0;
-    await tester.pumpWidget(
-      host(
-        AcademySettingsSquareButton(
-          icon: AcademySymbols.gear,
-          label: 'Settings',
-          onPressed: () => taps++,
-          onLongPress: () => holds++,
-        ),
-      ),
-    );
-    final node = nodes(tester)
-        .singleWhere((n) => n.getSemanticsData().label == 'Settings');
-    act(tester, node, SemanticsAction.tap);
-    act(tester, node, SemanticsAction.longPress);
-    await tester.pumpAndSettle();
-    expect(taps, 1);
-    expect(holds, 1);
-    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
-    await tester.sendKeyEvent(LogicalKeyboardKey.space);
-    await tester.pumpAndSettle();
-    expect(taps, 2);
   });
 
   testSemantics(
@@ -738,7 +663,7 @@ void main() {
       host(
         SizedBox(
           width: 160,
-          child: AcademyCompactSegment<int>(
+          child: AcademySegmentedControl<int>(
             items: const [0, 1],
             value: 1,
             labelFor: (i) => '$i',

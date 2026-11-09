@@ -2,9 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 
-import '../../foundation/interaction/academy_interaction.dart';
-import '../../theme/academy_theme.dart';
-import '../icon/academy_sf_image.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 /// Full-area tasbih counter: the whole surface is the tap target, a large
 /// ring shows progress. For long counts (33, 100 …) where a small button is

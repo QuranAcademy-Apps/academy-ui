@@ -4,6 +4,7 @@ import 'advanced_components_catalog.dart';
 import 'text_fields_catalog.dart';
 
 import 'package:academy_ui/academy_ui.dart';
+import 'product/product.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'table_menu_examples.dart';

@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../foundation/interaction/academy_interaction.dart';
-import '../../foundation/motion/press_scale.dart';
-import '../../theme/academy_theme.dart';
-import '../icon/academy_sf_image.dart';
-import '../navigation/chrome/academy_chrome.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 /// Floating chrome capsule that offers to continue where the person stopped
 /// («Утренние азкары · 4/17»). The owner decides when to show it ([visible])

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../theme/academy_theme.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 /// Rounded-square ordinal of a list row (Quran surah number style). Put it in
 /// `AcademyRow.leading`.

@@ -420,22 +420,6 @@ void main() {
     },
   );
 
-  test(
-    'legacy tint arguments map to backdrop correction without an overlay',
-    () {
-      const app = AcademyApp(home: SizedBox(), chromeBlurTintOpacity: .7);
-      const theme = AcademyChromeTheme(
-        style: AcademyChromeStyle.blur,
-        blurTintOpacity: .3,
-        child: SizedBox(),
-      );
-      const chrome = AcademyChrome(blurTintOpacity: .4, child: SizedBox());
-      expect(app.chromeBlurToneStrength, .7);
-      expect(theme.blurToneStrength, .3);
-      expect(chrome.blurToneStrength, .4);
-    },
-  );
-
   testWidgets(
     'high contrast replaces translucency and blur with an opaque fill',
     (tester) async {

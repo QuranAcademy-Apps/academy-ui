@@ -294,19 +294,6 @@ void main() {
     });
   });
 
-  testWidgets('a three-digit index badge stays on one line', (tester) async {
-    await tester.pumpWidget(
-      table(
-        const AcademyRow(title: 'Глава 111', leading: AcademyIndexBadge(111)),
-      ),
-    );
-    expect(tester.takeException(), isNull);
-    final text = tester.getRect(find.text('111'));
-    final badge = tester.getRect(find.byType(AcademyIndexBadge));
-    expect(text.width, lessThanOrEqualTo(badge.width));
-    expect(tester.widget<Text>(find.text('111')).softWrap, isFalse);
-  });
-
   testWidgets('a navigation row uses the library chevron', (tester) async {
     await tester.pumpWidget(
       table(AcademyRow(title: 'Раздел', onPressed: () {})),

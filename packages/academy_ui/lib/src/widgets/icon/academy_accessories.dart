@@ -32,20 +32,3 @@ class AcademyCheckmark extends StatelessWidget {
     return scaleWithText ? symbol : MediaQuery.withNoTextScaling(child: symbol);
   }
 }
-
-/// Check of the selected row in a system pull-down menu.
-class AcademyMenuCheckmark extends StatelessWidget {
-  const AcademyMenuCheckmark({super.key, this.fontWeight = FontWeight.w600});
-  final FontWeight fontWeight;
-  @override
-  Widget build(BuildContext context) {
-    final theme = AcademyTheme.of(context);
-    return AcademySfIcon(
-      theme.icons.checkmark,
-      fontSize: theme.sizes.menuIcon,
-      fontWeight: fontWeight,
-      scaleWithText: true,
-      mirrorInRtl: false,
-    );
-  }
-}

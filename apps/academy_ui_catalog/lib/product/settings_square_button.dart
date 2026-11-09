@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../foundation/interaction/academy_interaction.dart';
-import '../../foundation/motion/academy_press_effect.dart';
+import 'package:academy_ui/academy_ui.dart';
 
-import '../icon/academy_sf_image.dart';
-import '../../theme/academy_theme.dart';
-import '../../foundation/surface/academy_surface_mask.dart';
 
 /// Quran ReaderQuickSettingsSquareButton: 68px utility control with rounded corners.
 class AcademySettingsSquareButton extends StatelessWidget {

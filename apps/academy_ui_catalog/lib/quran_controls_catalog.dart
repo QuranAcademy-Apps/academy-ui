@@ -1,4 +1,5 @@
 import 'package:academy_ui/academy_ui.dart';
+import 'product/product.dart';
 import 'package:flutter/cupertino.dart';
 
 /// Interactive examples of the owner-requested Quran controls.

@@ -94,44 +94,13 @@ Widget gallery(Brightness brightness, TextEditingController search) {
                     ),
                   ),
                   label(
-                    '2. Список · закрыт',
-                    AcademyDisclosureCard(
-                      title: 'Раскрывающийся список',
-                      expanded: false,
-                      onToggle: () {},
-                      child: const Text('Содержимое'),
-                    ),
-                  ),
-                  label(
-                    '2. Список · раскрыт',
-                    AcademyDisclosureCard(
-                      title: 'Раскрывающийся список',
-                      expanded: true,
-                      onToggle: () {},
-                      child: const Column(
-                        children: [
-                          AcademyRow(
-                            title: 'Первый пункт',
-                            subtitle: 'Описание пункта',
-                            icon: AcademySymbols.book,
-                          ),
-                          AcademyRow(
-                            title: 'Второй пункт',
-                            subtitle: 'Описание пункта',
-                            icon: AcademySymbols.checkmark,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  label(
                     '4. Маленькие сегменты и кнопка',
                     Column(
                       children: [
                         Row(
                           children: [
                             Expanded(
-                              child: AcademyCompactSegment<int>(
+                              child: AcademySegmentedControl<int>(
                                 items: const [0, 1, 2],
                                 value: 0,
                                 labelFor: (i) => '$i',
@@ -146,41 +115,12 @@ Widget gallery(Brightness brightness, TextEditingController search) {
                             AcademyCompactIconButton(onPressed: () {}),
                           ],
                         ),
-                        AcademyCompactSegment<int>(
+                        AcademySegmentedControl<int>(
                           items: const [0, 1, 2],
                           value: 1,
                           labelFor: (i) => ['1×', '1.5×', '2×'][i],
                           onChanged: (_) {},
                           style: AcademySegmentStyle.compact,
-                        ),
-                      ],
-                    ),
-                  ),
-                  label(
-                    '5. Тема · двойной шеврон',
-                    Row(
-                      children: [
-                        AcademySettingsSquareButton(
-                          icon: AcademySymbols.rotate,
-                          label: 'Повернуть',
-                          onPressed: () {},
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: AcademyMenuButton(
-                            title: 'Тема',
-                            minimumHeight: 68,
-                            expand: true,
-                            subtitle: 'Классическая',
-                            style: AcademyChromeStyle.flat,
-                            items: const [],
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        AcademySettingsSquareButton(
-                          icon: AcademySymbols.sun,
-                          label: 'Свет',
-                          onPressed: () {},
                         ),
                       ],
                     ),

@@ -56,11 +56,6 @@ void main() {
     ),
     'compact': (action) =>
         AcademyCompactIconButton(label: 'Action', onPressed: action),
-    'settings': (action) => AcademySettingsSquareButton(
-      label: 'Action',
-      icon: AcademySymbols.gear,
-      onPressed: action,
-    ),
   };
   for (final variant in variants.entries) {
     testWidgets(

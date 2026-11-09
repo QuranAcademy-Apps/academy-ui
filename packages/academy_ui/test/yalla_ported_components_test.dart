@@ -137,24 +137,6 @@ void main() {
     expect(find.byType(CupertinoActivityIndicator), findsNothing);
   });
 
-  testWidgets('journey progress can hide its title and restyle the bar', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      _host(
-        const AcademyJourneyProgress(
-          title: 'Подготовка',
-          completed: 1,
-          total: 4,
-          showTitle: false,
-          barHeight: 4,
-        ),
-      ),
-    );
-    expect(find.text('Подготовка'), findsNothing);
-    expect(find.bySemanticsLabel('Подготовка'), findsOneWidget);
-  });
-
   testWidgets('inline option menu: value beside label, current option quiet', (
     tester,
   ) async {

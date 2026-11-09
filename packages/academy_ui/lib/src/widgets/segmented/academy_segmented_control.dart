@@ -293,20 +293,3 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     );
   }
 }
-
-/// Compatibility name for existing clients; both styles use the shared control.
-@Deprecated('Use AcademySegmentedControl.compact.')
-class AcademyCompactSegment<T extends Object>
-    extends AcademySegmentedControl<T> {
-  const AcademyCompactSegment({
-    super.key,
-    required super.items,
-    required super.value,
-    required super.labelFor,
-    required super.onChanged,
-    super.iconFor,
-    super.style,
-    super.cornerRadius,
-    super.selectionCornerRadius,
-  });
-}

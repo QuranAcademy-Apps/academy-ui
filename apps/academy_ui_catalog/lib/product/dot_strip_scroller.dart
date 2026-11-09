@@ -1,5 +1,5 @@
 // Ported from quran_flutter DotStripScroller.
-import '../../theme/academy_theme.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 import 'package:flutter/cupertino.dart';
 

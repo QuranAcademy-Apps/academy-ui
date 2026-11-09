@@ -1,4 +1,5 @@
 import 'package:academy_ui/academy_ui.dart';
+import 'package:academy_ui_catalog/product/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 

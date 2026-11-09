@@ -68,7 +68,7 @@ void main() {
                       label: 'Status',
                       tone: AcademyTone.warning,
                     ),
-                    AcademyCompactSegment<int>(
+                    AcademySegmentedControl<int>(
                       items: const [1, 2],
                       value: 1,
                       labelFor: (value) => '$value',
@@ -119,7 +119,7 @@ void main() {
       final boxes = tester
           .widgetList<DecoratedBox>(
             find.descendant(
-              of: find.byType(AcademyCompactSegment<int>),
+              of: find.byType(AcademySegmentedControl<int>),
               matching: find.byType(DecoratedBox),
             ),
           )

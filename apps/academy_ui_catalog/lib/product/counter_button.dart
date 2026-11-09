@@ -2,11 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 
-import '../../foundation/interaction/academy_interaction.dart';
-import '../../foundation/motion/press_scale.dart';
-import '../../theme/academy_theme.dart';
-import '../icon/academy_sf_image.dart';
-import '../navigation/chrome/academy_chrome.dart';
+import 'package:academy_ui/academy_ui.dart';
 
 /// Round chrome counter (dhikr / tasbih): a progress ring around the current
 /// count. The app owns the count, haptics and what happens on completion.
