@@ -60,34 +60,80 @@ class ArabicWord {
     final trailing = StringBuffer();
     for (final rune in raw.runes) {
       final ch = String.fromCharCode(rune);
-      if (_isMark(rune)) {
+      if (rune == _tatweel) {
+        // Tatweel only stretches the line; it is kept as a placeholder so
+        // the marks written over it can be given back below.
+        letters.add(ArabicLetter(_tatweelChar));
+      } else if (_isMark(rune)) {
         if (letters.isNotEmpty) letters.last.marks.add(_normalise(rune));
       } else if (_isLetter(rune)) {
         letters.add(ArabicLetter(ch));
       } else if (_punctuation.containsKey(ch)) {
         trailing.write(_punctuation[ch]);
-      } else if (rune == 0x0640 || rune == 0x06DD) {
-        // Tatweel and the ayah-end sign carry no sound.
+      } else if (rune == 0x06DD) {
+        // The ayah-end sign carries no sound.
       } else if (!_isSilent(rune)) {
         trailing.write(ch);
       }
     }
-    // "زِدْنِى": an alif maksura after a kasra only spells the long ī.
-    for (var i = 1; i < letters.length; i++) {
+    _resolveTatweel(letters);
+    for (var i = 0; i < letters.length; i++) {
       final c = letters[i];
-      if (c.base == 'ى' && (letters[i - 1].kasra || letters[i - 1].kasratan)) {
+      if (c.base != 'ى') continue;
+      // "زِدْنِى": an alif maksura after a kasra only spells the long ī.
+      final afterKasra =
+          i > 0 && (letters[i - 1].kasra || letters[i - 1].kasratan);
+      // "ٱلْحَىُّ", "شَىْءٍ": in the Hafs copies a dotless ya with its own
+      // vowel, sukun or shadda is the consonant ya, not an alif.
+      final consonant =
+          c.fatha ||
+          c.damma ||
+          c.kasra ||
+          c.dammatan ||
+          c.kasratan ||
+          c.sukun ||
+          c.shadda;
+      if (afterKasra || consonant) {
         letters[i] = ArabicLetter('ي')..marks.addAll(c.marks);
       }
     }
     return ArabicWord(letters, trailing.toString());
   }
 
+  static const _tatweel = 0x0640;
+  static const _tatweelChar = 'ـ';
+
+  /// Hamza above or below a tatweel.
+  static const _hamzaMarks = {0x0654, 0x0655};
+
+  /// "يَـُٔودُهُۥ": a tatweel that carries a hamza is that hamza with its
+  /// vowel. "إِلَـٰهَ": any other marks on a tatweel belong to the letter
+  /// before it.
+  static void _resolveTatweel(List<ArabicLetter> letters) {
+    for (var i = letters.length - 1; i >= 0; i--) {
+      final t = letters[i];
+      if (t.base != _tatweelChar) continue;
+      if (t.marks.any(_hamzaMarks.contains)) {
+        letters[i] = ArabicLetter('ء')
+          ..marks.addAll(t.marks.where((m) => !_hamzaMarks.contains(m)));
+      } else {
+        letters.removeAt(i);
+        if (i > 0) letters[i - 1].marks.addAll(t.marks);
+      }
+    }
+  }
+
   final List<ArabicLetter> letters;
   String trailing;
 
+  /// Written together with the previous word, with no space: a particle
+  /// split off by [splitGodPrefix] ("фа" + "ли" in "فَلِلَّهِ").
+  bool attached = false;
+
   static const _punctuation = {'،': ',', '؛': ';', '؟': '?', '۔': '.'};
 
-  static bool _isLetter(int r) => (r >= 0x0621 && r <= 0x064A) || r == 0x0671;
+  static bool _isLetter(int r) =>
+      (r >= 0x0621 && r <= 0x064A && r != _tatweel) || r == 0x0671;
   static bool _isMark(int r) =>
       (r >= 0x064B && r <= 0x065F) || r == 0x0670 || r == 0x06E1;
 
@@ -110,16 +156,23 @@ class ArabicWord {
   String get skeleton => letters.map((c) => c.base).join();
 
   /// Words that begin with a root "وَ", not the conjunction (consonant
-  /// skeletons): "wālidayya", "wālayta", "wa'adtanā", "waliyyan",
-  /// "waliyyuhā", "waliyyī", "warathati".
+  /// skeletons): "wālidayya", "wālayta", "wa'adtanā", "wa'adtahu",
+  /// "waliyyan", "waliyyuhā", "waliyyī", "warathati", "wasi'a", "wasi'at",
+  /// "waqaba", "waḍa'tu", "wajjahtu". They are one word, written solid.
   static const _rootWaw = {
     'والدي',
     'واليت',
     'وعدتنا',
+    'وعدته',
     'وليا',
     'وليها',
     'وليي',
     'ورثة',
+    'وسع',
+    'وسعت',
+    'وقب',
+    'وضعت',
+    'وجهت',
   };
 
   /// Starts with the conjunction "وَ" ("wa-", "and"), not a root waw.
@@ -131,15 +184,45 @@ class ArabicWord {
       !letters[1].sukun &&
       !_rootWaw.contains(skeleton);
 
-  /// "الله" in either spelling: with the shadda mark or written plainly.
+  /// "الله" in either spelling: with the shadda mark or written plainly, and
+  /// with the plain or the wasla alif ("ٱللَّهُ").
   bool get isGod {
-    final bases = skeleton;
+    final bases = skeleton.replaceAll('ٱ', 'ا');
     return bases == 'اللله' ||
         bases == 'الله' ||
         (letters.length > 2 &&
-            letters[0].base == 'ا' &&
+            bases.startsWith('ا') &&
             letters.any((c) => c.base == 'ل' && c.shadda) &&
             letters.any((c) => c.base == 'ه'));
+  }
+
+  /// One-letter particles that are written together with "الله".
+  static const _godPrefixes = 'وفبلتك';
+
+  /// "بِاللَّهِ", "لِلَّهِ", "فَلِلَّهِ", "وَاللَّهُ": the particles before the
+  /// name of God become words of their own, so that the name is read as
+  /// "Аллаһ" whose alif drops after their vowel ("би‑ллахи", "билля́хӏи").
+  /// Any other word is returned as it is.
+  List<ArabicWord> splitGodPrefix() {
+    if (letters.length < 3 || isGod) return [this];
+    final first = letters[0];
+    if (!_godPrefixes.contains(first.base) ||
+        first.shadda ||
+        !(first.fatha || first.kasra)) {
+      return [this];
+    }
+    var rest = letters.sublist(1);
+    // "لِلَّهِ": the alif of the article is not written after li-.
+    if (rest[0].base == 'ل' && rest[0].shadda) {
+      rest = [ArabicLetter('ا'), ...rest];
+    }
+    final tail = ArabicWord(rest, trailing);
+    final split = tail.isGod ? [tail] : tail.splitGodPrefix();
+    if (split.length == 1 && !tail.isGod) return [this];
+    return [
+      ArabicWord([first], ''),
+      ...split,
+    ];
   }
 
   /// Ends in a vowel, so an alif that opens the next word is dropped.

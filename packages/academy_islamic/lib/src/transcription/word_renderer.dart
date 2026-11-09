@@ -2,7 +2,20 @@ import 'arabic_word.dart';
 import 'scheme_rules.dart';
 
 /// What was dropped from a word because the previous one runs into it.
-enum Elision { none, article, god }
+enum Elision {
+  none,
+
+  /// The alif of the article, or of «الَّذِي», whose lam closes the
+  /// previous word.
+  article,
+
+  /// The alif of «Аллаһ».
+  god,
+
+  /// A connecting alif that is not an article ("مَا اسْتَطَعْتُ"): the word
+  /// joins the previous one.
+  wasla,
+}
 
 /// A rendered word.
 class RenderedWord {
@@ -35,18 +48,23 @@ class WordRenderer {
     required this.lineStart,
     required this.lineEnd,
     required this.prev,
+    this.pause = true,
   }) : l = word.letters,
        god = word.isGod,
        open = !lineStart && (prev?.endsOpen ?? false),
        last = word.letters.length - 1,
        endIdx = _endIndex(word.letters),
-       stop = lineEnd && rules.pause != null,
+       stop = lineEnd && pause && rules.pause != null,
        isAna = _isAna(word.letters, rules);
 
   final ArabicWord word;
   final SchemeRules rules;
   final bool lineStart, lineEnd;
   final ArabicWord? prev;
+
+  /// A line end here is read as a stop (see [stop]). Off for a line that
+  /// runs on into the next one in a continuous text.
+  final bool pause;
 
   final List<ArabicLetter> l;
 
@@ -72,6 +90,10 @@ class WordRenderer {
   var _elided = Elision.none;
   var _skipTo = -1;
   var _afterArticle = -1;
+
+  /// A letter with shadda written once: the other half went to the previous
+  /// word ("Бисмилля́хӏил‑лази").
+  var _single = -1;
 
   /// Letters that swallow the lam of the article ("ash-shams").
   static const _sunLetters = 'تثدذرزسشصضطظلن';
@@ -282,10 +304,23 @@ class WordRenderer {
         if (rules.tatar && open) {
           // «сүбхәәнәлләзии»: the alif is dropped and the word is glued.
           _elided = Elision.god;
-        } else if (!(rules.ladhiYa && open)) {
+        } else if (rules.ladhiYa && open) {
+          // «ллязи»: the alif is dropped, the word stays apart.
+        } else if (open) {
+          // "الَّذِي" after a vowel loses its alif like an article before a
+          // sun letter: "Бисмилля́хӏил‑лази", "Бисми‑ллахи‑л‑лази".
+          _elided = Elision.article;
+          _sun = true;
+          _piece = rules.consonants['ل']!;
+          _single = 1;
+        } else {
           _out.write('а');
         }
-      } else if (!open) {
+      } else if (open) {
+        // "مَا اسْتَطَعْتُ": the alif is not read and the word joins the
+        // previous one ("ма‑стата‘ту", "мастатӏоӏт").
+        _elided = Elision.wasla;
+      } else {
         _out.write(_vowels(third != null && third.damma ? 'u' : 'i'));
       }
     } else if (p != null &&
@@ -382,7 +417,7 @@ class WordRenderer {
   }
 
   void _taMarbuta(int i, ArabicLetter c) {
-    if (rules.tatar && lineEnd) {
+    if (rules.tatar && stop) {
       // Read in pause: "каа’имәһ".
       _out.write('һ');
     } else if (stop && i == endIdx) {
@@ -449,7 +484,7 @@ class WordRenderer {
         : (closing ? rules.sukunExtra[c.base] : null) ?? sound;
     // A shadda opening a word marks assimilation with the previous word's
     // ending, so it is not doubled here.
-    _out.write(c.shadda && i != 0 ? _double(letter) : letter);
+    _out.write(c.shadda && i != 0 && i != _single ? _double(letter) : letter);
     final nextBase = i + 1 < l.length ? l[i + 1].base : '';
     if (rules.ladhiYa &&
         i == 1 &&

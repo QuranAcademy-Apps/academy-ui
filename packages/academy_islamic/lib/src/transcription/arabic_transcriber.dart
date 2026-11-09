@@ -15,13 +15,27 @@ abstract final class ArabicTranscriber {
   /// One transcription line per non-empty (trimmed) line of [arabic], in the
   /// same order, so the result always lines up with the Arabic lines. A line
   /// with nothing to read gives an empty string, it is never dropped.
-  static List<String> lines(String arabic, TranscriptionScheme scheme) {
-    final rules = schemeRules[scheme]!;
-    return [
-      for (final (index, line) in sourceLines(arabic).indexed)
-        _line(line, rules, first: index == 0),
-    ];
-  }
+  ///
+  /// Made to be shown line by line: every line ends in a stop (the schemes
+  /// that read one drop its last short vowel). [sentenceStarts] tells which
+  /// lines open a sentence and so begin with a capital (see
+  /// [sentenceStarts]); without it only the first line does, and a line
+  /// after Arabic sentence punctuation.
+  static List<String> lines(
+    String arabic,
+    TranscriptionScheme scheme, {
+    List<bool>? sentenceStarts,
+  }) => _lines(arabic, scheme, sentenceStarts, pauseEveryLine: true);
+
+  /// The whole text as one reading, lines joined by a newline: only its very
+  /// end is read as a stop, every other line keeps its last vowel.
+  /// Capitals as in [lines].
+  static String text(
+    String arabic,
+    TranscriptionScheme scheme, {
+    List<bool>? sentenceStarts,
+  }) =>
+      _lines(arabic, scheme, sentenceStarts, pauseEveryLine: false).join('\n');
 
   /// The non-empty, trimmed lines of a text: the unit the corpus aligns
   /// Arabic, translation and transliteration by.
@@ -30,34 +44,91 @@ abstract final class ArabicTranscriber {
       if (line.trim().isNotEmpty) line.trim(),
   ];
 
-  /// The whole text, lines joined by a newline.
-  static String text(String arabic, TranscriptionScheme scheme) =>
-      lines(arabic, scheme).join('\n');
+  /// Which lines of a translation open a sentence: the first one, and each
+  /// one after a line that ends in «.», «!», «?» or «…». Pass it as
+  /// `sentenceStarts` when the translation has the Arabic's line breaks.
+  static List<bool> sentenceStarts(String translation) {
+    final lines = sourceLines(translation);
+    return [
+      for (var i = 0; i < lines.length; i++)
+        i == 0 || _sentenceEnd.hasMatch(lines[i - 1]),
+    ];
+  }
 
+  static final _sentenceEnd = RegExp('[.!?…؟۔][»"”’)\\]]*\$');
   static final _spaces = RegExp(r'\s+');
   static final _yaBeforeA = RegExp('(?<![й])йа');
   static final _yaBeforeU = RegExp('(?<![й])йу(?!у)');
+  static final _bracketed = RegExp(r'\(([^()]*)\)|\[([^\[\]]*)\]');
+  static final _arabicLetter = RegExp('[\u0621-\u063A\u0641-\u064A\u0671]');
+  static final _vowelMark = RegExp('[\u064B-\u0650\u0670]');
 
-  static String _line(String line, SchemeRules s, {required bool first}) {
+  static List<String> _lines(
+    String arabic,
+    TranscriptionScheme scheme,
+    List<bool>? sentenceStarts, {
+    required bool pauseEveryLine,
+  }) {
+    final rules = schemeRules[scheme]!;
+    final source = sourceLines(arabic);
+    final starts = sentenceStarts?.length == source.length
+        ? sentenceStarts!
+        : [
+            for (var i = 0; i < source.length; i++)
+              i == 0 || _sentenceEnd.hasMatch(source[i - 1]),
+          ];
+    return [
+      for (final (index, line) in source.indexed)
+        _line(
+          line,
+          rules,
+          capital: starts[index],
+          pause: pauseEveryLine || index == source.length - 1,
+        ),
+    ];
+  }
+
+  /// Bracketed text is read without its brackets ("(اللَّهُمَّ)"), unless it
+  /// is an unvocalised note to the reader ("(ثلاثاً وثلاثين)"), which is
+  /// skipped.
+  static String _readable(String line) =>
+      line.replaceAllMapped(_bracketed, (m) {
+        final inner = m[1] ?? m[2]!;
+        final letters = _arabicLetter.allMatches(inner).length;
+        final vowels = _vowelMark.allMatches(inner).length;
+        return letters > 0 && vowels * 2 < letters ? ' ' : ' $inner ';
+      });
+
+  static String _line(
+    String line,
+    SchemeRules s, {
+    required bool capital,
+    required bool pause,
+  }) {
     final tokens = <ArabicWord>[];
-    var continues = false;
-    for (final raw in line.split(_spaces)) {
+    for (final raw in _readable(line).split(_spaces)) {
       if (raw.isEmpty) continue;
       final word = ArabicWord.parse(raw);
       if (word.letters.isEmpty) {
         if (tokens.isNotEmpty) tokens.last.trailing += word.trailing;
         continue;
       }
-      // A line that starts with the conjunction "وَ" continues the previous
-      // one, so its first letter is not capitalised ("ва аӏу́зу бика").
-      if (tokens.isEmpty) continues = !first && word.startsWithConjunction;
       // "وَ" is a separate word in the regional traditions ("ва ана"), but
       // not when a letter with sukun follows: that waw is a root ("вахьдахӏу").
-      if (s.separateWaw && word.startsWithConjunction) {
-        tokens.add(ArabicWord([word.letters[0]], ''));
-        tokens.add(ArabicWord(word.letters.sublist(1), word.trailing));
-      } else {
-        tokens.add(word);
+      final parts = s.separateWaw && word.startsWithConjunction
+          ? [
+              ArabicWord([word.letters[0]], ''),
+              ArabicWord(word.letters.sublist(1), word.trailing),
+            ]
+          : [word];
+      for (final part in parts) {
+        final split = part.splitGodPrefix();
+        for (final (k, t) in split.indexed) {
+          // Particles after the first one are written solid with it
+          // ("фали‑Ллахи"); the name itself joins as an elided word.
+          if (k > 0 && k < split.length - 1) t.attached = true;
+          tokens.add(t);
+        }
       }
     }
     final out = StringBuffer();
@@ -70,22 +141,30 @@ abstract final class ArabicTranscriber {
         lineStart: i == 0,
         lineEnd: i == tokens.length - 1,
         prev: prev,
+        pause: pause,
       ).render();
       if (r.body.isEmpty && r.piece.isEmpty) continue;
-      final body = word.isGod && r.elided != Elision.god
+      // The name of God keeps its capital, also after a hyphen
+      // ("Бисми‑Ллахи"); written solid into a word it stays lower case
+      // ("Бисмилля́хӏи"), as the regional texts write it.
+      final body =
+          word.isGod &&
+              (r.elided != Elision.god || s.article == ArticleStyle.hyphen)
           ? _capital(r.body)
           : r.body;
       if (out.isEmpty) {
         out.write(r.piece.isEmpty ? body : '${r.piece}$nonBreakingHyphen$body');
       } else if (r.elided == Elision.article) {
         _joinArticle(out, r, body, s);
-      } else if (r.elided == Elision.god) {
-        // "bi-smi-llāhi": the alif of Allāh is dropped after a vowel.
+      } else if (r.elided == Elision.god || r.elided == Elision.wasla) {
+        // "bi-smi-llāhi", "mā-staṭa'tu": the alif is dropped after a vowel.
         if (s.article == ArticleStyle.hyphen) {
           out.write('$nonBreakingHyphen$body');
         } else {
           _glue(out, s, body);
         }
+      } else if (word.attached) {
+        out.write(body);
       } else {
         if (s.idgham && r.piece.isEmpty) _mergeNun(out, s, prev!, word);
         out.write(' ');
@@ -97,7 +176,7 @@ abstract final class ArabicTranscriber {
         .toString()
         .replaceAll(_yaBeforeA, 'я')
         .replaceAll(_yaBeforeU, 'ю');
-    return continues ? text : _capital(text);
+    return capital ? _capital(text) : text;
   }
 
   /// Idgham: "إِنْ لَمْ" is read "ил лам", "عَلِيمٌ رَحِيمٌ" "алимур рахим".

@@ -89,7 +89,8 @@ class SchemeRules {
   /// a word ("лям", "якуль ляхӏу́", but "ю́лад").
   final bool softLam;
 
-  /// Tajwid stop: at the end of a line the last short vowel and tanwin are
+  /// Tajwid stop (each line end shown line by line, only the very end of a
+  /// running text): the last short vowel and tanwin are
   /// dropped ("минан-нар"), and a final ta marbuta is written with this
   /// letter ("джаннахӏ"). Null keeps the full forms.
   final String? pause;

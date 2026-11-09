@@ -140,7 +140,6 @@ class Zikr {
     return line.endsWith(',') ? line.substring(0, line.length - 1) : line;
   }
 
-
   late final List<String> sourceCodes = [
     for (final code in (source ?? '').split(','))
       if (code.trim().isNotEmpty) code.trim(),
