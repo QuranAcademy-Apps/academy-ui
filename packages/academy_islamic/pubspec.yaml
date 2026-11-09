@@ -1,6 +1,6 @@
 name: academy_islamic
 description: Prayer times and the azkar and dua corpus shared by QuranAcademy apps.
-version: 0.1.0
+version: 0.1.1
 publish_to: none
 environment:
   sdk: ^3.13.2

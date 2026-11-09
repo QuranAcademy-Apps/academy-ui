@@ -144,9 +144,20 @@ LINE_FIXES = {
 }
 
 
+# Further line breaks from a reading pass over every dhikr (one JSON object per
+# line: {"id", "field", "text"}); same rule, only breaks may change.
+LINE_REVIEW = ROOT / 'tool/azkar_lines.jsonl'
+
+
 def apply_line_fixes(azkar):
     by_id = {z['id']: z for z in azkar}
-    for id, fields in LINE_FIXES.items():
+    fixes = {id: dict(fields) for id, fields in LINE_FIXES.items()}
+    if LINE_REVIEW.exists():
+        for line in LINE_REVIEW.read_text(encoding='utf-8').splitlines():
+            if line.strip():
+                item = json.loads(line)
+                fixes.setdefault(item['id'], {})[item['field']] = item['text']
+    for id, fields in fixes.items():
         for field, text in fields.items():
             old = by_id[id][field]
             if callable(text):
