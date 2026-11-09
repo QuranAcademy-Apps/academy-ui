@@ -1,0 +1,2172 @@
+{
+ "абакан": {
+  "lat": 53.7154,
+  "lon": 91.4259,
+  "source": "geonames:1512236",
+  "sunriseResidualMin": -0.1,
+  "dayLengthSpreadMin": 2.9
+ },
+ "агрыз": {
+  "lat": 56.5255,
+  "lon": 52.9972,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.7
+ },
+ "агул": {
+  "lat": 42.3678,
+  "lon": 47.2458,
+  "source": "osm",
+  "sunriseResidualMin": 3.6,
+  "dayLengthSpreadMin": 8.8
+ },
+ "азнакаево": {
+  "lat": 54.863,
+  "lon": 53.0792,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.7
+ },
+ "азов": {
+  "lat": 47.1069,
+  "lon": 39.4149,
+  "source": "geonames:580054",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "аксубаево": {
+  "lat": 54.8464,
+  "lon": 50.8055,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.6
+ },
+ "актаныш": {
+  "lat": 55.7222,
+  "lon": 54.0577,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.4
+ },
+ "александров": {
+  "lat": 56.3973,
+  "lon": 38.714,
+  "source": "geonames:583350",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "алексеевское": {
+  "lat": 55.305,
+  "lon": 50.1129,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.6
+ },
+ "альметьевск": {
+  "lat": 54.904,
+  "lon": 52.3179,
+  "source": "geonames:582432",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.6
+ },
+ "анапа": {
+  "lat": 44.895,
+  "lon": 37.3162,
+  "source": "geonames:582182",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.6
+ },
+ "ангарск": {
+  "lat": 52.5597,
+  "lon": 103.9141,
+  "source": "geonames:2027667",
+  "sunriseResidualMin": -0.0,
+  "dayLengthSpreadMin": 2.6
+ },
+ "апастово": {
+  "lat": 55.2027,
+  "lon": 48.5069,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.3
+ },
+ "апшеронск": {
+  "lat": 44.4599,
+  "lon": 39.73,
+  "source": "geonames:581313",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.5
+ },
+ "арзамас": {
+  "lat": 55.3956,
+  "lon": 43.8381,
+  "source": "geonames:580724",
+  "sunriseResidualMin": 2.8,
+  "dayLengthSpreadMin": 4.4
+ },
+ "армавир": {
+  "lat": 44.9985,
+  "lon": 41.1147,
+  "source": "geonames:580922",
+  "sunriseResidualMin": -0.0,
+  "dayLengthSpreadMin": 2.7
+ },
+ "арск": {
+  "lat": 56.091,
+  "lon": 49.8772,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 2.0
+ },
+ "артем": {
+  "lat": 43.3576,
+  "lon": 132.1914,
+  "source": "geonames:2027456",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "архангельск": {
+  "lat": 64.5461,
+  "lon": 40.5518,
+  "source": "geonames:581049",
+  "sunriseResidualMin": 4.8,
+  "dayLengthSpreadMin": 38.1
+ },
+ "астрахань": {
+  "lat": 46.3497,
+  "lon": 48.0408,
+  "source": "geonames:580497",
+  "sunriseResidualMin": 1.9,
+  "dayLengthSpreadMin": 1.2
+ },
+ "атаманово": {
+  "lat": 56.4006,
+  "lon": 93.6256,
+  "source": "geonames:1511271",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.6
+ },
+ "ахвах": {
+  "lat": 42.6333,
+  "lon": 46.2934,
+  "source": "osm",
+  "sunriseResidualMin": 2.8,
+  "dayLengthSpreadMin": 3.9
+ },
+ "ахты": {
+  "lat": 41.4615,
+  "lon": 47.742,
+  "source": "osm",
+  "sunriseResidualMin": 2.5,
+  "dayLengthSpreadMin": 1.8
+ },
+ "ачинск": {
+  "lat": 56.2679,
+  "lon": 90.5015,
+  "source": "geonames:1512165",
+  "sunriseResidualMin": 7.2,
+  "dayLengthSpreadMin": 8.1
+ },
+ "бабаюрт": {
+  "lat": 43.6004,
+  "lon": 46.7775,
+  "source": "osm",
+  "sunriseResidualMin": 2.4,
+  "dayLengthSpreadMin": 17.1
+ },
+ "бавлы": {
+  "lat": 54.4031,
+  "lon": 53.2356,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.4
+ },
+ "базарные-матаки": {
+  "lat": 54.9035,
+  "lon": 49.9275,
+  "source": "osm",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "баксан": {
+  "lat": 43.6837,
+  "lon": 43.5351,
+  "source": "geonames:579574",
+  "sunriseResidualMin": 0.9,
+  "dayLengthSpreadMin": 5.1
+ },
+ "балаково": {
+  "lat": 52.0264,
+  "lon": 47.7967,
+  "source": "geonames:579492",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "балашов": {
+  "lat": 51.551,
+  "lon": 43.1707,
+  "source": "geonames:579460",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "балтаси": {
+  "lat": 56.3446,
+  "lon": 50.2114,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.4
+ },
+ "барнаул": {
+  "lat": 53.362,
+  "lon": 83.7279,
+  "source": "geonames:1510853",
+  "sunriseResidualMin": 6.5,
+  "dayLengthSpreadMin": 5.5
+ },
+ "батайск": {
+  "lat": 47.1375,
+  "lon": 39.7571,
+  "source": "geonames:578740",
+  "sunriseResidualMin": 0.9,
+  "dayLengthSpreadMin": 7.9
+ },
+ "белгород": {
+  "lat": 50.6034,
+  "lon": 36.5809,
+  "source": "geonames:578072",
+  "sunriseResidualMin": 6.5,
+  "dayLengthSpreadMin": 5.0
+ },
+ "белебей": {
+  "lat": 54.1077,
+  "lon": 54.1174,
+  "source": "geonames:578120",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 2.0
+ },
+ "белово": {
+  "lat": 54.4212,
+  "lon": 86.2991,
+  "source": "geonames:1510469",
+  "sunriseResidualMin": 3.2,
+  "dayLengthSpreadMin": 5.3
+ },
+ "белорецк": {
+  "lat": 53.9621,
+  "lon": 58.4,
+  "source": "geonames:577881",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 2.1
+ },
+ "белореченск": {
+  "lat": 44.77,
+  "lon": 39.8725,
+  "source": "geonames:577893",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "бердск": {
+  "lat": 54.7535,
+  "lon": 83.0962,
+  "source": "geonames:1510350",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "березники": {
+  "lat": 59.4091,
+  "lon": 56.8204,
+  "source": "geonames:577206",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "бийск": {
+  "lat": 52.5342,
+  "lon": 85.1966,
+  "source": "geonames:1510018",
+  "sunriseResidualMin": 0.2,
+  "dayLengthSpreadMin": 3.6
+ },
+ "благовещенск": {
+  "lat": 50.2759,
+  "lon": 127.5264,
+  "source": "geonames:2026609",
+  "sunriseResidualMin": 5.7,
+  "dayLengthSpreadMin": 3.8
+ },
+ "богатые-сабы": {
+  "lat": 56.0106,
+  "lon": 50.4468,
+  "source": "osm",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "болгар": {
+  "lat": 54.9819,
+  "lon": 49.024,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.4
+ },
+ "большая-атня": {
+  "lat": 56.2503,
+  "lon": 49.4534,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.6
+ },
+ "большие-кайбицы": {
+  "lat": 55.4062,
+  "lon": 48.1936,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.3
+ },
+ "бор": {
+  "lat": 56.3594,
+  "lon": 44.073,
+  "source": "geonames:572665",
+  "sunriseResidualMin": -0.1,
+  "dayLengthSpreadMin": 3.1
+ },
+ "борисоглебск": {
+  "lat": 51.3689,
+  "lon": 42.098,
+  "source": "geonames:572525",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "ботлих": {
+  "lat": 42.6645,
+  "lon": 46.2185,
+  "source": "osm",
+  "sunriseResidualMin": 2.4,
+  "dayLengthSpreadMin": 2.7
+ },
+ "братск": {
+  "lat": 56.1325,
+  "lon": 101.6142,
+  "source": "geonames:2051523",
+  "sunriseResidualMin": 9.4,
+  "dayLengthSpreadMin": 7.2
+ },
+ "брянск": {
+  "lat": 53.271,
+  "lon": 34.3214,
+  "source": "geonames:571476",
+  "sunriseResidualMin": 6.3,
+  "dayLengthSpreadMin": 5.5
+ },
+ "бугульма": {
+  "lat": 54.5378,
+  "lon": 52.7985,
+  "source": "geonames:571170",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "буденновск": {
+  "lat": 44.7839,
+  "lon": 44.1658,
+  "source": "geonames:571306",
+  "sunriseResidualMin": -0.1,
+  "dayLengthSpreadMin": 2.5
+ },
+ "бузулук": {
+  "lat": 52.7782,
+  "lon": 52.2585,
+  "source": "geonames:570427",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "буинск": {
+  "lat": 54.9712,
+  "lon": 48.293,
+  "source": "osm",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.9
+ },
+ "буйнакск": {
+  "lat": 42.818,
+  "lon": 47.1268,
+  "source": "geonames:570479",
+  "sunriseResidualMin": 2.4,
+  "dayLengthSpreadMin": 2.5
+ },
+ "великие луки": {
+  "lat": 56.3406,
+  "lon": 30.5438,
+  "source": "geonames:476077",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "великий новгород": {
+  "lat": 58.5213,
+  "lon": 31.271,
+  "source": "geonames:519336",
+  "sunriseResidualMin": 4.7,
+  "dayLengthSpreadMin": 5.8
+ },
+ "верхний-услон": {
+  "lat": 55.7685,
+  "lon": 48.9829,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.7
+ },
+ "владивосток": {
+  "lat": 43.1056,
+  "lon": 131.8735,
+  "source": "geonames:2013348",
+  "sunriseResidualMin": 0.2,
+  "dayLengthSpreadMin": 2.6
+ },
+ "владикавказ": {
+  "lat": 43.041,
+  "lon": 44.6699,
+  "source": "geonames:473249",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 2.7
+ },
+ "владимир": {
+  "lat": 56.1385,
+  "lon": 40.3998,
+  "source": "geonames:473247",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 6.3
+ },
+ "волгоград": {
+  "lat": 48.7138,
+  "lon": 44.4976,
+  "source": "geonames:472757",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 2.8
+ },
+ "волгодонск": {
+  "lat": 47.5114,
+  "lon": 42.1527,
+  "source": "geonames:472761",
+  "sunriseResidualMin": -0.1,
+  "dayLengthSpreadMin": 2.0
+ },
+ "волжский": {
+  "lat": 53.4306,
+  "lon": 50.119,
+  "source": "geonames:472229",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 2.1
+ },
+ "вологда": {
+  "lat": 59.2239,
+  "lon": 39.884,
+  "source": "geonames:472459",
+  "sunriseResidualMin": 6.8,
+  "dayLengthSpreadMin": 8.7
+ },
+ "воронеж": {
+  "lat": 51.6683,
+  "lon": 39.192,
+  "source": "geonames:472045",
+  "sunriseResidualMin": 5.4,
+  "dayLengthSpreadMin": 5.5
+ },
+ "воскресенск": {
+  "lat": 55.313,
+  "lon": 38.691,
+  "source": "geonames:471656",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "воткинск": {
+  "lat": 57.0487,
+  "lon": 53.9872,
+  "source": "geonames:471430",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 2.0
+ },
+ "высокая-гора": {
+  "lat": 55.9102,
+  "lon": 49.3072,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.7
+ },
+ "георгиевск": {
+  "lat": 44.1494,
+  "lon": 43.4702,
+  "source": "geonames:561627",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.8
+ },
+ "гергебиль": {
+  "lat": 42.5022,
+  "lon": 47.0602,
+  "source": "osm",
+  "sunriseResidualMin": 2.6,
+  "dayLengthSpreadMin": 2.4
+ },
+ "глазов": {
+  "lat": 58.14,
+  "lon": 52.6562,
+  "source": "geonames:561347",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.9
+ },
+ "голубой залив": {
+  "lat": 54.8399,
+  "lon": 82.926,
+  "source": "geonames:6284048",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.5
+ },
+ "греково-тимофеевка": {
+  "lat": 47.4273,
+  "lon": 38.509,
+  "source": "geonames:558934",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "грозный": {
+  "lat": 43.312,
+  "lon": 45.6889,
+  "source": "geonames:558418",
+  "sunriseResidualMin": 3.8,
+  "dayLengthSpreadMin": 5.6
+ },
+ "даг-огни": {
+  "lat": 42.1101,
+  "lon": 48.1811,
+  "source": "osm",
+  "sunriseResidualMin": 2.6,
+  "dayLengthSpreadMin": 2.5
+ },
+ "дербент": {
+  "lat": 42.0662,
+  "lon": 48.2876,
+  "source": "geonames:566532",
+  "sunriseResidualMin": 2.6,
+  "dayLengthSpreadMin": 2.9
+ },
+ "дзержинск": {
+  "lat": 56.2442,
+  "lon": 43.4554,
+  "source": "geonames:563708",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 5.9
+ },
+ "димитровград": {
+  "lat": 54.2139,
+  "lon": 49.6184,
+  "source": "geonames:566199",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "дунай": {
+  "lat": 42.8788,
+  "lon": 132.3354,
+  "source": "geonames:2024800",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "дылым": {
+  "lat": 43.0677,
+  "lon": 46.6348,
+  "source": "osm",
+  "sunriseResidualMin": 2.7,
+  "dayLengthSpreadMin": 2.3
+ },
+ "дёма": {
+  "lat": 59.653,
+  "lon": 54.0494,
+  "source": "geonames:566696",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "егорьевск": {
+  "lat": 55.3795,
+  "lon": 39.0412,
+  "source": "geonames:468250",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "ейск": {
+  "lat": 46.6926,
+  "lon": 38.2791,
+  "source": "geonames:466885",
+  "sunriseResidualMin": 0.0,
+  "dayLengthSpreadMin": 2.1
+ },
+ "екатеринбург": {
+  "lat": 56.8573,
+  "lon": 60.6153,
+  "source": "geonames:1486209",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 5.3
+ },
+ "елабуга": {
+  "lat": 55.7577,
+  "lon": 52.054,
+  "source": "osm",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.7
+ },
+ "елец": {
+  "lat": 52.6144,
+  "lon": 38.5093,
+  "source": "geonames:467978",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "ессентуки": {
+  "lat": 44.0483,
+  "lon": 42.8564,
+  "source": "geonames:466990",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.9
+ },
+ "железногорск": {
+  "lat": 52.342,
+  "lon": 35.3592,
+  "source": "geonames:463343",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.3
+ },
+ "жилкино": {
+  "lat": 52.3244,
+  "lon": 104.2603,
+  "source": "geonames:2056837",
+  "sunriseResidualMin": 0.3,
+  "dayLengthSpreadMin": 3.6
+ },
+ "жуковский": {
+  "lat": 55.5953,
+  "lon": 38.1203,
+  "source": "geonames:462755",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "заинск": {
+  "lat": 55.2867,
+  "lon": 52.0056,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.5
+ },
+ "залукокоаже": {
+  "lat": 43.896,
+  "lon": 43.2226,
+  "source": "osm",
+  "sunriseResidualMin": 2.1,
+  "dayLengthSpreadMin": 7.5
+ },
+ "заречный": {
+  "lat": 53.2036,
+  "lon": 45.1923,
+  "source": "geonames:464625",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "зеленоград": {
+  "lat": 55.9825,
+  "lon": 37.1814,
+  "source": "geonames:463829",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.7
+ },
+ "зеленодольск": {
+  "lat": 55.8587,
+  "lon": 48.5674,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.9
+ },
+ "зеленодольск (sakhalin)": {
+  "lat": 46.6528,
+  "lon": 142.371,
+  "source": "geonames:2119358",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "златоуст": {
+  "lat": 55.1718,
+  "lon": 59.6547,
+  "source": "geonames:462444",
+  "sunriseResidualMin": 2.9,
+  "dayLengthSpreadMin": 4.0
+ },
+ "иваново": {
+  "lat": 56.9999,
+  "lon": 40.9726,
+  "source": "geonames:555312",
+  "sunriseResidualMin": 6.5,
+  "dayLengthSpreadMin": 7.0
+ },
+ "ивантеевка": {
+  "lat": 55.9711,
+  "lon": 37.9208,
+  "source": "geonames:555111",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.7
+ },
+ "ижевск": {
+  "lat": 56.8522,
+  "lon": 53.1986,
+  "source": "geonames:554840",
+  "sunriseResidualMin": 2.1,
+  "dayLengthSpreadMin": 1.2
+ },
+ "избербаш": {
+  "lat": 42.5647,
+  "lon": 47.8697,
+  "source": "osm",
+  "sunriseResidualMin": 2.0,
+  "dayLengthSpreadMin": 3.8
+ },
+ "изобильный": {
+  "lat": 45.3665,
+  "lon": 41.7091,
+  "source": "geonames:554770",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "иркутск": {
+  "lat": 52.2957,
+  "lon": 104.2908,
+  "source": "geonames:2023469",
+  "sunriseResidualMin": 0.2,
+  "dayLengthSpreadMin": 3.2
+ },
+ "ишим": {
+  "lat": 56.1125,
+  "lon": 69.4872,
+  "source": "geonames:1505453",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.2
+ },
+ "йошкар-ола": {
+  "lat": 56.6388,
+  "lon": 47.8908,
+  "source": "geonames:466806",
+  "sunriseResidualMin": 2.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "казань": {
+  "lat": 55.7887,
+  "lon": 49.1221,
+  "source": "geonames:551487",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 2.1
+ },
+ "калининград": {
+  "lat": 54.7064,
+  "lon": 20.511,
+  "source": "geonames:554234",
+  "sunriseResidualMin": -0.1,
+  "dayLengthSpreadMin": 2.7
+ },
+ "калуга": {
+  "lat": 54.5306,
+  "lon": 36.27,
+  "source": "geonames:553915",
+  "sunriseResidualMin": 6.8,
+  "dayLengthSpreadMin": 5.7
+ },
+ "каменск-уральский": {
+  "lat": 56.4063,
+  "lon": 61.9335,
+  "source": "geonames:1504826",
+  "sunriseResidualMin": 6.7,
+  "dayLengthSpreadMin": 6.8
+ },
+ "каменск-шахтинский": {
+  "lat": 48.3178,
+  "lon": 40.2595,
+  "source": "geonames:553399",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.3
+ },
+ "камское-устье": {
+  "lat": 55.2016,
+  "lon": 49.268,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.6
+ },
+ "камышин": {
+  "lat": 50.0885,
+  "lon": 45.4128,
+  "source": "geonames:553287",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.3
+ },
+ "карабулак": {
+  "lat": 43.3095,
+  "lon": 44.9103,
+  "source": "osm",
+  "sunriseResidualMin": 7.0,
+  "dayLengthSpreadMin": 18.3
+ },
+ "каспийск": {
+  "lat": 42.8817,
+  "lon": 47.6392,
+  "source": "geonames:551847",
+  "sunriseResidualMin": 2.5,
+  "dayLengthSpreadMin": 2.3
+ },
+ "кашхатау": {
+  "lat": 43.3192,
+  "lon": 43.6091,
+  "source": "osm",
+  "sunriseResidualMin": 0.6,
+  "dayLengthSpreadMin": 4.4
+ },
+ "кемерово": {
+  "lat": 55.3542,
+  "lon": 86.1043,
+  "source": "geonames:1503901",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 5.2
+ },
+ "кизилюрт": {
+  "lat": 43.2028,
+  "lon": 46.8659,
+  "source": "geonames:547849",
+  "sunriseResidualMin": 2.5,
+  "dayLengthSpreadMin": 3.0
+ },
+ "кизляр": {
+  "lat": 43.8469,
+  "lon": 46.7098,
+  "source": "geonames:547840",
+  "sunriseResidualMin": 0.5,
+  "dayLengthSpreadMin": 1.5
+ },
+ "киров": {
+  "lat": 58.5981,
+  "lon": 49.6578,
+  "source": "geonames:548408",
+  "sunriseResidualMin": 2.1,
+  "dayLengthSpreadMin": 1.7
+ },
+ "кислино": {
+  "lat": 53.2314,
+  "lon": 36.9558,
+  "source": "geonames:548130",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "кисловодск": {
+  "lat": 43.9133,
+  "lon": 42.7208,
+  "source": "geonames:548114",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 2.4
+ },
+ "клин": {
+  "lat": 56.3317,
+  "lon": 36.7292,
+  "source": "geonames:547523",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "ковров": {
+  "lat": 56.3575,
+  "lon": 41.3189,
+  "source": "geonames:543460",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "коломна": {
+  "lat": 55.0711,
+  "lon": 38.784,
+  "source": "geonames:546230",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.9
+ },
+ "колпино": {
+  "lat": 59.7507,
+  "lon": 30.5886,
+  "source": "geonames:546105",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.8
+ },
+ "комсомольск-на-амуре": {
+  "lat": 50.5503,
+  "lon": 137.01,
+  "source": "geonames:2021851",
+  "sunriseResidualMin": 4.2,
+  "dayLengthSpreadMin": 4.3
+ },
+ "кондратово": {
+  "lat": 57.9804,
+  "lon": 56.1066,
+  "source": "geonames:829032",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "копейск": {
+  "lat": 55.1169,
+  "lon": 61.6181,
+  "source": "geonames:1502603",
+  "sunriseResidualMin": 5.8,
+  "dayLengthSpreadMin": 1.6
+ },
+ "кострома": {
+  "lat": 57.7664,
+  "lon": 40.9283,
+  "source": "geonames:543878",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 6.5
+ },
+ "краснодар": {
+  "lat": 45.0453,
+  "lon": 38.9818,
+  "source": "geonames:542420",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 2.1
+ },
+ "красноярск": {
+  "lat": 56.0374,
+  "lon": 92.9314,
+  "source": "geonames:1502026",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 6.8
+ },
+ "кропоткин": {
+  "lat": 45.4372,
+  "lon": 40.5704,
+  "source": "geonames:540761",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.7
+ },
+ "крымск": {
+  "lat": 44.9263,
+  "lon": 37.9903,
+  "source": "geonames:540251",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "кузнецк": {
+  "lat": 53.1168,
+  "lon": 46.6004,
+  "source": "geonames:537737",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.3
+ },
+ "кукмор": {
+  "lat": 56.1865,
+  "lon": 50.8972,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.8
+ },
+ "култаево": {
+  "lat": 57.8948,
+  "lon": 55.9378,
+  "source": "geonames:539369",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.3
+ },
+ "кунгур": {
+  "lat": 57.4143,
+  "lon": 56.9716,
+  "source": "geonames:539147",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.3
+ },
+ "курах": {
+  "lat": 41.5841,
+  "lon": 47.7837,
+  "source": "osm",
+  "sunriseResidualMin": 2.6,
+  "dayLengthSpreadMin": 2.0
+ },
+ "курган": {
+  "lat": 55.449,
+  "lon": 65.3434,
+  "source": "geonames:1501321",
+  "sunriseResidualMin": 2.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "курск": {
+  "lat": 51.7269,
+  "lon": 36.1846,
+  "source": "geonames:538560",
+  "sunriseResidualMin": 6.6,
+  "dayLengthSpreadMin": 5.0
+ },
+ "кызыл": {
+  "lat": 51.7111,
+  "lon": 94.4378,
+  "source": "geonames:1500973",
+  "sunriseResidualMin": 9.5,
+  "dayLengthSpreadMin": 6.8
+ },
+ "лабинск": {
+  "lat": 44.636,
+  "lon": 40.7357,
+  "source": "geonames:537281",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.6
+ },
+ "лада": {
+  "lat": 51.6407,
+  "lon": 43.7753,
+  "source": "geonames:537263",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "лаишево": {
+  "lat": 55.4043,
+  "lon": 49.5468,
+  "source": "osm",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 2.1
+ },
+ "леваши": {
+  "lat": 42.4307,
+  "lon": 47.3233,
+  "source": "osm",
+  "sunriseResidualMin": 2.7,
+  "dayLengthSpreadMin": 2.5
+ },
+ "лениногорск": {
+  "lat": 54.5971,
+  "lon": 52.4512,
+  "source": "geonames:536162",
+  "sunriseResidualMin": -0.5,
+  "dayLengthSpreadMin": 1.4
+ },
+ "ленинский": {
+  "lat": 54.2873,
+  "lon": 37.4571,
+  "source": "geonames:536111",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "ливны": {
+  "lat": 52.4243,
+  "lon": 37.5996,
+  "source": "geonames:534701",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.4
+ },
+ "липецк": {
+  "lat": 52.5876,
+  "lon": 39.5515,
+  "source": "geonames:535121",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 2.7
+ },
+ "лобаново": {
+  "lat": 57.8595,
+  "lon": 56.3026,
+  "source": "geonames:534639",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "лобня": {
+  "lat": 56.0271,
+  "lon": 37.4679,
+  "source": "geonames:534595",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "лысьва": {
+  "lat": 59.5606,
+  "lon": 56.6516,
+  "source": "geonames:532674",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.6
+ },
+ "магадан": {
+  "lat": 59.5627,
+  "lon": 150.8021,
+  "source": "geonames:2123628",
+  "sunriseResidualMin": 7.7,
+  "dayLengthSpreadMin": 9.8
+ },
+ "магас": {
+  "lat": 43.1666,
+  "lon": 44.8048,
+  "source": "osm",
+  "sunriseResidualMin": 7.3,
+  "dayLengthSpreadMin": 19.1
+ },
+ "магнитогорск": {
+  "lat": 53.3981,
+  "lon": 59.0066,
+  "source": "geonames:532288",
+  "sunriseResidualMin": 8.3,
+  "dayLengthSpreadMin": 6.2
+ },
+ "майкоп": {
+  "lat": 44.6079,
+  "lon": 40.1024,
+  "source": "geonames:528293",
+  "sunriseResidualMin": 0.2,
+  "dayLengthSpreadMin": 16.0
+ },
+ "майский": {
+  "lat": 43.6282,
+  "lon": 44.0519,
+  "source": "osm",
+  "sunriseResidualMin": -1.1,
+  "dayLengthSpreadMin": 4.5
+ },
+ "малгобек": {
+  "lat": 43.5127,
+  "lon": 44.587,
+  "source": "osm",
+  "sunriseResidualMin": 8.0,
+  "dayLengthSpreadMin": 17.1
+ },
+ "мамадыш": {
+  "lat": 55.7181,
+  "lon": 51.4135,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 2.1
+ },
+ "махачкала": {
+  "lat": 42.9778,
+  "lon": 47.5003,
+  "source": "geonames:532096",
+  "sunriseResidualMin": 2.5,
+  "dayLengthSpreadMin": 2.5
+ },
+ "междуреченск": {
+  "lat": 53.6899,
+  "lon": 88.0622,
+  "source": "geonames:1498920",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "менделеевск": {
+  "lat": 55.8943,
+  "lon": 52.3121,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.9
+ },
+ "мензелинск": {
+  "lat": 55.7256,
+  "lon": 53.1072,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.7
+ },
+ "миасс": {
+  "lat": 55.0455,
+  "lon": 60.1076,
+  "source": "geonames:1498894",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "минеральные воды": {
+  "lat": 44.2103,
+  "lon": 43.1353,
+  "source": "geonames:526480",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "минусинск": {
+  "lat": 53.7012,
+  "lon": 91.708,
+  "source": "geonames:1498693",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.3
+ },
+ "михайловск": {
+  "lat": 45.131,
+  "lon": 42.027,
+  "source": "geonames:493702",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 5.1
+ },
+ "мичуринск": {
+  "lat": 52.9076,
+  "lon": 40.4823,
+  "source": "geonames:527191",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.4
+ },
+ "москва": {
+  "lat": 55.752,
+  "lon": 37.6178,
+  "source": "geonames:524901",
+  "sunriseResidualMin": 5.2,
+  "dayLengthSpreadMin": 3.3
+ },
+ "мурманск": {
+  "lat": 68.9678,
+  "lon": 33.0992,
+  "source": "geonames:524305",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 929.9
+ },
+ "муром": {
+  "lat": 55.5685,
+  "lon": 42.0239,
+  "source": "geonames:524294",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "муслюмово": {
+  "lat": 55.3041,
+  "lon": 53.1975,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.3
+ },
+ "набережные-челны": {
+  "lat": 55.7372,
+  "lon": 52.4196,
+  "source": "geonames:523750",
+  "sunriseResidualMin": -0.5,
+  "dayLengthSpreadMin": 1.7
+ },
+ "ingushetia-nazran": {
+  "lat": 43.226,
+  "lon": 44.7732,
+  "source": "geonames:523064",
+  "sunriseResidualMin": 7.5,
+  "dayLengthSpreadMin": 18.8
+ },
+ "нальчик": {
+  "lat": 43.4981,
+  "lon": 43.6189,
+  "source": "geonames:523523",
+  "sunriseResidualMin": 0.7,
+  "dayLengthSpreadMin": 3.5
+ },
+ "нарткала": {
+  "lat": 43.5561,
+  "lon": 43.8617,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 3.9
+ },
+ "находка": {
+  "lat": 42.8436,
+  "lon": 132.9183,
+  "source": "geonames:2019528",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.4
+ },
+ "невинномысск": {
+  "lat": 44.6333,
+  "lon": 41.9444,
+  "source": "geonames:522377",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.5
+ },
+ "нефтекамск": {
+  "lat": 56.0888,
+  "lon": 54.2638,
+  "source": "geonames:522942",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 5.7
+ },
+ "нефтеюганск": {
+  "lat": 61.0998,
+  "lon": 72.6035,
+  "source": "geonames:1497917",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "нижневартовск": {
+  "lat": 60.9344,
+  "lon": 76.5531,
+  "source": "geonames:1497543",
+  "sunriseResidualMin": 2.3,
+  "dayLengthSpreadMin": 6.4
+ },
+ "нижнекамск": {
+  "lat": 55.6379,
+  "lon": 51.815,
+  "source": "geonames:521118",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "нижний-новгород": {
+  "lat": 56.3287,
+  "lon": 44.002,
+  "source": "geonames:520555",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "нижний тагил": {
+  "lat": 57.9194,
+  "lon": 59.965,
+  "source": "geonames:520494",
+  "sunriseResidualMin": 7.9,
+  "dayLengthSpreadMin": 8.1
+ },
+ "новокузнецк": {
+  "lat": 53.7575,
+  "lon": 87.136,
+  "source": "geonames:1496990",
+  "sunriseResidualMin": 6.8,
+  "dayLengthSpreadMin": 6.1
+ },
+ "новомосковск": {
+  "lat": 54.011,
+  "lon": 38.2908,
+  "source": "geonames:518557",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.8
+ },
+ "новороссийск": {
+  "lat": 44.7319,
+  "lon": 37.7618,
+  "source": "geonames:518255",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "новосибирск": {
+  "lat": 55.0226,
+  "lon": 82.9317,
+  "source": "geonames:1496747",
+  "sunriseResidualMin": 8.1,
+  "dayLengthSpreadMin": 2.8
+ },
+ "новотроицк": {
+  "lat": 51.201,
+  "lon": 58.3132,
+  "source": "geonames:517836",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.7
+ },
+ "новочебоксарск": {
+  "lat": 56.111,
+  "lon": 47.4776,
+  "source": "geonames:518976",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.2
+ },
+ "новочеркасск": {
+  "lat": 47.4222,
+  "lon": 40.0937,
+  "source": "geonames:518970",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.2
+ },
+ "новошешминск": {
+  "lat": 55.0616,
+  "lon": 51.2249,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.4
+ },
+ "новый уренгой": {
+  "lat": 66.0833,
+  "lon": 76.6333,
+  "source": "geonames:1496511",
+  "sunriseResidualMin": 4.8,
+  "dayLengthSpreadMin": 385.4
+ },
+ "ногинск": {
+  "lat": 55.8649,
+  "lon": 38.4485,
+  "source": "geonames:520068",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "ноябрьск": {
+  "lat": 63.1931,
+  "lon": 75.4373,
+  "source": "geonames:1496503",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.7
+ },
+ "нурлат": {
+  "lat": 54.4297,
+  "lon": 50.802,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.9
+ },
+ "обнинск": {
+  "lat": 55.1099,
+  "lon": 36.6124,
+  "source": "geonames:516436",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "одинцово": {
+  "lat": 55.6698,
+  "lon": 37.2772,
+  "source": "geonames:516215",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.9
+ },
+ "озёрск": {
+  "lat": 55.7556,
+  "lon": 60.7028,
+  "source": "geonames:1538634",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "октябрьский": {
+  "lat": 56.1753,
+  "lon": 47.2914,
+  "source": "geonames:6198442",
+  "sunriseResidualMin": 5.7,
+  "dayLengthSpreadMin": 6.7
+ },
+ "омск": {
+  "lat": 54.9924,
+  "lon": 73.3686,
+  "source": "geonames:1496153",
+  "sunriseResidualMin": 5.8,
+  "dayLengthSpreadMin": 14.2
+ },
+ "оренбург": {
+  "lat": 51.7671,
+  "lon": 55.0988,
+  "source": "geonames:515003",
+  "sunriseResidualMin": 1.9,
+  "dayLengthSpreadMin": 1.6
+ },
+ "орехово-зуево": {
+  "lat": 55.8124,
+  "lon": 38.9915,
+  "source": "geonames:515024",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.4
+ },
+ "орск": {
+  "lat": 51.2321,
+  "lon": 58.488,
+  "source": "geonames:514734",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "орёл": {
+  "lat": 52.9688,
+  "lon": 36.0791,
+  "source": "geonames:515012",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "павлово": {
+  "lat": 55.9686,
+  "lon": 43.0912,
+  "source": "geonames:827329",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.5
+ },
+ "пенза": {
+  "lat": 53.1957,
+  "lon": 45.0108,
+  "source": "geonames:511565",
+  "sunriseResidualMin": 1.9,
+  "dayLengthSpreadMin": 1.4
+ },
+ "первоуральск": {
+  "lat": 56.9053,
+  "lon": 59.9436,
+  "source": "geonames:510808",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "пермь": {
+  "lat": 58.0109,
+  "lon": 56.2319,
+  "source": "osm",
+  "sunriseResidualMin": 1.9,
+  "dayLengthSpreadMin": 1.5
+ },
+ "пестрецы": {
+  "lat": 55.7502,
+  "lon": 49.6571,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.7
+ },
+ "петрозаводск": {
+  "lat": 61.7849,
+  "lon": 34.3469,
+  "source": "geonames:509820",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "подольск": {
+  "lat": 55.4242,
+  "lon": 37.5547,
+  "source": "geonames:508101",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.2
+ },
+ "прохладный": {
+  "lat": 43.7574,
+  "lon": 44.0297,
+  "source": "geonames:504935",
+  "sunriseResidualMin": -1.1,
+  "dayLengthSpreadMin": 5.9
+ },
+ "псков": {
+  "lat": 57.8192,
+  "lon": 28.3318,
+  "source": "geonames:504341",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.4
+ },
+ "пушкин": {
+  "lat": 59.7142,
+  "lon": 30.3964,
+  "source": "geonames:504003",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "пятигорск": {
+  "lat": 44.05,
+  "lon": 43.0504,
+  "source": "geonames:503550",
+  "sunriseResidualMin": -0.1,
+  "dayLengthSpreadMin": 2.5
+ },
+ "раменское": {
+  "lat": 55.5634,
+  "lon": 38.2415,
+  "source": "geonames:502965",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "россошь": {
+  "lat": 51.1209,
+  "lon": 38.5116,
+  "source": "geonames:501215",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "ростов-на-дону": {
+  "lat": 47.22,
+  "lon": 39.7077,
+  "source": "geonames:501175",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "рубцовск": {
+  "lat": 51.5147,
+  "lon": 81.2061,
+  "source": "geonames:1493467",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "рутул": {
+  "lat": 41.5335,
+  "lon": 47.4245,
+  "source": "osm",
+  "sunriseResidualMin": 2.6,
+  "dayLengthSpreadMin": 2.0
+ },
+ "рыбная-слобода": {
+  "lat": 55.4644,
+  "lon": 50.1406,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.8
+ },
+ "рязань": {
+  "lat": 54.627,
+  "lon": 39.7041,
+  "source": "geonames:500096",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 5.3
+ },
+ "салават": {
+  "lat": 53.3828,
+  "lon": 55.9109,
+  "source": "geonames:499292",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.9
+ },
+ "салехард": {
+  "lat": 66.5337,
+  "lon": 66.6095,
+  "source": "geonames:1493197",
+  "sunriseResidualMin": 2.2,
+  "dayLengthSpreadMin": 1.7
+ },
+ "сальск": {
+  "lat": 46.4749,
+  "lon": 41.5416,
+  "source": "geonames:499161",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.3
+ },
+ "самара": {
+  "lat": 53.2077,
+  "lon": 50.1355,
+  "source": "geonames:499099",
+  "sunriseResidualMin": 0.2,
+  "dayLengthSpreadMin": 2.9
+ },
+ "санкт-петербург": {
+  "lat": 59.9386,
+  "lon": 30.3141,
+  "source": "geonames:498817",
+  "sunriseResidualMin": 2.2,
+  "dayLengthSpreadMin": 1.5
+ },
+ "саранск": {
+  "lat": 54.1848,
+  "lon": 45.1717,
+  "source": "geonames:498698",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 7.4
+ },
+ "сарапул": {
+  "lat": 56.4763,
+  "lon": 53.7978,
+  "source": "geonames:498687",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.7
+ },
+ "саратов": {
+  "lat": 51.5405,
+  "lon": 45.9901,
+  "source": "geonames:498677",
+  "sunriseResidualMin": 0.2,
+  "dayLengthSpreadMin": 0.7
+ },
+ "сарманово": {
+  "lat": 55.2608,
+  "lon": 52.5777,
+  "source": "osm",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.9
+ },
+ "саров": {
+  "lat": 54.948,
+  "lon": 43.3152,
+  "source": "geonames:498525",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "сафоново": {
+  "lat": 55.1109,
+  "lon": 33.2373,
+  "source": "geonames:499453",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.5
+ },
+ "северодвинск": {
+  "lat": 64.5583,
+  "lon": 39.8297,
+  "source": "geonames:496285",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "северск": {
+  "lat": 56.6006,
+  "lon": 84.8864,
+  "source": "geonames:1538637",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 7.7
+ },
+ "сергиев посад": {
+  "lat": 56.312,
+  "lon": 38.1387,
+  "source": "geonames:496638",
+  "sunriseResidualMin": 5.8,
+  "dayLengthSpreadMin": 1.2
+ },
+ "серов": {
+  "lat": 59.5974,
+  "lon": 60.5861,
+  "source": "geonames:1492663",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "серпухов": {
+  "lat": 54.9198,
+  "lon": 37.4162,
+  "source": "geonames:496527",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "сириус": {
+  "lat": 43.405,
+  "lon": 39.9596,
+  "source": "geonames:12750459",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.9
+ },
+ "славянск-на-кубани": {
+  "lat": 45.2514,
+  "lon": 38.1213,
+  "source": "geonames:492094",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.3
+ },
+ "смоленск": {
+  "lat": 54.7783,
+  "lon": 32.0509,
+  "source": "geonames:491687",
+  "sunriseResidualMin": 7.1,
+  "dayLengthSpreadMin": 6.5
+ },
+ "сочи": {
+  "lat": 43.597,
+  "lon": 39.7248,
+  "source": "geonames:491422",
+  "sunriseResidualMin": 5.6,
+  "dayLengthSpreadMin": 1.3
+ },
+ "ставрополь": {
+  "lat": 45.0344,
+  "lon": 41.9642,
+  "source": "geonames:487846",
+  "sunriseResidualMin": 10.5,
+  "dayLengthSpreadMin": 3.2
+ },
+ "старое-дрожжаное": {
+  "lat": 54.725,
+  "lon": 47.5645,
+  "source": "osm",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 1.5
+ },
+ "старый город": {
+  "lat": 52.1019,
+  "lon": 35.0774,
+  "source": "geonames:487989",
+  "sunriseResidualMin": 6.3,
+  "dayLengthSpreadMin": 1.3
+ },
+ "старый оскол": {
+  "lat": 51.3025,
+  "lon": 37.8461,
+  "source": "geonames:487928",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "стерлитамак": {
+  "lat": 53.6379,
+  "lon": 55.9533,
+  "source": "geonames:487495",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 6.4
+ },
+ "сунжа": {
+  "lat": 43.3206,
+  "lon": 45.049,
+  "source": "geonames:515083",
+  "sunriseResidualMin": 6.4,
+  "dayLengthSpreadMin": 18.2
+ },
+ "сызрань": {
+  "lat": 53.1585,
+  "lon": 48.4681,
+  "source": "geonames:484972",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "сыктывкар": {
+  "lat": 61.6639,
+  "lon": 50.8163,
+  "source": "geonames:485239",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.1
+ },
+ "сылва": {
+  "lat": 58.0327,
+  "lon": 56.7713,
+  "source": "geonames:485230",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.7
+ },
+ "таганрог": {
+  "lat": 47.2363,
+  "lon": 38.9053,
+  "source": "geonames:484907",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "тамбов": {
+  "lat": 52.7363,
+  "lon": 41.441,
+  "source": "geonames:484646",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.3
+ },
+ "тверь": {
+  "lat": 56.8584,
+  "lon": 35.9006,
+  "source": "geonames:480060",
+  "sunriseResidualMin": 6.4,
+  "dayLengthSpreadMin": 6.6
+ },
+ "терек": {
+  "lat": 43.4827,
+  "lon": 44.1364,
+  "source": "osm",
+  "sunriseResidualMin": -1.4,
+  "dayLengthSpreadMin": 3.4
+ },
+ "тетюши": {
+  "lat": 54.9343,
+  "lon": 48.832,
+  "source": "osm",
+  "sunriseResidualMin": -0.2,
+  "dayLengthSpreadMin": 1.6
+ },
+ "тихорецк": {
+  "lat": 45.8531,
+  "lon": 40.1187,
+  "source": "geonames:483029",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.3
+ },
+ "тлярата": {
+  "lat": 42.1074,
+  "lon": 46.355,
+  "source": "osm",
+  "sunriseResidualMin": 2.7,
+  "dayLengthSpreadMin": 2.9
+ },
+ "тобольск": {
+  "lat": 58.1981,
+  "lon": 68.2546,
+  "source": "geonames:1489530",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "тольятти": {
+  "lat": 53.5303,
+  "lon": 49.3461,
+  "source": "geonames:482283",
+  "sunriseResidualMin": 5.5,
+  "dayLengthSpreadMin": 5.1
+ },
+ "томск": {
+  "lat": 56.5005,
+  "lon": 84.9822,
+  "source": "geonames:1489425",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 5.9
+ },
+ "трудовое": {
+  "lat": 43.3027,
+  "lon": 132.0789,
+  "source": "geonames:2015051",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "туапсе": {
+  "lat": 44.1008,
+  "lon": 39.0833,
+  "source": "geonames:480716",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.8
+ },
+ "туймазы": {
+  "lat": 54.6064,
+  "lon": 53.7118,
+  "source": "geonames:480089",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.2
+ },
+ "тула": {
+  "lat": 54.1961,
+  "lon": 37.6182,
+  "source": "geonames:480562",
+  "sunriseResidualMin": 6.5,
+  "dayLengthSpreadMin": 5.3
+ },
+ "тырныауз": {
+  "lat": 43.3959,
+  "lon": 42.9231,
+  "source": "osm",
+  "sunriseResidualMin": 3.4,
+  "dayLengthSpreadMin": 3.7
+ },
+ "тюлячи": {
+  "lat": 55.8919,
+  "lon": 50.2335,
+  "source": "osm",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 1.1
+ },
+ "тюмень": {
+  "lat": 57.1522,
+  "lon": 65.5272,
+  "source": "geonames:1488754",
+  "sunriseResidualMin": 0.2,
+  "dayLengthSpreadMin": 3.5
+ },
+ "улан-удэ": {
+  "lat": 51.8265,
+  "lon": 107.5998,
+  "source": "geonames:2014407",
+  "sunriseResidualMin": 9.0,
+  "dayLengthSpreadMin": 6.4
+ },
+ "ульяновск": {
+  "lat": 54.3282,
+  "lon": 48.3866,
+  "source": "geonames:479123",
+  "sunriseResidualMin": 2.0,
+  "dayLengthSpreadMin": 1.4
+ },
+ "унцукуль": {
+  "lat": 42.7127,
+  "lon": 46.7898,
+  "source": "osm",
+  "sunriseResidualMin": 2.4,
+  "dayLengthSpreadMin": 2.7
+ },
+ "урус-мартан": {
+  "lat": 43.1305,
+  "lon": 45.5379,
+  "source": "geonames:478581",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.8
+ },
+ "уруссу": {
+  "lat": 54.5993,
+  "lon": 53.4663,
+  "source": "osm",
+  "sunriseResidualMin": -0.5,
+  "dayLengthSpreadMin": 1.8
+ },
+ "усолье-сибирское": {
+  "lat": 52.7519,
+  "lon": 103.6453,
+  "source": "geonames:2014022",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.8
+ },
+ "уссурийск": {
+  "lat": 43.8047,
+  "lon": 131.9573,
+  "source": "geonames:2014006",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.9
+ },
+ "уфа": {
+  "lat": 54.7431,
+  "lon": 55.9678,
+  "source": "geonames:479561",
+  "sunriseResidualMin": -0.0,
+  "dayLengthSpreadMin": 2.2
+ },
+ "фосфоритный": {
+  "lat": 55.3289,
+  "lon": 38.8951,
+  "source": "geonames:562445",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.4
+ },
+ "фрязино": {
+  "lat": 55.9613,
+  "lon": 38.0464,
+  "source": "geonames:562319",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.2
+ },
+ "хабаровск": {
+  "lat": 48.462,
+  "lon": 135.0971,
+  "source": "geonames:2022890",
+  "sunriseResidualMin": 2.0,
+  "dayLengthSpreadMin": 1.7
+ },
+ "ханты-мансийск": {
+  "lat": 61.0019,
+  "lon": 69.0273,
+  "source": "geonames:1503772",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.5
+ },
+ "хасавюрт": {
+  "lat": 43.2487,
+  "lon": 46.5857,
+  "source": "geonames:550478",
+  "sunriseResidualMin": 2.5,
+  "dayLengthSpreadMin": 2.9
+ },
+ "хунзах": {
+  "lat": 42.5452,
+  "lon": 46.7071,
+  "source": "osm",
+  "sunriseResidualMin": 2.6,
+  "dayLengthSpreadMin": 2.7
+ },
+ "цумада": {
+  "lat": 42.0657,
+  "lon": 46.5175,
+  "source": "osm",
+  "sunriseResidualMin": 0.7,
+  "dayLengthSpreadMin": 7.3
+ },
+ "чапаевск": {
+  "lat": 52.9771,
+  "lon": 49.7086,
+  "source": "geonames:569955",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "чарода": {
+  "lat": 42.2745,
+  "lon": 46.8042,
+  "source": "osm",
+  "sunriseResidualMin": 2.7,
+  "dayLengthSpreadMin": 2.7
+ },
+ "чебоксары": {
+  "lat": 56.1322,
+  "lon": 47.246,
+  "source": "geonames:569696",
+  "sunriseResidualMin": 2.1,
+  "dayLengthSpreadMin": 1.7
+ },
+ "чегем": {
+  "lat": 43.5704,
+  "lon": 43.5866,
+  "source": "osm",
+  "sunriseResidualMin": 0.7,
+  "dayLengthSpreadMin": 4.0
+ },
+ "челябинск": {
+  "lat": 55.1611,
+  "lon": 61.4288,
+  "source": "geonames:1508291",
+  "sunriseResidualMin": -0.7,
+  "dayLengthSpreadMin": 5.1
+ },
+ "черемшан": {
+  "lat": 54.6553,
+  "lon": 51.5041,
+  "source": "osm",
+  "sunriseResidualMin": -0.5,
+  "dayLengthSpreadMin": 1.4
+ },
+ "череповец": {
+  "lat": 59.1333,
+  "lon": 37.9,
+  "source": "geonames:569223",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.4
+ },
+ "черкесск": {
+  "lat": 44.2238,
+  "lon": 42.0462,
+  "source": "geonames:569154",
+  "sunriseResidualMin": -0.4,
+  "dayLengthSpreadMin": 9.6
+ },
+ "черногорск": {
+  "lat": 53.8288,
+  "lon": 91.3095,
+  "source": "geonames:1508054",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.6
+ },
+ "чистополь": {
+  "lat": 55.3661,
+  "lon": 50.644,
+  "source": "geonames:567990",
+  "sunriseResidualMin": -0.3,
+  "dayLengthSpreadMin": 2.0
+ },
+ "чита": {
+  "lat": 52.0431,
+  "lon": 113.4917,
+  "source": "geonames:2025339",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.8
+ },
+ "шадринск": {
+  "lat": 56.0862,
+  "lon": 63.6382,
+  "source": "geonames:1492517",
+  "sunriseResidualMin": 6.2,
+  "dayLengthSpreadMin": 1.8
+ },
+ "шамилькала": {
+  "lat": 42.687,
+  "lon": 46.869,
+  "source": "osm",
+  "sunriseResidualMin": 1.2,
+  "dayLengthSpreadMin": 3.9
+ },
+ "шахты": {
+  "lat": 47.7192,
+  "lon": 40.216,
+  "source": "geonames:496015",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.5
+ },
+ "шелепино": {
+  "lat": 56.4167,
+  "lon": 37.5333,
+  "source": "geonames:495028",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.3
+ },
+ "электросталь": {
+  "lat": 55.7865,
+  "lon": 38.4571,
+  "source": "geonames:563523",
+  "sunriseResidualMin": 6.0,
+  "dayLengthSpreadMin": 1.3
+ },
+ "элиста": {
+  "lat": 46.3079,
+  "lon": 44.2554,
+  "source": "geonames:563514",
+  "sunriseResidualMin": 0.0,
+  "dayLengthSpreadMin": 2.1
+ },
+ "энгельс": {
+  "lat": 51.4839,
+  "lon": 46.1053,
+  "source": "geonames:563464",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 1.1
+ },
+ "югорск": {
+  "lat": 61.3123,
+  "lon": 63.3307,
+  "source": "geonames:1502725",
+  "sunriseResidualMin": 5.9,
+  "dayLengthSpreadMin": 1.6
+ },
+ "южно-сахалинск": {
+  "lat": 46.9543,
+  "lon": 142.7356,
+  "source": "geonames:2119441",
+  "sunriseResidualMin": 0.1,
+  "dayLengthSpreadMin": 2.8
+ },
+ "южно-сухокумск": {
+  "lat": 44.6593,
+  "lon": 45.6502,
+  "source": "osm",
+  "sunriseResidualMin": 2.6,
+  "dayLengthSpreadMin": 2.3
+ },
+ "южный": {
+  "lat": 53.2542,
+  "lon": 83.6936,
+  "source": "geonames:1485627",
+  "sunriseResidualMin": 6.7,
+  "dayLengthSpreadMin": 4.9
+ },
+ "якутск": {
+  "lat": 62.0311,
+  "lon": 129.7229,
+  "source": "geonames:2013159",
+  "sunriseResidualMin": 6.9,
+  "dayLengthSpreadMin": 14.4
+ },
+ "ярославль": {
+  "lat": 57.6299,
+  "lon": 39.8737,
+  "source": "geonames:468902",
+  "sunriseResidualMin": 6.1,
+  "dayLengthSpreadMin": 7.1
+ }
+}
