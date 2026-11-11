@@ -28,6 +28,16 @@ LICENSE_OUTPUT = ROOT / 'assets/azkar/LICENSE.azkar.txt'
 # Category order on the home screen.
 CATEGORIES = ['morning', 'evening', 'after-salah', 'night', 'other', 'hundred-dua']
 
+# Upstream ships these morning/evening azkar (ids 50-59) in `azkar` but in no
+# group, so no app screen shows them. They are added to the groups here, in
+# the order of the chapter «Слова поминания Аллаха утром и вечером» of Hisn
+# al-Muslim. Each goes before the group's first Quran item (suras and Kursi
+# stay last, as in upstream).
+EXTRA_GROUP_AZKAR = {
+    'morning': [55, 50, 52, 54, 57, 58, 59],
+    'evening': [56, 51, 53, 54, 58, 59],
+}
+
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -166,6 +176,14 @@ def apply_line_fixes(azkar):
             by_id[id][field] = text
 
 
+def add_extra_azkar(groups, by_id):
+    for group, extra in EXTRA_GROUP_AZKAR.items():
+        ids = groups[group]
+        assert not set(extra) & set(ids), group
+        at = next((i for i, id in enumerate(ids) if by_id[id]['type'] == 'quran'), len(ids))
+        groups[group] = ids[:at] + extra + ids[at:]
+
+
 def load(database):
     db = sqlite3.connect(database)
     db.row_factory = sqlite3.Row
@@ -208,6 +226,7 @@ def load(database):
         'select "group", azkar_id from "azkar+azkar_group" order by "group", "order"'
     ):
         groups.setdefault(row['group'], []).append(row['azkar_id'])
+    add_extra_azkar(groups, {z['id']: z for z in azkar})
     fadail = [
         {'text': clean(row['text']), 'source': clean(row['source'])}
         for row in db.execute('select * from fadail_ru order by id')

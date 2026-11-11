@@ -28,8 +28,22 @@ void main() {
 
   test('daily collections are in the corpus', () {
     final catalog = loadTestCatalog();
-    expect(catalog.defaultIds(ZikrCategory.morning), hasLength(17));
-    expect(catalog.defaultIds(ZikrCategory.evening), hasLength(16));
+    expect(catalog.defaultIds(ZikrCategory.morning), hasLength(24));
+    expect(catalog.defaultIds(ZikrCategory.evening), hasLength(22));
     expect(catalog.defaultIds(ZikrCategory.hundredDua), hasLength(100));
+  });
+
+  test('morning and evening hold every upstream dawn/dusk dhikr', () {
+    final catalog = loadTestCatalog();
+    final morning = catalog.defaultIds(ZikrCategory.morning);
+    final evening = catalog.defaultIds(ZikrCategory.evening);
+    // Upstream leaves ids 50-59 out of its groups; the importer adds them.
+    expect(morning, containsAll([50, 52, 54, 55, 57, 58, 59]));
+    expect(evening, containsAll([51, 53, 54, 56, 58, 59]));
+    // Suras and Ayat al-Kursi stay last.
+    expect(morning.last, 14);
+    expect(evening.last, 14);
+    expect(morning.toSet(), hasLength(morning.length));
+    expect(evening.toSet(), hasLength(evening.length));
   });
 }

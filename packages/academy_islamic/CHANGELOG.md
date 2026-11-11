@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Morning and evening collections are complete. Upstream leaves ten dawn/dusk azkar (ids 50–59) in no group; the importer now adds them: morning 17 → 24, evening 16 → 22 (witnessing «ушхидука», blessings «ни'ма», «'афини фи бадани», the second «асбахна/амсайна», «'ильман нафи'ан» in the morning, istighfar ×100, salawat ×10). Content changes only; the API is the same, nothing to change in apps. Apps that stored a collection order keep it; new ids are appended.
+
 ## 0.3.0
 
 - Transcription fixes found by reading the whole corpus. Output changes; the API only grows, nothing to change in apps.
