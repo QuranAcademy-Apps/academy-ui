@@ -23,6 +23,10 @@
 Новые публичные типы, нужные скопированному коду: `AcademyActionSemantics`
 и `AcademyPressEffect`.
 
+Импорты в пакете переведены с `package:flutter/cupertino.dart` на
+`package:cupertino_ui/cupertino_ui.dart` (Flutter 3.50 объявил первый
+устаревшим). Типы общие, приложению ничего менять не нужно.
+
 ## 0.3.0
 
 ### Что поменять в приложении
