@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/localizations/academy_localizations.dart';
 import '../../foundation/loading/academy_skeleton.dart';

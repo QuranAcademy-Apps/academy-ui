@@ -4,7 +4,7 @@ import 'chrome/academy_chrome_metrics.dart';
 import 'chrome/academy_tabs.dart';
 import '../../foundation/layout/academy_page_insets.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../theme/academy_theme.dart';
 

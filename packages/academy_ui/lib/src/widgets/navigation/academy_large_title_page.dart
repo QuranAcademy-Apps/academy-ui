@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/layout/academy_page_insets.dart';
 import '../../foundation/layout/academy_text_fit.dart';

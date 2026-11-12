@@ -1,6 +1,6 @@
 import '../icon/academy_sf_image.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../theme/academy_theme.dart';
 

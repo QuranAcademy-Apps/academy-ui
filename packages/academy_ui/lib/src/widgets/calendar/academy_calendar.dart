@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/interaction/academy_tappable.dart';
 import '../../foundation/localizations/academy_localizations.dart';

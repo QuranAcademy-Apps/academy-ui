@@ -1,7 +1,7 @@
 import '../../foundation/localizations/academy_localizations.dart';
 import '../../foundation/navigation/academy_routes.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:stupid_simple_sheet/stupid_simple_sheet.dart';
 
 import '../../theme/academy_theme.dart';

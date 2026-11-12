@@ -1,7 +1,7 @@
 import 'dart:async' show unawaited;
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/semantics.dart';
 
 import '../../foundation/interaction/academy_interaction.dart';

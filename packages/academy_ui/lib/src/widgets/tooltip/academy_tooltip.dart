@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/overlay/academy_popover.dart';
 import '../../theme/academy_theme.dart';

@@ -4,7 +4,7 @@ import '../../foundation/localizations/academy_localizations.dart';
 import '../../theme/academy_theme.dart';
 import '../icon/academy_sf_image.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 /// 94 x 32 minus/plus pill in a 112 x 44 hit area. A null callback dims its
 /// half; [color] tints the track, divider and symbols.

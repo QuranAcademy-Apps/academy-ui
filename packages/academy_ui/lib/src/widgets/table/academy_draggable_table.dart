@@ -1,5 +1,5 @@
 import 'package:flutter/semantics.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import 'academy_table.dart';
 import '../../foundation/interaction/academy_interaction.dart';

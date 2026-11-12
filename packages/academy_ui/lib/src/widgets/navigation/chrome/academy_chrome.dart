@@ -6,7 +6,7 @@ import '../../menu/academy_menu_item.dart';
 import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../../foundation/layout/academy_text_fit.dart';
 import '../../button/academy_button.dart' show AcademyTextButton;

@@ -1,5 +1,5 @@
 import 'package:cupertino_ui/cupertino_ui.dart' as menu;
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import 'academy_menu_anchor.dart';
 import '../table/academy_row.dart';

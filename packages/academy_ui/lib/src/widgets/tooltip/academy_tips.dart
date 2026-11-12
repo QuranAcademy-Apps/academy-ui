@@ -3,7 +3,7 @@ import '../../foundation/localizations/academy_localizations.dart';
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../button/academy_button.dart';
 import '../modal/academy_modal.dart';

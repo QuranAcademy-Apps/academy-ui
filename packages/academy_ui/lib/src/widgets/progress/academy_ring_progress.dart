@@ -3,7 +3,7 @@ import '../../foundation/localizations/academy_localizations.dart';
 
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/foundation.dart';
 
 class AcademyRingProgress extends StatelessWidget {

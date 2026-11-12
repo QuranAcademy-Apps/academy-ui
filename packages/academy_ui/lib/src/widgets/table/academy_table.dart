@@ -2,7 +2,7 @@ import '../../foundation/interaction/academy_interaction.dart';
 import '../../foundation/motion/academy_press_effect.dart';
 import '../icon/academy_sf_image.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import 'academy_grouped_table.dart';
 import 'academy_table_row_slot.dart';

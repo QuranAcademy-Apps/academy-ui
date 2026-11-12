@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 // Ported from Yalla's yalla_linked_text.dart (2026-11-02).
 /// Inline links keep paragraph wrapping, selection metrics and tap semantics.

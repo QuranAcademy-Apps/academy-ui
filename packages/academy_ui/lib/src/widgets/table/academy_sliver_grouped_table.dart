@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/surface/academy_surface_mask.dart';
 import '../../theme/academy_theme.dart';

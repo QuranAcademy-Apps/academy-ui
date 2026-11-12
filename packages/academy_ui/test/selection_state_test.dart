@@ -1,6 +1,6 @@
 import 'package:academy_ui/academy_ui.dart';
 import 'package:academy_ui/src/widgets/select/academy_option_results.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/academy_test_host.dart';

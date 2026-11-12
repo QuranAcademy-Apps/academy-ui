@@ -28,7 +28,7 @@ export 'academy_radii.dart';
 export 'academy_paddings.dart';
 export 'academy_typography.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../widgets/navigation/chrome/academy_chrome.dart'
     show AcademyChromeColors;

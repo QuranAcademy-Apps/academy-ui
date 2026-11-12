@@ -1,7 +1,7 @@
 import '../form/academy_field_decoration.dart';
 import 'academy_text_input.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 /// Input with a visible header and optional help/error below it.
 class AcademyField extends StatelessWidget {

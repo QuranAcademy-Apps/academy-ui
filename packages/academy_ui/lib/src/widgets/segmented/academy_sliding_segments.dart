@@ -1,7 +1,7 @@
 // Ported from quran_flutter AppSegmentedControl.
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../theme/academy_theme.dart';
 

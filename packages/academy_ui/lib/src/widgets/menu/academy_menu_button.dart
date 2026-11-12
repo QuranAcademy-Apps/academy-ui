@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import 'academy_menu_anchor.dart';
 import '../icon/academy_sf_image.dart';

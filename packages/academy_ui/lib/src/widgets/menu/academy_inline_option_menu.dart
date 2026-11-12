@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/table/academy_table_row_scope.dart';
 import '../../theme/academy_theme.dart';

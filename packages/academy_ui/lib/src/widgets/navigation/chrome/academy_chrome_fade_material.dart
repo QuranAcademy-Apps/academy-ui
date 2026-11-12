@@ -3,7 +3,7 @@ import 'dart:ui' show ImageFilter;
 import '../../../theme/academy_theme.dart';
 import 'academy_chrome.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 /// Translucent edge plate under a floating bar: content dissolves softly as it
 /// scrolls under the chrome. Ported from Quran's `AppChromeFadeMaterial`

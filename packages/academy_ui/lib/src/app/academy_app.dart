@@ -1,7 +1,9 @@
+import 'package:cupertino_ui/cupertino_ui.dart';
+
 import '../theme/academy_row_icons.dart';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'
+    hide GlobalCupertinoLocalizations;
 
 import '../foundation/localizations/academy_localizations.dart';
 

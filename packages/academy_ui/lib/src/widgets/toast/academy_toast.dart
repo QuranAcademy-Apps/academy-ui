@@ -4,7 +4,7 @@ import '../../foundation/localizations/academy_localizations.dart';
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/gestures.dart';
 
 import '../navigation/chrome/academy_chrome.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/form/academy_field_style.dart';
 import '../../foundation/form/academy_owned_editing.dart';
