@@ -176,6 +176,24 @@ def apply_line_fixes(azkar):
             by_id[id][field] = text
 
 
+# Text corrections from the audit of the whole corpus (Zikro
+# docs/tasks/2026-11-14-azkar-text-review): tashkeel, typos, translation
+# errors. One JSON object per line: {"id", "field", "before", "after"}, applied
+# after the line breaks; `before` must occur exactly once in the field.
+TEXT_FIXES = ROOT / 'tool/azkar_text_fixes.jsonl'
+
+
+def apply_text_fixes(azkar):
+    by_id = {z['id']: z for z in azkar}
+    for line in TEXT_FIXES.read_text(encoding='utf-8').splitlines():
+        if not line.strip():
+            continue
+        fix = json.loads(line)
+        old = by_id[fix['id']][fix['field']]
+        assert old.count(fix['before']) == 1, (fix['id'], fix['field'], fix['before'])
+        by_id[fix['id']][fix['field']] = old.replace(fix['before'], fix['after'])
+
+
 def add_extra_azkar(groups, by_id):
     for group, extra in EXTRA_GROUP_AZKAR.items():
         ids = groups[group]
@@ -221,6 +239,7 @@ def load(database):
             record['hadith'] = hadith[row['hadith']]
         azkar.append({k: v for k, v in record.items() if v is not None})
     apply_line_fixes(azkar)
+    apply_text_fixes(azkar)
     groups = {}
     for row in db.execute(
         'select "group", azkar_id from "azkar+azkar_group" order by "group", "order"'

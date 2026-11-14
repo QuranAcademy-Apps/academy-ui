@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Azkar text corrections from an audit of the whole corpus, checked against vocalised hadith texts, Hisn al-Muslim, the mushaf and published Russian translations: missing or wrong tashkeel (mostly in «100 дуа»), typos and split words in the Arabic, translation errors (Latin «O», wrong word senses, missing phrases). 238 fixes in 84 Arabic and 69 translation fields. The importer applies them from `tool/azkar_text_fixes.jsonl` (`{id, field, before, after}`, `before` unique in the field) after the line breaks. Content changes only; the API is the same. Apps with per-word data keyed to the Arabic (Zikro's word glosses) must update the azkar whose word count changed: 6, 7, 26, 37, 62, 77, 78, 83, 141.
+
 ## 0.3.1
 
 - Morning and evening collections are complete. Upstream leaves ten dawn/dusk azkar (ids 50–59) in no group; the importer now adds them: morning 17 → 24, evening 16 → 22 (witnessing «ушхидука», blessings «ни'ма», «'афини фи бадани», the second «асбахна/амсайна», «'ильман нафи'ан» in the morning, istighfar ×100, salawat ×10). Content changes only; the API is the same, nothing to change in apps. Apps that stored a collection order keep it; new ids are appended.
