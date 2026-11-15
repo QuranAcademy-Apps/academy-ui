@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3
+
+- Second text check against hisnmuslim.com, sunnah.com and the Russian Hisn al-Muslim: 28 more fixes (az 89 completed after Muslim 2717, az 151 tashkeel, translation errors). Word count changed in 89 (+2).
+- Own supplications: `tool/azkar_extra.jsonl` adds 37 azkar that upstream lacks (25 Quranic duas, 12 authentic hadith duas), ids 1001–1037, appended to `hundred-dua` (100 → 137). Quranic continuations: az 100 + Ta-Ha 20:27–28, az 146 + Yunus 10:86. Source references are in `notes`; one new source code, `Hakim`. Content only; the API is the same. Apps that title the collection «100 дуа» should rename it; apps with per-word data must add rows for 1001–1037 and update 100, 146; apps that stored a collection order keep it, new ids are appended.
+
 ## 0.3.2
 
 - Azkar text corrections from an audit of the whole corpus, checked against vocalised hadith texts, Hisn al-Muslim, the mushaf and published Russian translations: missing or wrong tashkeel (mostly in «100 дуа»), typos and split words in the Arabic, translation errors (Latin «O», wrong word senses, missing phrases). 238 fixes in 84 Arabic and 69 translation fields. The importer applies them from `tool/azkar_text_fixes.jsonl` (`{id, field, before, after}`, `before` unique in the field) after the line breaks. Content changes only; the API is the same. Apps with per-word data keyed to the Arabic (Zikro's word glosses) must update the azkar whose word count changed: 6, 7, 26, 37, 62, 77, 78, 83, 141.

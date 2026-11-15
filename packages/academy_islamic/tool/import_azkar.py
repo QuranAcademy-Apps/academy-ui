@@ -202,6 +202,29 @@ def add_extra_azkar(groups, by_id):
         groups[group] = ids[:at] + extra + ids[at:]
 
 
+# Supplications that upstream lacks, added from the Quran and authentic hadith
+# (Zikro docs/tasks/2026-11-14-azkar-text-review/asar-candidates.md). One
+# complete dhikr per line, ids from EXTRA_ID_BASE so they never meet upstream
+# ids; appended to EXTRA_GROUP in file order.
+EXTRA_AZKAR = ROOT / 'tool/azkar_extra.jsonl'
+EXTRA_ID_BASE = 1001
+EXTRA_GROUP = 'hundred-dua'
+
+
+def add_own_azkar(azkar, groups):
+    extra = [
+        json.loads(line)
+        for line in EXTRA_AZKAR.read_text(encoding='utf-8').splitlines()
+        if line.strip()
+    ]
+    known = {z['id'] for z in azkar}
+    for z in extra:
+        assert z['id'] >= EXTRA_ID_BASE and z['id'] not in known, z['id']
+        known.add(z['id'])
+    azkar.extend(extra)
+    groups[EXTRA_GROUP] = groups[EXTRA_GROUP] + [z['id'] for z in extra]
+
+
 def load(database):
     db = sqlite3.connect(database)
     db.row_factory = sqlite3.Row
@@ -246,6 +269,7 @@ def load(database):
     ):
         groups.setdefault(row['group'], []).append(row['azkar_id'])
     add_extra_azkar(groups, {z['id']: z for z in azkar})
+    add_own_azkar(azkar, groups)
     fadail = [
         {'text': clean(row['text']), 'source': clean(row['source'])}
         for row in db.execute('select * from fadail_ru order by id')
