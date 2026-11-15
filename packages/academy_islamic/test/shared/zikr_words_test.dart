@@ -29,8 +29,19 @@ void main() {
   test('daily collections are in the corpus', () {
     final catalog = loadTestCatalog();
     expect(catalog.defaultIds(ZikrCategory.morning), hasLength(24));
-    expect(catalog.defaultIds(ZikrCategory.evening), hasLength(22));
+    expect(catalog.defaultIds(ZikrCategory.evening), hasLength(21));
     expect(catalog.defaultIds(ZikrCategory.hundredDua), hasLength(137));
+  });
+
+  test('hadith proofs match the collection and count', () {
+    final catalog = loadTestCatalog();
+    expect(catalog.zikr(3).hadith?.sourceExt, '2692');
+    final radhitu = catalog.zikr(10);
+    expect(radhitu.repeats, 1);
+    expect(radhitu.sourceCodes, ['Tabarani']);
+    expect(radhitu.hadith?.arabic, contains('إِذَا أَصْبَحَ'));
+    expect(catalog.defaultIds(ZikrCategory.morning), contains(10));
+    expect(catalog.defaultIds(ZikrCategory.evening), isNot(contains(10)));
   });
 
   test('own supplications follow the upstream hundred dua', () {

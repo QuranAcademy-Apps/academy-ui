@@ -38,6 +38,10 @@ EXTRA_GROUP_AZKAR = {
     'evening': [56, 51, 53, 54, 58, 59],
 }
 
+# Upstream azkar removed from a group. 10 («радыту би-Лляхи», hadith of
+# al-Munaydhir, at-Tabarani) is said in the morning only.
+DROP_GROUP_AZKAR = {'evening': [10]}
+
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -189,12 +193,18 @@ def apply_text_fixes(azkar):
         if not line.strip():
             continue
         fix = json.loads(line)
+        if 'value' in fix:  # whole-field replacement (hadith, source, repeats)
+            by_id[fix['id']][fix['field']] = fix['value']
+            continue
         old = by_id[fix['id']][fix['field']]
         assert old.count(fix['before']) == 1, (fix['id'], fix['field'], fix['before'])
         by_id[fix['id']][fix['field']] = old.replace(fix['before'], fix['after'])
 
 
 def add_extra_azkar(groups, by_id):
+    for group, drop in DROP_GROUP_AZKAR.items():
+        assert set(drop) <= set(groups[group]), group
+        groups[group] = [id for id in groups[group] if id not in drop]
     for group, extra in EXTRA_GROUP_AZKAR.items():
         ids = groups[group]
         assert not set(extra) & set(ids), group

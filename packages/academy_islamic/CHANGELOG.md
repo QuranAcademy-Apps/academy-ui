@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4
+
+- Hadith proofs corrected after a reader's report. az 3 («субхана-Ллахи ва би-хамдихи» ×100): Muslim 2692 (morning and evening, a hundred times) instead of Muslim 2694 («два слова лёгких для языка»), benefits rewritten. az 10 («радыту би-Лляхи Раббан…»): the hadith of al-Munaydhir (at-Tabarani, «...набиййан», said in the morning; al-Albani, as-Silsila as-sahiha 2686) instead of Abu Dawud 1529 (says «расулян», no time, no count); 3 → 1 repetition, source Tabarani, removed from evening (21). `tool/azkar_text_fixes.jsonl` lines may now carry `value` to replace a whole field. Apps with a headline per dhikr should update 3 and 10; apps that stored the evening order keep it, 10 drops out.
+
 ## 0.3.3
 
 - Second text check against hisnmuslim.com, sunnah.com and the Russian Hisn al-Muslim: 28 more fixes (az 89 completed after Muslim 2717, az 151 tashkeel, translation errors). Word count changed in 89 (+2).
