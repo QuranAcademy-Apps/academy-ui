@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.3.5
 
-- Verse numbers in the Quran azkar read as whole verses, as in the mushaf: «۝ N» (Arabic-Indic digits, the verse's number in the sura) ends the line of each verse of al-Ikhlas, al-Falaq and an-Nas (1–4/5/6), Ayat al-Kursi (255) and the end of al-Baqara (285, 286); the basmala line carries none. Set in `tool/import_azkar.py` (`VERSE_ENDS`). Only the Arabic changes: lines, words (`ZikrWords.split` joins a token without letters to the previous word) and transliteration (the sign and digits are silent) stay as they were. The Quranic duas (1001+) and az 13 quote parts of verses and stay unnumbered.
+- Verse numbers in the Quran azkar read as whole verses, as in the mushaf: «۝ N» (Arabic-Indic digits, the verse's number in the sura) ends the line of each verse of al-Ikhlas, al-Falaq and an-Nas (1–4/5/6), Ayat al-Kursi (255) and the end of al-Baqara (285, 286); the basmala line carries none. Set in `tool/import_azkar.py` (`VERSE_ENDS`). Only the Arabic changes: lines, words (`ZikrWords.split` joins a token without letters to the previous word) and transliteration (the sign and digits are silent) stay as they were. The Quranic duas (1001+) and az 13 quote parts of verses and stay unnumbered. Apps that add their own verse marks to 14–17 and 21 must drop them, or the numbers show twice.
 
 ## 0.3.4
 
