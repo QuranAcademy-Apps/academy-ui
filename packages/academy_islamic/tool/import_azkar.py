@@ -201,6 +201,34 @@ def apply_text_fixes(azkar):
         by_id[fix['id']][fix['field']] = old.replace(fix['before'], fix['after'])
 
 
+# Verse ends of the Quran azkar read as whole verses, as in the mushaf and in
+# Zikro's hisn.json: «۝ N» (the number in Arabic-Indic digits, the verse's own
+# number in the sura) closes the line that ends verse N. {id: {line index:
+# verse}}; a basmala line carries none. The Quranic duas (1001+) and az 13 quote
+# parts of verses inside a supplication and stay unnumbered.
+VERSE_ENDS = {
+    14: {8: 255},  # Ayat al-Kursi, 2:255
+    15: {1: 1, 2: 2, 3: 3, 4: 4},  # al-Ikhlas, 112
+    16: {1: 1, 2: 2, 3: 3, 4: 4, 5: 5},  # al-Falaq, 113
+    17: {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6},  # an-Nas, 114
+    21: {4: 285, 11: 286},  # end of al-Baqara, 2:285-286
+}
+_ARABIC_DIGITS = str.maketrans('0123456789', '٠١٢٣٤٥٦٧٨٩')
+
+
+def number_verses(azkar):
+    by_id = {z['id']: z for z in azkar}
+    for id, ends in VERSE_ENDS.items():
+        z = by_id[id]
+        assert z['type'] == 'quran' and '۝' not in z['arabic'], id
+        lines = z['arabic'].split('\n')
+        assert max(ends) == len(lines) - 1, id  # the last line ends a verse
+        for index, verse in ends.items():
+            number = str(verse).translate(_ARABIC_DIGITS)
+            lines[index] = f'{lines[index].rstrip()} ۝ {number}'
+        z['arabic'] = '\n'.join(lines)
+
+
 def add_extra_azkar(groups, by_id):
     for group, drop in DROP_GROUP_AZKAR.items():
         assert set(drop) <= set(groups[group]), group
@@ -273,6 +301,7 @@ def load(database):
         azkar.append({k: v for k, v in record.items() if v is not None})
     apply_line_fixes(azkar)
     apply_text_fixes(azkar)
+    number_verses(azkar)
     groups = {}
     for row in db.execute(
         'select "group", azkar_id from "azkar+azkar_group" order by "group", "order"'

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Verse numbers in the Quran azkar read as whole verses, as in the mushaf: «۝ N» (Arabic-Indic digits, the verse's number in the sura) ends the line of each verse of al-Ikhlas, al-Falaq and an-Nas (1–4/5/6), Ayat al-Kursi (255) and the end of al-Baqara (285, 286); the basmala line carries none. Set in `tool/import_azkar.py` (`VERSE_ENDS`). Only the Arabic changes: lines, words (`ZikrWords.split` joins a token without letters to the previous word) and transliteration (the sign and digits are silent) stay as they were. The Quranic duas (1001+) and az 13 quote parts of verses and stay unnumbered.
+
 ## 0.3.4
 
 - Hadith proofs corrected after a reader's report. az 3 («субхана-Ллахи ва би-хамдихи» ×100): Muslim 2692 (morning and evening, a hundred times) instead of Muslim 2694 («два слова лёгких для языка»), benefits rewritten. az 10 («радыту би-Лляхи Раббан…»): the hadith of al-Munaydhir (at-Tabarani, «...набиййан», said in the morning; al-Albani, as-Silsila as-sahiha 2686) instead of Abu Dawud 1529 (says «расулян», no time, no count); 3 → 1 repetition, source Tabarani, removed from evening (21). `tool/azkar_text_fixes.jsonl` lines may now carry `value` to replace a whole field. Apps with a headline per dhikr should update 3 and 10; apps that stored the evening order keep it, 10 drops out.

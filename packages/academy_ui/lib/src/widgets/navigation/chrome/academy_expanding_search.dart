@@ -5,6 +5,7 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 import '../../../theme/academy_theme.dart';
 import '../../text_field/academy_text_input.dart';
 import 'academy_chrome.dart';
+import 'academy_chrome_metrics.dart';
 
 /// Quran's search/header swap, extracted into a control with a stable toggle.
 /// The expanded navigation search and its toggle share the selected chrome.
@@ -21,8 +22,15 @@ class AcademyExpandingSearch extends StatefulWidget {
     this.focusNode,
     this.enabled = true,
     this.readOnly = false,
+    this.companion,
   });
   final TextEditingController controller;
+
+  /// Puts the toggle at the leading edge, fused with this action in one
+  /// [AcademyChromeGroup] (toggle first, divider, then the action). The field
+  /// then grows toward the trailing edge; while open the action hides, the
+  /// search icon stays leading and the close button moves to the trailing edge.
+  final AcademyChromeAction? companion;
   final Widget? resting;
   final String? placeholder;
   final ValueChanged<String>? onChanged;
@@ -103,12 +111,21 @@ class AcademyExpandingSearchState extends State<AcademyExpandingSearch>
     final duration = MediaQuery.disableAnimationsOf(context)
         ? Duration.zero
         : AcademyTokens.motion;
+    final companion = widget.companion;
+    final toggle = AcademyChromeAction(
+      _open
+          ? AcademyTheme.of(context).icons.close
+          : AcademyTheme.of(context).icons.search,
+      _open
+          ? AcademyLocalizations.of(context).closeSearch
+          : AcademyLocalizations.of(context).openSearch,
+      widget.enabled ? _toggle : null,
+    );
+    if (companion != null) return _buildWithCompanion(context, toggle, companion);
     return Row(
       children: [
         Expanded(
           child: Stack(
-            // The field is anchored to the toggle and grows toward the
-            // leading edge; the resting content keeps its own start alignment.
             alignment: AlignmentDirectional.centerEnd,
             children: [
               if (widget.resting != null)
@@ -134,26 +151,100 @@ class AcademyExpandingSearchState extends State<AcademyExpandingSearch>
                     sizeFactor: _progress,
                     axis: Axis.horizontal,
                     alignment: AlignmentDirectional.centerEnd,
-                    child: AcademyTextInput(
-                      controller: widget.controller,
-                      focusNode: _focus,
-                      enabled: widget.enabled,
-                      readOnly: widget.readOnly,
-                      onSubmitted: widget.onSubmitted,
-                      placeholder:
-                          widget.placeholder ??
-                          AcademyLocalizations.of(context).search,
-                      onChanged: widget.onChanged,
-                      textInputAction: TextInputAction.search,
-                      chrome: true,
-                      clearable: false,
-                      highlightOnFocus: false,
-                      cornerRadius: AcademyTheme.of(context)
-                          .radii
-                          .expandingSearch,
-                      padding: AcademyTheme.of(context)
-                          .paddings
-                          .expandingSearch,
+                    child: _field(context),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (companion == null) ...[
+          const SizedBox(width: 8),
+          AcademyChromeButton(
+            icon: _open
+                ? AcademyTheme.of(context).icons.close
+                : AcademyTheme.of(context).icons.search,
+            label: _open
+                ? AcademyLocalizations.of(context).closeSearch
+                : AcademyLocalizations.of(context).openSearch,
+            onPressed: widget.enabled ? _toggle : null,
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _field(BuildContext context) => AcademyTextInput(
+    controller: widget.controller,
+    focusNode: _focus,
+    enabled: widget.enabled,
+    readOnly: widget.readOnly,
+    onSubmitted: widget.onSubmitted,
+    placeholder:
+        widget.placeholder ?? AcademyLocalizations.of(context).search,
+    onChanged: widget.onChanged,
+    textInputAction: TextInputAction.search,
+    chrome: true,
+    clearable: false,
+    highlightOnFocus: false,
+    cornerRadius: AcademyTheme.of(context).radii.expandingSearch,
+    padding: AcademyTheme.of(context).paddings.expandingSearch,
+  );
+
+  /// Companion layout. The search capsule rounds into a circle as the
+  /// companion collapses, the field fades in without growing, and the
+  /// resting trailing action hands over to the close button in place.
+  Widget _buildWithCompanion(
+    BuildContext context,
+    AcademyChromeAction toggle,
+    AcademyChromeAction companion,
+  ) {
+    final theme = AcademyTheme.of(context);
+    final l10n = AcademyLocalizations.of(context);
+    final barHeight = academyChromeBarHeight;
+    return Row(
+      children: [
+        AcademyChrome(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AcademyChromeButton(
+                icon: theme.icons.search,
+                label: _open ? l10n.search : l10n.openSearch,
+                onPressed: widget.enabled
+                    ? (_open ? _focus.requestFocus : _toggle)
+                    : null,
+                style: AcademyChromeStyle.none,
+              ),
+              SizeTransition(
+                sizeFactor: ReverseAnimation(_progress),
+                axis: Axis.horizontal,
+                alignment: AlignmentDirectional.centerStart,
+                child: FadeTransition(
+                  opacity: ReverseAnimation(_progress),
+                  child: IgnorePointer(
+                    ignoring: _open,
+                    child: ExcludeSemantics(
+                      excluding: _open,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: theme.chromeButton.groupDividerWidth,
+                            height: 20,
+                            color:
+                                AcademyChromeTheme.colorsOf(context).border ??
+                                theme.colorScheme.outlineVariant,
+                          ),
+                          AcademyChromeButton(
+                            icon: companion.icon,
+                            label: companion.label,
+                            onPressed: companion.onPressed,
+                            symbolBuilder: companion.symbolBuilder,
+                            style: AcademyChromeStyle.none,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -162,14 +253,59 @@ class AcademyExpandingSearchState extends State<AcademyExpandingSearch>
           ),
         ),
         const SizedBox(width: 8),
-        AcademyChromeButton(
-          icon: _open
-              ? AcademyTheme.of(context).icons.close
-              : AcademyTheme.of(context).icons.search,
-          label: _open
-              ? AcademyLocalizations.of(context).closeSearch
-              : AcademyLocalizations.of(context).openSearch,
-          onPressed: widget.enabled ? _toggle : null,
+        Expanded(
+          child: Stack(
+            alignment: AlignmentDirectional.centerEnd,
+            children: [
+              if (widget.resting != null)
+                IgnorePointer(
+                  ignoring: _open,
+                  child: ExcludeSemantics(
+                    excluding: _open,
+                    child: FadeTransition(
+                      opacity: ReverseAnimation(_progress),
+                      child: Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: widget.resting!,
+                      ),
+                    ),
+                  ),
+                ),
+              Padding(
+                padding: EdgeInsetsDirectional.only(end: barHeight + 8),
+                child: ExcludeSemantics(
+                  excluding: !_open,
+                  child: ExcludeFocus(
+                    excluding: !_open,
+                    child: IgnorePointer(
+                      ignoring: !_open,
+                      child: FadeTransition(
+                        opacity: _progress,
+                        child: _field(context),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              IgnorePointer(
+                ignoring: !_open,
+                child: ExcludeSemantics(
+                  excluding: !_open,
+                  child: FadeTransition(
+                    opacity: _progress,
+                    child: ScaleTransition(
+                      scale: Tween<double>(begin: 0.6, end: 1).animate(_progress),
+                      child: AcademyChromeButton(
+                        icon: toggle.icon,
+                        label: toggle.label,
+                        onPressed: toggle.onPressed,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

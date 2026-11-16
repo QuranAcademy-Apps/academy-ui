@@ -37,8 +37,15 @@ enum AcademyChromeStyle {
 
   static const panelStyles = [flat, gradient, blur, glass];
 
+  /// Styles of a button setting: the regular soft look or glass.
+  static const buttonStyles = [flat, glass];
+
   String labelFor(BuildContext context) =>
       AcademyLocalizations.of(context).chromeStyle(name);
+
+  /// Name in a button setting: [flat] is "Regular", the rest as [labelFor].
+  String buttonLabelFor(BuildContext context) =>
+      AcademyLocalizations.of(context).buttonStyle(name);
 }
 
 /// Inherited appearance shared by every chrome surface, including route overlays.

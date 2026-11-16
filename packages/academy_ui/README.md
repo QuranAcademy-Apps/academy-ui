@@ -82,7 +82,7 @@ dependencies:
 | Ввод и выбор | `AcademyTextField`, `AcademyField`, `AcademyFloatingInput`, `AcademyTextFormField`, `AcademySelect`, `AcademyMultiSelect`, `AcademyAutocomplete`, `AcademySearchBar`, `AcademyExpandingSearch`, `AcademyCalendar`, `AcademyRangeCalendar`, `AcademyLineCalendar`, `AcademyDateField`, `AcademyTimeField`, `AcademyPicker`, `AcademySlider`, `AcademyStepper`, `AcademySegmentedControl`, `AcademyCheckmark` |
 | Таблицы и контейнеры | `AcademyGroupedTable`, `AcademyTableSection`, `AcademyTableHeader`, `AcademyTableBody`, `AcademyTableFooter`, `AcademyTableBadge`, `AcademyTableSeparator`, `AcademyTableSectionView`, `AcademyRow`, `AcademyValueRow`, `AcademyDivider`, `AcademyDraggableTableSection`, `AcademyDragHandle`, `AcademySurface` |
 | Навигация | `AcademyPage`, `AcademyChrome`, `AcademyChromeBar`, `AcademyChromeButton`, `AcademyChromeGroup`, `AcademyChromeCapsule`, `AcademyChromePage`, `AcademyChromeModalHeader`, `AcademyChromeFade`, `AcademyFloatingTabBar`, `AcademyTabScaffold` |
-| Меню и наложения | `AcademyMenuButton`, `AcademyInlineOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalScrollView` |
+| Меню и наложения | `AcademyMenuButton`, `AcademyInlineOptionMenu`, `AcademyChromeMenu`, `AcademyLazyMenu`, `AcademyMenuAnchor`, `AcademyMenu`, `AcademyMenuRow`, `AcademyMenuDisplay`, `AcademyMenuItem`, `AcademyMenuSeparator`, `AcademyPopover`, `showAcademyModal`, `showAcademySheet`, `showAcademyConfirmation`, `AcademyModalScaffold`, `AcademyModalSearch`, `AcademyModalListView`, `AcademyModalSliverView`, `AcademyModalScrollView` |
 | Данные и медиа | `AcademyStat`, `AcademyStatGroup`, `AcademyTimeline`, `AcademyTimelineItem`, `AcademyImage`, `AcademySfImage`, `AcademySfIcon`, `AcademySymbols`, `AcademyChevron` |
 | Контекстная помощь | `AcademyTooltip`, `AcademyTip`, `showAcademyTips` |
 | Состояния и обратная связь | `AcademyStatus`, `AcademyFeedback`, `AcademyToastHost`, `AcademyRingProgress`, `AcademySearchScrim` |
@@ -261,7 +261,8 @@ final result = await showAcademyModal<String>(
 к начальной высоте. Геометрия пересчитывается при появлении/скрытии клавиатуры
 и повороте экрана. Повторный keyboard padding добавлять не нужно.
 
-Для прокрутки используйте `AcademyModalListView` / `AcademyModalScrollView`:
+Для прокрутки используйте `AcademyModalListView` / `AcademyModalScrollView`
+(`AcademyModalSliverView` — для длинных списков из сливеров):
 они добавляют нижний отступ невидимой части полноразмерного содержимого.
 Для своего scroll view добавляйте `ModalSheetScrollInsets.of(context)` к нижнему
 padding на уровне самого списка. Фиксированный footer использует
@@ -559,7 +560,7 @@ Table parts are individually usable: `AcademyTableHeader` (case-preserving group
 
 `AcademyRow` supports leading icon or custom leading widget, custom title/subtitle, title badge, arbitrary accessory, disabled state, tap/long press and adjustable minimum height/padding.
 
-`AcademyDraggableTableSection<T>` follows Quran's controlled handle-only drag pattern. The feature owns items, stable IDs, order and persistence. Provide a rowBuilder, onMove callback, optional acceptance filter, inside-card header and outside footer. Moves work within a section, across sections, into empty sections and after the last item. onMove receives a destination index **after source removal**; do not decrement it again. The source remains visible and dimmed; a full-row preview follows the handle. Set editing and onRemove to replace handles with delete buttons. IDs must be unique and stable. rowBuilder must not reuse a GlobalKey between the row and its drag preview.
+`AcademyDraggableTableSection<T>` follows Quran's controlled handle-only drag pattern. The feature owns items, stable IDs, order and persistence. Provide a rowBuilder, onMove callback, optional acceptance filter, inside-card header and outside footer. Moves work within a section, across sections, into empty sections and after the last item. onMove receives a destination index **after source removal**; do not decrement it again. The source remains visible and dimmed; a full-row preview follows the handle. Set editing and onRemove to replace handles with delete buttons. IDs must be unique and stable. rowBuilder must not reuse a GlobalKey between the row and its drag preview. For a long list in a `CustomScrollView` use `AcademySliverDraggableTableSection` (same contract, rows built lazily; no header or cross-section targets).
 
 The handle also opens a keyboard-accessible menu and exposes screen-reader actions for moving up/down. Supply `labelForItem` for domain objects and `moveTargets` for every other section reachable by dragging. Each `AcademyTableMoveTarget` includes the destination's human-readable label, current item count, enabled state and the same acceptance rule as its drop target. Cross-section menu actions append at `itemCount`. Use unique destination labels. The host updates this metadata with the controlled items; it still owns ordering and persistence. `enabled: false` blocks all row content and deletion, while header/footer controls remain independently usable.
 

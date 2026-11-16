@@ -1,6 +1,7 @@
 import 'package:flutter/semantics.dart';
 import 'package:cupertino_ui/cupertino_ui.dart';
 
+import 'academy_sliver_grouped_table.dart';
 import 'academy_table.dart';
 import '../../foundation/interaction/academy_interaction.dart';
 import '../../foundation/localizations/academy_localizations.dart';
@@ -202,6 +203,27 @@ class AcademyDraggableTableSection<T extends Object> extends StatelessWidget {
     ),
   );
 
+  Widget _rowAt(BuildContext context, int i) => _target(
+    context,
+    i,
+    _DraggableRow<T>(
+      key: ValueKey(itemId(items[i])),
+      data: _source(i),
+      label:
+          labelForItem?.call(items[i]) ??
+          (items[i] is String
+              ? items[i] as String
+              : AcademyLocalizations.of(context).itemNumber(i + 1)),
+      moves: _moves(context, _source(i)),
+      enabled: enabled,
+      editing: editing,
+      onRemove: onRemove,
+      rowBuilder: rowBuilder,
+      feedbackWidth: feedbackWidth,
+    ),
+    isRow: true,
+  );
+
   @override
   Widget build(BuildContext context) {
     assert(
@@ -236,26 +258,7 @@ class AcademyDraggableTableSection<T extends Object> extends StatelessWidget {
               ),
             for (var i = 0; i < items.length; i++) ...[
               if (i > 0) const AcademyTableSeparator(start: 20, end: 0),
-              _target(
-                context,
-                i,
-                _DraggableRow<T>(
-                  key: ValueKey(itemId(items[i])),
-                  data: _source(i),
-                  label:
-                      labelForItem?.call(items[i]) ??
-                      (items[i] is String
-                          ? items[i] as String
-                          : AcademyLocalizations.of(context).itemNumber(i + 1)),
-                  moves: _moves(context, _source(i)),
-                  enabled: enabled,
-                  editing: editing,
-                  onRemove: onRemove,
-                  rowBuilder: rowBuilder,
-                  feedbackWidth: feedbackWidth,
-                ),
-                isRow: true,
-              ),
+              _rowAt(context, i),
             ],
             if (items.isNotEmpty)
               _target(
@@ -266,6 +269,107 @@ class AcademyDraggableTableSection<T extends Object> extends StatelessWidget {
           ],
         ),
         ?footer,
+      ],
+    );
+  }
+}
+
+/// [AcademyDraggableTableSection] for a long list inside a `CustomScrollView`:
+/// rows are built only while they are on screen. Same contract (controlled
+/// order, handle-only drag, move menu); no [header], moves across sections and
+/// the drop strip after the last row sit below the card.
+class AcademySliverDraggableTableSection<T extends Object>
+    extends StatelessWidget {
+  const AcademySliverDraggableTableSection({
+    super.key,
+    required this.sectionId,
+    required this.items,
+    required this.itemId,
+    required this.rowBuilder,
+    required this.onMove,
+    this.footer,
+    this.enabled = true,
+    this.emptyLabel,
+    this.labelForItem,
+    this.accepts,
+    this.onRemove,
+    this.editing = false,
+    this.feedbackWidth,
+  });
+  final Object sectionId;
+  final List<T> items;
+  final Object Function(T item) itemId;
+  final Widget Function(BuildContext context, T item, Widget accessory)
+  rowBuilder;
+  final void Function(
+    AcademyTableDragData<T> source,
+    Object destinationSection,
+    int destinationIndex,
+  )
+  onMove;
+  final Widget? footer;
+  final bool enabled, editing;
+  final String? emptyLabel;
+  final String Function(T)? labelForItem;
+  final bool Function(AcademyTableDragData<T> source)? accepts;
+  final ValueChanged<T>? onRemove;
+  final double? feedbackWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    assert(
+      items.map(itemId).toSet().length == items.length,
+      'Items require unique stable IDs',
+    );
+    final section = AcademyDraggableTableSection<T>(
+      sectionId: sectionId,
+      items: items,
+      itemId: itemId,
+      rowBuilder: rowBuilder,
+      onMove: onMove,
+      enabled: enabled,
+      emptyLabel: emptyLabel,
+      labelForItem: labelForItem,
+      accepts: accepts,
+      onRemove: onRemove,
+      editing: editing,
+      feedbackWidth: feedbackWidth,
+    );
+    return SliverMainAxisGroup(
+      slivers: [
+        if (items.isEmpty)
+          SliverToBoxAdapter(
+            child: section._target(
+              context,
+              0,
+              SizedBox(
+                height: 68,
+                child: Center(
+                  child: Text(
+                    emptyLabel ?? AcademyLocalizations.of(context).dropHere,
+                    style: AcademyTheme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ),
+            ),
+          )
+        else ...[
+          AcademySliverGroupedTable(
+            itemCount: items.length,
+            itemBuilder: section._rowAt,
+            edgePadding: 0,
+            separatorStart: 20,
+            separatorEnd: 0,
+          ),
+          SliverToBoxAdapter(
+            child: section._target(
+              context,
+              items.length,
+              const SizedBox(height: 8, width: double.infinity),
+            ),
+          ),
+        ],
+        if (footer != null) SliverToBoxAdapter(child: footer),
       ],
     );
   }
