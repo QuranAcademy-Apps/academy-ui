@@ -101,6 +101,10 @@ class AcademyLocalizations {
     'glass' => _text('Стекло', 'Glass', 'زجاج'),
     _ => _text('Без chrome', 'No chrome', 'بدون كروم'),
   };
+  String buttonStyle(String name) => switch (name) {
+    'flat' => _text('Обычные', 'Regular', 'عادية'),
+    _ => chromeStyle(name),
+  };
   String tabDensity(String name) => switch (name) {
     'compact' => _text('Компактный', 'Compact', 'مضغوط'),
     'telegram' => 'Telegram',

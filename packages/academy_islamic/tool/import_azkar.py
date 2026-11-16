@@ -38,6 +38,10 @@ EXTRA_GROUP_AZKAR = {
     'evening': [56, 51, 53, 54, 58, 59],
 }
 
+# Upstream azkar removed from a group. 10 («радыту би-Лляхи», hadith of
+# al-Munaydhir, at-Tabarani) is said in the morning only.
+DROP_GROUP_AZKAR = {'evening': [10]}
+
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -189,17 +193,74 @@ def apply_text_fixes(azkar):
         if not line.strip():
             continue
         fix = json.loads(line)
+        if 'value' in fix:  # whole-field replacement (hadith, source, repeats)
+            by_id[fix['id']][fix['field']] = fix['value']
+            continue
         old = by_id[fix['id']][fix['field']]
         assert old.count(fix['before']) == 1, (fix['id'], fix['field'], fix['before'])
         by_id[fix['id']][fix['field']] = old.replace(fix['before'], fix['after'])
 
 
+# Verse ends of the Quran azkar read as whole verses, as in the mushaf and in
+# Zikro's hisn.json: «۝ N» (the number in Arabic-Indic digits, the verse's own
+# number in the sura) closes the line that ends verse N. {id: {line index:
+# verse}}; a basmala line carries none. The Quranic duas (1001+) and az 13 quote
+# parts of verses inside a supplication and stay unnumbered.
+VERSE_ENDS = {
+    14: {8: 255},  # Ayat al-Kursi, 2:255
+    15: {1: 1, 2: 2, 3: 3, 4: 4},  # al-Ikhlas, 112
+    16: {1: 1, 2: 2, 3: 3, 4: 4, 5: 5},  # al-Falaq, 113
+    17: {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6},  # an-Nas, 114
+    21: {4: 285, 11: 286},  # end of al-Baqara, 2:285-286
+}
+_ARABIC_DIGITS = str.maketrans('0123456789', '٠١٢٣٤٥٦٧٨٩')
+
+
+def number_verses(azkar):
+    by_id = {z['id']: z for z in azkar}
+    for id, ends in VERSE_ENDS.items():
+        z = by_id[id]
+        assert z['type'] == 'quran' and '۝' not in z['arabic'], id
+        lines = z['arabic'].split('\n')
+        assert max(ends) == len(lines) - 1, id  # the last line ends a verse
+        for index, verse in ends.items():
+            number = str(verse).translate(_ARABIC_DIGITS)
+            lines[index] = f'{lines[index].rstrip()} ۝ {number}'
+        z['arabic'] = '\n'.join(lines)
+
+
 def add_extra_azkar(groups, by_id):
+    for group, drop in DROP_GROUP_AZKAR.items():
+        assert set(drop) <= set(groups[group]), group
+        groups[group] = [id for id in groups[group] if id not in drop]
     for group, extra in EXTRA_GROUP_AZKAR.items():
         ids = groups[group]
         assert not set(extra) & set(ids), group
         at = next((i for i, id in enumerate(ids) if by_id[id]['type'] == 'quran'), len(ids))
         groups[group] = ids[:at] + extra + ids[at:]
+
+
+# Supplications that upstream lacks, added from the Quran and authentic hadith
+# (Zikro docs/tasks/2026-11-14-azkar-text-review/asar-candidates.md). One
+# complete dhikr per line, ids from EXTRA_ID_BASE so they never meet upstream
+# ids; appended to EXTRA_GROUP in file order.
+EXTRA_AZKAR = ROOT / 'tool/azkar_extra.jsonl'
+EXTRA_ID_BASE = 1001
+EXTRA_GROUP = 'hundred-dua'
+
+
+def add_own_azkar(azkar, groups):
+    extra = [
+        json.loads(line)
+        for line in EXTRA_AZKAR.read_text(encoding='utf-8').splitlines()
+        if line.strip()
+    ]
+    known = {z['id'] for z in azkar}
+    for z in extra:
+        assert z['id'] >= EXTRA_ID_BASE and z['id'] not in known, z['id']
+        known.add(z['id'])
+    azkar.extend(extra)
+    groups[EXTRA_GROUP] = groups[EXTRA_GROUP] + [z['id'] for z in extra]
 
 
 def load(database):
@@ -240,12 +301,14 @@ def load(database):
         azkar.append({k: v for k, v in record.items() if v is not None})
     apply_line_fixes(azkar)
     apply_text_fixes(azkar)
+    number_verses(azkar)
     groups = {}
     for row in db.execute(
         'select "group", azkar_id from "azkar+azkar_group" order by "group", "order"'
     ):
         groups.setdefault(row['group'], []).append(row['azkar_id'])
     add_extra_azkar(groups, {z['id']: z for z in azkar})
+    add_own_azkar(azkar, groups)
     fadail = [
         {'text': clean(row['text']), 'source': clean(row['source'])}
         for row in db.execute('select * from fadail_ru order by id')

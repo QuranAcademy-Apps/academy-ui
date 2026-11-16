@@ -3,6 +3,21 @@
 Правила версий и порядок выпуска: [README](README.md#версии-и-обновление).
 Новая запись идёт первой; заголовок — номер версии из `pubspec.yaml`.
 
+## 0.4.1
+
+### Что нового
+
+- `AcademyModalSliverView` — `AcademyModalListView` для сливеров (те же
+  отступы шторки): длинный список в шторке строит только видимые строки.
+  Ломающих изменений нет.
+- `AcademySliverDraggableTableSection<T>` — `AcademyDraggableTableSection` для
+  длинных списков внутри `CustomScrollView`: строки строятся только на экране.
+  Без `header` и `moveTargets`. Ломающих изменений нет.
+- `AcademyChromeStyle.buttonStyles` (`flat`, `glass`) и
+  `AcademyChromeStyle.buttonLabelFor(context)` — стили настройки «Стиль кнопок»
+  («Обычные» / «Стекло»). Значение хранится в `AcademyAppearance.chromeStyle`
+  и применяется ко всем кнопкам `AcademyChrome*`. Ломающих изменений нет.
+
 ## 0.4.0
 
 ### Что поменять в приложении

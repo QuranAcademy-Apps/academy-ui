@@ -112,4 +112,41 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.getRect(field).left, lessThan(rect.left));
   });
+
+  testWidgets('companion search opens and closes without layout errors', (
+    tester,
+  ) async {
+    final controller = TextEditingController();
+    final key = GlobalKey<AcademyExpandingSearchState>();
+    final taps = <String>[];
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      AcademyApp(
+        home: Center(
+          child: SizedBox(
+            width: 360,
+            height: 44,
+            child: AcademyExpandingSearch(
+              key: key,
+              controller: controller,
+              companion: AcademyChromeAction(
+                AcademySymbols.bookmark,
+                'bm',
+                () => taps.add('bm'),
+              ),
+              resting: const SizedBox(width: double.infinity),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.bySemanticsLabel('Открыть поиск'));
+    await tester.pump(const Duration(milliseconds: 60));
+    await tester.pumpAndSettle();
+    expect(key.currentState!.isOpen, isTrue);
+    await tester.tap(find.bySemanticsLabel('Закрыть поиск'));
+    await tester.pumpAndSettle();
+    expect(key.currentState!.isOpen, isFalse);
+    expect(tester.takeException(), isNull);
+  });
 }

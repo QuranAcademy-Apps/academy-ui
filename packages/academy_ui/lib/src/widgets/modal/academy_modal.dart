@@ -540,6 +540,16 @@ class AcademyModalScaffold extends StatelessWidget {
   }
 }
 
+/// [padding] (default `paddings.modal`) plus the sheet's own top inset and
+/// the bottom inset that tracks the resting height.
+EdgeInsets _modalScrollPadding(BuildContext context, EdgeInsets? padding) {
+  final base = padding ?? AcademyTheme.of(context).paddings.modal;
+  return base.copyWith(
+    top: base.top + AcademyModalContentInsets.topOf(context),
+    bottom: base.bottom + ModalSheetScrollInsets.of(context),
+  );
+}
+
 /// A scrollable modal body; bottom padding tracks the actual resting height.
 class AcademyModalListView extends StatelessWidget {
   const AcademyModalListView({
@@ -557,14 +567,7 @@ class AcademyModalListView extends StatelessWidget {
   Widget build(BuildContext context) => ListView(
     controller: controller,
     physics: physics,
-    padding: (padding ?? AcademyTheme.of(context).paddings.modal).copyWith(
-      top:
-          (padding ?? AcademyTheme.of(context).paddings.modal).top +
-          AcademyModalContentInsets.topOf(context),
-      bottom:
-          (padding ?? AcademyTheme.of(context).paddings.modal).bottom +
-          ModalSheetScrollInsets.of(context),
-    ),
+    padding: _modalScrollPadding(context, padding),
     addRepaintBoundaries: false,
     children: children,
   );
@@ -583,15 +586,36 @@ class AcademyModalScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
     physics: physics,
-    padding: (padding ?? AcademyTheme.of(context).paddings.modal).copyWith(
-      top:
-          (padding ?? AcademyTheme.of(context).paddings.modal).top +
-          AcademyModalContentInsets.topOf(context),
-      bottom:
-          (padding ?? AcademyTheme.of(context).paddings.modal).bottom +
-          ModalSheetScrollInsets.of(context),
-    ),
+    padding: _modalScrollPadding(context, padding),
     child: child,
+  );
+}
+
+/// [AcademyModalListView] for slivers: the same insets, but a long list
+/// (`AcademySliverGroupedTable`, `AcademySliverDraggableTableSection`) builds
+/// only the rows on screen.
+class AcademyModalSliverView extends StatelessWidget {
+  const AcademyModalSliverView({
+    super.key,
+    required this.slivers,
+    this.padding,
+    this.controller,
+    this.physics,
+  });
+  final List<Widget> slivers;
+  final EdgeInsets? padding;
+  final ScrollController? controller;
+  final ScrollPhysics? physics;
+  @override
+  Widget build(BuildContext context) => CustomScrollView(
+    controller: controller,
+    physics: physics,
+    slivers: [
+      SliverPadding(
+        padding: _modalScrollPadding(context, padding),
+        sliver: SliverMainAxisGroup(slivers: slivers),
+      ),
+    ],
   );
 }
 
