@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.6
+
+- Sources corrected after a reader's report (audit of the whole corpus against the hadith collections). az 7 («аллахумма инни ас'алюка-ль-афийа»): the attached hadith was Abbas's (Tirmidhi 3514), but the dua is Ibn Umar's (Abu Dawud 5074, Ibn Majah 3871); source now AbuDaud, IbnMajah, Ahmad and the hadith block is removed until a vetted translation of the narration is added. az 50 and 51 («асбахту ушхидука»): source AbuDaud (Abu Dawud 5069), not Tirmidhi (3501 is the plural form). az 49 («иннака афуввун»): the wording without «карим» is Ibn Majah 3850, so Tirmidhi, IbnMajah; the hadith reference names both. az 12: Muslim 2726 (48/106). Set in `tool/azkar_text_fixes.jsonl` (`value`). Apps that show the exact hadith of az 7 must handle a missing `hadith`.
+
 ## 0.3.5
 
 - Verse numbers in the Quran azkar read as whole verses, as in the mushaf: «۝ N» (Arabic-Indic digits, the verse's number in the sura) ends the line of each verse of al-Ikhlas, al-Falaq and an-Nas (1–4/5/6), Ayat al-Kursi (255) and the end of al-Baqara (285, 286); the basmala line carries none. Set in `tool/import_azkar.py` (`VERSE_ENDS`). Only the Arabic changes: lines, words (`ZikrWords.split` joins a token without letters to the previous word) and transliteration (the sign and digits are silent) stay as they were. The Quranic duas (1001+) and az 13 quote parts of verses and stay unnumbered. Apps that add their own verse marks to 14–17 and 21 must drop them, or the numbers show twice.
