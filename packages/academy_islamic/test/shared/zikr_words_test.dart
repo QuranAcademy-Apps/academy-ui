@@ -44,6 +44,19 @@ void main() {
     expect(catalog.defaultIds(ZikrCategory.evening), isNot(contains(10)));
   });
 
+  test('sources match the wording of the dhikr they are given for', () {
+    final catalog = loadTestCatalog();
+    // Ibn Umar's dua (Abu Dawud 5074, Ibn Majah 3871), not Abbas's hadith.
+    expect(catalog.zikr(7).sourceCodes, ['AbuDaud', 'IbnMajah', 'Ahmad']);
+    expect(catalog.zikr(7).hadith, isNull);
+    // «asbahtu ushhiduka» is Abu Dawud 5069; Tirmidhi's is the plural form.
+    expect(catalog.zikr(50).sourceCodes, ['AbuDaud']);
+    expect(catalog.zikr(51).sourceCodes, ['AbuDaud']);
+    // The wording without «karim» is Ibn Majah 3850.
+    expect(catalog.zikr(49).sourceCodes, ['Tirmidhi', 'IbnMajah']);
+    expect(catalog.zikr(12).hadith?.sourceExt, '2726 (48/106)');
+  });
+
   test('own supplications follow the upstream hundred dua', () {
     final catalog = loadTestCatalog();
     final ids = catalog.defaultIds(ZikrCategory.hundredDua);

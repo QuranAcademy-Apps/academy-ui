@@ -11,7 +11,12 @@
   ближайший намаз, `resolvePrayerMethod` — метод по региону.
 - **Азкары и дуа** — `AzkarCorpus.load` читает `assets/azkar/azkar.json`
   (утренние, вечерние, после намаза, перед сном, 100 дуа и др.). «Крепость
-  мусульманина» и глоссы слов приложение пока передаёт само (`hisn`, `words`).
+  мусульманина» (`assets/azkar/hisn.json`, `HisnSection.group`; импорт —
+  `tool/import_hisn.py`) загружается вместе с ним, лицензия её источника не
+  указана (CHANGELOG 0.5.0). Пословные глоссы корпуса и «Крепости» (`Zikr.wordGlosses`, `assets/azkar/words.json`)
+  загружаются вместе с ним; правятся в `tool/words_ru.tsv`, затем
+  `python3 -I tool/import_words.py` (падает, если у текста нет строки или число
+  ячеек не равно числу слов).
 - **Транскрипция** — `ArabicTranscriber.lines/text(arabic, scheme)` читает
   арабский с огласовками в кириллицу по правилам четырёх традиций
   (`TranscriptionScheme`: общая, вайнахская, дагестанская, татарская).
