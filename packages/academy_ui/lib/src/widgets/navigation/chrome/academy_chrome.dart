@@ -91,7 +91,9 @@ class AcademyChromeColors {
   /// Soft shadow under the glass; default: black.
   final Color? glassShadow;
 
-  /// Chrome button symbols; default: the Cupertino primary color.
+  /// Chrome button symbols; default: the Cupertino primary color. A
+  /// [CupertinoDynamicColor] picks its light or dark variant by the academy
+  /// theme brightness.
   final Color? buttonForeground;
 
   /// Selected tab pill and selected chrome button; default: primaryContainer.
@@ -619,7 +621,7 @@ class AcademyChromeButton extends StatelessWidget {
         : AcademyChrome.foregroundColor(
             context,
             foreground ??
-                chrome.buttonForeground ??
+                _byBrightness(context, chrome.buttonForeground) ??
                 CupertinoTheme.of(context).primaryColor,
             style: style,
             minimumContrast: 3,
@@ -1383,4 +1385,11 @@ class AcademyChromeModalHeader extends StatelessWidget {
       ),
     );
   }
+}
+
+Color? _byBrightness(BuildContext context, Color? color) {
+  if (color is! CupertinoDynamicColor) return color;
+  return AcademyTheme.of(context).brightness == Brightness.dark
+      ? color.darkColor
+      : color.color;
 }
