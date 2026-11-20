@@ -19,12 +19,13 @@ class _DiskBundle extends CachingAssetBundle {
 }
 
 void main() {
-  test('every corpus text has one gloss per word', () async {
+  test('every corpus and Hisn text has one gloss per word', () async {
     final catalog = await AzkarCorpus.load(_DiskBundle());
     final problems = <String>[];
-    for (final category in ZikrCategory.values) {
-      for (final id in catalog.defaultIds(category)) {
-        final zikr = catalog.zikr(id);
+    expect(catalog.all.length, greaterThan(400));
+    {
+      for (final zikr in catalog.all) {
+        final id = zikr.id;
         final glosses = zikr.wordGlosses;
         if (glosses == null) {
           problems.add('$id: no glosses');

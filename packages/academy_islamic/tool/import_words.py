@@ -10,10 +10,10 @@ with its verb.
 Words are split exactly like `ZikrWords.split` in Dart: on whitespace, a token
 without an Arabic letter (verse mark, number, ﷺ) joins the previous word.
 
-Every azkar.json text needs a row with one cell per word, so a change to a
-text's Arabic (tool/azkar_text_fixes.jsonl, import_azkar.py) is noticed here.
-An app that ships more texts (Zikro's «Крепость мусульманина», ids from
-100000) keeps its own glosses and passes them to `AzkarCorpus.load(words:)`.
+A hisn.json dua has the id Zikr.hisnId = 100000 + chapter * 100 + number.
+Every azkar.json and hisn.json text needs a row with one cell per word, so a
+change to a text's Arabic (tool/azkar_text_fixes.jsonl, import_azkar.py,
+tool/hisn_text_fixes.jsonl, import_hisn.py) is noticed here.
 
 Usage: python3 -I tool/import_words.py   # fails on a missing id or cell count
 """
@@ -26,6 +26,8 @@ ROOT = Path(__file__).resolve().parents[1]
 GLOSSES = ROOT / 'tool/words_ru.tsv'
 OUTPUT = ROOT / 'assets/azkar/words.json'
 AZKAR = ROOT / 'assets/azkar/azkar.json'
+HISN = ROOT / 'assets/azkar/hisn.json'
+HISN_ID_BASE = 100000
 
 _LETTERS = re.compile('[ء-ي]')
 _MARKS = re.compile('[ً-ٰٟۖ-ۭـ‌‍]')
@@ -54,7 +56,12 @@ def load_glosses():
 def main():
     glosses = load_glosses()
     azkar = json.loads(AZKAR.read_text(encoding='utf-8'))
+    hisn = json.loads(HISN.read_text(encoding='utf-8'))
     texts = {item['id']: item['arabic'] for item in azkar['azkar']}
+    for chapter in hisn['chapters']:
+        for dua in chapter['duas']:
+            number, index = map(int, dua['id'].split('-'))
+            texts[HISN_ID_BASE + number * 100 + index] = dua['arabic']
 
     out, problems = {}, []
     for zikr_id, arabic in texts.items():
@@ -76,7 +83,7 @@ def main():
         json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\n',
         encoding='utf-8',
     )
-    print(f'{len(out)} azkar, {sum(map(len, out.values()))} words -> {OUTPUT}')
+    print(f'{len(out)} texts, {sum(map(len, out.values()))} words -> {OUTPUT}')
 
 
 if __name__ == '__main__':
