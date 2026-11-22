@@ -3,6 +3,17 @@
 Правила версий и порядок выпуска: [README](README.md#версии-и-обновление).
 Новая запись идёт первой; заголовок — номер версии из `pubspec.yaml`.
 
+## 0.4.2
+
+### Что нового
+
+- `AcademySegmentedControl(showsLabel: true)` (и в `.compact`): вместе с
+  `iconFor` показывает название пункта после иконки. По умолчанию `false`.
+- `AcademyChromeColors.buttonForeground` принимает `CupertinoDynamicColor`:
+  светлый или тёмный вариант выбирается по яркости темы academy.
+
+Ломающих изменений нет.
+
 ## 0.4.1
 
 ### Что нового
