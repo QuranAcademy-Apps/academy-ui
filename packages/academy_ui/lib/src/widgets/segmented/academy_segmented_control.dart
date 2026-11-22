@@ -20,6 +20,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     required this.labelFor,
     required this.onChanged,
     this.iconFor,
+    this.showsLabel = false,
     this.style = AcademySegmentStyle.pill,
     this.cornerRadius,
     this.selectionCornerRadius,
@@ -50,6 +51,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     this.textColor,
   }) : fitted = true,
        iconFor = null,
+       showsLabel = false,
        style = AcademySegmentStyle.pill,
        cornerRadius = null,
        selectionCornerRadius = null,
@@ -67,6 +69,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     required this.labelFor,
     required this.onChanged,
     this.iconFor,
+    this.showsLabel = false,
     this.cornerRadius,
     this.selectionCornerRadius,
   }) : fitted = false,
@@ -88,6 +91,9 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
   final T value;
   final String Function(T) labelFor;
   final IconData Function(T)? iconFor;
+
+  /// With [iconFor], also shows the label after the icon (icon + title).
+  final bool showsLabel;
   final ValueChanged<T>? onChanged;
   final AcademySegmentStyle style;
   final double? cornerRadius, selectionCornerRadius;
@@ -140,6 +146,40 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
     );
   }
 
+  /// Icon of [item], followed by its label when [showsLabel].
+  Widget _iconLabel(BuildContext context, T item) {
+    final theme = AcademyTheme.of(context);
+    final color = item == value
+        ? theme.colorScheme.onSurface
+        : theme.colorScheme.onSurfaceVariant;
+    final icon = AcademySfIcon(
+      iconFor!(item),
+      size: theme.sizes.controlIcon,
+      color: color,
+    );
+    if (!showsLabel) return icon;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          icon,
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              labelFor(item),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.segmentLabel.copyWith(
+                color: textColor ?? color,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (fitted) return _fitted(context);
@@ -151,7 +191,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
         exact ??
         math.max(
           minimumHeight ?? (pill ? 32.0 : 31.0),
-          iconFor == null
+          iconFor == null || showsLabel
               ? academyTextLineHeight(context, theme.textTheme.segmentLabel) +
                     12
               : 32.0,
@@ -264,15 +304,7 @@ class AcademySegmentedControl<T extends Object> extends StatelessWidget {
                                           : theme.textTheme.segmentLabel
                                                 .copyWith(color: textColor),
                                     )
-                                  : AcademySfIcon(
-                                      iconFor!(item),
-                                      size: AcademyTheme.of(context)
-                                          .sizes
-                                          .controlIcon,
-                                      color: item == value
-                                          ? theme.colorScheme.onSurface
-                                          : theme.colorScheme.onSurfaceVariant,
-                                    ),
+                                  : _iconLabel(context, item),
                             ),
                           ),
                         ),

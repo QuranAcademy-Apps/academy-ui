@@ -1,5 +1,7 @@
 import 'package:academy_ui/academy_ui.dart';
+
 import 'product/product.dart';
+
 import 'package:flutter/cupertino.dart';
 
 /// Interactive examples of the owner-requested Quran controls.
@@ -133,6 +135,14 @@ class _QuranControlsCatalogState extends State<QuranControlsCatalog> {
                 onPressed: () => AcademyToastHost.show(context, 'Закрыто'),
               ),
             ],
+          ),
+          AcademySegmentedControl<int>(
+            items: const [0, 1],
+            value: _segment.clamp(0, 1),
+            labelFor: (i) => ['Страницы', 'Список'][i],
+            iconFor: (i) => [AcademySymbols.bookPages, AcademySymbols.list][i],
+            showsLabel: true,
+            onChanged: (i) => setState(() => _segment = i),
           ),
           Row(
             children: [
