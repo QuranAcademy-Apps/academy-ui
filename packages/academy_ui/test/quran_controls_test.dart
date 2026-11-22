@@ -295,4 +295,29 @@ void main() {
     expect(find.text('Выбрано'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('segments show icon and label together', (tester) async {
+    await tester.pumpWidget(
+      AcademyApp(
+        home: Center(
+          child: SizedBox(
+            width: 280,
+            child: AcademySegmentedControl<int>(
+              items: const [0, 1],
+              value: 0,
+              labelFor: (i) => ['Страницы', 'Список'][i],
+              iconFor: (i) =>
+                  [AcademySymbols.bookPages, AcademySymbols.list][i],
+              showsLabel: true,
+              onChanged: (_) {},
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(find.text('Страницы'), findsOneWidget);
+    expect(find.text('Список'), findsOneWidget);
+    expect(find.byType(AcademySfIcon), findsNWidgets(2));
+    expect(tester.takeException(), isNull);
+  });
 }
