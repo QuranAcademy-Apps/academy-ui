@@ -379,6 +379,7 @@ rounded clip над списком; режимы под баром исполь�
   выбранный пункт и callbacks принадлежат приложению, RTL и Reduce Motion учтены.
   `AcademySegmentedControl.compact` выбирает компактный вариант. `cornerRadius`
   и `selectionCornerRadius` задают скругления контейнера и выбранного сегмента.
+  `showsLabel: true` вместе с `iconFor` показывает название после иконки.
 - `AcademyCompactIconButton`: визуальный кружок 28 с областью нажатия 44.
 - `AcademyChromeMenuButton(label:, items:)`: круглая chrome-кнопка «…» с
   pull-down меню из `AcademyMenuItem` / `AcademyMenuSeparator`.
