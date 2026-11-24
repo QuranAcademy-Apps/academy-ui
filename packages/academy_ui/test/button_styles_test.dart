@@ -219,4 +219,34 @@ void main() {
     );
     expect(custom.width, greaterThan(plain.width));
   });
+
+  testWidgets('AcademyTextButton keeps the colour of its textStyle', (
+    tester,
+  ) async {
+    const white = Color(0xFFFFFFFF);
+    await tester.pumpWidget(
+      _host(
+        AcademyTextButton(
+          label: 'Пропустить',
+          onPressed: () {},
+          textStyle: const TextStyle(color: white),
+        ),
+      ),
+    );
+    expect(tester.widget<Text>(find.text('Пропустить')).style?.color, white);
+
+    await tester.pumpWidget(
+      _host(
+        const AcademyTextButton(
+          label: 'Пропустить',
+          onPressed: null,
+          textStyle: TextStyle(color: white),
+        ),
+      ),
+    );
+    expect(
+      tester.widget<Text>(find.text('Пропустить')).style?.color,
+      _theme().colorScheme.onSurfaceVariant,
+    );
+  });
 }

@@ -353,19 +353,30 @@ class AcademyTableBody extends StatelessWidget {
     final radius = BorderRadius.circular(
       cornerRadius ?? AcademyTheme.of(context).radii.table,
     );
+    final shadow = AcademyTheme.of(context).table.surfaceShadow;
     if (AcademyTheme.of(context).table.clipSurface) {
-      return ClipRRect(
+      final clipped = ClipRRect(
         borderRadius: radius,
         child: ColoredBox(
           color: AcademyTheme.of(context).colorScheme.surface,
           child: content,
         ),
       );
+      return shadow.isEmpty
+          ? clipped
+          : DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: radius,
+                boxShadow: shadow,
+              ),
+              child: clipped,
+            );
     }
     return DecoratedBox(
       decoration: BoxDecoration(
         color: AcademyTheme.of(context).colorScheme.surface,
         borderRadius: radius,
+        boxShadow: shadow.isEmpty ? null : shadow,
       ),
       child: clip ? ClipRRect(borderRadius: radius, child: content) : content,
     );

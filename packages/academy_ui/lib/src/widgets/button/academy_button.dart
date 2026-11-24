@@ -179,7 +179,9 @@ class AcademyTextButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
 
-  /// Label style; default: [AcademyTypography.labelLarge].
+  /// Label style; default: [AcademyTypography.labelLarge]. Its colour, when
+  /// set, replaces the accent (e.g. on a dark backdrop); a disabled button
+  /// stays [AcademyColorScheme.onSurfaceVariant].
   final TextStyle? textStyle;
 
   /// Size the button takes at the current text scale, so a parent can decide
@@ -225,7 +227,8 @@ class AcademyTextButton extends StatelessWidget {
                   .copyWith(
                     color: onPressed == null
                         ? theme.colorScheme.onSurfaceVariant
-                        : theme.colorScheme.accentForeground,
+                        : textStyle?.color ??
+                              theme.colorScheme.accentForeground,
                   ),
         ),
       ),

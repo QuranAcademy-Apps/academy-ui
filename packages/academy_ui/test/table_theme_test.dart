@@ -34,6 +34,56 @@ void main() {
     expect(find.byType(AcademySfIcon), findsNothing);
   });
 
+  testWidgets('the surface shadow falls under inline and lazy tables', (
+    tester,
+  ) async {
+    const shadow = [
+      BoxShadow(color: Color(0x0F000000), blurRadius: 4, offset: Offset(0, 1)),
+    ];
+    final theme = academyTheme(
+      Brightness.light,
+      table: const AcademyTableTheme(surfaceShadow: shadow),
+    );
+    await tester.pumpWidget(
+      app(
+        theme,
+        const AcademyGroupedTable(
+          sections: [
+            AcademyTableSection(rows: [AcademyRow(title: 'Строка')]),
+          ],
+        ),
+      ),
+    );
+    final shadowed = tester.widgetList<DecoratedBox>(find.byType(DecoratedBox))
+        .map((box) => box.decoration)
+        .whereType<BoxDecoration>()
+        .where((decoration) => decoration.boxShadow == shadow);
+    expect(shadowed, hasLength(1));
+
+    await tester.pumpWidget(
+      app(
+        theme,
+        AcademyGroupedTable(
+          scrollable: true,
+          lazyRows: true,
+          sections: [
+            AcademyTableSection(
+              rows: [for (var i = 0; i < 3; i++) AcademyRow(title: 'Строка $i')],
+            ),
+          ],
+        ),
+      ),
+    );
+    // Each lazy row paints its own band of the one shadow.
+    expect(
+      tester
+          .widgetList<CustomPaint>(find.byType(CustomPaint))
+          .where((paint) => '${paint.painter.runtimeType}' == '_RowShadowPainter'),
+      hasLength(3),
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('lazy rows are built only in view', (tester) async {
     await tester.pumpWidget(
       app(
