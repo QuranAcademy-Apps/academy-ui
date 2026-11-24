@@ -243,6 +243,39 @@ class _ComponentExamplesState extends State<ComponentExamples> {
             ),
           ],
         ),
+        const SizedBox(height: 24),
+        example(
+          'Таблица с тенью поверхности',
+          Builder(
+            builder: (context) {
+              final theme = AcademyTheme.of(context);
+              return AcademyTheme(
+                data: theme.copyWith(
+                  table: AcademyTableTheme(
+                    surfaceShadow: [
+                      BoxShadow(
+                        color: Color(0x0F000000),
+                        blurRadius: 4,
+                        offset: Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                ),
+                child: AcademyGroupedTable(
+                  padding: EdgeInsets.zero,
+                  sections: [
+                    AcademyTableSection(
+                      rows: [
+                        AcademyRow(title: 'Мягкая тень', onPressed: () {}),
+                        AcademyRow(title: 'Как у карточки', onPressed: () {}),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
         const AcademyDivider(),
         example(
           'Поверхность',

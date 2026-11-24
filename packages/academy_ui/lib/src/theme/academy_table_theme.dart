@@ -41,6 +41,7 @@ class AcademyTableTheme {
     this.pressedColor,
     this.navigationChevron,
     this.sectionLayout = const AcademyTableSectionLayout(),
+    this.surfaceShadow = const [],
   });
 
   /// Section titles in capitals.
@@ -102,6 +103,11 @@ class AcademyTableTheme {
 
   /// Spacing of the themed grouped tables.
   final AcademyTableSectionLayout sectionLayout;
+
+  /// Shadow under the surface of every table outside sheets, such as a soft
+  /// card shadow on a light page. A lazy table casts it as one surface, not row
+  /// by row. Default: none.
+  final List<BoxShadow> surfaceShadow;
 }
 
 /// Spacing of [AcademyGroupedTable.themed] and [AcademySliverGroupedTable.themed]:

@@ -1,3 +1,6 @@
+import 'dart:math' as math;
+
+import 'package:flutter/foundation.dart';
 import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../../foundation/surface/academy_surface_mask.dart';
@@ -111,12 +114,78 @@ class AcademyTableListRow extends StatelessWidget {
             : content,
       );
     }
-    return DecoratedBox(
+    final surface = DecoratedBox(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: radius,
       ),
       child: ClipRRect(borderRadius: radius, child: content),
     );
+    final shadow = theme.table.surfaceShadow;
+    if (shadow.isEmpty) return surface;
+    return CustomPaint(
+      painter: _RowShadowPainter(
+        shadow: shadow,
+        radius: radius,
+        first: first,
+        last: last,
+      ),
+      child: surface,
+    );
   }
+}
+
+/// The part of the section's shadow beside one row: the rows share one
+/// shadow, with no seams where they meet.
+class _RowShadowPainter extends CustomPainter {
+  const _RowShadowPainter({
+    required this.shadow,
+    required this.radius,
+    required this.first,
+    required this.last,
+  });
+
+  final List<BoxShadow> shadow;
+  final BorderRadius radius;
+  final bool first, last;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final reach = shadow.fold<double>(
+      0,
+      (most, s) =>
+          math.max(most, s.blurRadius * 2 + s.spreadRadius + s.offset.distance),
+    );
+    // Inner rows cast as part of a taller surface and keep only their own
+    // band, so the blur does not fade at every row edge.
+    canvas
+      ..save()
+      ..clipRect(
+        Rect.fromLTRB(
+          -reach,
+          first ? -reach : 0,
+          size.width + reach,
+          last ? size.height + reach : size.height,
+        ),
+      );
+    final body = radius.toRRect(
+      Rect.fromLTRB(
+        0,
+        first ? 0 : -reach,
+        size.width,
+        last ? size.height : size.height + reach,
+      ),
+    );
+    for (final s in shadow) {
+      canvas.drawRRect(body.shift(s.offset).inflate(s.spreadRadius), s.toPaint());
+    }
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(_RowShadowPainter old) =>
+      !listEquals(old.shadow, shadow) ||
+      old.radius != radius ||
+      old.first != first ||
+      old.last != last;
 }
