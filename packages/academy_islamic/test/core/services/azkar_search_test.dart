@@ -7,7 +7,7 @@ void main() {
   final search = AzkarSearch(loadTestCatalog());
 
   test('finds by translation regardless of case and ё', () {
-    final results = search.search('СЛАВА аллаху');
+    final results = search.search('ПРЕЧИСТ аллах');
     expect(results.map((z) => z.id), contains(3));
   });
 
