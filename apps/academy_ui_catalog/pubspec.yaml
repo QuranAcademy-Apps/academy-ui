@@ -9,6 +9,9 @@ dependencies:
     sdk: flutter
   academy_ui:
     path: ../../packages/academy_ui
+  # The theme academy_ui hands out (`AcademyThemeData.cupertino`) is this
+  # package's, not the SDK's `flutter/cupertino.dart` (deprecated since 3.47).
+  cupertino_ui: ^1.0.2
   shared_preferences: ^2.5.5
 dev_dependencies:
   flutter_test:
