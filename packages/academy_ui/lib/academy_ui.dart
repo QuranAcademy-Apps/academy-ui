@@ -63,6 +63,7 @@ export 'src/widgets/navigation/chrome/academy_chrome_floating_bar.dart';
 export 'src/widgets/navigation/chrome/academy_chrome_search_bar.dart';
 export 'src/widgets/navigation/chrome/academy_glass_material.dart';
 export 'src/foundation/layout/academy_text_fit.dart';
+export 'src/foundation/layout/academy_reflow_fit.dart';
 export 'src/widgets/navigation/chrome/academy_expanding_search.dart';
 export 'src/widgets/navigation/chrome/academy_chrome_metrics.dart';
 export 'src/widgets/navigation/chrome/academy_tabs.dart';

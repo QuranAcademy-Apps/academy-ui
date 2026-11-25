@@ -483,6 +483,26 @@ class _ComponentExamplesState extends State<ComponentExamples> {
           style: theme.textTheme.bodySmall,
         ),
         const SizedBox(height: 24),
+        example(
+          'Длинный текст в высоте 120 pt: FittedBox и AcademyReflowFit',
+          Row(
+            spacing: 12,
+            children: [
+              for (final reflow in [false, true])
+                Expanded(
+                  child: Container(
+                    height: 120,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: _FitSample(reflow: reflow),
+                  ),
+                ),
+            ],
+          ),
+        ),
         for (final (label, color) in [
           ('Выбранный акцент', theme.colorScheme.accentColor),
           ('Заливка действия', theme.colorScheme.accentFill),
@@ -675,4 +695,34 @@ class AppearancePage extends StatelessWidget {
       ], tab: true);
     },
   );
+}
+
+/// One fitting of the same long text: `FittedBox` shrinks the wrapped block
+/// (gaps at the sides), [AcademyReflowFit] re-wraps it to fill the width.
+class _FitSample extends StatelessWidget {
+  const _FitSample({required this.reflow});
+
+  final bool reflow;
+
+  static const _text =
+      'Текст переносится заново под доступную высоту и заполняет ширину, '
+      'а не сжимается целым блоком. Так длинный зикр помещается над кольцом '
+      'счётчика целиком, без пустых полей по бокам.';
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Text(
+      _text,
+      textAlign: TextAlign.center,
+      style: AcademyTheme.of(context).textTheme.bodyLarge,
+    );
+    return reflow
+        ? AcademyReflowFit(child: text)
+        : LayoutBuilder(
+            builder: (context, box) => FittedBox(
+              fit: BoxFit.scaleDown,
+              child: SizedBox(width: box.maxWidth, child: text),
+            ),
+          );
+  }
 }
