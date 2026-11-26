@@ -302,7 +302,9 @@ Future<T?> showAcademyModalRoute<T>({
               child: child,
             );
           }
-          return child;
+          // Outside the sheet fill, so the wrapper's theme paints it too.
+          return AcademyTheme.of(context).modalWrapper?.call(context, child) ??
+              child;
         },
       ),
       to: navigator.context,
