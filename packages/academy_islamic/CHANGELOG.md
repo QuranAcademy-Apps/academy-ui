@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1
+
+- Up to three saved cities (`PrayerCities`, `PrayerCity`), each with its own place, table, calculation settings and shifts. `PrayerTimesService`: `cities`, `selectCity`, `addTableCity`, `addCurrentCity`, `removeCity`, `nameCity`, `selectNearestCity`.
+- `settings` is the selected city's and every earlier method works on it, so an app with one place changes nothing. Its type is the same `ValueListenable<PrayerSettings>`.
+- The earlier save reads as the only city; a lone city is still saved in that format. `load` now loads the table of every city.
+
 ## 0.6.0
 
 - **Breaking:** Flutter 3.50.0 or newer is required (was 3.47.2). Move the app, its CI and fvm settings to Flutter 3.50 before updating `ref`. No code or data changes.
