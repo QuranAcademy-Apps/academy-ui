@@ -11,6 +11,7 @@ export 'src/azkar/zikr_words.dart';
 export 'src/enum_by_name.dart';
 export 'src/prayer/device_locator.dart';
 export 'src/prayer/prayer_calculator.dart';
+export 'src/prayer/prayer_cities.dart';
 export 'src/prayer/prayer_method_resolver.dart';
 export 'src/prayer/prayer_settings.dart';
 export 'src/prayer/prayer_table.dart';
