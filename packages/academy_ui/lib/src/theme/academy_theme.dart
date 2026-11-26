@@ -122,8 +122,15 @@ class AcademyThemeData {
     this.checkmarkColor,
     this.feedbackLoadingIndicator,
     this.rowIconColors = const {},
+    this.modalWrapper,
   }) : colorScheme = colors ?? AcademyPalette(brightness, accent);
   final AcademyInteractionTheme interaction;
+
+  /// Wraps every sheet, including confirmations and nested pages, so an app
+  /// can give them a theme of their own. [context] sees the opener's themes.
+  /// Return the same widget structure for every theme: a changed structure
+  /// resets the open sheet's state.
+  final Widget Function(BuildContext context, Widget child)? modalWrapper;
 
   /// Glyphs the library draws on its own.
   final AcademyIcons icons;
@@ -204,6 +211,7 @@ class AcademyThemeData {
     Color? checkmarkColor,
     Widget? feedbackLoadingIndicator,
     Map<AcademyRowIcons, Color>? rowIconColors,
+    Widget Function(BuildContext context, Widget child)? modalWrapper,
   }) => AcademyThemeData(
     brightness,
     colorScheme.accentColor,
@@ -231,6 +239,7 @@ class AcademyThemeData {
     feedbackLoadingIndicator:
         feedbackLoadingIndicator ?? this.feedbackLoadingIndicator,
     rowIconColors: rowIconColors ?? this.rowIconColors,
+    modalWrapper: modalWrapper ?? this.modalWrapper,
   );
   Color get scaffoldBackgroundColor => colorScheme.scaffoldBackground;
   AcademyTypography get textTheme =>
@@ -279,6 +288,7 @@ AcademyThemeData academyTheme(
   Color? checkmarkColor,
   Widget? feedbackLoadingIndicator,
   Map<AcademyRowIcons, Color> rowIconColors = const {},
+  Widget Function(BuildContext context, Widget child)? modalWrapper,
 }) => AcademyThemeData(
   brightness,
   accent,
@@ -304,4 +314,5 @@ AcademyThemeData academyTheme(
   checkmarkColor: checkmarkColor,
   feedbackLoadingIndicator: feedbackLoadingIndicator,
   rowIconColors: rowIconColors,
+  modalWrapper: modalWrapper,
 );
