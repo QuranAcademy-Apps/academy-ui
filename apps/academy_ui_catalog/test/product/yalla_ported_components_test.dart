@@ -1,6 +1,6 @@
 import 'package:academy_ui/academy_ui.dart';
 import 'package:academy_ui_catalog/product/product.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Contracts of components ported from Yalla (2026-11-02). Their pixels are

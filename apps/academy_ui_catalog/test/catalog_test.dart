@@ -3,7 +3,7 @@ import 'package:academy_ui_catalog/product/product.dart';
 import 'package:academy_ui_catalog/main.dart';
 import 'package:academy_ui_catalog/catalog_pages.dart';
 import 'package:academy_ui_catalog/counter_components_catalog.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

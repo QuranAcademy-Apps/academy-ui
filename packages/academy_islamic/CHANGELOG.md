@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+- **Breaking:** Flutter 3.50.0 or newer is required (was 3.47.2). Move the app, its CI and fvm settings to Flutter 3.50 before updating `ref`. No code or data changes.
+
 ## 0.5.1
 
 - Russian translations checked against the Arabic and against human translators (Nirsha's «Крепость мусульманина» and «Сады праведных», hadeethenc, asar-forum, Kuliev, Abu Adel); about 50 azkar and Hisn duas corrected (`tool/azkar_text_fixes.jsonl`, `tool/hisn_text_fixes.jsonl`, `tool/azkar_extra.jsonl`). Rule: no words that the Arabic does not have; brackets added by earlier edits removed. Record: Zikro `docs/tasks/2026-11-24-translation-review`.

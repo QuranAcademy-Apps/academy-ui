@@ -7,7 +7,7 @@
 
 ## Подключение
 
-Flutter >= 3.47.2, Dart ^3.13.2. Основной импорт:
+Flutter >= 3.50.0, Dart ^3.13.2. Основной импорт:
 
 ```dart
 import 'package:academy_ui/academy_ui.dart';

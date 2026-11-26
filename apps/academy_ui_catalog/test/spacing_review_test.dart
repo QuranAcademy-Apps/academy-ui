@@ -1,7 +1,7 @@
 import 'package:academy_ui/academy_ui.dart';
 import 'package:academy_ui_catalog/catalog_pages.dart';
 import 'package:academy_ui_catalog/quran_controls_catalog.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
